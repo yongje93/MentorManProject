@@ -13,6 +13,9 @@
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	<context:component-scan base-package="main.controller"/>
+	<!-- 모임 게시판 관련 부분 -->
+	<context:component-scan base-package="meetingboard.controller"/>
+	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
 
