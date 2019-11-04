@@ -1,13 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
+<script src="../js/summernote-ko-KR.js"></script>
 
 <div class="page navbar-fixed mentee_programs index">
 	<div class="page-content">
 		<div class="block-title strong-title">모임 작성</div>
 		<div class="block inset" style="border: 1px solid blue;">
-			<form id="meetingboardWriteForm" method="post" action="">
+			<form method="post" action="">
 				<div class="list form-list no-hairlines">
 					<ul>
+						<div class="label-title">
+							<label class="string required" for="title">멘토링 분야</label>
+						</div>
+						<li class="item-content item-input">
+							<div class="item-inner">
+								<div class="item-input-wrap input-dropdown-wrap">
+									<select class="select optional" name="mentoring_code" id="mentoring_code">
+										<option value>멘토링 분야를 선택하세요</option>
+										<option value="job_code_0">인사/총무/노무</option>
+										<option value="job_code_1">마케팅/MD</option>
+										<option value="job_code_2">홍보/csr</option>
+										<option value="job_code_3">영업/영업관리</option>
+										<option value="job_code_4">회계/재무/금융</option>
+										<option value="job_code_5">해외/기술영업</option>
+										<option value="job_code_6">유통/무역/구매</option>
+										<option value="job_code_7">전략/기획</option>
+										<option value="job_code_8">IT개발</option>
+										<option value="job_code_9">서비스 기획/UI/UX 등</option>
+										<option value="job_code_10">디자인/예술</option>
+										<option value="job_code_11">미디어</option>
+										<option value="job_code_12">서비스</option>
+										<option value="job_code_13">연구/설계</option>
+										<option value="job_code_14">전문/특수</option>
+										<option value="job_code_15">교육/상담/컨설팅</option>
+										<option value="job_code_16">공무원/공공/비영리</option>
+										<option value="job_code_17">생산/품질/제조</option>
+										<option value="job_code_18">기타 사무</option>										
+									</select>
+								</div>
+							</div>
+						</li>
 						<div class="label-title">
 							<label class="string required" for="title">제목</label>
 						</div>
@@ -27,17 +61,16 @@
 						<div class="label-title">
 							<label class="string required" for="title">내용</label>
 						</div>
-						<li class="item-content item-input">
-							<div class="item-inner">
-								<input type="text" name="content" id="content" placeholder="내용을 입력하세요">
-							</div>
+						<li>
+							<textarea id="summernote" name="editordata"></textarea>
+							<br>
 						</li>
 						<div class="label-title">
 							<label class="string required" for="title">일시</label>
 						</div>
 						<li class="item-content item-input">
 							<div class="item-inner">
-								<input type="text" name="date" id="date" placeholder="일시를 입력하세요">
+								<input type="text" name="date" id="date" placeholder="일시를 입력하세요 ex)11월 6일 (수) 오후 7:00 ~ 오후 10:00 ">
 							</div>
 						</li>
 						<div class="label-title">
@@ -62,14 +95,6 @@
 						<li class="item-content item-input">
 							<div class="item-inner">
 								<input type="text" name="title" id="title" placeholder="참가비를 입력하세요">
-							</div>
-						</li>
-						<div class="label-title">
-							<label class="string required" for="title">기타사항</label>
-						</div>
-						<li class="item-content item-input">
-							<div class="item-inner">
-								<input type="text" name="etc" id="etc" placeholder="기타사항을 입력하세요">
 							</div>
 						</li>
 						<div class="label-title">
@@ -98,10 +123,16 @@
 		</div>
 	</div>
 </div>
-
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=89c3afe322de0763fb20750b2bf6b62a&libraries=services"></script>
 <script>
+    $("#summernote").summernote({
+    	placeholder: "내용을 입력하세요",
+    	lang: 'ko-KR',
+        height: 400,
+        disableResizeEditor: true
+    });
+	
     var mapContainer = document.getElementById("map"), // 지도를 표시할 div
         mapOption = {					// y,       x
             center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
