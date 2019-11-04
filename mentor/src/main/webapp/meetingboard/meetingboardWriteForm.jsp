@@ -7,7 +7,7 @@
 <div class="page navbar-fixed mentee_programs index">
 	<div class="page-content">
 		<div class="block-title strong-title">모임 작성</div>
-		<div class="block inset" style="border: 1px solid blue;">
+		<div class="block inset">
 			<form method="post" action="">
 				<div class="list form-list no-hairlines">
 					<ul>
@@ -126,13 +126,45 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=89c3afe322de0763fb20750b2bf6b62a&libraries=services"></script>
 <script>
-    $("#summernote").summernote({
-    	placeholder: "내용을 입력하세요",
-    	lang: 'ko-KR',
-        height: 400,
-        disableResizeEditor: true
-    });
-	
+	$(function(){
+		$("#summernote").summernote({
+			placeholder: "▶ 프로그램 내용 <br> ▶ 프로그램 진행 <br> ▶ 기타사항 <br> ▶ 참고자료",
+       		height: 400,
+       		lang: "ko-KR",
+       		disableResizeEditor: true,
+       		callbacks: {
+         		onImageUpload: function(files, editor, welEditable) {
+           			for (var i = files.length - 1; i >= 0; i--) {
+             			sendFile(files[i], this);
+           			}
+         		}
+       		}
+   		});
+		
+		var markupStr = '<strong>▶ 프로그램 내용</strong><br><br><strong>▶ 프로그램 진행</strong><br><br><strong>▶ 기타사항</strong><br><br><strong>▶ 참고자료</strong><br><br>';
+		$("#summernote").summernote('code', markupStr);
+	});
+
+    function sendFile(file, el) {
+		var form_data = new FormData();
+		form_data.append("file", file);
+		$.ajax({
+			data: form_data,
+			type: "post",
+			url: "/mentor/meetingboard/meetingboardImage",
+			cache: false,
+			contentType: false,
+			enctype: "multipart/form-data",
+			processData: false,
+			success: function(url) {
+				$(el).summernote("editor.insertImage", "../storage/"+url);
+			},	
+			error: function(){
+				alert("에러");
+			}
+		});
+    }
+
     var mapContainer = document.getElementById("map"), // 지도를 표시할 div
         mapOption = {					// y,       x
             center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
@@ -148,7 +180,6 @@
         position: new daum.maps.LatLng(37.537187, 127.005476),
         map: map
     });
-
 
     function execDaumPostcode() {
         new daum.Postcode({

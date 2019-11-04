@@ -20,7 +20,8 @@
 	<mvc:annotation-driven />
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
-	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources location="/resources/" mapping="/resources/**"/>
+	<mvc:resources location="/storage/" mapping="/storage/**"/>
 	<mvc:resources location="/image/" mapping="/image/**"/>
 	<mvc:resources location="/js/" mapping="/js/**"/>
 	<mvc:resources location="/css/" mapping="/css/**"/>
@@ -31,6 +32,9 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
-	
+	<!-- fileUpload -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="5000000"/>
+	</bean>
 	
 </beans>
