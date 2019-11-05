@@ -126,7 +126,7 @@
 							<a class="color-gray" type="external" href="javascript:void(0);" onclick="execDaumPostcode();">장소 검색</a>
 						</button>
 						<div id="map" style="width: 400px; height: 400px; margin-top: 10px; display: none"></div>
-						<input type="hidden" id="buildingname" name="buildingname">
+						<input type="text" id="buildingName" name="buildingname">
 						<input type="hidden" id="address_y" name="address_y">
 						<input type="hidden" id="address_x" name="address_x">								
 					</li>
