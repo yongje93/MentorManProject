@@ -15,28 +15,27 @@
 <link rel="stylesheet" href="../css/all.css" type="text/css">
 <link rel="stylesheet" href="../css/ly.css" type="text/css" />
 <link rel="stylesheet" href="../css/famil.css"  type="text/css"/>
-<link rel="stylesheet" href="../css/ovw.carousel.css"  type="text/css"/>
-<link rel="stylesheet" href="../css/owl.theme.default.css"  type="text/css"/>
+<!-- <link rel="stylesheet"  href="../css/ovw.carousel.css"  type="text/css"/>
+<link rel="stylesheet"  href="../css/owl.theme.default.css"  type="text/css"/>
 <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css"/>
-<link rel="stylesheet" href="../css/styles.8db41f0a.css" type="text/css"/>
+<link rel="stylesheet" href="../css/styles.8db41f0a.css" type="text/css"/> -->
 </head>
-
 <body class="color-theme-pink">
-		<div id="app" class="framework7-root">
-
-				<div class="head">
-					<jsp:include page="../template/head.jsp" />
-				</div>
-				
-				<!-- display -->
-				<div class="container" id="container">
-					<jsp:include page="${display}" />
-				</div>
-
-			<!-- footer  -->
-			<div id="foot" id="foot">
-				<jsp:include page="../template/footer.jsp" />
-			</div>
+	<div id="app" class="framework7-root">
+		<!-- head -->
+		<div class="head">
+			<jsp:include page="../template/head.jsp" />
 		</div>
+		
+		<!-- display -->
+		<div class="container" id="container">
+			<jsp:include page="${display}" />
+		</div>
+
+		<!-- footer  -->
+		<div id="foot" id="foot">
+			<jsp:include page="../template/footer.jsp" />
+		</div>
+	</div>
 </body>
 </html>

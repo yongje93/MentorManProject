@@ -24,7 +24,7 @@
 							<div class="item-inner">
 								<div class="item-input-wrap input-dropdown-wrap">
 									<select class="select optional" name="mentoring_code" id="mentoring_code">
-										<option value>멘토링 분야를 선택하세요</option>
+										<option value="">멘토링 분야를 선택하세요</option>
 										<option value="job_code_0">인사/총무/노무</option>
 										<option value="job_code_1">마케팅/MD</option>
 										<option value="job_code_2">홍보/csr</option>
@@ -46,6 +46,7 @@
 										<option value="job_code_18">기타 사무</option>										
 									</select>
 								</div>
+								<div id="mentoring_codeDiv"></div>
 							</div>
 						</li>
 						<div class="label-title">
@@ -55,6 +56,7 @@
 							<div class="item-inner">
 								<input type="text" name="title" id="title" placeholder="제목을 입력하세요">
 							</div>
+							<div id="titleDiv"></div>
 						</li>
 						<div class="label-title">
 							<label class="string required" for="title">부제목</label>
@@ -63,13 +65,14 @@
 							<div class="item-inner">
 								<input type="text" name="subtitle" id="subtitle" placeholder="부제목을 입력하세요">
 							</div>
+							<div id="subtitleDiv"></div>
 						</li>
 						<div class="label-title">
 							<label class="string required" for="title">내용</label>
 						</div>
 						<li>
 							<textarea id="summernote" name="content"></textarea>
-							<br>
+							<div id="contentDiv"></div>
 						</li>
 						<div class="label-title">
 							<label class="string required" for="title">일시</label>
@@ -80,6 +83,7 @@
 								<input type="text" id="startHour" name="starthour" class="only-time" placeholder="시작시간" style="width: 170px; display: inline-block;">
 								<input type="text" id="endHour" name="endhour" class="only-time" placeholder="종료시간" style="width: 170px; display: inline-block;">
 							</div>
+							<div id="dayDiv"></div>
 						</li>
 						<div class="label-title">
 							<label class="string required" for="title">모집인원</label>
@@ -88,6 +92,7 @@
 							<div class="item-inner">
 								<input type="text" name="count" id="count" placeholder="모집인원을 입력하세요">
 							</div>
+							<div id="countDiv"></div>
 						</li>
 						<div class="label-title">
 							<label class="string required" for="title">주최자</label>
@@ -96,6 +101,7 @@
 							<div class="item-inner">
 								<input type="text" name="host" id="host" placeholder="주최자를 입력하세요">
 							</div>
+							<div id="hostDiv"></div>
 						</li>
 						<div class="label-title">
 							<label class="string required" for="title">참가비</label>
@@ -104,6 +110,7 @@
 							<div class="item-inner">
 								<input type="text" name="price" id="price" placeholder="참가비를 입력하세요">
 							</div>
+							<div id="priceDiv"></div>
 						</li>
 						<div class="label-title">
 							<label class="string required" for="title">장소</label>
@@ -112,6 +119,7 @@
 							<div class="item-inner">
 								<input type="text" name="address" id="address" placeholder="장소를 검색하세요" readonly="readonly">
 							</div>
+							<div id="addressDiv"></div>
 						</li>
 						<li>
 							<button class="button color-gray" style="width: 100px;">
@@ -125,7 +133,7 @@
 					</ul>
 				</div>
 				<div style="margin-top: 50px; margin-bottom: 100px;">
-					<input type="button" id="meetingboardWriteBtn" value="작성 완료" class="btn button button-big button-fill" style="line-height: 0px;">
+					<input type="submit" id="meetingboardWriteBtn" value="작성 완료" class="btn button button-big button-fill" style="line-height: 0px;">
 				</div>
 			</form>
 		</div>
@@ -250,4 +258,20 @@
 		maxHours: 22,
 		classes: "only-timepicker"
 	});
+	
+	// 모임 작성 유효성 검사
+	function meetingboardWriteFormSubmit() {
+		$("#mentoring_codeDiv").empty();
+		$("#titleDiv").empty();
+		$("#subtitleDiv").empty();
+		$("#contentDiv").empty();
+		$("#dayDiv").empty();
+		$("#countDiv").empty();
+		$("#hostDiv").empty();
+		$("#priceDiv").empty();
+		$("#addressDiv").empty();
+		
+		
+
+	}
 </script>
