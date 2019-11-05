@@ -11,133 +11,133 @@
 <script src="../js/datepicker.ko.js"></script>
 
 <div class="page navbar-fixed mentee_programs index">
-	<div class="page-content">
-		<div class="block-title strong-title">모임 작성</div>
-		<div class="block inset">
-			<form method="post" action="" onSubmit="return false;">
-				<div class="list form-list no-hairlines">
-					<ul>
-						<div class="label-title">
-							<label class="string required" for="title">멘토링 분야</label>
-						</div>
-						<li class="item-content item-input">
-							<div class="item-inner">
-								<div class="item-input-wrap input-dropdown-wrap">
-									<select class="select optional" name="mentoring_code" id="mentoring_code">
-										<option value="">멘토링 분야를 선택하세요</option>
-										<option value="job_code_0">인사/총무/노무</option>
-										<option value="job_code_1">마케팅/MD</option>
-										<option value="job_code_2">홍보/csr</option>
-										<option value="job_code_3">영업/영업관리</option>
-										<option value="job_code_4">회계/재무/금융</option>
-										<option value="job_code_5">해외/기술영업</option>
-										<option value="job_code_6">유통/무역/구매</option>
-										<option value="job_code_7">전략/기획</option>
-										<option value="job_code_8">IT개발</option>
-										<option value="job_code_9">서비스 기획/UI/UX 등</option>
-										<option value="job_code_10">디자인/예술</option>
-										<option value="job_code_11">미디어</option>
-										<option value="job_code_12">서비스</option>
-										<option value="job_code_13">연구/설계</option>
-										<option value="job_code_14">전문/특수</option>
-										<option value="job_code_15">교육/상담/컨설팅</option>
-										<option value="job_code_16">공무원/공공/비영리</option>
-										<option value="job_code_17">생산/품질/제조</option>
-										<option value="job_code_18">기타 사무</option>										
-									</select>
-								</div>
-								<div id="mentoring_codeDiv"></div>
+<div class="page-content">
+	<div class="block-title strong-title">모임 작성</div>
+	<div class="block inset">
+		<form id="meetingboardWriteForm" onSubmit="return false;">
+			<div class="list form-list no-hairlines">
+				<ul>
+					<div class="label-title">
+						<label class="string required" for="title">직무 분야</label>
+					</div>
+					<li class="item-content item-input">
+						<div class="item-inner">
+							<div class="item-input-wrap input-dropdown-wrap">
+								<select class="select optional" name="job_code" id="job_code">
+									<option value="">직무 분야를 선택하세요</option>
+									<option value="job_code_0">인사/총무/노무</option>
+									<option value="job_code_1">마케팅/MD</option>
+									<option value="job_code_2">홍보/csr</option>
+									<option value="job_code_3">영업/영업관리</option>
+									<option value="job_code_4">회계/재무/금융</option>
+									<option value="job_code_5">해외/기술영업</option>
+									<option value="job_code_6">유통/무역/구매</option>
+									<option value="job_code_7">전략/기획</option>
+									<option value="job_code_8">IT개발</option>
+									<option value="job_code_9">서비스 기획/UI/UX 등</option>
+									<option value="job_code_10">디자인/예술</option>
+									<option value="job_code_11">미디어</option>
+									<option value="job_code_12">서비스</option>
+									<option value="job_code_13">연구/설계</option>
+									<option value="job_code_14">전문/특수</option>
+									<option value="job_code_15">교육/상담/컨설팅</option>
+									<option value="job_code_16">공무원/공공/비영리</option>
+									<option value="job_code_17">생산/품질/제조</option>
+									<option value="job_code_18">기타 사무</option>										
+								</select>
 							</div>
-						</li>
-						<div class="label-title">
-							<label class="string required" for="title">제목</label>
+							<div id="job_codeDiv"></div>
 						</div>
-						<li class="item-content item-input">
-							<div class="item-inner">
-								<input type="text" name="title" id="title" placeholder="제목을 입력하세요">
-							</div>
+					</li>
+					<div class="label-title">
+						<label class="string required" for="title">제목</label>
+					</div>
+					<li class="item-content item-input">
+						<div class="item-inner">
+							<input type="text" name="title" id="title" placeholder="제목을 입력하세요">
 							<div id="titleDiv"></div>
-						</li>
-						<div class="label-title">
-							<label class="string required" for="title">부제목</label>
 						</div>
-						<li class="item-content item-input">
-							<div class="item-inner">
-								<input type="text" name="subtitle" id="subtitle" placeholder="부제목을 입력하세요">
-							</div>
+					</li>
+					<div class="label-title">
+						<label class="string required" for="title">부제목</label>
+					</div>
+					<li class="item-content item-input">
+						<div class="item-inner">
+							<input type="text" name="subtitle" id="subtitle" placeholder="부제목을 입력하세요">
 							<div id="subtitleDiv"></div>
-						</li>
-						<div class="label-title">
-							<label class="string required" for="title">내용</label>
 						</div>
-						<li>
-							<textarea id="summernote" name="content"></textarea>
-							<div id="contentDiv"></div>
-						</li>
-						<div class="label-title">
-							<label class="string required" for="title">일시</label>
-						</div>
-						<li class="item-content item-input">
-							<div class="item-inner">
-								<input type="text" id="datepicker" name="day" class="datepicker-here" placeholder="날짜" style="width: 170px; display: inline-block;">
-								<input type="text" id="startHour" name="starthour" class="only-time" placeholder="시작시간" style="width: 170px; display: inline-block;">
-								<input type="text" id="endHour" name="endhour" class="only-time" placeholder="종료시간" style="width: 170px; display: inline-block;">
-							</div>
+					</li>
+					<div class="label-title">
+						<label class="string required" for="title">내용</label>
+					</div>
+					<li>
+						<textarea id="summernote" name="content"></textarea>
+						<div id="contentDiv"></div>
+					</li>
+					<div class="label-title">
+						<label class="string required" for="title">일시</label>
+					</div>
+					<li class="item-content item-input">
+						<div class="item-inner">
+							<input type="text" id="datepicker" name="day" class="datepicker-here" placeholder="날짜" style="width: 170px; display: inline-block;">
+							<input type="text" id="startHour" name="starthour" class="only-time" placeholder="시작시간" style="width: 170px; display: inline-block;">
+							<input type="text" id="endHour" name="endhour" class="only-time" placeholder="종료시간" style="width: 170px; display: inline-block;">
 							<div id="dayDiv"></div>
-						</li>
-						<div class="label-title">
-							<label class="string required" for="title">모집인원</label>
 						</div>
-						<li class="item-content item-input">
-							<div class="item-inner">
-								<input type="text" name="count" id="count" placeholder="모집인원을 입력하세요">
-							</div>
+					</li>
+					<div class="label-title">
+						<label class="string required" for="title">모집인원</label>
+					</div>
+					<li class="item-content item-input">
+						<div class="item-inner">
+							<input type="text" name="count" id="count" placeholder="모집인원을 입력하세요">
 							<div id="countDiv"></div>
-						</li>
-						<div class="label-title">
-							<label class="string required" for="title">주최자</label>
 						</div>
-						<li class="item-content item-input">
-							<div class="item-inner">
-								<input type="text" name="host" id="host" placeholder="주최자를 입력하세요">
-							</div>
+					</li>
+					<div class="label-title">
+						<label class="string required" for="title">주최자</label>
+					</div>
+					<li class="item-content item-input">
+						<div class="item-inner">
+							<input type="text" name="host" id="host" placeholder="주최자를 입력하세요">
 							<div id="hostDiv"></div>
-						</li>
-						<div class="label-title">
-							<label class="string required" for="title">참가비</label>
 						</div>
-						<li class="item-content item-input">
-							<div class="item-inner">
-								<input type="text" name="price" id="price" placeholder="참가비를 입력하세요">
-							</div>
+					</li>
+					<div class="label-title">
+						<label class="string required" for="title">참가비</label>
+					</div>
+					<li class="item-content item-input">
+						<div class="item-inner">
+							<input type="text" name="price" id="price" placeholder="참가비를 입력하세요">
 							<div id="priceDiv"></div>
-						</li>
-						<div class="label-title">
-							<label class="string required" for="title">장소</label>
 						</div>
-						<li class="item-content item-input">
-							<div class="item-inner">
-								<input type="text" name="address" id="address" placeholder="장소를 검색하세요" readonly="readonly">
-							</div>
+					</li>
+					<div class="label-title">
+						<label class="string required" for="title">장소</label>
+					</div>
+					<li class="item-content item-input">
+						<div class="item-inner">
+							<input type="text" name="address" id="address" placeholder="장소를 검색하세요" readonly="readonly">
 							<div id="addressDiv"></div>
-						</li>
-						<li>
-							<button class="button color-gray" style="width: 100px;">
-								<a class="color-gray" type="external" href="javascript:void(0);" onclick="execDaumPostcode();">장소 검색</a>
-							</button>
-							<div id="map" style="width: 400px; height: 400px; margin-top: 10px; display: none"></div>
-							<input type="hidden" id="buildingname" name="buildingname">
-							<input type="hidden" id="address_y" name="address_y">
-							<input type="hidden" id="address_x" name="address_x">								
-						</li>
-					</ul>
-				</div>
-				<div style="margin-top: 50px; margin-bottom: 100px;">
-					<input type="submit" id="meetingboardWriteBtn" value="작성 완료" class="btn button button-big button-fill" style="line-height: 0px;">
-				</div>
-			</form>
-		</div>
+						</div>
+					</li>
+					<li>
+						<button class="button color-gray" style="width: 100px;">
+							<a class="color-gray" type="external" href="javascript:void(0);" onclick="execDaumPostcode();">장소 검색</a>
+						</button>
+						<div id="map" style="width: 400px; height: 400px; margin-top: 10px; display: none"></div>
+						<input type="hidden" id="buildingname" name="buildingname">
+						<input type="hidden" id="address_y" name="address_y">
+						<input type="hidden" id="address_x" name="address_x">								
+					</li>
+				</ul>
+			</div>
+			<div style="margin-top: 50px; margin-bottom: 100px;">
+				<input type="button" id="meetingboardWriteBtn" value="작성 완료" class="btn button button-big button-fill" style="line-height: 0px;">
+			</div>
+		</form>
 	</div>
+</div>
 </div>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=89c3afe322de0763fb20750b2bf6b62a&libraries=services"></script>
@@ -260,8 +260,8 @@
 	});
 	
 	// 모임 작성 유효성 검사
-	function meetingboardWriteFormSubmit() {
-		$("#mentoring_codeDiv").empty();
+	$("#meetingboardWriteBtn").click(function(){
+		$("#job_codeDiv").empty();
 		$("#titleDiv").empty();
 		$("#subtitleDiv").empty();
 		$("#contentDiv").empty();
@@ -271,7 +271,55 @@
 		$("#priceDiv").empty();
 		$("#addressDiv").empty();
 		
+		var content = $("#summernote").summernote("code");
+		if($("#job_code").val() == "") {
+			$("#job_codeDiv").text("멘토링 유형을 선택하세요").css("color", "tomato").css("font-size","8pt");
+			$("#job_code").focus();
+		} else if($("#title").val() == "") {
+			$("#titleDiv").text("제목을 입력하세요").css("color", "tomato").css("font-size","8pt");
+			$("#title").focus();
+		} else if($("#subtitle").val() == "") {
+			$("#subtitleDiv").text("부제목을 입력하세요").css("color", "tomato").css("font-size","8pt");
+			$("#subtitle").focus();
+		} else if(content == '<strong>▶ 프로그램 내용</strong><br><br><strong>▶ 프로그램 진행</strong><br><br><strong>▶ 기타사항</strong><br><br><strong>▶ 참고자료</strong><br><br>') {
+			$("#contentDiv").text("내용을 입력하세요").css("color", "tomato").css("font-size","8pt");
+			$("#summernote").summernote("focus");
+		} else if($("#datepicker").val() == "") {
+			$("#dayDiv").text("일시를 입력하세요").css("color", "tomato").css("font-size","8pt");
+			$("#datepicker").focus();
+		} else if($("#starthour").val() == "") {
+			$("#dayDiv").text("시작시간을 입력하세요").css("color", "tomato").css("font-size","8pt");
+			$("#starthour").focus();
+		} else if($("#endhour").val() == "") {
+			$("#dayDiv").text("종료시간을 입력하세요").css("color", "tomato").css("font-size","8pt");
+			$("#endhour").focus();
+		} else if($("#count").val() == "") {
+			$("#countDiv").text("인원 수를 입력하세요").css("color", "tomato").css("font-size","8pt");
+			$("#count").focus();
+		} else if($("#host").val() == "") {
+			$("#hostDiv").text("주최를 입력하세요").css("color", "tomato").css("font-size","8pt");
+			$("#host").focus();
+		} else if($("#price").val() == "") {
+			$("#priceDiv").text("참가비를 입력하세요").css("color", "tomato").css("font-size","8pt");
+			$("#price").focus();
+		} else if($("#address").val() == "") {
+			$("#addressDiv").text("장소를 입력하세요").css("color", "tomato").css("font-size","8pt");
+			$("#address").focus();
+		}  else {
+			$.ajax({
+				type: "post",
+				url: "/mentor/meetingboard/meetingboardWrite",
+				data: $("#meetingboardWriteForm").serialize(),
+				success: function(){
+					location.href="/mentor/meetingboard/meetingboardList";
+				},
+				error : function(e){
+					console.log(e);
+					alert("실패");
+				}
+			});
+		}
 		
-
-	}
+	});
+	
 </script>

@@ -6,15 +6,20 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import meetingboard.bean.MeetingboardDTO;
+import meetingboard.service.MeetingboardService;
 
 /**
  * 모임 게시판 관련 컨트롤러
@@ -24,6 +29,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value = "meetingboard")
 public class meetingboardController {
+	@Autowired
+	private MeetingboardService meetingboardService;
+	
 	/**
 	 * @Title : 모임 게시판 리스트. head 영역의 모임 버튼 눌렀을때 화면
 	 * @Author : yong
@@ -38,7 +46,6 @@ public class meetingboardController {
 		mav.setViewName("/main/index");
 		return mav;
 	}
-
 	/**
 	 * @Title : 모임 작성 폼 열기(멘토일때)
 	 * @Author : yong
@@ -50,7 +57,6 @@ public class meetingboardController {
 		model.addAttribute("display", "/meetingboard/meetingboardWriteForm.jsp");
 		return "/main/index";
 	}
-
 	/**
 	 * @Title : summernote 이미지 업로드
 	 * @Author : yong
@@ -72,4 +78,19 @@ public class meetingboardController {
 		System.out.println(fileName);
 		return fileName;
 	}
+	/**
+	 * @Title : 모임 작성하기
+	 * @Author : yong
+	 * @Date : 2019. 11. 5.
+	 * @Method Name : meetingboardWrite
+	 */
+	@RequestMapping(value="meetingboardWrite", method=RequestMethod.POST)
+	@ResponseBody
+	public void meetingboardWrite(@ModelAttribute MeetingboardDTO meetingboardDTO, HttpSession session) {
+		//meetingboardDTO.setEmail((String)session.getAttribute("memEmail"));
+		meetingboardDTO.setEmail("zx00136@naver.com");
+		meetingboardService.meetingboardWrite(meetingboardDTO);
+	}
+	 
+	
 }
