@@ -1,14 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<!-- summernote -->	
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
 <script src="../js/summernote-ko-KR.js"></script>
+
+<!-- datepicker -->
+<link href="../css/datepicker.min.css" rel="stylesheet" type="text/css">
+<script src="../js/datepicker.min.js"></script>
+<script src="../js/datepicker.ko.js"></script>
 
 <div class="page navbar-fixed mentee_programs index">
 	<div class="page-content">
 		<div class="block-title strong-title">모임 작성</div>
 		<div class="block inset">
-			<form method="post" action="">
+			<form method="post" action="" onSubmit="return false;">
 				<div class="list form-list no-hairlines">
 					<ul>
 						<div class="label-title">
@@ -62,7 +68,7 @@
 							<label class="string required" for="title">내용</label>
 						</div>
 						<li>
-							<textarea id="summernote" name="editordata"></textarea>
+							<textarea id="summernote" name="content"></textarea>
 							<br>
 						</li>
 						<div class="label-title">
@@ -70,7 +76,9 @@
 						</div>
 						<li class="item-content item-input">
 							<div class="item-inner">
-								<input type="text" name="date" id="date" placeholder="일시를 입력하세요 ex)11월 6일 (수) 오후 7:00 ~ 오후 10:00 ">
+								<input type="text" id="datepicker" name="day" class="datepicker-here" placeholder="날짜" style="width: 170px; display: inline-block;">
+								<input type="text" id="startHour" name="starthour" class="only-time" placeholder="시작시간" style="width: 170px; display: inline-block;">
+								<input type="text" id="endHour" name="endhour" class="only-time" placeholder="종료시간" style="width: 170px; display: inline-block;">
 							</div>
 						</li>
 						<div class="label-title">
@@ -82,7 +90,7 @@
 							</div>
 						</li>
 						<div class="label-title">
-							<label class="string required" for="title">주최</label>
+							<label class="string required" for="title">주최자</label>
 						</div>
 						<li class="item-content item-input">
 							<div class="item-inner">
@@ -94,7 +102,7 @@
 						</div>
 						<li class="item-content item-input">
 							<div class="item-inner">
-								<input type="text" name="title" id="title" placeholder="참가비를 입력하세요">
+								<input type="text" name="price" id="price" placeholder="참가비를 입력하세요">
 							</div>
 						</li>
 						<div class="label-title">
@@ -107,12 +115,12 @@
 						</li>
 						<li>
 							<button class="button color-gray" style="width: 100px;">
-								<a class="color-gray" type="external" href="javascript:void(0);" onclick="execDaumPostcode()">장소 검색</a>
+								<a class="color-gray" type="external" href="javascript:void(0);" onclick="execDaumPostcode();">장소 검색</a>
 							</button>
 							<div id="map" style="width: 400px; height: 400px; margin-top: 10px; display: none"></div>
-							<input type="hidden" id="buildingName">
-							<input type="hidden" id="address_y">
-							<input type="hidden" id="address_x">								
+							<input type="hidden" id="buildingname" name="buildingname">
+							<input type="hidden" id="address_y" name="address_y">
+							<input type="hidden" id="address_x" name="address_x">								
 						</li>
 					</ul>
 				</div>
@@ -126,6 +134,7 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=89c3afe322de0763fb20750b2bf6b62a&libraries=services"></script>
 <script>
+	// summernote 관련
 	$(function(){
 		$("#summernote").summernote({
 			placeholder: "▶ 프로그램 내용 <br> ▶ 프로그램 진행 <br> ▶ 기타사항 <br> ▶ 참고자료",
@@ -145,6 +154,7 @@
 		$("#summernote").summernote('code', markupStr);
 	});
 
+	// summernote callback 메소드(imageupload)
     function sendFile(file, el) {
 		var form_data = new FormData();
 		form_data.append("file", file);
@@ -164,23 +174,24 @@
 			}
 		});
     }
-
+	
+    // 카카오맵 api 관련
     var mapContainer = document.getElementById("map"), // 지도를 표시할 div
         mapOption = {					// y,       x
             center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
             level: 3 // 지도의 확대 레벨
         };
 
-    //지도를 미리 생성
+    // 지도를 미리 생성
     var map = new daum.maps.Map(mapContainer, mapOption);
-    //주소-좌표 변환 객체를 생성
+    // 주소-좌표 변환 객체를 생성
     var geocoder = new daum.maps.services.Geocoder();
-    //마커를 미리 생성
+    // 마커를 미리 생성
     var marker = new daum.maps.Marker({
         position: new daum.maps.LatLng(37.537187, 127.005476),
         map: map
     });
-
+	// 다음 도로명 주소
     function execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -200,7 +211,7 @@
 						
                         $("#address_y").val(result.y);	// 위도
                         $("#address_x").val(result.x);	// 경도
-                        
+                       
                         // 해당 주소에 대한 좌표를 받아서
                         var coords = new daum.maps.LatLng(result.y, result.x);
                         // 지도를 보여준다.
@@ -215,4 +226,28 @@
             }
         }).open();
     }
+	
+	// air datepicker 관련
+	$("#datepicker").datepicker({
+		language : "ko",
+		minDate : new Date()
+	});
+	
+	var start = new Date(),
+    prevDay,
+    startHours = 9;
+
+	// 09:00 AM
+	start.setHours(9);
+	start.setMinutes(0);
+	
+	$(".only-time").datepicker({
+		dateFormat: " ",
+		timepicker: true,
+		timeFormat: 'hh:ii aa',
+		startDate: start,
+		minHours: startHours,
+		maxHours: 22,
+		classes: "only-timepicker"
+	});
 </script>

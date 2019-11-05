@@ -18,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 모임 게시판 관련 컨트롤러
- * 
  * @author : yong
  * @date : 2019. 11. 2.
  */
