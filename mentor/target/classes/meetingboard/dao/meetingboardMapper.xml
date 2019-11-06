@@ -8,4 +8,19 @@
 		insert into meetingboard(meeting_seq,job_code,title,subtitle,content,day,starthour,endhour,address,buildingname,address_x,address_y,count,host,price,email)
 		values (seq_meetingboard.nextval,#{job_code},#{title},#{subtitle},#{content},#{day},#{starthour},#{endhour},#{address},#{buildingname},#{address_x},#{address_y},#{count},#{host},#{price},#{email})
 	</insert>
+	
+	<!-- 모임 게시글 목록 -->
+	<select id="getMeetingboardList" parameterType="java.util.Map" resultType="meetingboard">
+		<![CDATA[
+			select * from
+			(select rownum rn, tt.* from 
+			(select * from meetingboard order by meeting_seq desc)tt) 
+			where rn >= #{startNum} and rn <= #{endNum}	
+		]]>
+	</select>
+	
+	<!-- 모임 게시판 보기 -->
+	<select id="getMeetingboard" parameterType="int" resultType="meetingboard">
+		select * from meetingboard where meeting_seq = #{meeting_seq}
+	</select>
 </mapper>

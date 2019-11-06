@@ -3,6 +3,9 @@ package meetingboard.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -31,7 +34,7 @@ import meetingboard.service.MeetingboardService;
 public class meetingboardController {
 	@Autowired
 	private MeetingboardService meetingboardService;
-	
+
 	/**
 	 * @Title : 모임 게시판 리스트. head 영역의 모임 버튼 눌렀을때 화면
 	 * @Author : yong
@@ -39,13 +42,25 @@ public class meetingboardController {
 	 * @Method Name : meetingboardList
 	 */
 	@RequestMapping(value = "meetingboardList", method = RequestMethod.GET)
-	public ModelAndView meetingboardList(@RequestParam(required = false, defaultValue = "1") String pg,
-			HttpSession session) {
+	public ModelAndView meetingboardList(@RequestParam(required = false, defaultValue = "1") String pg, HttpSession session) {
+		// 1페이지당 12개
+		int endNum = Integer.parseInt(pg) * 9;
+		int startNum = endNum - 8;
+
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+
+		List<MeetingboardDTO> meetingboardList = meetingboardService.getMeetingboardList(map);
+
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("pg", pg);
+		mav.addObject("meetingboardList", meetingboardList);
 		mav.addObject("display", "/meetingboard/meetingboardList.jsp");
 		mav.setViewName("/main/index");
 		return mav;
 	}
+
 	/**
 	 * @Title : 모임 작성 폼 열기(멘토일때)
 	 * @Author : yong
@@ -57,6 +72,7 @@ public class meetingboardController {
 		model.addAttribute("display", "/meetingboard/meetingboardWriteForm.jsp");
 		return "/main/index";
 	}
+
 	/**
 	 * @Title : summernote 이미지 업로드
 	 * @Author : yong
@@ -78,19 +94,36 @@ public class meetingboardController {
 		System.out.println(fileName);
 		return fileName;
 	}
+
 	/**
 	 * @Title : 모임 작성하기
 	 * @Author : yong
 	 * @Date : 2019. 11. 5.
 	 * @Method Name : meetingboardWrite
 	 */
-	@RequestMapping(value="meetingboardWrite", method=RequestMethod.POST)
+	@RequestMapping(value = "meetingboardWrite", method = RequestMethod.POST)
 	@ResponseBody
 	public void meetingboardWrite(@ModelAttribute MeetingboardDTO meetingboardDTO, HttpSession session) {
-		//meetingboardDTO.setEmail((String)session.getAttribute("memEmail"));
-		meetingboardDTO.setEmail("zx00136@naver.com");
+		// meetingboardDTO.setEmail((String)session.getAttribute("memEmail"));
+		meetingboardDTO.setEmail("zx00136@naver.com"); // 나중에 바꿔야됨!!
 		meetingboardService.meetingboardWrite(meetingboardDTO);
 	}
-	 
 	
+	/**
+	 * @Title : 모임 글 보기
+	 * @Author : yong
+	 * @Date : 2019. 11. 6.
+	 * @Method Name : meetingboardView
+	 */
+	@RequestMapping(value="meetingboardView", method=RequestMethod.GET)
+	public ModelAndView meetingboardView(@RequestParam String pg, @RequestParam String seq) {
+		int meeting_seq = Integer.parseInt(seq);
+		MeetingboardDTO meetingboardDTO = meetingboardService.getMeetingboard(meeting_seq);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("meetingboardDTO",meetingboardDTO);
+		mav.addObject("pg",pg);
+		mav.addObject("display", "/meetingboard/meetingboardView.jsp");
+		mav.setViewName("/main/index");
+		return mav;
+	}
 }

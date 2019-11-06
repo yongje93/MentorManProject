@@ -504,7 +504,7 @@ html.with-statusbar.device-iphone-x .framework7-root {
 }
 
 .views,.view {
-    position: relative;
+    /* position: relative; */
     height: 100%;
     z-index: 5000;
     overflow: hidden;
@@ -35506,8 +35506,8 @@ th,td {
     }
 
     .mentee_programs.show {
-        width: 580px;
-        margin: 0 auto
+        width: 1000px;
+        margin: auto
     }
 
     .mentee_programs.show ol {
