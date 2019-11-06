@@ -92,8 +92,9 @@
 				</c:forEach>	
 			</div>
 		</div>
-		<div class="pagination-block"> <!-- 페이징 -->
-		
+		<div class="pagination-block">
+			<div class="page-entries-info"></div>
+			${meetingboardPaging.pagingHTML}
 		</div>
 	</div>
 </div>

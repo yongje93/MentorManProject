@@ -9,5 +9,6 @@ public interface MeetingboardDAO {
 	public void meetingboardWrite(MeetingboardDTO meetingboardDTO);
 	public List<MeetingboardDTO> getMeetingboardList(Map<String, Integer> map);
 	public MeetingboardDTO getMeetingboard(int meeting_seq);
+	public int getTotalA();
 
 }

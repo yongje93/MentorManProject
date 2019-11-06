@@ -29,4 +29,9 @@ public class MeetingboardServiceImpl implements MeetingboardService {
 		return meetingboardDAO.getMeetingboard(meeting_seq);
 	}
 
+	@Override
+	public int getTotalA() {
+		return meetingboardDAO.getTotalA();
+	}
+
 }

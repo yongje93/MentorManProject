@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import meetingboard.bean.MeetingboardDTO;
+import meetingboard.bean.MeetingboardPaging;
 import meetingboard.service.MeetingboardService;
 
 /**
@@ -34,16 +35,18 @@ import meetingboard.service.MeetingboardService;
 public class meetingboardController {
 	@Autowired
 	private MeetingboardService meetingboardService;
-
+	@Autowired
+	private MeetingboardPaging meetingboardPaging;
 	/**
-	 * @Title : 모임 게시판 리스트. head 영역의 모임 버튼 눌렀을때 화면
+	 * @Title : 모임 게시판 리스트. head 영역의 모임 버튼 눌렀을때 화면 
 	 * @Author : yong
 	 * @Date : 2019. 11. 2.
 	 * @Method Name : meetingboardList
+	 * 11. 6 페이징처리 추가
 	 */
 	@RequestMapping(value = "meetingboardList", method = RequestMethod.GET)
 	public ModelAndView meetingboardList(@RequestParam(required = false, defaultValue = "1") String pg, HttpSession session) {
-		// 1페이지당 12개
+		// 1페이지당 9개
 		int endNum = Integer.parseInt(pg) * 9;
 		int startNum = endNum - 8;
 
@@ -53,9 +56,19 @@ public class meetingboardController {
 
 		List<MeetingboardDTO> meetingboardList = meetingboardService.getMeetingboardList(map);
 
+		// 페이징 처리
+		int totalA = meetingboardService.getTotalA();
+		meetingboardPaging.setCurrentPage(Integer.parseInt(pg));
+		meetingboardPaging.setPageBlock(3);
+		meetingboardPaging.setPageSize(9);
+		meetingboardPaging.setTotalA(totalA);
+		meetingboardPaging.makePagingHTML();
+				
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("totalA", totalA);
 		mav.addObject("pg", pg);
 		mav.addObject("meetingboardList", meetingboardList);
+		mav.addObject("meetingboardPaging", meetingboardPaging);
 		mav.addObject("display", "/meetingboard/meetingboardList.jsp");
 		mav.setViewName("/main/index");
 		return mav;

@@ -23,4 +23,10 @@
 	<select id="getMeetingboard" parameterType="int" resultType="meetingboard">
 		select * from meetingboard where meeting_seq = #{meeting_seq}
 	</select>
+	
+	<!-- 전체 모임 게시글 수 -->
+  	<select id="getTotalA" resultType="int">
+  		select count(*) from meetingboard
+  	</select>
+  	
 </mapper>
