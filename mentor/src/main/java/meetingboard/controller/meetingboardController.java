@@ -139,4 +139,15 @@ public class meetingboardController {
 		mav.setViewName("/main/index");
 		return mav;
 	}
+	
+	/**
+	 * @Title : 모임 게시판 수정
+	 * @Author : yong
+	 * @Date : 2019. 11. 6.
+	 * @Method Name : meetingboardModifyForm
+	 */
+	@RequestMapping(value="meetingboardModifyForm", method=RequestMethod.POST)
+	public ModelAndView meetingboardModifyForm(@RequestParam String pg, @RequestParam String seq) {
+		return null;
+	}
 }
