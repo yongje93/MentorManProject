@@ -48,7 +48,7 @@ $("#meetingboardWriteBtn").click(function(){
 	
 	var content = $("#summernote").summernote("code");
 	if($("#job_code").val() == "") {
-		$("#job_codeDiv").text("멘토링 유형을 선택하세요").css("color", "tomato").css("font-size","8pt");
+		$("#job_codeDiv").text("직무 분야를 선택하세요").css("color", "tomato").css("font-size","8pt");
 		$("#job_code").focus();
 	} else if($("#title").val() == "") {
 		$("#titleDiv").text("제목을 입력하세요").css("color", "tomato").css("font-size","8pt");
@@ -121,7 +121,7 @@ $("#meetingboardModifyBtn").click(function(){
 	
 	var content = $("#summernote").summernote("code");
 	if($("#job_code").val() == "") {
-		$("#job_codeDiv").text("멘토링 유형을 선택하세요").css("color", "tomato").css("font-size","8pt");
+		$("#job_codeDiv").text("직무 분야를 선택하세요").css("color", "tomato").css("font-size","8pt");
 		$("#job_code").focus();
 	} else if($("#title").val() == "") {
 		$("#titleDiv").text("제목을 입력하세요").css("color", "tomato").css("font-size","8pt");

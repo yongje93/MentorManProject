@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import meetingboard.bean.GuideDTO;
 import meetingboard.bean.MeetingboardDTO;
 import meetingboard.dao.MeetingboardDAO;
 
@@ -43,5 +44,9 @@ public class MeetingboardServiceImpl implements MeetingboardService {
 	public void meetingboardDelete(int meeting_seq) {
 		meetingboardDAO.meetingboardDelete(meeting_seq);
 	}
-
+	
+	@Override
+	public List<GuideDTO> getGuideList() {
+		return meetingboardDAO.getGuideList();
+	}
 }

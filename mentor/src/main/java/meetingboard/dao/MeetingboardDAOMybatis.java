@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import meetingboard.bean.GuideDTO;
 import meetingboard.bean.MeetingboardDTO;
 
 @Repository
@@ -44,6 +45,11 @@ public class MeetingboardDAOMybatis implements MeetingboardDAO {
 	@Override
 	public void meetingboardDelete(int meeting_seq) {
 		sqlSession.delete("meetingboardSQL.meetingboardDelete", meeting_seq);
+	}
+	
+	@Override
+	public List<GuideDTO> getGuideList() {
+		return sqlSession.selectList("meetingboardSQL.getGuideList");
 	}
 
 }

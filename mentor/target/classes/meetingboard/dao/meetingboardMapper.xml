@@ -40,4 +40,9 @@
   	<delete id="meetingboardDelete" parameterType="int">
   		delete from meetingboard where meeting_seq=#{meeting_seq}
   	</delete>
+  	
+  	<!-- 안내사항 가져오기 -->
+  	<select id="getGuideList" resultType="meetingboard.bean.GuideDTO">
+  		select * from guide
+  	</select>
 </mapper>

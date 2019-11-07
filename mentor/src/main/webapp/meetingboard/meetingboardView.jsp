@@ -122,13 +122,12 @@
 		<div class="block block-strong trix-content froala-content">
 			${meetingboardDTO.content}
 		</div>
-		<div class="block-title">안내사항 !!!이거 디비에서 갖고오는걸로 바꾸기</div>
+		<div class="block-title">안내사항</div>
 		<div class="block block-strong">
 			<ul>
-				<li><i class="fas fa-check"></i>확정된 분들에게는 참여 확정 안내 메일이 발송됩니다.</li>
-				<li><i class="fas fa-check"></i>사전 취소는 2일 전까지 가능합니다.</li>
-				<li><i class="fas fa-check"></i>무단 No-Show 시에는 참여 신청이 제한됩니다.</li>
-				<li><i class="fas fa-check"></i>주차지원은 불가능하니 대중교통을 이용해 주세요.</li>
+				<c:forEach items="${guideList}" var="item">
+					<li><i class="fas fa-check"></i>${item.guide_content}</li>
+				</c:forEach>
 			</ul>
 		</div>
 		<div class="block-title location">장소</div>
@@ -191,8 +190,7 @@
 	// 인포윈도우를 생성하고 지도에 표시합니다
 	var infowindow = new kakao.maps.InfoWindow({
 	    position : iwPosition, 
-	    content : iwContent,
-	    removable : iwRemoveable
+	    content : iwContent
 	});
     
 	// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다

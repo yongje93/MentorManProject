@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import meetingboard.bean.GuideDTO;
 import meetingboard.bean.MeetingboardDTO;
 import meetingboard.bean.MeetingboardPaging;
 import meetingboard.service.MeetingboardService;
@@ -32,7 +33,7 @@ import meetingboard.service.MeetingboardService;
  */
 @Controller
 @RequestMapping(value = "meetingboard")
-public class meetingboardController {
+public class MeetingboardController {
 	@Autowired
 	private MeetingboardService meetingboardService;
 	@Autowired
@@ -132,7 +133,10 @@ public class meetingboardController {
 	public ModelAndView meetingboardView(@RequestParam String pg, @RequestParam String seq) {
 		int meeting_seq = Integer.parseInt(seq);
 		MeetingboardDTO meetingboardDTO = meetingboardService.getMeetingboard(meeting_seq);
+		// 안내사항
+		List<GuideDTO> guideList = meetingboardService.getGuideList();
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("guideList", guideList);
 		mav.addObject("meetingboardDTO", meetingboardDTO);
 		mav.addObject("pg", pg);
 		mav.addObject("display", "/meetingboard/meetingboardView.jsp");
