@@ -8,7 +8,7 @@
 </form>
 
 <div class="page navbar-fixed mentee_programs show">
-	<div class="page-content" style="width: 1000px;">
+	<div class="page-content" style="width: 800px; margin: auto;">
 		<div class="block main-block">
 		<%-- <c:if test="${memEmail == meetingboardDTO.email}"> --%>
 			<div style="float: right; margin-bottom: 5px;">
@@ -141,15 +141,19 @@
 	          <div>
 	            ${meetingboardDTO.address}, ${meetingboardDTO.buildingname}
 	          </div>
-	          <div id="meetingboardViewMap" style="width: 970px; height: 300px; margin-top: 10px;"></div>
+	          <br>
+	          <div id="meetingboardViewMap" style="width: 757px; height: 300px; margin: auto;"></div>
 	        </div>
 	      </div>
 		<div class="block button-block">
 		<c:if test="${meetingboardDTO.state == 0}">
 	      <a class="button button-big button-fill" type="external" href="">신청하기</a>
 	    </c:if>
+	    <c:if test="${meetingboardDTO.state == 1}">
+	      <div class="button button-big button-fill color-gray">모집완료</div>	  
+	    </c:if>
 	    <c:if test="${meetingboardDTO.state == 2}">
-			<div class="button button-big button-fill color-gray">신청마감</div>	    
+			<div class="button button-big button-fill color-gray">종료</div>	    
 		</c:if>
 	    </div>
 	</div>
