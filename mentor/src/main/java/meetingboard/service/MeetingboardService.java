@@ -10,5 +10,7 @@ public interface MeetingboardService {
 	public List<MeetingboardDTO> getMeetingboardList(Map<String, Integer> map);
 	public MeetingboardDTO getMeetingboard(int meeting_seq);
 	public int getTotalA();
+	public void meetingboardModify(MeetingboardDTO meetingboardDTO);
+	public void meetingboardDelete(int meeting_seq);
 
 }

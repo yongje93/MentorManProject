@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <input type="hidden" id="pg" value="${pg}">
+<input type="hidden" id="seq" value="${seq}">
 
 <div class="page navbar-fixed mentee_programs index">
 	<div class="page-content">

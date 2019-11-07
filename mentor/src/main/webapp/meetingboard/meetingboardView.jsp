@@ -2,9 +2,20 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<form name="meetingboardViewForm">
+<input type="hidden" name="seq" id="seq" value="${meetingboardDTO.meeting_seq}">
+<input type="hidden" name="pg" id="pg" value="${pg}">
+</form>
+
 <div class="page navbar-fixed mentee_programs show">
 	<div class="page-content" style="width: 1000px;">
 		<div class="block main-block">
+		<%-- <c:if test="${memEmail == meetingboardDTO.email}"> --%>
+			<div style="float: right; margin-bottom: 5px;">
+				<button class="button" id="meetingboardModifyFormBtn" style="display: inline-block;">수정</button>
+				<button class="button" id="meetingboardDeleteBtn" style="display: inline-block;">삭제</button>
+			</div>
+		<%-- </c:if> --%>
 			<div>
 				<img src="../image/job_code/${meetingboardDTO.job_code}.jpg" style="width: 100%; height: 500px;">
 			</div>
@@ -134,10 +145,16 @@
 	        </div>
 	      </div>
 		<div class="block button-block">
-	      <a class="button button-big button-fill" type="external" href="/mentee_programs/189/mentee_participations/new">신청하기</a>
+		<c:if test="${meetingboardDTO.state == 0}">
+	      <a class="button button-big button-fill" type="external" href="">신청하기</a>
+	    </c:if>
+	    <c:if test="${meetingboardDTO.state == 2}">
+			<div class="button button-big button-fill color-gray">신청마감</div>	    
+		</c:if>
 	    </div>
 	</div>
 </div>
+<script src="../js/meetingboard.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=89c3afe322de0763fb20750b2bf6b62a&libraries=services"></script>
 <script type="text/javascript">
 	var address_x = ${meetingboardDTO.address_x};	// 경도

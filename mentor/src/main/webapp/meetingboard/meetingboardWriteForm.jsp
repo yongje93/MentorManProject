@@ -119,8 +119,8 @@
 					<li class="item-content item-input">
 						<div class="item-inner">
 							<input type="text" name="address" id="address" placeholder="장소를 검색하세요" readonly="readonly">
-							<button class="button color-gray" style="width: 100px;">
-								<a class="color-gray" type="external" href="javascript:void(0);" onclick="execDaumPostcode();">장소 검색</a>
+							<button class="button" style="width: 100px;">
+								<a type="external" href="javascript:void(0);" onclick="execDaumPostcode();">장소 검색</a>
 							</button>
 							<input type="text" id="buildingName" name="buildingname" placeholder="건물명">
 							<div id="addressDiv"></div>

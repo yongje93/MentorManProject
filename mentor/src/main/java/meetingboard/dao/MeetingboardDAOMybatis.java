@@ -36,4 +36,14 @@ public class MeetingboardDAOMybatis implements MeetingboardDAO {
 		return sqlSession.selectOne("meetingboardSQL.getTotalA");
 	}
 
+	@Override
+	public void meetingboardModify(MeetingboardDTO meetingboardDTO) {
+		sqlSession.update("meetingboardSQL.meetingboardModify", meetingboardDTO);
+	}
+
+	@Override
+	public void meetingboardDelete(int meeting_seq) {
+		sqlSession.delete("meetingboardSQL.meetingboardDelete", meeting_seq);
+	}
+
 }

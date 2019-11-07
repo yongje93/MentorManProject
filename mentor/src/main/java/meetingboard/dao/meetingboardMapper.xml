@@ -29,4 +29,15 @@
   		select count(*) from meetingboard
   	</select>
   	
+  	<!-- 모임 게시글 수정 -->
+  	<update id="meetingboardModify" parameterType="meetingboard">
+  		update meetingboard set job_code=#{job_code},title=#{title},subtitle=#{subtitle},content=#{content},day=#{day},starthour=#{starthour},endhour=#{endhour},
+  								address=#{address},buildingname=#{buildingname},address_x=#{address_x},address_y=#{address_y},count=#{count},host=#{host},price=#{price}
+  		where meeting_seq=#{meeting_seq}
+  	</update>
+  	
+  	<!-- 모임 게시글 삭제 -->
+  	<delete id="meetingboardDelete" parameterType="int">
+  		delete from meetingboard where meeting_seq=#{meeting_seq}
+  	</delete>
 </mapper>

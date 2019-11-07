@@ -99,3 +99,96 @@ $("#meetingboardWriteBtn").click(function(){
 		});
 	}
 });
+
+// 모임글 수정폼 열기
+$("#meetingboardModifyFormBtn").click(function(){
+	document.meetingboardViewForm.method = "post";
+	document.meetingboardViewForm.action = "/mentor/meetingboard/meetingboardModifyForm";
+	document.meetingboardViewForm.submit();
+});
+
+// 모임글 수정
+$("#meetingboardModifyBtn").click(function(){
+	$("#job_codeDiv").empty();
+	$("#titleDiv").empty();
+	$("#subtitleDiv").empty();
+	$("#contentDiv").empty();
+	$("#dayDiv").empty();
+	$("#countDiv").empty();
+	$("#hostDiv").empty();
+	$("#priceDiv").empty();
+	$("#addressDiv").empty();
+	
+	var content = $("#summernote").summernote("code");
+	if($("#job_code").val() == "") {
+		$("#job_codeDiv").text("멘토링 유형을 선택하세요").css("color", "tomato").css("font-size","8pt");
+		$("#job_code").focus();
+	} else if($("#title").val() == "") {
+		$("#titleDiv").text("제목을 입력하세요").css("color", "tomato").css("font-size","8pt");
+		$("#title").focus();
+	} else if($("#subtitle").val() == "") {
+		$("#subtitleDiv").text("부제목을 입력하세요").css("color", "tomato").css("font-size","8pt");
+		$("#subtitle").focus();
+	} else if(content == '<strong>▶ 프로그램 내용</strong><br><br><strong>▶ 프로그램 진행</strong><br><br><strong>▶ 기타사항</strong><br><br><strong>▶ 참고자료</strong><br><br>') {
+		$("#contentDiv").text("내용을 입력하세요").css("color", "tomato").css("font-size","8pt");
+		$("#summernote").summernote("focus");
+	} else if($("#datepicker").val() == "") {
+		$("#dayDiv").text("일시를 입력하세요").css("color", "tomato").css("font-size","8pt");
+		$("#datepicker").focus();
+	} else if($("#starthour").val() == "") {
+		$("#dayDiv").text("시작시간을 입력하세요").css("color", "tomato").css("font-size","8pt");
+		$("#starthour").focus();
+	} else if($("#endhour").val() == "") {
+		$("#dayDiv").text("종료시간을 입력하세요").css("color", "tomato").css("font-size","8pt");
+		$("#endhour").focus();
+	} else if($("#count").val() == "") {
+		$("#countDiv").text("인원 수를 입력하세요").css("color", "tomato").css("font-size","8pt");
+		$("#count").focus();
+	} else if($("#host").val() == "") {
+		$("#hostDiv").text("주최를 입력하세요").css("color", "tomato").css("font-size","8pt");
+		$("#host").focus();
+	} else if($("#price").val() == "") {
+		$("#priceDiv").text("참가비를 입력하세요").css("color", "tomato").css("font-size","8pt");
+		$("#price").focus();
+	} else if($("#address").val() == "") {
+		$("#addressDiv").text("장소를 입력하세요").css("color", "tomato").css("font-size","8pt");
+		$("#address").focus();
+	} else if($("#buildingName").val() == "") {
+		$("#addressDiv").text("건물명을 입력하세요").css("color", "tomato").css("font-size","8pt");
+		$("#buildingName").focus();
+	} else {
+		$.ajax({
+			type: "post",
+			url: "/mentor/meetingboard/meetingboardModify",
+			data: $("#meetingboardModifyForm").serialize(),
+			success: function(){
+				alert("수정완료");
+				location.href="/mentor/meetingboard/meetingboardList?pg="+$("#pg").val();
+			},
+			error : function(e){
+				console.log(e);
+				alert("실패");
+			}
+		});
+	}
+});
+
+// 모임글 삭제
+$("#meetingboardDeleteBtn").click(function(){
+	if(confirm("정말 삭제하시겠습니까?") == true) {
+		$.ajax({
+			type: "post",
+			url: "/mentor/meetingboard/meetingboardDelete",
+			data: {"seq" : $("#seq").val()},
+			success : function(){
+				alert("삭제완료");
+				location.href="/mentor/meetingboard/meetingboardList";
+			}, 
+			error : function(err) {
+				console.log(err);
+			}
+		});
+	} else
+		return false;
+});
+

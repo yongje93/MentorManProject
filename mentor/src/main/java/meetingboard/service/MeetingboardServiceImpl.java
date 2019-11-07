@@ -34,4 +34,14 @@ public class MeetingboardServiceImpl implements MeetingboardService {
 		return meetingboardDAO.getTotalA();
 	}
 
+	@Override
+	public void meetingboardModify(MeetingboardDTO meetingboardDTO) {
+		meetingboardDAO.meetingboardModify(meetingboardDTO);
+	}
+
+	@Override
+	public void meetingboardDelete(int meeting_seq) {
+		meetingboardDAO.meetingboardDelete(meeting_seq);
+	}
+
 }

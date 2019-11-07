@@ -37,12 +37,12 @@ public class meetingboardController {
 	private MeetingboardService meetingboardService;
 	@Autowired
 	private MeetingboardPaging meetingboardPaging;
+
 	/**
-	 * @Title : 모임 게시판 리스트. head 영역의 모임 버튼 눌렀을때 화면 
+	 * @Title : 모임 게시판 리스트. head 영역의 모임 버튼 눌렀을때 화면
 	 * @Author : yong
 	 * @Date : 2019. 11. 2.
-	 * @Method Name : meetingboardList
-	 * 11. 6 페이징처리 추가
+	 * @Method Name : meetingboardList 11. 6 페이징처리 추가
 	 */
 	@RequestMapping(value = "meetingboardList", method = RequestMethod.GET)
 	public ModelAndView meetingboardList(@RequestParam(required = false, defaultValue = "1") String pg, HttpSession session) {
@@ -63,7 +63,7 @@ public class meetingboardController {
 		meetingboardPaging.setPageSize(9);
 		meetingboardPaging.setTotalA(totalA);
 		meetingboardPaging.makePagingHTML();
-				
+
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("totalA", totalA);
 		mav.addObject("pg", pg);
@@ -121,33 +121,66 @@ public class meetingboardController {
 		meetingboardDTO.setEmail("zx00136@naver.com"); // 나중에 바꿔야됨!!
 		meetingboardService.meetingboardWrite(meetingboardDTO);
 	}
-	
+
 	/**
 	 * @Title : 모임 글 보기
 	 * @Author : yong
 	 * @Date : 2019. 11. 6.
 	 * @Method Name : meetingboardView
 	 */
-	@RequestMapping(value="meetingboardView", method=RequestMethod.GET)
+	@RequestMapping(value = "meetingboardView", method = RequestMethod.GET)
 	public ModelAndView meetingboardView(@RequestParam String pg, @RequestParam String seq) {
 		int meeting_seq = Integer.parseInt(seq);
 		MeetingboardDTO meetingboardDTO = meetingboardService.getMeetingboard(meeting_seq);
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("meetingboardDTO",meetingboardDTO);
-		mav.addObject("pg",pg);
+		mav.addObject("meetingboardDTO", meetingboardDTO);
+		mav.addObject("pg", pg);
 		mav.addObject("display", "/meetingboard/meetingboardView.jsp");
 		mav.setViewName("/main/index");
 		return mav;
 	}
-	
+
 	/**
-	 * @Title : 모임 게시판 수정
+	 * @Title : 모임 수정폼
 	 * @Author : yong
 	 * @Date : 2019. 11. 6.
 	 * @Method Name : meetingboardModifyForm
 	 */
-	@RequestMapping(value="meetingboardModifyForm", method=RequestMethod.POST)
+	@RequestMapping(value = "meetingboardModifyForm", method = RequestMethod.POST)
 	public ModelAndView meetingboardModifyForm(@RequestParam String pg, @RequestParam String seq) {
-		return null;
+		int meeting_seq = Integer.parseInt(seq);
+		MeetingboardDTO meetingboardDTO = meetingboardService.getMeetingboard(meeting_seq);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("meetingboardDTO", meetingboardDTO);
+		mav.addObject("seq", seq);
+		mav.addObject("pg", pg);
+		mav.addObject("display", "/meetingboard/meetingboardModifyForm.jsp");
+		mav.setViewName("/main/index");
+		return mav;
+	}
+
+	/**
+	 * @Title : 모임 수정
+	 * @Author : yong
+	 * @Date : 2019. 11. 7.
+	 * @Method Name : meetingboardModify
+	 */
+	@RequestMapping(value = "meetingboardModify", method = RequestMethod.POST)
+	@ResponseBody
+	public void meetingboardModify(@ModelAttribute MeetingboardDTO meetingboardDTO, HttpSession session) {
+		meetingboardService.meetingboardModify(meetingboardDTO);
+	}
+
+	/**
+	 * @Title : 모임 삭제
+	 * @Author : yong
+	 * @Date : 2019. 11. 7.
+	 * @Method Name : meetingboardDelete
+	 */
+	@RequestMapping(value = "meetingboardDelete", method = RequestMethod.POST)
+	@ResponseBody
+	public void meetingboardDelete(@RequestParam String seq) {
+		int meeting_seq = Integer.parseInt(seq);
+		meetingboardService.meetingboardDelete(meeting_seq);
 	}
 }
