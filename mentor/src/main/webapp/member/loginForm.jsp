@@ -1,24 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<script src="../js/member.js"></script>
+<div class="page navbar-fixed devise sessions new" data-name="sessions-new">
+	<div class="page-content" style="margin-bottom: 100px;">
 
 <script src="../js/member.js"></script>
 
 <div class="page navbar-fixed devise sessions new"
 	data-name="sessions-new">
 	<div class="page-content">
+
 		<div class="content-wrapper">
+			<h1 align="center">로그인</h1>
 			<div class="block inset social-block">
-				<a class="button button-big button-fill bg-naver-color"
-					type="external" href=""> 네이버 아이디로 로그인 </a> 
-					<a class="button button-big button-fill bg-kakao-color col"
-					type="external" href=""> 카카오 아이디로 로그인 </a>
+				<a class="button button-big button-fill bg-naver-color" type="external" href=""> 네이버 아이디로 로그인</a> 
+				<a class="button button-big button-fill bg-kakao-color col" type="external" href=""> 카카오 아이디로 로그인</a>
 			</div>
 
 			<div class="block inset login-block">
-				<form class="simple_form new_user" id="new_user"
-					novalidate="novalidate" action=""
-					accept-charset="UTF-8" method="post">
-					<input name="utf8" type="hidden" value="&#x2713;" />
+				<form class="simple_form new_user" id="new_user" novalidate="novalidate" action="" method="post">
 					<div class="signup-or-separator">
 						<span class="signup-or-separator--text">또는</span>
 						<hr>
@@ -29,11 +29,8 @@
 							<li class="item-content item-input">
 								<div class="item-inner">
 									<div class="item-input-wrap">
-										<input autocapitalize="off" autocorrect="off"
-											autocomplete="email" required="required"
-											class="string email required" aria-required="true"
-											placeholder="이메일 주소" type="email" value="" name="member_email"
-											id="member_email" />
+										<input autocapitalize="off" autocomplete="email"  class="string email required"  
+											placeholder="이메일 주소" type="email" value="" name="member_email"id="member_email" />
 											<div class="login-member-email-Div"></div>
 									</div>
 								</div>
@@ -42,11 +39,8 @@
 							<li class="item-content item-input">
 								<div class="item-inner">
 									<div class="item-input-wrap">
-										<input required="required" autocapitalize="off"
-											autocomplete="current-password" class="password required"
-											aria-required="true" placeholder="비밀번호" type="password"
-											name="member_pwd" id="member_pwd"  />
-											<div class="login-member-pwd-Div"></div>
+										<input required="required" class="password required" placeholder="비밀번호" type="password" name="member_pwd" id="member_pwd" />
+										<div class="login-member-pwd-Div"></div>
 									</div>
 								</div>
 							</li>
@@ -54,12 +48,10 @@
 					</div>
 					<div class="login-Div"></div>
 					<div class="block-footer forgot-password text-align-right">
-						<a class="color-gray" type="external" href="">
-							비밀번호를 잊으셨나요? </a>
+						<a class="color-gray" type="external" href="">비밀번호를 잊으셨나요? </a>
 					</div>
 
-					<input type="button" id="loginBtn" value="로그인" class="btn button button-big button-fill submit-button"
-						data-disable-with="요청중..." />
+					<input type="button" id="loginBtn" value="로그인" class="btn button button-big button-fill submit-button" data-disable-with="요청중..." />
 				</form>
 			</div>
 

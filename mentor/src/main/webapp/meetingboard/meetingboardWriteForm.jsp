@@ -163,7 +163,6 @@
 		var markupStr = '<strong>▶ 프로그램 내용</strong><br><br><strong>▶ 프로그램 진행</strong><br><br><strong>▶ 기타사항</strong><br><br><strong>▶ 참고자료</strong><br><br>';
 		$("#summernote").summernote('code', markupStr);
 	});
-
 	// summernote callback 메소드(imageupload)
     function sendFile(file, el) {
 		var form_data = new FormData();
@@ -191,7 +190,6 @@
             center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
             level: 3 // 지도의 확대 레벨
         };
-
     // 지도를 미리 생성
     var map = new daum.maps.Map(mapContainer, mapOption);
     // 주소-좌표 변환 객체를 생성
@@ -213,7 +211,6 @@
     // 09:00 AM
     start.setHours(9);
     start.setMinutes(0);
-
     $(".only-time").datepicker({
     	dateFormat: " ",
     	timepicker: true,

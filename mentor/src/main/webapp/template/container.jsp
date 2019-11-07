@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!-- container 경계선 -->
+<div class="page navbar-fixed intros index" data-name="intros-index">
+<div class="page-content">
 <div class="open-mentoring-block">
 	<div class="block-title strong-title">
 		콘텐츠 <a type="external" href="">더 보기</a>
@@ -1180,8 +1182,7 @@
 
 				<div class="card-footer">
 					<a class="color-gray js-bookmark" type="external"
-						data-remote="true" rel="nofollow" data-method="post"
-						href="/mentor_posts/6618/bookmarks"> 
+						data-remote="true" rel="nofollow" data-method="post"href="/mentor_posts/6618/bookmarks"> 
 						<i class="far fa-bookmark" aria-hidden="true"></i> 1
 					</a>
 					<div class="created-at"></div>
@@ -1193,8 +1194,8 @@
 
 	</div>
 </div>
-
-
+</div>
+</div>
 <script>
 	
 
@@ -1301,7 +1302,3 @@
 		});
 	});
 </script>
-
-
-
-

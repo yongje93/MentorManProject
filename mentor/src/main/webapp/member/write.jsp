@@ -3,7 +3,7 @@
     
 <!-- 회원가입 후 사이트 -->    
 <div class="page navbar-fixed devise after_signup show" data-name="after_signup-show">
-	<div class="page-content">
+	<div class="page-content" style="margin-bottom: 100px;">
 		<div class="content-wrapper">
 			<div class="block inset hero-title">
 				<h1 class="title">계정 확인</h1>
