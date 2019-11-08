@@ -80,7 +80,6 @@
 				</form>
 			</div>
 
-
 			<div class="block inset text-align-center">
 				<a class="color-gray" type="external" href="/mentor/member/loginForm"> 이미 계정이 있나요? 로그인 </a>
 			</div>

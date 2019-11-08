@@ -85,7 +85,7 @@ public class MemberController {
 		map.put("member_pwd", member_pwd);
 		MemberDTO memberDTO = memberService.login(map);
 		memberDTO.setMember_pwd("");
-		if (memberDTO != null) {
+		if(memberDTO != null) {
 			session.setAttribute("memDTO", memberDTO);
 			return "login_ok";	
 		} else {

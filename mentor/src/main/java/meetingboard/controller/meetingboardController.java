@@ -25,6 +25,7 @@ import meetingboard.bean.GuideDTO;
 import meetingboard.bean.MeetingboardDTO;
 import meetingboard.bean.MeetingboardPaging;
 import meetingboard.service.MeetingboardService;
+import member.bean.MemberDTO;
 
 /**
  * 모임 게시판 관련 컨트롤러
@@ -118,8 +119,8 @@ public class MeetingboardController {
 	@RequestMapping(value = "meetingboardWrite", method = RequestMethod.POST)
 	@ResponseBody
 	public void meetingboardWrite(@ModelAttribute MeetingboardDTO meetingboardDTO, HttpSession session) {
-		MeetingboardDTO imsiDTO = (MeetingboardDTO) session.getAttribute("memDTO");
-		meetingboardDTO.setEmail(imsiDTO.getEmail());
+		MemberDTO memDTO = (MemberDTO) session.getAttribute("memDTO");
+		meetingboardDTO.setEmail(memDTO.getMember_email());
 		meetingboardService.meetingboardWrite(meetingboardDTO);
 	}
 

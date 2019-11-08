@@ -12,7 +12,6 @@
 <!-- 아이콘 관련 -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
-<link rel="stylesheet" media="all" href="https://d2ljmlcsal6xzo.cloudfront.net/assets/application-ec82e4fd3581863fb7280ad4cb1183138cef57405f46a2d44eb51efb8a40a133.css" data-turbolinks-track="reload">
 <link rel="shortcut icon" href="../image/mentorlogo.ico" type="image/x-icon"/>
 <link rel="stylesheet" href="../css/all.css" type="text/css">
 <link rel="stylesheet" href="../css/ly.css" type="text/css" />

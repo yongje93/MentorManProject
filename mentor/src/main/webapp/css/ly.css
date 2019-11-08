@@ -2891,7 +2891,7 @@ html.with-statusbar.device-iphone-x .framework7-root {
 
 .ios .block {
     margin: 35px 0;
-    padding: 0 15px;
+    /* padding: 0 15px; */
     color: #6d6d72
 }
 
@@ -33781,7 +33781,7 @@ footer.footer .info {
 .menu-list .links-list a {
     padding-right: 15px;
     background-image: none;
-    height: 20px
+    height: 40px
 }
 
 .menu-list .links-list .beta-text {

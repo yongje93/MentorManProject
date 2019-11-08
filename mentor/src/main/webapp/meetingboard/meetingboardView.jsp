@@ -146,7 +146,7 @@
 	      </div>
 		<div class="block button-block">
 		<c:if test="${meetingboardDTO.state == 0}">
-	      <a class="button button-big button-fill" type="external" href="">신청하기</a>
+	      <a class="button button-big button-fill" type="external" href="/mentor/participation/participationWriteForm?seq=${meetingboardDTO.meeting_seq}">신청하기</a>
 	    </c:if>
 	    <c:if test="${meetingboardDTO.state == 1}">
 	      <div class="button button-big button-fill color-gray">모집완료</div>	  

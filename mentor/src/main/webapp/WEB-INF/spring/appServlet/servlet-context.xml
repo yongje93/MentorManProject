@@ -20,6 +20,9 @@
 	<context:component-scan base-package="meetingboard.controller"/>
   	<!-- 에세이 보드 -->
 	<context:component-scan base-package="essayboard.controller"/>
+	<!-- 모임신청 -->
+	<context:component-scan base-package="participation.controller"/>
+	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
 
