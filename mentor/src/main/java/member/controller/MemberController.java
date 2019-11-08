@@ -82,12 +82,10 @@ public class MemberController {
 		map.put("member_email", member_email);
 		map.put("member_pwd", member_pwd);
 		MemberDTO memberDTO = memberService.login(map);
-		if (memberDTO != null) {	
-			session.setAttribute("memEmail", memberDTO.getMember_email());
-			session.setAttribute("memNickname", memberDTO.getMember_nickname());
-			session.setAttribute("memNickname", memberDTO.getMember_flag());
-			
-			return "login_ok";
+		memberDTO.setMember_pwd("");
+		if (memberDTO != null) {
+			session.setAttribute("memDTO", memberDTO);
+			return "login_ok";	
 		} else {
 			return "login_fail";
 		}
@@ -100,4 +98,3 @@ public class MemberController {
 		return new ModelAndView("redirect:/main/index");
 	}
 }
-
