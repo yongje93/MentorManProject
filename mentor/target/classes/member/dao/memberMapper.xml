@@ -5,7 +5,7 @@
 <mapper namespace="memberSQL">
 	<!-- 회원가입 처리 -->
 	<insert id="write" parameterType="java.util.Map">
-		insert into mentors_member values(#{member_name},#{member_nickname},#{member_email},#{member_pwd},#{member_flag})
+		insert into mentors_member(member_name,member_nickname,member_email,member_pwd) values(#{member_name},#{member_nickname},#{member_email},#{member_pwd})
 	</insert>
 	<!-- Nickname 중복확인 -->
 	<select id="writeNicknamecheck" parameterType="String" resultType="member">

@@ -4,11 +4,16 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
-
+	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-
 	<context:component-scan base-package="mentor.conf"/>
+	
+	<!-- 에세이  -->
+	<context:component-scan base-package="essayboard.bean"/>
+	<context:component-scan base-package="essayboard.dao"/>
+	<context:component-scan base-package="essayboard.service"/>	
 
+	<!-- 회원 -->
 	<context:component-scan base-package="member.bean"/>
 	<context:component-scan base-package="member.dao"/>
 	<context:component-scan base-package="member.service"/>

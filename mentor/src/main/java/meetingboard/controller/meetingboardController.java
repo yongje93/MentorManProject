@@ -118,8 +118,8 @@ public class MeetingboardController {
 	@RequestMapping(value = "meetingboardWrite", method = RequestMethod.POST)
 	@ResponseBody
 	public void meetingboardWrite(@ModelAttribute MeetingboardDTO meetingboardDTO, HttpSession session) {
-		// meetingboardDTO.setEmail((String)session.getAttribute("memEmail"));
-		meetingboardDTO.setEmail("zx00136@naver.com"); // 나중에 바꿔야됨!!
+		MeetingboardDTO imsiDTO = (MeetingboardDTO) session.getAttribute("memDTO");
+		meetingboardDTO.setEmail(imsiDTO.getEmail());
 		meetingboardService.meetingboardWrite(meetingboardDTO);
 	}
 

@@ -25,12 +25,12 @@
 			<a class="button button-big" type="external" href="/mentor/meetingboard/meetingboardList">모임</a> 
 			<a class="button button-big" type="external" href="/mentor/menteeboard/menteeboardList">멘티 게시판</a> 
 			<a class="button button-big" type="external" href="">멘토 지원하기</a>
-			<c:if test="${memEmail==null}">
+			<c:if test="${memDTO.member_email == null}">
 			<a class="button button-big" type="external" href="/mentor/member/writeForm">회원가입</a>
 			<a class="button button-big" type="external" href="/mentor/member/loginForm">로그인</a>
 			</c:if>
 
-			<c:if test="${memEmail!=null}">
+			<c:if test="${memDTO.member_email != null}">
 			<a type="internal" class="button button-big popover-open me-profile" data-popover=".js-me-popover" href=""> 
 				<img src="../image/profile.jpg" width="28" height="28">
 			</a>

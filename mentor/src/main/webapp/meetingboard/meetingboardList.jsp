@@ -11,11 +11,11 @@
 			<div class="block-title strong-title">
 				모임
 				<%-- 접속한 유저가 멘토일 때 모임 작성 버튼 --%>
-				<%-- <c:if test="memDTO.email != null && memDTO.flag == 2"> --%>
+				<c:if test="${memDTO.member_email != null && memDTO.member_flag == 2}">
 				<button class="button color-gray">
 					<a class="color-gray" type="external" href="/mentor/meetingboard/meetingboardWriteForm"> 모임 작성 </a>
 				</button>
-				<%-- </c:if> --%>
+				</c:if>
 			</div>
 			<%--모임 리스트 뿌려주는 영역--%>
 			<div class="row no-gap">

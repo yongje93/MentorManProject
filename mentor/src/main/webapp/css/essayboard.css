@@ -1,0 +1,154 @@
+@charset "UTF-8";
+
+/* noticeboardList */
+#boardListMain_div{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#main_div{
+   /* overflow: hidden; */
+   
+    width: 100%;
+    margin: auto;
+}
+
+#mainImage_div{
+   border: 1px solid violet;
+    width: 100%;
+    height: 200px;
+    margin: auto;
+}
+
+#mainMeun_div{
+   zoom: 1;
+    background: #40b1f1;
+   /*  max-width: 1180px; */
+    width: 100%;
+    margin: 0 auto;
+    position: absolute;
+    height: 55px;
+    top: 255px;
+    left: 0;
+}
+
+.boardMeun_li{
+   list-style:none;
+   padding-left:0px;
+   float: left;
+    width: 16.30%;
+    position: relative;
+}
+
+#mainImg{
+   width: 100%;
+    height: 200px;
+}
+
+.tab_div1{
+   height: 100px;
+}
+#boardBody_div{
+   width: 100%;
+    height: 800px;
+    position: relative;
+    top: 120px;
+}
+
+#boardList_div{
+   width: 1000px;
+    height: 600px;
+    margin: auto;
+}
+
+.essayboardList_Table {
+    border-collapse: collapse;
+    text-align: left;
+    line-height: 1.5;
+
+}
+.essayboardList_thead_th{
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    color: #369;
+    border-bottom: 3px solid #036;
+}
+.essayboardList_tbody_th{
+    width: 150px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    background: #f3f6f7;
+}
+.essayboardList_td{
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+}
+
+#selectBox_th{
+   text-align: right;
+}
+
+#essayboardList_pg{
+   text-align: center;
+}
+
+/* noticeboardList */
+
+
+/* noticboardWriteForm */
+#essayboardWriteForm_div{
+   margin: 155px -10px;
+    padding: 0;
+    width: 100%;
+    height: 2000px;
+}
+#writeFormInner_div{
+    width: 701px;
+    margin: auto;
+}
+#summernote_div{
+   width: 900px;
+}
+
+#essayTitle{
+   widows: 300px;
+}
+
+table.essayboardWriteForm_table {
+    border-collapse: collapse;
+    text-align: left;
+    line-height: 1.5;
+
+}
+table.essayboardWriteForm_table thead th {
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    color: #369;
+    border-bottom: 3px solid #036;
+}
+table.essayboardWriteForm_table tbody th {
+    width: 900px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    background: #f3f6f7;
+}
+table.essayboardWriteForm_table td {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+}
+#essayContent{
+   width: 100%;
+    height: 300px;
+}
+/* noticboardWriteForm */
