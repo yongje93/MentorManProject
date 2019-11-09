@@ -192,3 +192,12 @@ $("#meetingboardDeleteBtn").click(function(){
 		return false;
 });
 
+// 모임 신청 버튼
+function callFunction(email){
+	if(email != null) {
+		location.href="/mentor/participation/participationWriteForm?seq="+$("#seq").val();
+	} else {
+		alert("먼저 로그인을 하세요!");
+		location.href="/mentor/member/loginForm";
+	}
+}

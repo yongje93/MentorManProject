@@ -40,6 +40,7 @@ public class MemberDAOMybatis implements MemberDAO {
 		MemberDTO memberDTO=sqlSession.selectOne("memberSQL.login",map);
 		return  memberDTO;
 	}
+	
 
 
 }

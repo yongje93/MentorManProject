@@ -146,10 +146,10 @@
 	      </div>
 		<div class="block button-block">
 		<c:if test="${meetingboardDTO.meetingboard_state == 0}">
-	      <a class="button button-big button-fill" type="external" href="/mentor/participation/participationWriteForm?seq=${meetingboardDTO.meetingboard_seq}">신청하기</a>
+	      	<a class="button button-big button-fill" type="external" href="javascript:void(0)" onclick="callFunction('${memDTO.member_email}')">신청하기</a>
 	    </c:if>
 	    <c:if test="${meetingboardDTO.meetingboard_state == 1}">
-	      <div class="button button-big button-fill color-gray">모집완료</div>	  
+	      	<div class="button button-big button-fill color-gray">모집완료</div>	  
 	    </c:if>
 	    <c:if test="${meetingboardDTO.meetingboard_state == 2}">
 			<div class="button button-big button-fill color-gray">종료</div>	    

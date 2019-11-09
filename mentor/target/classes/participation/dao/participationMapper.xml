@@ -3,5 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="participationSQL">
-
+	<!-- 신청 form 멘토 정보 가져오기 -->
+	<select id="getMentorInfo" parameterType="int" resultType="member">
+		<!-- 나중에 member_seq 넣기 회사도 가능하면 -->
+		select member_name, member_email 	  
+		from mentors_member, meetingboard
+		where mentors_member.member_email = meetingboard.mentor_email and meetingboard_seq=#{meetingboard_seq}
+	</select>
 </mapper>
