@@ -18,7 +18,7 @@
 	<div class="block inset">
 		<form id="meetingboardModifyForm" onSubmit="return false;">
 			<input type="hidden" id="pg" name="pg" value="${pg}">
-			<input type="hidden" id="seq" name="meeting_seq" value="${seq}">
+			<input type="hidden" id="seq" name="meetingboard_seq" value="${seq}">
 			<div class="list form-list no-hairlines">
 				<ul>
 					<div class="label-title">
@@ -58,7 +58,7 @@
 					</div>
 					<li class="item-content item-input">
 						<div class="item-inner">
-							<input type="text" name="title" id="title" value="${meetingboardDTO.title}" placeholder="제목을 입력하세요">
+							<input type="text" name="meetingboard_title" id="title" value="${meetingboardDTO.meetingboard_title}" placeholder="제목을 입력하세요">
 							<div id="titleDiv"></div>
 						</div>
 					</li>
@@ -67,7 +67,7 @@
 					</div>
 					<li class="item-content item-input">
 						<div class="item-inner">
-							<input type="text" name="subtitle" id="subtitle" value="${meetingboardDTO.subtitle}" placeholder="부제목을 입력하세요">
+							<input type="text" name="meetingboard_subtitle" id="subtitle" value="${meetingboardDTO.meetingboard_subtitle}" placeholder="부제목을 입력하세요">
 							<div id="subtitleDiv"></div>
 						</div>
 					</li>
@@ -75,7 +75,7 @@
 						<label class="string required" for="title">내용</label>
 					</div>
 					<li>
-						<textarea id="summernote" name="content"></textarea>
+						<textarea id="summernote" name="meetingboard_content"></textarea>
 						<div id="contentDiv"></div>
 					</li>
 					<div class="label-title">
@@ -84,9 +84,9 @@
 					</div>
 					<li class="item-content item-input">
 						<div class="item-inner">
-							<input type="text" id="datepicker" name="day" class="datepicker-here" placeholder="날짜" style="width: 170px; display: inline-block;">
-							<input type="text" id="startHour" name="starthour" class="only-time" value="${meetingboardDTO.starthour}" placeholder="시작시간" style="width: 170px; display: inline-block;">
-							<input type="text" id="endHour" name="endhour" class="only-time" value="${meetingboardDTO.endhour}" placeholder="종료시간" style="width: 170px; display: inline-block;">
+							<input type="text" id="datepicker" name="meetingboard_day" class="datepicker-here" placeholder="날짜" style="width: 170px; display: inline-block;">
+							<input type="text" id="startHour" name="meetingboard_starthour" class="only-time" value="${meetingboardDTO.meetingboard_starthour}" placeholder="시작시간" style="width: 170px; display: inline-block;">
+							<input type="text" id="endHour" name="meetingboard_endhour" class="only-time" value="${meetingboardDTO.meetingboard_endhour}" placeholder="종료시간" style="width: 170px; display: inline-block;">
 							<div id="dayDiv"></div>
 						</div>
 					</li>
@@ -95,7 +95,7 @@
 					</div>
 					<li class="item-content item-input">
 						<div class="item-inner">
-							<input type="text" name="count" id="count" value="${meetingboardDTO.count}" placeholder="모집인원을 입력하세요">
+							<input type="text" name="meetingboard_count" id="count" value="${meetingboardDTO.meetingboard_count}" placeholder="모집인원을 입력하세요">
 							<div id="countDiv"></div>
 						</div>
 					</li>
@@ -104,7 +104,7 @@
 					</div>
 					<li class="item-content item-input">
 						<div class="item-inner">
-							<input type="text" name="host" id="host" value="${meetingboardDTO.host}" placeholder="주최자를 입력하세요">
+							<input type="text" name="meetingboard_host" id="host" value="${meetingboardDTO.meetingboard_host}" placeholder="주최자를 입력하세요">
 							<div id="hostDiv"></div>
 						</div>
 					</li>
@@ -113,7 +113,7 @@
 					</div>
 					<li class="item-content item-input">
 						<div class="item-inner">
-							<input type="text" name="price" id="price" value="${meetingboardDTO.price}" placeholder="참가비를 입력하세요">
+							<input type="text" name="meetingboard_price" id="price" value="${meetingboardDTO.meetingboard_price}" placeholder="참가비를 입력하세요">
 							<div id="priceDiv"></div>
 						</div>
 					</li>
@@ -122,18 +122,18 @@
 					</div>
 					<li class="item-content item-input">
 						<div class="item-inner">
-							<input type="text" name="address" id="address" value="${meetingboardDTO.address}" placeholder="장소를 검색하세요" readonly="readonly">
+							<input type="text" name="meetingboard_address" id="address" value="${meetingboardDTO.meetingboard_address}" placeholder="장소를 검색하세요" readonly="readonly">
 							<button class="button" style="width: 100px;">
 								<a type="external" href="javascript:void(0);" onclick="execDaumPostcode();">장소 검색</a>
 							</button>
-							<input type="text" id="buildingName" name="buildingname" value="${meetingboardDTO.buildingname}" placeholder="건물명">
+							<input type="text" id="buildingName" name="meetingboard_buildingname" value="${meetingboardDTO.meetingboard_buildingname}" placeholder="건물명">
 							<div id="addressDiv"></div>
 						</div>
 					</li>
 					<li>
 						<div id="map" style="width: 400px; height: 400px; margin-top: 10px;"></div>
-						<input type="hidden" id="address_y" name="address_y">
-						<input type="hidden" id="address_x" name="address_x">								
+						<input type="hidden" id="address_y" name="meetingboard_address_y">
+						<input type="hidden" id="address_x" name="meetingboard_address_x">								
 					</li>
 				</ul>
 			</div>
@@ -165,7 +165,7 @@
        		}
    		});
 		
-		var markupStr = '${meetingboardDTO.content}';
+		var markupStr = '${meetingboardDTO.meetingboard_content}';
 		$("#summernote").summernote('code', markupStr);
 	});
 
@@ -190,8 +190,8 @@
 		});
     }
 	
-    var address_x = ${meetingboardDTO.address_x};	// 경도
-	var address_y = ${meetingboardDTO.address_y};	// 위도
+    var address_x = ${meetingboardDTO.meetingboard_address_x};	// 경도
+	var address_y = ${meetingboardDTO.meetingboard_address_y};	// 위도
 	
  	// 카카오맵 api 관련
     var mapContainer = document.getElementById("map"), // 지도를 표시할 div
@@ -217,7 +217,7 @@
     	minDate : new Date()
     });
  	
-    var dayString = '${meetingboardDTO.day}';
+    var dayString = '${meetingboardDTO.meetingboard_day}';
     var daySplit = dayString.split("/");
     var year = daySplit[0];	//2019
     var month = daySplit[1];	//11

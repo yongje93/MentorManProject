@@ -3,14 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <form name="meetingboardViewForm">
-<input type="hidden" name="seq" id="seq" value="${meetingboardDTO.meeting_seq}">
+<input type="hidden" name="seq" id="seq" value="${meetingboardDTO.meetingboard_seq}">
 <input type="hidden" name="pg" id="pg" value="${pg}">
 </form>
 
 <div class="page navbar-fixed mentee_programs show" style="width: 800px; margin: auto;">
 	<div class="page-content">
 		<div class="block main-block">
-		<c:if test="${memDTO.member_email == meetingboardDTO.email}">
+		<c:if test="${memDTO.member_email == meetingboardDTO.mentor_email}">
 			<div style="float: right; margin-bottom: 5px;">
 				<button class="button" id="meetingboardModifyFormBtn" style="display: inline-block;">수정</button>
 				<button class="button" id="meetingboardDeleteBtn" style="display: inline-block;">삭제</button>
@@ -19,8 +19,8 @@
 			<div>
 				<img src="../image/job_code/${meetingboardDTO.job_code}.jpg" style="width: 100%; height: 500px;">
 			</div>
-			<h1 class="title" style="color: black;">${meetingboardDTO.title}</h1>
-			<div class="description" style="font-size: 19px;">${meetingboardDTO.subtitle}</div>
+			<h1 class="title" style="color: black;">${meetingboardDTO.meetingboard_title}</h1>
+			<div class="description" style="font-size: 19px;">${meetingboardDTO.meetingboard_subtitle}</div>
 		</div>
 		<div class="block-title">기본정보</div>
 		<div class="list basic-block">
@@ -30,7 +30,7 @@
 						<div class="item-title">&nbsp;일시</div>
 						<div class="item-schedule">
 							<div class="item-after">
-								${meetingboardDTO.day} ${meetingboardDTO.starthour} ~ ${meetingboardDTO.endhour}
+								${meetingboardDTO.meetingboard_day} ${meetingboardDTO.meetingboard_starthour} ~ ${meetingboardDTO.meetingboard_endhour}
 							</div>
 						</div>
 					</div>
@@ -38,25 +38,25 @@
 				<li>
 					<div class="item-inner">
 						<div class="item-title">&nbsp;장소</div>
-						<div class="item-after">${meetingboardDTO.buildingname}</div>
+						<div class="item-after">${meetingboardDTO.meetingboard_buildingname}</div>
 					</div>
 				</li>
 				<li>
 					<div class="item-inner">
 						<div class="item-title">&nbsp;모집인원</div>
-						<div class="item-after">${meetingboardDTO.count}명</div>
+						<div class="item-after">${meetingboardDTO.meetingboard_count}명</div>
 					</div>
 				</li>
 				<li>
 					<div class="item-inner">
 						<div class="item-title">&nbsp;주최</div>
-						<div class="item-after">${meetingboardDTO.host}</div>
+						<div class="item-after">${meetingboardDTO.meetingboard_host}</div>
 					</div>
 				</li>
 				<li>
 					<div class="item-inner">
 						<div class="item-title">&nbsp;참가비</div>
-						<div class="item-after">${meetingboardDTO.price}원</div>
+						<div class="item-after">${meetingboardDTO.meetingboard_price}원</div>
 					</div>
 				</li>
 			</ul>
@@ -74,7 +74,7 @@
 						<span class="mentor-name"> <a target="_blank" type="external" href="">멘토이름</a> <small>멘토</small>
 						</span>
 					</div>
-					<div class="job">멘토잡</div>
+					<div class="job">멘토직장</div>
 					<div class="detail-block">
 						<div class="mentoring-info">
 							<div class="mentoring-type-block">
@@ -120,7 +120,7 @@
 		</div>
 		<div class="block-title">프로그램 내용</div>
 		<div class="block block-strong trix-content froala-content">
-			${meetingboardDTO.content}
+			${meetingboardDTO.meetingboard_content}
 		</div>
 		<div class="block-title">안내사항</div>
 		<div class="block block-strong">
@@ -133,25 +133,25 @@
 		<div class="block-title location">장소</div>
 		<div class="block block-strong">
 	        <div>
-	          	${meetingboardDTO.buildingname}
+	          	${meetingboardDTO.meetingboard_buildingname}
 	        </div>
 	
 	        <div class="block-footer">
 	          <div>
-	            ${meetingboardDTO.address}, ${meetingboardDTO.buildingname}
+	            ${meetingboardDTO.meetingboard_address}, ${meetingboardDTO.meetingboard_buildingname}
 	          </div>
 	          <br>
 	          <div id="meetingboardViewMap" style="width: 757px; height: 300px; margin: auto;"></div>
 	        </div>
 	      </div>
 		<div class="block button-block">
-		<c:if test="${meetingboardDTO.state == 0}">
-	      <a class="button button-big button-fill" type="external" href="/mentor/participation/participationWriteForm?seq=${meetingboardDTO.meeting_seq}">신청하기</a>
+		<c:if test="${meetingboardDTO.meetingboard_state == 0}">
+	      <a class="button button-big button-fill" type="external" href="/mentor/participation/participationWriteForm?seq=${meetingboardDTO.meetingboard_seq}">신청하기</a>
 	    </c:if>
-	    <c:if test="${meetingboardDTO.state == 1}">
+	    <c:if test="${meetingboardDTO.meetingboard_state == 1}">
 	      <div class="button button-big button-fill color-gray">모집완료</div>	  
 	    </c:if>
-	    <c:if test="${meetingboardDTO.state == 2}">
+	    <c:if test="${meetingboardDTO.meetingboard_state == 2}">
 			<div class="button button-big button-fill color-gray">종료</div>	    
 		</c:if>
 	    </div>
@@ -160,9 +160,9 @@
 <script src="../js/meetingboard.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=89c3afe322de0763fb20750b2bf6b62a&libraries=services"></script>
 <script type="text/javascript">
-	var address_x = ${meetingboardDTO.address_x};	// 경도
-	var address_y = ${meetingboardDTO.address_y};	// 위도
-	var buildingname = '${meetingboardDTO.buildingname}'; // 건물이름
+	var address_x = ${meetingboardDTO.meetingboard_address_x};	// 경도
+	var address_y = ${meetingboardDTO.meetingboard_address_y};	// 위도
+	var buildingname = '${meetingboardDTO.meetingboard_buildingname}'; // 건물이름
 	
 	var mapContainer = document.getElementById('meetingboardViewMap'), // 지도를 표시할 div 
     	mapOption = { 
@@ -183,7 +183,7 @@
 	// 마커가 지도 위에 표시되도록 설정합니다
 	marker.setMap(map);
 	
-	var iwContent = '<div style="width:150px;text-align:center;padding:6px 0;">${meetingboardDTO.buildingname}</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+	var iwContent = '<div style="width:150px;text-align:center;padding:6px 0;">${meetingboardDTO.meetingboard_buildingname}</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
     iwPosition = new kakao.maps.LatLng(address_y, address_x), //인포윈도우 표시 위치입니다
     iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 

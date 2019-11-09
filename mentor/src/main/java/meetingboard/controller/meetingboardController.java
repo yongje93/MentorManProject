@@ -120,7 +120,7 @@ public class MeetingboardController {
 	@ResponseBody
 	public void meetingboardWrite(@ModelAttribute MeetingboardDTO meetingboardDTO, HttpSession session) {
 		MemberDTO memDTO = (MemberDTO) session.getAttribute("memDTO");
-		meetingboardDTO.setEmail(memDTO.getMember_email());
+		meetingboardDTO.setMentor_email(memDTO.getMember_email());
 		meetingboardService.meetingboardWrite(meetingboardDTO);
 	}
 
@@ -132,8 +132,8 @@ public class MeetingboardController {
 	 */
 	@RequestMapping(value = "meetingboardView", method = RequestMethod.GET)
 	public ModelAndView meetingboardView(@RequestParam String pg, @RequestParam String seq) {
-		int meeting_seq = Integer.parseInt(seq);
-		MeetingboardDTO meetingboardDTO = meetingboardService.getMeetingboard(meeting_seq);
+		int meetingboard_seq = Integer.parseInt(seq);
+		MeetingboardDTO meetingboardDTO = meetingboardService.getMeetingboard(meetingboard_seq);
 		// 안내사항
 		List<GuideDTO> guideList = meetingboardService.getGuideList();
 		ModelAndView mav = new ModelAndView();
@@ -153,8 +153,8 @@ public class MeetingboardController {
 	 */
 	@RequestMapping(value = "meetingboardModifyForm", method = RequestMethod.POST)
 	public ModelAndView meetingboardModifyForm(@RequestParam String pg, @RequestParam String seq) {
-		int meeting_seq = Integer.parseInt(seq);
-		MeetingboardDTO meetingboardDTO = meetingboardService.getMeetingboard(meeting_seq);
+		int meetingboard_seq = Integer.parseInt(seq);
+		MeetingboardDTO meetingboardDTO = meetingboardService.getMeetingboard(meetingboard_seq);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("meetingboardDTO", meetingboardDTO);
 		mav.addObject("seq", seq);
@@ -185,7 +185,7 @@ public class MeetingboardController {
 	@RequestMapping(value = "meetingboardDelete", method = RequestMethod.POST)
 	@ResponseBody
 	public void meetingboardDelete(@RequestParam String seq) {
-		int meeting_seq = Integer.parseInt(seq);
-		meetingboardService.meetingboardDelete(meeting_seq);
+		int meetingboard_seq = Integer.parseInt(seq);
+		meetingboardService.meetingboardDelete(meetingboard_seq);
 	}
 }

@@ -28,8 +28,8 @@ public class MeetingboardDAOMybatis implements MeetingboardDAO {
 	}
 
 	@Override
-	public MeetingboardDTO getMeetingboard(int meeting_seq) {
-		return sqlSession.selectOne("meetingboardSQL.getMeetingboard", meeting_seq);
+	public MeetingboardDTO getMeetingboard(int meetingboard_seq) {
+		return sqlSession.selectOne("meetingboardSQL.getMeetingboard", meetingboard_seq);
 	}
 
 	@Override
@@ -43,8 +43,8 @@ public class MeetingboardDAOMybatis implements MeetingboardDAO {
 	}
 
 	@Override
-	public void meetingboardDelete(int meeting_seq) {
-		sqlSession.delete("meetingboardSQL.meetingboardDelete", meeting_seq);
+	public void meetingboardDelete(int meetingboard_seq) {
+		sqlSession.delete("meetingboardSQL.meetingboardDelete", meetingboard_seq);
 	}
 	
 	@Override

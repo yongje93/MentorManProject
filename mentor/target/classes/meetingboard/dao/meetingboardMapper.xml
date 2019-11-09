@@ -5,8 +5,8 @@
 <mapper namespace="meetingboardSQL">
 	<!-- 모임 게시판 글쓰기 -->
 	<insert id="meetingboardWrite" parameterType="meetingboard">
-		insert into meetingboard(meeting_seq,job_code,title,subtitle,content,day,starthour,endhour,address,buildingname,address_x,address_y,count,host,price,email)
-		values (seq_meetingboard.nextval,#{job_code},#{title},#{subtitle},#{content},#{day},#{starthour},#{endhour},#{address},#{buildingname},#{address_x},#{address_y},#{count},#{host},#{price},#{email})
+		insert into meetingboard(meetingboard_seq, job_code, meetingboard_title, meetingboard_subtitle, meetingboard_content, meetingboard_day, meetingboard_starthour, meetingboard_endhour, meetingboard_address, meetingboard_buildingname, meetingboard_address_x, meetingboard_address_y, meetingboard_count, meetingboard_host, meetingboard_price, mentor_email)
+		values (meetingboard_seq.nextval, #{job_code}, #{meetingboard_title}, #{meetingboard_subtitle}, #{meetingboard_content}, #{meetingboard_day}, #{meetingboard_starthour}, #{meetingboard_endhour}, #{meetingboard_address}, #{meetingboard_buildingname}, #{meetingboard_address_x}, #{meetingboard_address_y}, #{meetingboard_count}, #{meetingboard_host}, #{meetingboard_price}, #{mentor_email})
 	</insert>
 	
 	<!-- 모임 게시글 목록 -->
@@ -14,14 +14,14 @@
 		<![CDATA[
 			select * from
 			(select rownum rn, tt.* from 
-			(select * from meetingboard order by meeting_seq desc)tt) 
+			(select * from meetingboard order by meetingboard_seq desc)tt) 
 			where rn >= #{startNum} and rn <= #{endNum}	
 		]]>
 	</select>
 	
 	<!-- 모임 게시판 보기 -->
 	<select id="getMeetingboard" parameterType="int" resultType="meetingboard">
-		select * from meetingboard where meeting_seq = #{meeting_seq}
+		select * from meetingboard where meetingboard_seq = #{meetingboard_seq}
 	</select>
 	
 	<!-- 전체 모임 게시글 수 -->
@@ -31,14 +31,14 @@
   	
   	<!-- 모임 게시글 수정 -->
   	<update id="meetingboardModify" parameterType="meetingboard">
-  		update meetingboard set job_code=#{job_code},title=#{title},subtitle=#{subtitle},content=#{content},day=#{day},starthour=#{starthour},endhour=#{endhour},
-  								address=#{address},buildingname=#{buildingname},address_x=#{address_x},address_y=#{address_y},count=#{count},host=#{host},price=#{price}
-  		where meeting_seq=#{meeting_seq}
+  		update meetingboard set job_code=#{job_code},meetingboard_title=#{meetingboard_title},meetingboard_subtitle=#{meetingboard_subtitle},meetingboard_content=#{meetingboard_content},meetingboard_day=#{meetingboard_day},meetingboard_starthour=#{meetingboard_starthour},meetingboard_endhour=#{meetingboard_endhour},
+  								meetingboard_address=#{meetingboard_address},meetingboard_buildingname=#{meetingboard_buildingname},meetingboard_address_x=#{meetingboard_address_x},meetingboard_address_y=#{meetingboard_address_y},meetingboard_count=#{meetingboard_count},meetingboard_host=#{meetingboard_host},meetingboard_price=#{meetingboard_price}
+  		where meetingboard_seq=#{meetingboard_seq}
   	</update>
   	
   	<!-- 모임 게시글 삭제 -->
   	<delete id="meetingboardDelete" parameterType="int">
-  		delete from meetingboard where meeting_seq=#{meeting_seq}
+  		delete from meetingboard where meetingboard_seq=#{meetingboard_seq}
   	</delete>
   	
   	<!-- 안내사항 가져오기 -->

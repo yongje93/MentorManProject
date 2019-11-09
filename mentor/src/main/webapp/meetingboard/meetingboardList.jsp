@@ -23,20 +23,20 @@
 					<div class="col-100 tablet-50 desktop-33">
 						<div class="card program-card">
 							<div class="thumbnail">
-								<a type="external" href="/mentor/meetingboard/meetingboardView?pg=${pg}&seq=${meetingboardDTO.meeting_seq}">
+								<a type="external" href="/mentor/meetingboard/meetingboardView?pg=${pg}&seq=${meetingboardDTO.meetingboard_seq}">
 									<img src="../image/job_code/${meetingboardDTO.job_code}.jpg" style="height: 210px;">
 								</a>
 							</div>
 							<div class="card-content card-content-padding">
-								<h3 class="title">${meetingboardDTO.title}</h3>
-								<div class="description">${meetingboardDTO.subtitle}</div>
+								<h3 class="title">${meetingboardDTO.meetingboard_title}</h3>
+								<div class="description">${meetingboardDTO.meetingboard_subtitle}</div>
 								<div class="list">
 									<ul>
 										<li>
 											<div class="item-content">
 												<div class="item-inner">
 													<div class="item-title">장소</div>
-													<div class="item-after">${meetingboardDTO.address}</div>
+													<div class="item-after">${meetingboardDTO.meetingboard_address}</div>
 												</div>
 											</div>
 										</li>
@@ -44,7 +44,7 @@
 											<div class="item-content">
 												<div class="item-inner">
 													<div class="item-title">일시</div>
-													<div class="item-after">${meetingboardDTO.day}</div>
+													<div class="item-after">${meetingboardDTO.meetingboard_day}</div>
 												</div>
 											</div>
 										</li>
@@ -52,7 +52,7 @@
 											<div class="item-content">
 												<div class="item-inner">
 													<div class="item-title">주최</div>
-													<div class="item-after">${meetingboardDTO.host}</div>
+													<div class="item-after">${meetingboardDTO.meetingboard_host}</div>
 												</div>
 											</div>
 										</li>
@@ -71,17 +71,17 @@
 											<small>직장</small>
 										</div>
 									</a>
-									<c:if test="${meetingboardDTO.state == 0 }">
+									<c:if test="${meetingboardDTO.meetingboard_state == 0 }">
 										<span class="badge ongoing-badge">
 											<div>모집중</div>
 										</span>
 									</c:if>
-									<c:if test="${meetingboardDTO.state == 1 }">
+									<c:if test="${meetingboardDTO.meetingboard_state == 1 }">
 										<span class="badge">
 											<div>모집완료</div>
 										</span>
 									</c:if>
-									<c:if test="${meetingboardDTO.state == 2 }">
+									<c:if test="${meetingboardDTO.meetingboard_state == 2 }">
 										<span class="badge">
 											<div>종료</div>
 										</span>

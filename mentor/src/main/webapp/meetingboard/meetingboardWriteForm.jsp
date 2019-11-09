@@ -54,7 +54,7 @@
 					</div>
 					<li class="item-content item-input">
 						<div class="item-inner">
-							<input type="text" name="title" id="title" placeholder="제목을 입력하세요">
+							<input type="text" name="meetingboard_title" id="title" placeholder="제목을 입력하세요">
 							<div id="titleDiv"></div>
 						</div>
 					</li>
@@ -63,7 +63,7 @@
 					</div>
 					<li class="item-content item-input">
 						<div class="item-inner">
-							<input type="text" name="subtitle" id="subtitle" placeholder="부제목을 입력하세요">
+							<input type="text" name="meetingboard_subtitle" id="subtitle" placeholder="부제목을 입력하세요">
 							<div id="subtitleDiv"></div>
 						</div>
 					</li>
@@ -71,7 +71,7 @@
 						<label class="string required" for="title">내용</label>
 					</div>
 					<li>
-						<textarea id="summernote" name="content"></textarea>
+						<textarea id="summernote" name="meetingboard_content"></textarea>
 						<div id="contentDiv"></div>
 					</li>
 					<div class="label-title">
@@ -80,9 +80,9 @@
 					</div>
 					<li class="item-content item-input">
 						<div class="item-inner">
-							<input type="text" id="datepicker" name="day" class="datepicker-here" placeholder="날짜" style="width: 170px; display: inline-block;">
-							<input type="text" id="startHour" name="starthour" class="only-time" placeholder="시작시간" style="width: 170px; display: inline-block;">
-							<input type="text" id="endHour" name="endhour" class="only-time" placeholder="종료시간" style="width: 170px; display: inline-block;">
+							<input type="text" id="datepicker" name="meetingboard_day" class="datepicker-here" placeholder="날짜" style="width: 170px; display: inline-block;">
+							<input type="text" id="startHour" name="meetingboard_starthour" class="only-time" placeholder="시작시간" style="width: 170px; display: inline-block;">
+							<input type="text" id="endHour" name="meetingboard_endhour" class="only-time" placeholder="종료시간" style="width: 170px; display: inline-block;">
 							<div id="dayDiv"></div>
 						</div>
 					</li>
@@ -91,7 +91,7 @@
 					</div>
 					<li class="item-content item-input">
 						<div class="item-inner">
-							<input type="text" name="count" id="count" placeholder="모집인원을 입력하세요">
+							<input type="text" name="meetingboard_count" id="count" placeholder="모집인원을 입력하세요">
 							<div id="countDiv"></div>
 						</div>
 					</li>
@@ -100,7 +100,7 @@
 					</div>
 					<li class="item-content item-input">
 						<div class="item-inner">
-							<input type="text" name="host" id="host" placeholder="주최자를 입력하세요">
+							<input type="text" name="meetingboard_host" id="host" placeholder="주최자를 입력하세요">
 							<div id="hostDiv"></div>
 						</div>
 					</li>
@@ -109,7 +109,7 @@
 					</div>
 					<li class="item-content item-input">
 						<div class="item-inner">
-							<input type="text" name="price" id="price" placeholder="참가비를 입력하세요">
+							<input type="text" name="meetingboard_price" id="price" placeholder="참가비를 입력하세요">
 							<div id="priceDiv"></div>
 						</div>
 					</li>
@@ -118,18 +118,18 @@
 					</div>
 					<li class="item-content item-input">
 						<div class="item-inner">
-							<input type="text" name="address" id="address" placeholder="장소를 검색하세요" readonly="readonly">
+							<input type="text" name="meetingboard_address" id="address" placeholder="장소를 검색하세요" readonly="readonly">
 							<button class="button" style="width: 100px;">
 								<a type="external" href="javascript:void(0);" onclick="execDaumPostcode();">장소 검색</a>
 							</button>
-							<input type="text" id="buildingName" name="buildingname" placeholder="건물명">
+							<input type="text" id="buildingName" name="meetingboard_buildingname" placeholder="건물명">
 							<div id="addressDiv"></div>
 						</div>
 					</li>
 					<li>
 						<div id="map" style="width: 400px; height: 400px; margin-top: 10px; display: none"></div>
-						<input type="hidden" id="address_y" name="address_y">
-						<input type="hidden" id="address_x" name="address_x">								
+						<input type="hidden" id="address_y" name="meetingboard_address_y">
+						<input type="hidden" id="address_x" name="meetingboard_address_x">								
 					</li>
 				</ul>
 			</div>
