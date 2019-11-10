@@ -92,7 +92,7 @@ $("#meetingboardWriteBtn").click(function(){
 				alert("작성완료");
 				location.href="/mentor/meetingboard/meetingboardList";
 			},
-			error : function(e){
+			error: function(e){
 				console.log(e);
 				alert("실패");
 			}
@@ -194,10 +194,10 @@ $("#meetingboardDeleteBtn").click(function(){
 
 // 모임 신청 버튼
 function callFunction(email){
-	if(email != null) {
-		location.href="/mentor/participation/participationWriteForm?seq="+$("#seq").val();
-	} else {
+	if(email == '') {
 		alert("먼저 로그인을 하세요!");
 		location.href="/mentor/member/loginForm";
+	} else {
+		location.href="/mentor/participation/participationWriteForm?seq="+$("#seq").val();
 	}
 }

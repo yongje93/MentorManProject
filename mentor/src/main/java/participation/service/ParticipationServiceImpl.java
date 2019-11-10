@@ -16,4 +16,9 @@ public class ParticipationServiceImpl implements ParticipationService {
 	public MemberDTO getMentorInfo(int meetingboard_seq) {
 		return participationDAO.getMentorInfo(meetingboard_seq);
 	}
+
+	@Override
+	public void participationWrite(ParticipationDTO participationDTO) {
+		participationDAO.participationWrite(participationDTO);
+	}
 }

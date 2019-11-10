@@ -18,4 +18,9 @@ public class ParticipationDAOMybatis implements ParticipationDAO {
 	public MemberDTO getMentorInfo(int meetingboard_seq) {
 		return sqlSession.selectOne("participationSQL.getMentorInfo", meetingboard_seq);
 	}
+
+	@Override
+	public void participationWrite(ParticipationDTO participationDTO) {
+		sqlSession.insert("participationSQL.participationWrite", participationDTO);
+	}
 }

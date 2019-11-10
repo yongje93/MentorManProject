@@ -10,4 +10,9 @@
 		from mentors_member, meetingboard
 		where mentors_member.member_email = meetingboard.mentor_email and meetingboard_seq=#{meetingboard_seq}
 	</select>
+	<!-- 모임신청하기 -->
+	<insert id="participationWrite" parameterType="participation">
+		insert into participation 
+		values(#{meetingboard_seq},#{mentee_email},#{mentee_name},#{mentor_email},#{mentor_name},#{participation_address},#{participation_question})
+	</insert>
 </mapper>

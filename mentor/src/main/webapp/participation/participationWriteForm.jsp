@@ -6,8 +6,8 @@
 		<div class="block inset main-block">
 			<h1 class="title">${meetingboardDTO.meetingboard_title}</h1>
 		</div>
-		<form name="participationWriteForm" id="participationWriteForm" action="" accept-charset="UTF-8" method="post">
-			<input type="hidden" id="seq" name="seq" value="${seq}">
+		<form id="participationWriteForm" accept-charset="UTF-8" method="post">
+			<input type="hidden" id="seq" name="meetingboard_seq" value="${seq}">
 			<input type="hidden" id="mentor_email" name="mentor_email" value="${mentorDTO.member_email}">
 			<div class="list form-list no-hairlines">
 				<ul>
@@ -42,9 +42,9 @@
 						<div class="item-inner">
 							<div class="item-input-wrap input-dropdown-wrap">
 								<div class="form-group select required mentee_participation_selected_mentors_user">
-									<select class="form-control select required" name="select_mentor" id="select_mentor">
+									<select class="form-control select required" name="mentor_name" id="mentor_name">
 										<option value="">선택해주세요</option>
-										<option value="">
+										<option value="${mentorDTO.member_name}">
 											${mentorDTO.member_name}
 										</option>
 									</select>
@@ -78,8 +78,9 @@
 				</ul>
 			</div>
 			<div class="block">
-				<input type="submit" name="commit" value="신청하기" class="btn button button-big button-fill" data-disable-with="신청하기">
+				<input type="button" id="participationWriteBtn" value="신청하기" class="btn button button-big button-fill">
 			</div>
 		</form>
 	</div>
 </div>
+<script type="text/javascript" src="../js/participation.js"></script>
