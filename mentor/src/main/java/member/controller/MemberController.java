@@ -87,6 +87,7 @@ public class MemberController {
 		memberDTO.setMember_pwd("");
 		if(memberDTO != null) {
 			session.setAttribute("memDTO", memberDTO);
+			session.setMaxInactiveInterval(60*60*24); // 세션 1일 유지
 			return "login_ok";	
 		} else {
 			return "login_fail";

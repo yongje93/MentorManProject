@@ -131,7 +131,7 @@ public class MeetingboardController {
 	 * @Method Name : meetingboardView
 	 */
 	@RequestMapping(value = "meetingboardView", method = RequestMethod.GET)
-	public ModelAndView meetingboardView(@RequestParam String pg, @RequestParam String seq) {
+	public ModelAndView meetingboardView(@RequestParam(required = false, defaultValue = "1") String pg, @RequestParam String seq) {
 		int meetingboard_seq = Integer.parseInt(seq);
 		MeetingboardDTO meetingboardDTO = meetingboardService.getMeetingboard(meetingboard_seq);
 		// 안내사항

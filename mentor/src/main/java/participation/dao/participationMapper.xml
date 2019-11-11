@@ -12,7 +12,18 @@
 	</select>
 	<!-- 모임신청하기 -->
 	<insert id="participationWrite" parameterType="participation">
-		insert into participation 
-		values(#{meetingboard_seq},#{mentee_email},#{mentee_name},#{mentor_email},#{mentor_name},#{participation_address},#{participation_question})
+		insert into participation(participation_seq, meetingboard_seq, mentee_email, mentee_name, mentor_email, mentor_name, participation_address, participation_question) 
+		values(participation_seq.nextval,#{meetingboard_seq},#{mentee_email},#{mentee_name},#{mentor_email},#{mentor_name},#{participation_address},#{participation_question})
 	</insert>
+	<!-- 모임신청정보 + 가격 + 사진 -->
+	<select id="getParticipation" parameterType="java.util.Map" resultType="participation">
+		select p.participation_seq, p.meetingboard_seq, p.mentee_email, p.mentee_name, p.mentor_email, p.mentor_name, m.meetingboard_price, m.job_code, m.meetingboard_title
+		from participation p, meetingboard m
+		where p.meetingboard_seq = m.meetingboard_seq and p.mentee_email=#{mentee_email} and p.participation_state = 0
+		order by p.participation_seq asc
+	</select>
+	<!-- 모임 신청 삭제 -->
+	<delete id="orderDelete" parameterType="int">
+		delete from participation where participation_seq=#{participation_seq}
+	</delete>
 </mapper>

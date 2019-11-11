@@ -1,5 +1,8 @@
 package participation.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,5 +25,15 @@ public class ParticipationDAOMybatis implements ParticipationDAO {
 	@Override
 	public void participationWrite(ParticipationDTO participationDTO) {
 		sqlSession.insert("participationSQL.participationWrite", participationDTO);
+	}
+	
+	@Override
+	public List<ParticipationDTO> getParticipation(Map<String, Object> map) {
+		return sqlSession.selectList("participationSQL.getParticipation", map);
+	}
+
+	@Override
+	public void orderDelete(int participation_seq) {
+		sqlSession.delete("participationSQL.orderDelete", participation_seq);
 	}
 }

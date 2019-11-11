@@ -1,5 +1,11 @@
 package participation.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +33,7 @@ public class ParticipationController {
 	private ParticipationService participationService;
 	@Autowired
 	private MeetingboardService meetingboardService;
+
 	/**
 	 * @Title : 신청하기 버튼 눌렀을때 입력창
 	 * @Author : yong
@@ -45,9 +52,46 @@ public class ParticipationController {
 		return "/main/index";
 	}
 	
+	/**
+	 * @Title : 모임 신청하기
+	 * @Author : yong
+	 * @Date : 2019. 11. 10.
+	 * @Method Name : participationWrite
+	 */
 	@RequestMapping(value = "participationWrite", method = RequestMethod.POST)
 	@ResponseBody
 	public void participationWrite(@ModelAttribute ParticipationDTO participationDTO) {
 		participationService.participationWrite(participationDTO);
+	}
+	
+	/**
+	 * @Title : 모임 주문하기 화면
+	 * @Author : yong
+	 * @Date : 2019. 11. 11.
+	 * @Method Name : order
+	 */
+	@RequestMapping(value = "order", method = RequestMethod.GET)
+	public String order(Model model, HttpSession session) {
+		MemberDTO memDTO = (MemberDTO) session.getAttribute("memDTO");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("mentee_email", memDTO.getMember_email());
+		
+		List<ParticipationDTO> participationList = participationService.getParticipation(map);
+		model.addAttribute("participationList", participationList);
+		model.addAttribute("display", "/participation/participationOrder.jsp");
+		return "/main/index";
+	}
+	
+	/**
+	 * @Title : 모임 신청 삭제
+	 * @Author : yong
+	 * @Date : 2019. 11. 11.
+	 * @Method Name : orderDelete
+	 */
+	@RequestMapping(value = "orderDelete", method = RequestMethod.POST)
+	@ResponseBody
+	public void orderDelete(@RequestParam String seq, Model model) {
+		int participation_seq = Integer.parseInt(seq);
+		participationService.orderDelete(participation_seq);
 	}
 }

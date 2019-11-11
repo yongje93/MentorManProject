@@ -24,7 +24,7 @@ $('#participationWriteBtn').click(function(){
 			data: $('#participationWriteForm').serialize(),
 			success: function(){
 				alert('신청완료');
-				
+				location.href='/mentor/participation/order';
 			}, 
 			error: function(error){
 				console.log(error);

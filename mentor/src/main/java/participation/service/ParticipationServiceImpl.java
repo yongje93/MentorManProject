@@ -1,5 +1,8 @@
 package participation.service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,4 +24,16 @@ public class ParticipationServiceImpl implements ParticipationService {
 	public void participationWrite(ParticipationDTO participationDTO) {
 		participationDAO.participationWrite(participationDTO);
 	}
+
+	@Override
+	public List<ParticipationDTO> getParticipation(Map<String, Object> map) {
+		return participationDAO.getParticipation(map);
+	}
+
+	@Override
+	public void orderDelete(int participation_seq) {
+		participationDAO.orderDelete(participation_seq);
+	}
+
+	
 }

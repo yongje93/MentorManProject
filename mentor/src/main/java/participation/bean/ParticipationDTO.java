@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 @Component
 public class ParticipationDTO {
+	private int participation_seq;	// 신청seq
 	private int meetingboard_seq;	// 모임seq
 	private String mentee_email;	// 멘티email
 	private String mentee_name;		// 멘티이름
@@ -15,4 +16,8 @@ public class ParticipationDTO {
 	private String participation_address; // 거주지
 	private String participation_question;		// 사전질문
 	
+	//조인
+	private int meetingboard_price;
+	private String meetingboard_title;
+	private String job_code;
 }
