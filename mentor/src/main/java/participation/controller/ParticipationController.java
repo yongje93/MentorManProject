@@ -94,4 +94,6 @@ public class ParticipationController {
 		int participation_seq = Integer.parseInt(seq);
 		participationService.orderDelete(participation_seq);
 	}
+	
+	
 }

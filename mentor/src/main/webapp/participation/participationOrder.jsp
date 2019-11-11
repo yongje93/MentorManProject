@@ -4,7 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <link rel="stylesheet" href="../css/order.css" type="text/css"/>
-
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+ 
 <div class="page navbar-fixed mentee_programs index">
 	<div class="page-content">
 		<div class="block-title strong-title">모임 바구니</div>
@@ -52,6 +54,7 @@
 									<div class="total_amount">
 										<h2>
 											총계<span><fmt:formatNumber value="${total}" pattern="#,###"/>원</span>
+											<input type="hidden" id="total" value="${total}">
 										</h2>
 									</div>
 								</div>
