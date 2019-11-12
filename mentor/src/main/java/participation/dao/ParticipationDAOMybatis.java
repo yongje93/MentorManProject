@@ -36,4 +36,10 @@ public class ParticipationDAOMybatis implements ParticipationDAO {
 	public void orderDelete(int participation_seq) {
 		sqlSession.delete("participationSQL.orderDelete", participation_seq);
 	}
+
+	@Override
+	public void orderComplete(Map<String, Object> order) {
+		sqlSession.insert("participationSQL.orderComplete", order);
+		sqlSession.update("participationSQL.meetingStateUpdate", order);
+	}
 }

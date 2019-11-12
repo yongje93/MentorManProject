@@ -12,18 +12,28 @@
 	</select>
 	<!-- 모임신청하기 -->
 	<insert id="participationWrite" parameterType="participation">
-		insert into participation(participation_seq, meetingboard_seq, mentee_email, mentee_name, mentor_email, mentor_name, participation_address, participation_question) 
+		insert into meeting_participation(participation_seq, meetingboard_seq, mentee_email, mentee_name, mentor_email, mentor_name, participation_address, participation_question) 
 		values(participation_seq.nextval,#{meetingboard_seq},#{mentee_email},#{mentee_name},#{mentor_email},#{mentor_name},#{participation_address},#{participation_question})
 	</insert>
 	<!-- 모임신청정보 + 가격 + 사진 -->
 	<select id="getParticipation" parameterType="java.util.Map" resultType="participation">
 		select p.participation_seq, p.meetingboard_seq, p.mentee_email, p.mentee_name, p.mentor_email, p.mentor_name, m.meetingboard_price, m.job_code, m.meetingboard_title
-		from participation p, meetingboard m
+		from meeting_participation p, meetingboard m
 		where p.meetingboard_seq = m.meetingboard_seq and p.mentee_email=#{mentee_email} and p.participation_state = 0
 		order by p.participation_seq asc
 	</select>
 	<!-- 모임 신청 삭제 -->
 	<delete id="orderDelete" parameterType="int">
-		delete from participation where participation_seq=#{participation_seq}
+		delete from meeting_participation where participation_seq=#{participation_seq}
 	</delete>
+	<!-- 모임 결제 완료(결제내역 테이블에 추가) -->
+	<insert id="orderComplete" parameterType="java.util.Map">
+		insert into meeting_order(order_id, order_price, mentee_email, mentee_name, mentee_tel, meetingboard_seq, participation_seq)
+		values(#{order_id},#{order_price},#{mentee_email},#{mentee_name},#{mentee_tel},#{meetingboard_seq},#{participation_seq})
+	</insert>
+	<!-- 결제 완료후 신청 상태 1로 변경 -->
+	<update id="meetingStateUpdate" parameterType="java.util.Map">
+		update meeting_participation set participation_state = 1
+		where participation_seq = #{participation_seq}
+	</update>
 </mapper>

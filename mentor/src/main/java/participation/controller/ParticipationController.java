@@ -1,5 +1,6 @@
 package participation.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -94,6 +96,18 @@ public class ParticipationController {
 		int participation_seq = Integer.parseInt(seq);
 		participationService.orderDelete(participation_seq);
 	}
-	
-	
+
+	@RequestMapping(value = "orderComplete", method = RequestMethod.POST)
+	public void orderComplete(@RequestBody Map<String, Object> order) {
+		System.out.println(order);
+		ArrayList<Integer> meeting_seq = (ArrayList<Integer>) order.get("meetingboard_list");
+		ArrayList<Integer> participation_seq = (ArrayList<Integer>) order.get("participation_list");
+		
+		for(int i = 0; i < meeting_seq.size(); i++) {
+			order.put("meetingboard_seq", meeting_seq.get(i));
+			order.put("participation_seq", participation_seq.get(i));
+			System.out.println(i+"번째 주문"+order);
+			participationService.orderComplete(order);
+		}		
+	}
 }

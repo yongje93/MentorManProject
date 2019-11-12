@@ -17,6 +17,8 @@
 						<div class="box product_item_list" id="order_carts">
 							<c:set var="total" value="0"/>
 							<c:forEach var="participationDTO" items="${participationList}">
+							<input type="hidden" name="meetingboard_seq" value="${participationDTO.meetingboard_seq}">
+							<input type="hidden" name="participation_seq" value="${participationDTO.participation_seq}">
 							<div class="product_item_container">
 								<div class="columns is-mobile product_item">
 									<div class="column is-3 thumbnail_container">

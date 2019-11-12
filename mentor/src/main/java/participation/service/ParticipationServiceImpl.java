@@ -35,5 +35,10 @@ public class ParticipationServiceImpl implements ParticipationService {
 		participationDAO.orderDelete(participation_seq);
 	}
 
+	@Override
+	public void orderComplete(Map<String, Object> order) {
+		participationDAO.orderComplete(order);
+	}
+
 	
 }
