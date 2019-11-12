@@ -36,4 +36,10 @@
 		update meeting_participation set participation_state = 1
 		where participation_seq = #{participation_seq}
 	</update>
+	<!-- 결제완료후 결제내역 바로 보여주기 -->
+	<select id="getOrderHistoryUsingOrderId" parameterType="string" resultType="order">
+		select m.job_code, m.meetingboard_title, m.meetingboard_price, o.order_date, o.order_price, o.mentee_email, o.mentee_name, o.mentee_tel, o.meetingboard_seq, o.participation_seq
+		from meetingboard m, meeting_order o
+		where m.meetingboard_seq = o.meetingboard_seq and order_id=#{order_id}
+	</select>
 </mapper>

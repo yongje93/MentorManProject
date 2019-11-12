@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import member.bean.MemberDTO;
+import participation.bean.OrderDTO;
 import participation.bean.ParticipationDTO;
 import participation.dao.ParticipationDAO;
 
@@ -40,5 +41,8 @@ public class ParticipationServiceImpl implements ParticipationService {
 		participationDAO.orderComplete(order);
 	}
 
-	
+	@Override
+	public List<OrderDTO> getOrderHistoryUsingOrderId(String order_id) {
+		return participationDAO.getOrderHistoryUsingOrderId(order_id);
+	}
 }

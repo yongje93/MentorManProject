@@ -26,8 +26,6 @@ $('#orderBtn').click(function(){
 	$("input[name=participation_seq]").each(function(index, item){
 		participation_list.push($(item).val());
 	});
-	alert(meetingboard_list);
-	alert(participation_list);
 	
 	$('#mentee_nameDiv').empty();
 	$('#mentee_telDiv').empty();
@@ -61,15 +59,9 @@ $('#orderBtn').click(function(){
 	      m_redirect_url:'https://www.iamport.kr/demo'	      
 	    }, function(rsp) {
 	    	 if ( rsp.success ) {
-	                var msg = '결제가 완료되었습니다.\n';
-	                msg += '고유ID : ' + rsp.imp_uid + '\n';
-	                msg += '상점 거래ID : ' + rsp.merchant_uid + '\n';
-	                msg += '결제 금액 : ' + rsp.paid_amount + '\n';
-	                
 	                $.ajax({
 	                	type: 'post',
 	                	url: '/mentor/participation/orderComplete',
-	                	dataType: 'json',
 	                	data: JSON.stringify({ order_id : rsp.merchant_uid,
                 							   order_price : rsp.paid_amount,
                 							   mentee_email : rsp.buyer_email,
@@ -79,7 +71,7 @@ $('#orderBtn').click(function(){
                 							   participation_list : participation_list }),
 	                	contentType: 'application/json; charset=utf-8',
 	                	success: function(data){
-	                		alert("JSON.stringify로 파라미터로 넘기기 성공!" + data.result);
+	                		location.href="/mentor/participation/paymentComplete?order_id="+rsp.merchant_uid;
 	                	},
 	                	error: function(error){
 	                		console.log(error);

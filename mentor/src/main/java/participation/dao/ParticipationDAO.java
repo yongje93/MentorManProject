@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import member.bean.MemberDTO;
+import participation.bean.OrderDTO;
 import participation.bean.ParticipationDTO;
 
 public interface ParticipationDAO {
@@ -12,5 +13,6 @@ public interface ParticipationDAO {
 	public List<ParticipationDTO> getParticipation(Map<String, Object> map);
 	public void orderDelete(int participation_seq);
 	public void orderComplete(Map<String, Object> order);
+	public List<OrderDTO> getOrderHistoryUsingOrderId(String order_id);
 
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import member.bean.MemberDTO;
+import participation.bean.OrderDTO;
 import participation.bean.ParticipationDTO;
 
 @Repository
@@ -41,5 +42,10 @@ public class ParticipationDAOMybatis implements ParticipationDAO {
 	public void orderComplete(Map<String, Object> order) {
 		sqlSession.insert("participationSQL.orderComplete", order);
 		sqlSession.update("participationSQL.meetingStateUpdate", order);
+	}
+	
+	@Override
+	public List<OrderDTO> getOrderHistoryUsingOrderId(String order_id) {
+		return sqlSession.selectList("participationSQL.getOrderHistoryUsingOrderId", order_id);
 	}
 }

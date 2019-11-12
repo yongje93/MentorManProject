@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import meetingboard.bean.MeetingboardDTO;
 import meetingboard.service.MeetingboardService;
 import member.bean.MemberDTO;
+import participation.bean.OrderDTO;
 import participation.bean.ParticipationDTO;
 import participation.service.ParticipationService;
 
@@ -96,8 +97,15 @@ public class ParticipationController {
 		int participation_seq = Integer.parseInt(seq);
 		participationService.orderDelete(participation_seq);
 	}
-
+	
+	/**
+	 * @Title : 모임 결제
+	 * @Author : yong
+	 * @Date : 2019. 11. 12.
+	 * @Method Name : orderComplete
+	 */
 	@RequestMapping(value = "orderComplete", method = RequestMethod.POST)
+	@ResponseBody
 	public void orderComplete(@RequestBody Map<String, Object> order) {
 		System.out.println(order);
 		ArrayList<Integer> meeting_seq = (ArrayList<Integer>) order.get("meetingboard_list");
@@ -106,8 +114,22 @@ public class ParticipationController {
 		for(int i = 0; i < meeting_seq.size(); i++) {
 			order.put("meetingboard_seq", meeting_seq.get(i));
 			order.put("participation_seq", participation_seq.get(i));
-			System.out.println(i+"번째 주문"+order);
 			participationService.orderComplete(order);
-		}		
+		}
+	}
+	
+	/**
+	 * @Title : 결제 완료 페이지
+	 * @Author : yong
+	 * @Date : 2019. 11. 12.
+	 * @Method Name : paymentComplete
+	 */
+	@RequestMapping(value = "paymentComplete", method = RequestMethod.GET)
+	public String paymentComplete(@RequestParam String order_id, Model model) {
+		List<OrderDTO> orderList = participationService.getOrderHistoryUsingOrderId(order_id);
+		model.addAttribute("order_id", order_id);
+		model.addAttribute("orderList", orderList);
+		model.addAttribute("display", "/participation/participationPaymentComplete.jsp");
+		return "/main/index";
 	}
 }

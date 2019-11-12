@@ -7,5 +7,6 @@
 		<typeAlias type="meetingboard.bean.MeetingboardDTO" alias="meetingboard"/>
 		<typeAlias type="essayboard.bean.EssayboardDTO" alias="essay"/>
 		<typeAlias type="participation.bean.ParticipationDTO" alias="participation"/>
+		<typeAlias type="participation.bean.OrderDTO" alias="order"/>
 	</typeAliases>
 </configuration>
