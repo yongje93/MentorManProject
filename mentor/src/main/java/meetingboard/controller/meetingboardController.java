@@ -26,6 +26,7 @@ import meetingboard.bean.MeetingboardDTO;
 import meetingboard.bean.MeetingboardPaging;
 import meetingboard.service.MeetingboardService;
 import member.bean.MemberDTO;
+import participation.service.ParticipationService;
 
 /**
  * 모임 게시판 관련 컨트롤러
@@ -39,6 +40,8 @@ public class MeetingboardController {
 	private MeetingboardService meetingboardService;
 	@Autowired
 	private MeetingboardPaging meetingboardPaging;
+	@Autowired
+	private ParticipationService participationService;
 
 	/**
 	 * @Title : 모임 게시판 리스트. head 영역의 모임 버튼 눌렀을때 화면
@@ -47,7 +50,7 @@ public class MeetingboardController {
 	 * @Method Name : meetingboardList 11. 6 페이징처리 추가
 	 */
 	@RequestMapping(value = "meetingboardList", method = RequestMethod.GET)
-	public ModelAndView meetingboardList(@RequestParam(required = false, defaultValue = "1") String pg, HttpSession session) {
+	public ModelAndView meetingboardList(@RequestParam(required = false, defaultValue = "1") String pg, HttpSession session) {	
 		// 1페이지당 9개
 		int endNum = Integer.parseInt(pg) * 9;
 		int startNum = endNum - 8;

@@ -37,15 +37,25 @@ public class ParticipationDAOMybatis implements ParticipationDAO {
 	public void orderDelete(int participation_seq) {
 		sqlSession.delete("participationSQL.orderDelete", participation_seq);
 	}
-
+	
+	// 결제 완료
 	@Override
 	public void orderComplete(Map<String, Object> order) {
 		sqlSession.insert("participationSQL.orderComplete", order);
 		sqlSession.update("participationSQL.meetingStateUpdate", order);
+		//지원한 멘티수
+		int menteeCount = sqlSession.selectOne("participationSQL.menteeCount", order);
+		System.out.println("menteeCount : " + menteeCount);
+		int menteeLimit = sqlSession.selectOne("participationSQL.menteeLimit", order);
+		System.out.println("menteeLimit : " + menteeLimit);
+		if(menteeLimit == menteeCount) {
+			sqlSession.update("participationSQL.updateState", order);
+		}
 	}
 	
 	@Override
 	public List<OrderDTO> getOrderHistoryUsingOrderId(String order_id) {
 		return sqlSession.selectList("participationSQL.getOrderHistoryUsingOrderId", order_id);
 	}
+
 }

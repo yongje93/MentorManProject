@@ -12,8 +12,8 @@
 				모임
 				<%-- 접속한 유저가 멘토일 때 모임 작성 버튼 --%>
 				<c:if test="${memDTO.member_email != null && memDTO.member_flag == 2}">
-				<button class="button color-gray">
-					<a class="color-gray" type="external" href="/mentor/meetingboard/meetingboardWriteForm"> 모임 작성 </a>
+				<button class="button">
+					<a type="external" href="/mentor/meetingboard/meetingboardWriteForm"> 모임 작성 </a>
 				</button>
 				</c:if>
 			</div>

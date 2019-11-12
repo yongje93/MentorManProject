@@ -36,10 +36,23 @@
 		update meeting_participation set participation_state = 1
 		where participation_seq = #{participation_seq}
 	</update>
+	<!-- 결제 완료후 해당 seq 몇명 신청인지 보기 -->
+	<select id="menteeCount" parameterType="java.util.Map" resultType="int">
+		select count(*) from meeting_order where meetingboard_seq = #{meetingboard_seq}
+	</select>
+	<!-- 모임당 최대 인원 -->
+	<select id="menteeLimit" parameterType="java.util.Map" resultType="int">
+		select meetingboard_count from meetingboard where meetingboard_seq = #{meetingboard_seq}
+	</select>
+	<!-- 모집완료 일때 -->
+	<update id="updateState" parameterType="java.util.Map">
+		update meetingboard set meetingboard_state = 1 where meetingboard_seq = #{meetingboard_seq}
+	</update>
 	<!-- 결제완료후 결제내역 바로 보여주기 -->
 	<select id="getOrderHistoryUsingOrderId" parameterType="string" resultType="order">
 		select m.job_code, m.meetingboard_title, m.meetingboard_price, o.order_date, o.order_price, o.mentee_email, o.mentee_name, o.mentee_tel, o.meetingboard_seq, o.participation_seq
 		from meetingboard m, meeting_order o
 		where m.meetingboard_seq = o.meetingboard_seq and order_id=#{order_id}
 	</select>
+	
 </mapper>
