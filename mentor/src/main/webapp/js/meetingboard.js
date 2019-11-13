@@ -89,7 +89,6 @@ $("#meetingboardWriteBtn").click(function(){
 			url: "/mentor/meetingboard/meetingboardWrite",
 			data: $("#meetingboardWriteForm").serialize(),
 			success: function(){
-				alert("작성완료");
 				location.href="/mentor/meetingboard/meetingboardList";
 			},
 			error: function(e){

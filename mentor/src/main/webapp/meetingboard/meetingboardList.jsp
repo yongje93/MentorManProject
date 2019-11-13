@@ -90,7 +90,10 @@
 							</div>
 						</div>
 					</div>
-				</c:forEach>	
+				</c:forEach>
+				<c:if test="${ (totalA % 3) == 2}">
+				<div class="col-100 tablet-50 desktop-33"></div>
+				</c:if>
 			</div>
 		</div>
 		<div class="pagination-block">

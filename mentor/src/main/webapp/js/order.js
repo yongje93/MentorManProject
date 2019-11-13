@@ -46,7 +46,7 @@ $('#orderBtn').click(function(){
 	    IMP.init('imp14065552'); // 'iamport' 대신 부여받은 '가맹점 식별코드'를 사용
 	    var msg;
 	    
-	 // IMP.request_pay(param, callback) 호출
+	    // IMP.request_pay(param, callback) 호출
 	    IMP.request_pay({ // param
 	      pg: 'kakaopay',
 	      pay_method: 'card',
@@ -58,7 +58,7 @@ $('#orderBtn').click(function(){
 	      buyer_tel: $('#mentee_tel').val(),
 	      m_redirect_url:'https://www.iamport.kr/demo'	      
 	    }, function(rsp) {
-	    	 if ( rsp.success ) {
+	    	 if (rsp.success) {
 	                $.ajax({
 	                	type: 'post',
 	                	url: '/mentor/participation/orderComplete',
@@ -83,7 +83,6 @@ $('#orderBtn').click(function(){
 	                msg += rsp.error_msg + '\n';
 	                alert(msg);
 	            }
-	    	 
 	    });
 	}
 });
