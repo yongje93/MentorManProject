@@ -45,9 +45,7 @@ public class ParticipationDAOMybatis implements ParticipationDAO {
 		sqlSession.update("participationSQL.meetingStateUpdate", order);
 		//지원한 멘티수
 		int menteeCount = sqlSession.selectOne("participationSQL.menteeCount", order);
-		System.out.println("menteeCount : " + menteeCount);
 		int menteeLimit = sqlSession.selectOne("participationSQL.menteeLimit", order);
-		System.out.println("menteeLimit : " + menteeLimit);
 		if(menteeLimit == menteeCount) {
 			sqlSession.update("participationSQL.updateState", order);
 		}

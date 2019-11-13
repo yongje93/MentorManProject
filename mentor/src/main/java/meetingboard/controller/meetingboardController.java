@@ -3,6 +3,7 @@ package meetingboard.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +27,6 @@ import meetingboard.bean.MeetingboardDTO;
 import meetingboard.bean.MeetingboardPaging;
 import meetingboard.service.MeetingboardService;
 import member.bean.MemberDTO;
-import participation.service.ParticipationService;
 
 /**
  * 모임 게시판 관련 컨트롤러
@@ -40,8 +40,6 @@ public class MeetingboardController {
 	private MeetingboardService meetingboardService;
 	@Autowired
 	private MeetingboardPaging meetingboardPaging;
-	@Autowired
-	private ParticipationService participationService;
 
 	/**
 	 * @Title : 모임 게시판 리스트. head 영역의 모임 버튼 눌렀을때 화면
@@ -191,4 +189,5 @@ public class MeetingboardController {
 		int meetingboard_seq = Integer.parseInt(seq);
 		meetingboardService.meetingboardDelete(meetingboard_seq);
 	}
+	
 }

@@ -17,8 +17,11 @@
 						<div class="box product_item_list" id="order_carts">
 							<c:set var="total" value="0"/>
 							<c:forEach var="participationDTO" items="${participationList}">
+							<c:if test="${participationDTO.meetingboard_state == 0}">
 							<input type="hidden" name="meetingboard_seq" value="${participationDTO.meetingboard_seq}">
 							<input type="hidden" name="participation_seq" value="${participationDTO.participation_seq}">
+							<c:set var="total" value="${total + participationDTO.meetingboard_price}"/>
+							</c:if>
 							<div class="product_item_container">
 								<div class="columns is-mobile product_item">
 									<div class="column is-3 thumbnail_container">
@@ -32,6 +35,9 @@
 												${participationDTO.meetingboard_title}
 											</a>
 										</div>
+											<c:if test="${participationDTO.meetingboard_state == 1}">
+												<span style="color: tomato; font-weight: bold; font-size: 19px;">모집이 완료 되었습니다!</span>
+											</c:if>
 										<div class="product_meta">
 											<div class="product_amount">
 												<span><fmt:formatNumber value="${participationDTO.meetingboard_price}" pattern="#,###"/>원</span>
@@ -41,7 +47,6 @@
 													<span>모임 삭제</span>
 												</button>
 											</div>
-											<c:set var="total" value="${total + participationDTO.meetingboard_price}"/>
 										</div>
 									</div>
 								</div>

@@ -20,4 +20,5 @@ public class ParticipationDTO {
 	private int meetingboard_price;
 	private String meetingboard_title;
 	private String job_code;
+	private int meetingboard_state;
 }
