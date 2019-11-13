@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import essayboard.bean.EssayboardDTO;
 import essayboard.bean.EssayboardPaging;
 import essayboard.service.EssayboardService;
+import member.bean.MemberDTO;
 
 @Controller
 @RequestMapping("/essayboard")
@@ -49,7 +50,7 @@ public class EssayboardController {
 		
 		//  멘토 리스트 가져오기
 		List<EssayboardDTO> list = essayboardService.essayboardList(map);
-		
+		System.out.println("밤 늦게 뻘짓의 성과 " + list);
 		ModelAndView modelAndView = new ModelAndView();
 		
 		essayboardPaging.setCurrentPage(Integer.parseInt(pg));
@@ -86,8 +87,11 @@ public class EssayboardController {
 	 * @Author : 김태형, @Date : 2019. 11. 6.
 	 */
 	@RequestMapping(value = "essayboardWrite", method = RequestMethod.POST)
-	public ModelAndView essayboardWrite(@RequestParam Map<String, Object> map, Model model) {
-		map.put("name", "김태형");
+	public ModelAndView essayboardWrite(@RequestParam Map<String, Object> map, HttpSession session, Model model) {
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("memDTO");
+		String email = memberDTO.getMember_email();
+		System.out.println("나오라요 이메일 " + email);
+		map.put("mentor_email", email);
 		essayboardService.essayboardWrite(map);
 		
 		ModelAndView modelAndView = new ModelAndView();
@@ -124,8 +128,9 @@ public class EssayboardController {
 	 */
 	@RequestMapping(value = "essaymentorBodyView", method = RequestMethod.GET)
 	public ModelAndView essaymentorBodyView(@RequestParam String seq,
-									  		@RequestParam String pg) {
-		
+									  		@RequestParam String pg,
+									  		@RequestParam String name) {
+		System.out.println("ㄴeq " + seq);
 		EssayboardDTO essayboardDTO = essayboardService.essaymentorBodyView(Integer.parseInt(seq));
 		
 		ModelAndView modelAndView = new ModelAndView();
@@ -144,9 +149,30 @@ public class EssayboardController {
 	 * @Author : TR, @Date : 2019. 11. 6.
 	 */
 	@RequestMapping(value = "essaymentorHeadView", method = RequestMethod.GET)
-	public ModelAndView essaymentorHeadView(@RequestParam String pg) {
+	public ModelAndView essaymentorHeadView(@RequestParam String pg, 
+											@RequestParam String seq,
+											@RequestParam String name) {
 		
+		System.out.println("나오냐? " + name);
+		// 해당 멘토가 작성한 에세이 리스트 출력
+		List<EssayboardDTO> list = essayboardService.getessayList(name);
+		// 해당 멘토가 작성한 에세이 수 
+		int essayTotal = essayboardService.getessayMentorTotal(name);
+		// 모임 후기 (고맙습니다)
+		List<EssayboardDTO> relist = essayboardService.getessayReview();
+		System.out.println("고맙습니더 " + relist);
+		EssayboardDTO essayboardDTO = essayboardService.essaymentorHeadView(name);
+		// 모임 후기 글 수
+		int reTotal = essayboardService.getreTotal();
+		
+		
+		System.out.println("헤드" + essayboardDTO);
 		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("relist", relist);
+		modelAndView.addObject("reTotal", reTotal);
+		modelAndView.addObject("essayTotal", essayTotal);
+		modelAndView.addObject("list", list);
+		modelAndView.addObject("essayboardDTO", essayboardDTO);
 		modelAndView.addObject("pg", pg);
 		modelAndView.addObject("display", "/essayboard/essaymentorHeadView.jsp");
 		modelAndView.setViewName("/main/index");
@@ -189,11 +215,38 @@ public class EssayboardController {
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
-		modelAndView.addObject("display", "/essayboard/essayboardList.jsp");
+		modelAndView.addObject("display", "/essayboard/essayboardList?.jsp");
 		modelAndView.setViewName("/main/index");
 		
 		return modelAndView;
 	}
 	
+	/**
+	 * 
+	 * @Title : 에세이 보드 삭제
+	 * @Author : TR, @Date : 2019. 11. 8.
+	 */
+	@RequestMapping(value = "essayboardDelete", method = RequestMethod.GET)
+	public String essayboardDelete(@RequestParam String seq, Model model) {
+		essayboardService.essayboardDelete(Integer.parseInt(seq));
+		
+		model.addAttribute("display", "/essayboard/essayboardList?pg=1.jsp");
+		return "/main/index";
+	}
 	
+//	/**
+//	 * 
+//	 * @Title : 해당 멘토가 작성한 에세이 리스트 출력
+//	 * @Author : TR, @Date : 2019. 11. 8.
+//	 */
+//	@RequestMapping(value = "getessayList", method = RequestMethod.POST)
+//	public ModelAndView getessayList(@RequestParam String seq) {
+//		String name = "김태형";
+//		List<EssayboardDTO> list = essayboardService.getessayList(name);
+//		System.out.println("뤼스트" + list);
+//		ModelAndView modelAndView = new ModelAndView();
+//		modelAndView.addObject("list", list);
+//		modelAndView.setViewName("jsonView");
+//		return modelAndView;
+//	}
 }

@@ -55,4 +55,40 @@ public class EssayboardServiceImpl implements EssayboardService {
 	public void essayboardModify(Map<String, Object> map) {
 		essayboardDAO.essayboardModify(map);
 	}
+	
+	// 에세이 글 삭제
+	@Override
+	public void essayboardDelete(int seq) {
+		essayboardDAO.essayboardDelete(seq);
+	}
+	
+	// 해당 멘토가 작성한 에세이 리스트 출력
+	@Override
+	public List<EssayboardDTO> getessayList(String name) {
+		return essayboardDAO.getessayList(name);
+	}
+	
+	// 해당 멘토가 작성한 에세이 수 
+	@Override
+	public int getessayMentorTotal(String name) {
+		return essayboardDAO.getessayMentorTotal(name);
+	}
+	
+	// 에세이 멘토 헤드 뷰
+	@Override
+	public EssayboardDTO essaymentorHeadView(String name) {
+		return essayboardDAO.essaymentorHeadView(name);
+	}
+	
+	// 모임 후기 (고맙습니다)
+	@Override
+	public List<EssayboardDTO> getessayReview() {
+		return essayboardDAO.getessayReview();
+	}
+	
+	// 모임 후기 글 수
+	@Override
+	public int getreTotal() {
+		return essayboardDAO.getreTotal();
+	}
 }

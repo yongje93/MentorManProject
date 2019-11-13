@@ -7,7 +7,7 @@
    <div class="page-content">
       <div class="block-title strong-title">에세이 작성</div>
       <div class="block inset">
-         <form method="post" id="essayboardModifyForm" action="/mentor/essayboard/essayboardModify">
+         <form method="post" id="essayboardWriteForm" action="/mentor/essayboard/essayboardWrite">
             <div class="list form-list no-hairlines">
                <ul>
                   <div class="label-title">
@@ -17,7 +17,7 @@
                      <div class="item-inner">
                         <div class="item-input-wrap input-dropdown-wrap">
                            <select class="select optional" name="job_code" id="job_code">
-                              <option value="0">직무를 선택하세요</option>
+                              <option value="">직무를 선택하세요</option>
                               <option value="job_code_0">인사/총무/노무</option>
                               <option value="job_code_1">마케팅/MD</option>
                               <option value="job_code_2">홍보/csr</option>
@@ -38,39 +38,28 @@
                               <option value="job_code_17">생산/품질/제조</option>
                               <option value="job_code_18">기타 사무</option>                              
                            </select>
+                           <div class="job_code_error_div"></div>
                         </div>
                      </div>
                   </li>
-                           <div class="job_code_error_div"></div>
                   <div class="label-title">
                      <label class="string required" for="title">제목</label>
                   </div>
                   <li class="item-content item-input">
                      <div class="item-inner">
-                        <input type="text" name="title" id="title" placeholder="제목을 입력하세요">
+                        <input type="text" name="essayboard_title" id="title" placeholder="제목을 입력하세요">
+                        <div class="essayboard_title_error_div"></div>
                      </div>
                   </li>
-                        <div class="title_error_div"></div>
-                  <div class="label-title">
-                     <label class="string required" for="title">회사 & 부서</label>
-                  </div>
-                  <li class="item-content item-input">
-                     <div class="item-inner">
-                        <input type="text" name="company" id="company" placeholder="회사 및 부서를 입력하세요">
-                     </div>
-                  </li>
-                     	 <div class="company_error_div"></div>
-                  
                   <div class="label-title">
                      <label class="string required" for="title">내용</label>
                   </div>
                   <li>
-                     <textarea id="summernote" name="content"></textarea>
+                     <textarea id="summernote" name="essayboard_content"></textarea>
+                     <div class="essayboard_content_error_div"></div>
                      <br>
                   </li>
-                     <div class="summernote_error_div"></div>
-                  
-                  
+                     
                </ul>
             </div>
             <div style="margin-top: 50px; margin-bottom: 100px;">
@@ -80,7 +69,7 @@
       </div>
    </div>
 </div>
-<script src="../js/essayboardModify.js"></script>
+<script src="../js/essayboardWrite.js"></script>
 <script>
 $(document).ready(function(){
 	$("#summernote").summernote({

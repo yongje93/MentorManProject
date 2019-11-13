@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="menteeSQL">
+	<update id="mentorUserModify" parameterType="Map">
+		update mentors_member set member_name = #{member_name}, member_nickname = #{member_nickname}
+		<if test="member_profile!=''">
+		, member_profile = #{member_profile} 
+		</if>
+		where member_email = #{member_email}
+	</update>
+	<select id="getSaveMember" parameterType="String" resultType="member">
+		select * from mentors_member where member_email = #{member_email}
+	</select>
+	<select id="getStudentEmail" parameterType="String" resultType="mentee">
+		select * from menteestudent_profile where menteestudent_email = #{member_email}
+	</select>
+	<select id="getEmployeeEmail" parameterType="String" resultType="mentee">
+		select * from menteeemployee_profile where menteeemployee_email = #{member_email}
+	</select>
+	<insert id="menteeStudentInput" parameterType="Map">
+		insert into menteestudent_profile values(#{menteeStudent_school},#{menteeStudent_major},#{menteeStudent_state},#{menteeStudent_grade},#{menteeStudent_spec},#{menteeStudent_etc},#{member_email})
+	</insert>
+	<update id="menteeStudentSave" parameterType="Map">
+		update menteestudent_profile set menteestudent_school = #{menteeStudent_school},
+											 menteestudent_major = #{menteeStudent_major},
+											 menteestudent_state = #{menteeStudent_state},
+											 menteestudent_grade = #{menteeStudent_grade},
+											 menteestudent_spec	= #{menteeStudent_spec},
+											 menteestudent_etc = #{menteeStudent_etc} 
+											 where menteestudent_email = #{menteeStudent_email}
+	</update>
+	
+	<insert id="menteeEmployeeInput" parameterType="Map">
+		insert into menteeemployee_profile values(#{menteeEmployee_year},#{menteeEmployee_final},#{menteeEmployee_school},#{menteeEmployee_career},#{menteeEmployee_etc},#{member_email})
+	</insert>
+	
+	<update id="menteeEmployeeSave" parameterType="Map">
+		update menteeemployee_profile set menteeemployee_year = #{menteeEmployee_year},
+											 menteeemployee_final = #{menteeEmployee_final},
+											 menteeemployee_school = #{menteeEmployee_school},
+											 menteeemployee_career = #{menteeEmployee_career},
+											 menteeemployee_etc	= #{menteeEmployee_etc}
+											 where menteeemployee_email = #{menteeEmployee_email}
+	</update>
+	
+	<select id="menteePasswordCheck" parameterType="String" resultType="member">
+		select * from mentors_member where member_email = #{member_email}
+	</select>
+	
+	<update id="menteePasswordSave" parameterType="String">
+		update mentors_member set member_pwd = #{member_pwd} where member_email = #{member_email}
+	</update>
+</mapper>

@@ -31,7 +31,7 @@ public class MemberDAOMybatis implements MemberDAO {
 	}
 	//회원가입 처리
 	@Override
-	public void write(Map<String, String> map) {
+	public void write(Map<String,String> map) {
 		 sqlSession.insert("memberSQL.write",map);
 	}
 	//로그인 처리

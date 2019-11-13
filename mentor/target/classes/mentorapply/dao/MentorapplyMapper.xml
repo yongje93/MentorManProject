@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="applySQL">
+	<insert id="mentorapplyWrite" parameterType="Map">
+		insert into mentor(mentor_seq,
+						mentor_company,
+						mentor_department,
+						mentor_position,
+						job_code,
+						mentor_school,
+						mentor_career,
+						mentoring_code,
+						mentor_represent,
+						mentor_info,
+						mentor_etc,
+						mentor_email,
+						mentor_selectNaming,
+						mentor_businesscard,
+						mentor_logtime) values(mentor_seq.nextval,
+											#{mentor_company},
+											#{mentor_department},
+											#{mentor_position},
+											#{job_code},
+											#{mentor_school},
+											#{mentor_career},
+											#{mentoring_code},
+											#{mentor_represent},
+											#{mentor_info},
+											#{mentor_etc},
+											#{mentor_email},
+											#{mentor_selectNaming},
+											#{mentor_businesscard},
+											sysdate)
+	</insert>
+	<select id="getEmail" parameterType="String" resultType="mentor">
+		select * from mentor where mentor_email = #{member_email}
+	</select>
+</mapper>

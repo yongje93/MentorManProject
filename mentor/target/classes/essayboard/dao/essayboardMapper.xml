@@ -11,39 +11,60 @@
 	<!-- 에세이 리스트 출력 -->
 	<select id="essayboardList" parameterType="Map" resultType="essay">
 		SELECT
-			*
-		FROM
-			(SELECT
-				rownum rn, tt.*from
-			(SELECT
-				seq
-			  ,	name
-			  , company
-			  , title
-			  , content
-			  , logtime
-			  , job_type
-			 FROM
-			 	dumy d, job j
-			 WHERE
-			 	d.job_code = j.job_code 
-			 order by seq desc)tt)
+      		*
+  		FROM
+      	(
+          SELECT
+              ROWNUM rn, tt.*
+          FROM
+              (
+                  SELECT
+                      e.*,
+                      j.job_type,
+                      mm.member_name,
+                      mt.mentor_company,
+                      mt.mentor_department,
+                      mt.mentor_represent,
+                      mtr.mentoring_code,
+                      mtr.mentoring_type
+                  FROM
+                      essayboard       e,
+                      job              j,
+                      mentor           mt,
+                      mentoring        mtr,
+                      mentors_member   mm
+                  WHERE
+                      e.job_code = j.job_code
+                      AND e.mentor_email = mt.mentor_email
+                      AND mt.mentor_email = mm.member_email
+                      AND mt.mentoring_code = mtr.mentoring_code
+                  ORDER BY
+                      e.essayboard_seq DESC
+              ) tt)
 		WHERE
 			 <![CDATA[
 	         	rn >= #{startNum} and rn <= #{endNum}
 			 ]]>
+		
 	</select>
 	
 	<!-- 에세이 글쓰기 -->
 	<insert id="essayboardWrite" parameterType="java.util.Map">
 		INSERT
-			into dumy
+			into essayboard
+			(
+				essayboard_seq,
+				mentor_email,
+				job_code,
+				essayboard_title,
+				essayboard_content,
+				logtime
+			)
 		VALUES(dumy_seq.nextval
-			, #{name, jdbcType=VARCHAR}
-			, #{company, jdbcType=VARCHAR}
-			, #{title, jdbcType=VARCHAR}
-			, #{content, jdbcType=VARCHAR}
+			, #{mentor_email, jdbcType=VARCHAR}
 			, #{job_code, jdbcType=VARCHAR}
+			, #{essayboard_title, jdbcType=VARCHAR}
+			, #{essayboard_content, jdbcType=VARCHAR}
 			, sysdate
 		)
 	</insert>
@@ -53,7 +74,7 @@
 		SELECT
 			*
 		FROM
-			dumy
+			essayboard
 		WHERE
 			job_code = #{jobType}
 	</select>
@@ -63,17 +84,32 @@
 		SELECT
 			count(*)
 		FROM
-			dumy
+			essayboard
 	</select>
 	
 	<!-- 에세이 멘토 바디 뷰 -->
 	<select id="essaymentorBodyView" parameterType="Int" resultType="essay">
-		SELECT
-			*
-		FROM
-			dumy
+		SELECT 
+		    e.*,
+		    j.job_type,
+		    mm.member_name,
+		    mt.mentor_company,
+		    mt.mentor_department,
+		    mt.mentor_represent,
+		    mtr.mentoring_code,
+		    mtr.mentoring_type
+		FROM 
+		    essayboard e, job j, mentor mt, mentoring mtr, mentors_member mm
 		WHERE
-			seq = #{seq}
+		    e.job_code = j.job_code 
+		AND
+		    e.mentor_email = mt.mentor_email
+		AND
+		    mt.mentor_email = mm.member_email
+		AND
+		    mt.mentoring_code = mtr.mentoring_code
+		AND
+		    e.essayboard_seq = #{seq} 
 	</select>
 	
 	<!-- 에세이 수정 -->
@@ -81,25 +117,108 @@
 		SELECT
 			*
 		FROM 
-		    dumy d, job j
+		    essayboard e, job j
 		WHERE
-		    d.job_code = j.job_code
+		    e.job_code = j.job_code
 		AND
-		    seq = #{seq} 
+		    e.essayboard_seq = #{seq}
 	</select>
 	
 	<!-- 에세이 수정 처리 -->
 	<update id="essayboardModify" parameterType="Map">
 		UPDATE
-			dumy
+			essayboard
 		SET
-		  	title = #{title, jdbcType=VARCHAR}
-		  , company = #{company, jdbcType=VARCHAR}
-		  , content = #{content, jdbcType=VARCHAR}
+		  	essayboard_title = #{title, jdbcType=VARCHAR}
+		  , essayboard_content = #{content, jdbcType=VARCHAR}
 		  , job_code = #{job_code, jdbcType=VARCHAR}
 		  , logtime = sysdate
 		WHERE
-		 seq = #{seq, jdbcType=INTEGER}
+		 essayboard_seq = #{seq, jdbcType=INTEGER}
 	</update>
 	
+	<!-- 에세이 글 삭제 -->
+	<delete id="essayboardDelete" parameterType="Int">
+		DELETE
+			essayboard
+		WHERE
+			seq = #{seq}
+	</delete>
+	
+	<!-- 해당 멘토가 작성한 에세이 리스트 출력 -->
+	<select id="getessayList" parameterType="String" resultType="essay">
+		SELECT
+		    e.*,
+		    mm.member_name
+		FROM
+		    essayboard       e,
+		    mentor           mt,
+		    mentors_member   mm
+		WHERE
+		    e.mentor_email = mt.mentor_email
+		AND 
+		    mt.mentor_email = mm.member_email
+		AND 
+		    mm.member_name = #{name}
+	</select>
+	
+	<!-- 해당 멘토가 작성한 에세이 수 -->
+	<select id="getessayMentorTotal" parameterType="String" resultType="Int">
+		SELECT
+		    count(*)
+		FROM
+		    essayboard       e,
+		    mentor           mt,
+		    mentors_member   mm
+		WHERE
+		    e.mentor_email = mt.mentor_email
+		AND 
+		    mt.mentor_email = mm.member_email
+		AND 
+		    mm.member_name = #{name}
+	</select>
+	
+	<!-- 에세이 멘토 헤드 뷰 -->
+	<select id="essaymentorHeadView" parameterType="String" resultType="essay">
+		SELECT 
+		    e.*,
+		    j.job_type,
+		    mm.member_name,
+		    mt.mentor_company,
+		    mt.mentor_department,
+		    mt.mentor_represent,
+		    mt.mentor_info,
+		    mt.mentor_career,
+		    mt.mentor_etc,
+		    mtr.mentoring_code,
+		    mtr.mentoring_type
+		FROM 
+		    essayboard e, job j, mentor mt, mentoring mtr, mentors_member mm
+		WHERE
+		    e.job_code = j.job_code 
+		AND
+		    e.mentor_email = mt.mentor_email
+		AND
+		    mt.mentor_email = mm.member_email
+		AND
+		    mt.mentoring_code = mtr.mentoring_code
+		AND
+		    mm.member_name = #{name}
+	</select>
+	
+	<!-- 모임 후기 (고맙습니다) -->
+	<select id="getessayReview" resultType="essay">
+		SELECT
+			*
+		FROM
+			meeting_review
+	</select>
+	
+	<!-- 모임 후기 글 수 -->
+	<select id="getreTotal" resultType="Int">
+		SELECT
+			count(*)
+		FROM
+			meeting_review
+	</select>
 </mapper>

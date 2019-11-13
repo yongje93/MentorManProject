@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="noticeSQL">
+	<insert id="noticeboardWrite" parameterType="Map">
+		insert into noticeboard(noticeboard_seq,noticeboard_adminEmail,noticeboard_title,noticeboard_content,noticeboard_logtime) values(noticeboard_seq.nextval,'kujun95@naver.com',#{noticeboard_title},#{noticeboard_content},sysdate)
+	</insert>
+	<select id="getBoardList" parameterType="Map" resultType="notice">
+		select * from(select rownum rn, tt.* from(select * from noticeboard order by noticeboard_seq desc)tt) where rn between #{startNum} and #{endNum}
+	</select>
+	<select id="getTotalA" resultType="int">
+		select count(*) from noticeboard
+	</select>
+	<select id="noticeboardDelete" parameterType="Map">
+		delete noticeboard where noticeboard_seq in 
+		<foreach collection="array" item="seq" index="i" open="(" close=")" separator=",">
+			#{noticeboard_seq}
+		</foreach>
+	</select>
+	
+	<select id="getNoticeboardView" parameterType="int" resultType="notice">
+		select * from noticeboard where noticeboard_seq = #{seq}
+	</select>
+	<select id="noticeboardSearch" parameterType="Map" resultType="notice">
+		select * from(select rownum rn, tt.* from(select * from noticeboard where noticeboard_title like '%'||#{searchText}||'%' order by noticeboard_seq desc)tt) where rn between #{startNum} and #{endNum}
+	</select>
+	
+	<select id="getSearchTotalA" parameterType="Map" resultType="int">
+		select count(*) from noticeboard where noticeboard_title like '%'||#{searchText}||'%'
+	</select>
+	<select id="noticeboardUpdate" parameterType="Map">
+		update noticeboard set noticeboard_title=#{noticeboard_title}, noticeboard_content=#{noticeboard_content}, noticeboard_logtime=sysdate where noticeboard_seq=#{noticeboard_seq}
+	</select>
+	<update id="noticeboardViewHit" parameterType="int">
+		update noticeboard set noticeboard_hit = noticeboard_hit + 1 where noticeboard_seq = #{seq}
+	</update>
+</mapper>

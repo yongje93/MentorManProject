@@ -176,7 +176,9 @@ body {
     -webkit-font-smoothing: antialiased
 }
 
+/* 2019-11-06 구준혁 */
 .framework7-root {
+	height: auto;/* <--- 추가 */
     overflow: hidden;
     -webkit-box-sizing: border-box;
     box-sizing: border-box
@@ -502,7 +504,7 @@ html.with-statusbar.device-iphone-x .framework7-root {
 .md .color-theme-black .statusbar {
     background: #000000
 }
-
+/* 2019-11-06 구준혁 */
 .views,.view {
     /* position: relative; */
     height: 100%;
@@ -3607,10 +3609,10 @@ li.list-group-title:before {
 .theme-dark .media-list .item-link .item-inner,.media-list.theme-dark .item-link .item-inner,.theme-dark li.media-item .item-link .item-inner {
     background-image: none
 }
-
+/* 네비바 폰트 사이즈 */
 .ios .list {
     margin: 35px 0;
-    font-size: 17px
+    font-size: 18.5px
 }
 
 .ios .list .item-cell {
@@ -3788,9 +3790,9 @@ li.list-group-title:before {
 .ios .links-list a:after {
     width: auto
 }
-
+/* 네비바 */
 .ios .links-list a {
-    padding-left: 15px;
+    padding-left: 5px;
     padding-right: 35px
 }
 
@@ -5099,6 +5101,9 @@ input[type="submit"].button,input[type="button"].button {
 /* button {
     width: 100%
 } */
+button {
+    /* width: 100% */
+}
 
 .segmented {
     -ms-flex-item-align: center;
@@ -33769,28 +33774,28 @@ footer.footer .info {
 .menu-list .links-list:first-child ul:before {
     display: none
 }
-
+/* 네비바 div 상하 간격  */
 .menu-list .links-list ul {
-    padding: 12px 0px
+    padding: 30px 0px
 }
 
 .menu-list .links-list ul:after {
     display: none
 }
-
+/* 네비바 a 태크 글자 간격  */
 .menu-list .links-list a {
     padding-right: 15px;
     background-image: none;
-    height: 40px
+    height: 32px
 }
-
+/* 네이바 beta-text */
 .menu-list .links-list .beta-text {
-    font-size: 12px;
+    font-size: 14px;
     color: #ff0000;
     position: absolute;
     font-weight: bold;
     margin: 0 0 0 0;
-    left: 45px
+    left: 60px
 }
 
 .menu-list .links-list .alim {
@@ -34639,8 +34644,9 @@ table {
     border-collapse: collapse
 }
 
+/* 2019-11-02 구준혁 */
 th,td {
-    border: 1px solid #ddd
+    /* border: 1px solid #ddd */
 }
 
 .fr-video {

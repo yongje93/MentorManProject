@@ -1,0 +1,59 @@
+@charset "UTF-8";
+.table tr:hover{
+    background-color: #EDEDED;
+}
+
+.memberList{
+    margin-top : 30px;
+}
+
+th{
+    font-weight: bold;
+}
+.table_wrapper {
+    position: relative;
+    clear: both;
+    zoom: 1;
+}
+.ln_solid {
+    border-top: 1px solid #e5e5e5;
+    color: #ffffff;
+    background-color: #ffffff;
+    height: 1px;
+    margin: 20px 0;
+}
+.ln_solid2{
+	border-top: 2px solid #e5e5e5;
+    color: #ffffff;
+    background-color: #ffffff;
+    height: 1px;
+    margin: 20px 0;
+}
+.x_content h2 {
+	font-weight: bold;
+	font-size: 16px;
+}
+.dataTables_info {
+    width: 60%;
+    float: left;
+}
+div.dataTables_info {
+    padding-top: 8px;
+    white-space: nowrap;
+}
+.memberSearch{
+    display: flex;
+    justify-content: flex-end;
+}
+.a1{
+    height: 80px;
+}
+.searchPage{
+    display: flex;
+    justify-content: flex-end;
+}
+.a1-left{
+    height: 80px;
+    display: flex;
+    align-items: center;
+}

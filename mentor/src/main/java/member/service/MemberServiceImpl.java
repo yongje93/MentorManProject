@@ -29,7 +29,9 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void write(Map<String, String> map) {
 		memberDAO.write(map);
+		
 	}
+
 	@Override
 	public MemberDTO login(Map<String, String> map) {
 		return memberDAO.login(map);

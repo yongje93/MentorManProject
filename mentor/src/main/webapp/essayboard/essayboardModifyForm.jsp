@@ -40,37 +40,29 @@
                               <option value="job_code_17">생산/품질/제조</option>
                               <option value="job_code_18">기타 사무</option>                              
                            </select>
+                           <div class="job_code_error_div"></div>
                         </div>
                      </div>
                   </li>
-                           <div class="job_code_error_div"></div>
                   <div class="label-title">
                      <label class="string required" for="title">제목</label>
                   </div>
                   <li class="item-content item-input">
                      <div class="item-inner">
-                        <input type="text" name="title" id="title" value="${essayboardDTO.title }">
+                        <input type="text" name="title" id="title" value="${essayboardDTO.essayboard_title }">
+                     	<div class="title_error_div"></div>
                      </div>
                   </li>
-                        <div class="title_error_div"></div>
-                  <div class="label-title">
-                     <label class="string required" for="title">회사 & 부서</label>
-                  </div>
-                  <li class="item-content item-input">
-                     <div class="item-inner">
-                        <input type="text" name="company" id="company" placeholder="회사 및 부서를 입력하세요" value="${essayboardDTO.company }">
-                     </div>
-                  </li>
-                     	 <div class="company_error_div"></div>
+
                   
                   <div class="label-title">
                      <label class="string required" for="title"></label>
                   </div>
                   <li>
-                     <textarea id="summernote" name="content">${essayboardDTO.content }</textarea>
+                     <textarea id="summernote" name="content">${essayboardDTO.essayboard_content }</textarea>
                      <br>
-                  </li>
                      <div class="summernote_error_div"></div>
+                  </li>
                   
                   
                </ul>

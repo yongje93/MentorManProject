@@ -1,7 +1,7 @@
 /* 
  * 날짜 : 2019.11.01 
  * 작성자 :ginkgo1928
- * 설명 : 회원가입 JavaScript
+ * 설명 : 회원가입 JavaScript 유효성 검사
  */
 //Email 유효성 검사
 function emailCheck(strVal, text) {
@@ -14,18 +14,32 @@ function emailCheck(strVal, text) {
 	}
 	return false;
 }
-//Name 유효성 검사
+//특수문자 검사
+function passwordCheck(str) {
+	// var reg =
+	// /([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/;
+	var reg = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,15}$/;
+	return reg.test(str);
+}
+
+// Name 유효성 검사
 function Ifn_NameCheck() {
 	var name = $('#member_name').val();
+	var reg = /[ 0-9\{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@#$%&\'\"\\\(\=]/gi;
 	var jCont = "";
-	
 	if (name.length==0) {
 		jCont = '<div class="msg_error">이름을 입력해주세요.</div>';
 		$('.item-input-info-Name').css('color', 'red').html(jCont);
 		$('#member_name').focus();
 		$('#member_name').addClass("error");
 		return false;
-	}else {
+	}else if(reg.test(name)){
+		jCont = '<div class="msg_error">한글,영문만 입력 가능합니다.</div>';
+		$('.item-input-info-Name').css('color', 'red').html(jCont);
+		$('#member_name').focus();
+		$('#member_name').addClass("error");
+		return false;
+	}else{
 		jCont = "";
 		$('#member_name').removeClass("error");
 		$('.item-input-info-Name').html(jCont);
@@ -34,11 +48,11 @@ function Ifn_NameCheck() {
 	
 }
 
-//NickName유효성 검사
-function Ifn_NickCheck(){
+// NickName유효성 검사
+$(document).ready(function(){
+	$('#member_nickname').focusout(function(){
 	var nickName=$("#member_nickname").val();
 	var jCont="";
-	
 	if(nickName.length==0){
 		jCont = '<div class="msg_error 01">닉네임을 입력해주세요.</div>';
 		$('.item-input-info-NickName').css('color', 'red').html(jCont);
@@ -71,11 +85,13 @@ function Ifn_NickCheck(){
 			}
 		});
 	}	
-	return true;
-	
-}
-//Email 유효성 검사
-function Ifn_EmailCheck(){
+		return true;
+	});
+});
+
+// Email 유효성 검사
+$(document).ready(function(){
+	$('#member_email').focusout(function(){
 	var Email=$("#member_email").val();
 	var jCont="";
 	if(Email.length==0){
@@ -108,9 +124,12 @@ function Ifn_EmailCheck(){
 				conlose.log(e);
 			}
 		});
-	}
-	return true;
-}
+	
+		return true;
+		}
+	});
+});
+
 //Pwd유효성 검사
 function Ifn_PwdCheck(){
 	var Pwd=$('#member_pwd').val();
@@ -150,6 +169,22 @@ function Ifn_RepwdCheck(){
 	}
 }
 
+
+function previewFile(input) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+		//prople_img_id 변수명과 똑같이 해줘야됨
+		var member_prople_img = input.id + "_img";
+		reader.onload = function(e) {
+		 $('#'+member_prople_img).attr('src', e.target.result) 
+		 .width(100)
+		 .height(100);
+		 }
+		reader.readAsDataURL(input.files[0]);
+	}
+	
+}
+
 //정보 입력 후  submit으로 값을 넘긴다.
 function Ifn_write(){
  if (Ifn_NameCheck()&&Ifn_NickCheck()&&Ifn_EmailCheck()&&Ifn_PwdCheck()&&Ifn_RepwdCheck()) {
@@ -157,7 +192,7 @@ function Ifn_write(){
 	}
 }
 
-//Login
+// Login
 $(document).ready(function(){
 	$('#loginBtn').click(function(){
 		var jCont="";

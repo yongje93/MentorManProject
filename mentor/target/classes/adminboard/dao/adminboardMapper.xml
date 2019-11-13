@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="adminboardSQL">
+
+	<!-- 공지사항 List 가져오기 -->
+	<select id="getAdmninnoticeboardList" parameterType="java.util.Map" resultType="adminnoticeboard">
+	<![CDATA[select *from 
+	(select rownum rn,tt.*from
+	(select noticeboard_seq,noticeboard_adminEmail,noticeboard_title,noticeboard_content,noticeboard_hit,to_char(to_date(noticeboard_logtime),'YYYY.MM.DD') noticeboard_logtime 
+	from noticeboard order by noticeboard_seq desc) tt) where rn >= #{startNum} and rn<=#{endNum}]]>
+	</select>
+	
+	<!-- 공지사항 글 갯수가져오기 -->
+	<select id="getTotalA" resultType="Integer">
+		select count(*) cnt from noticeboard
+	</select>
+
+	<!-- 공지사항 글삭제 -->
+	<delete id="adminnoticeboardDelete" parameterType="java.util.Map">
+		delete noticeboard where noticeboard_seq in
+		<foreach collection="check" item="noticeboard_seq" index="i" open="("
+			close=")" separator=",">
+			#{noticeboard_seq}<!-- ${check[i]} 컬렉션만 $먹고 item인 seq는 #과$같이먹는다 -->
+		</foreach>
+	</delete>
+	
+	<!-- 공지사항 글 보기 -->
+	<select id="adminnoticeboardView" parameterType="int" resultType="adminnoticeboard">
+		select *from noticeboard where noticeboard_seq=#{noticeboard_seq}
+	</select>
+</mapper>

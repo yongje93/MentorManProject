@@ -40,6 +40,10 @@
 //	});
 //});
 
+$('.button color-gray ').on('click', function(){
+	$(this).attr('class', 'button color-gray active');
+});
+
 $('#essayWriteBtn').on('click', function(){
 	location.href="/mentor/essayboard/essayboardWriteForm";
 });

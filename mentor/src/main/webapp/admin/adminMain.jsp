@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	
-	
 <!-- 관리자페이지 메인화면 입니다 -->
 <!DOCTYPE html>
 <html lang="ko" class="fa-events-icons-ready">
@@ -19,7 +18,12 @@
 <script src="../adminjs/adminMain.js"></script>
 <title>mentorMan AdminPage</title>
 </head>
-<body class="nav-md">
+<body class="nav-md pace-done">
+<div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+  <div class="pace-progress-inner"></div>
+</div>
+<div class="pace  pace-inactive">
+<div class="pace-activity"></div></div>
 	<div class="container body">
 		<div class="main_container">
 			<!-- 왼쪽 메뉴 전체-->
@@ -58,7 +62,7 @@
 									<ul class="nav child_menu" style="display: none;">
 										<li><a href="/mentor/adminboard/adminnoticeboardList">공지사항 게시판</a></li>
 										<li><a href="/mentor/adminboard/adminessayList">에세이</a></li>
-										<li><a href="/mentor/adminboard/admincommuList">자유게시판</a></li>
+										<li><a href="/mentor/adminboard/admincommuList">멘티게시판</a></li>
 										<li><a href="/mentor/adminboard/admingroupList">모임</a></li>
 									</ul>
 								</li>
@@ -94,7 +98,7 @@
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Index Page</h3>
+							<h3>관리자페이지에 오신걸 환영합니다</h3>
 						</div>
 
 						<div class="title_right"></div>
@@ -113,4 +117,7 @@
 		</div>
 	</div>
 </body>
+<script src="../adminjs/noticeboard.js"></script>
+<link rel="stylesheet" href="../admincss/board.css">
+<link rel="stylesheet" href="../admincss/adminnoticeboardView.css">
 </html>

@@ -24,8 +24,9 @@ public class AdminController {
 	}
 	/* description : 관리자페이지 회원관리화면*/
 	@RequestMapping(value="adminMemberList",method = RequestMethod.GET)
-	public String adminMemberList(Model model) {
+	public String adminMemberList( Model model) {
 		model.addAttribute("display", "/admin/adminMemberList.jsp");
 		return "/admin/adminMain";
 	}
 }
+

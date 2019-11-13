@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE configuration  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  
+<!DOCTYPE configuration  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
+		<typeAlias type="mentee.bean.MenteeDTO" alias="mentee"/>
+		<typeAlias type="mentorapply.bean.MentorapplyDTO" alias="mentor"/>
+		<typeAlias type="noticeboard.bean.NoticeboardDTO" alias="notice"/>
+		<typeAlias type="adminboard.bean.AdminnoticeboardDTO" alias="adminnoticeboard"/>
 		<typeAlias type="member.bean.MemberDTO" alias="member"/>
 		<typeAlias type="meetingboard.bean.MeetingboardDTO" alias="meetingboard"/>
 		<typeAlias type="essayboard.bean.EssayboardDTO" alias="essay"/>
+		<typeAlias type="essayboard.bean.EssayboardPaging" alias="paging"/>
+		<typeAlias type="menteeboard.bean.MenteeboardDTO" alias="menteeboard"/>
+		<typeAlias type="menteeboard.bean.MenteeboardLikeDTO" alias="menteeboardLike"/>
+  		<typeAlias type="menteeboardReply.bean.MenteeboardReplyDTO" alias="menteeboardReply"/>
 		<typeAlias type="participation.bean.ParticipationDTO" alias="participation"/>
 		<typeAlias type="participation.bean.OrderDTO" alias="order"/>
 	</typeAliases>

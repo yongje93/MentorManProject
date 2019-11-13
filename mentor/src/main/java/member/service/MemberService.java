@@ -10,9 +10,11 @@ public interface MemberService {
 
 	public MemberDTO writeEmailCheck(String member_email);
 
-	public void write(Map<String, String> map);
+
 
 	public MemberDTO login(Map<String, String> map);
+
+	public void write(Map<String, String> map);
 
 	
 	
