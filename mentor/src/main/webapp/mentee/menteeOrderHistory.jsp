@@ -4,8 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <link rel="stylesheet" href="../css/order.css" type="text/css"/>
-<div class="col-100 tablet-80" style="margin: auto;">
-<div class="block block-strong no-hairlines hero-title">
+<div class="col-100 tablet-90" style="margin: auto;">
+<div class="block block-strong no-hairlines hero-title" style="width: 815px;">
 	<h1 class="title">결제 내역</h1>
 </div>
 <div class="block" style="width: 830px;">
@@ -47,6 +47,12 @@
 		</c:forEach>
 		</tbody>
 	</table>
+</div>
+<div class="pagination-block">
+	<div class="page-entries-info">
+
+		${orderHistoryPaging.pagingHTML}
+	</div>
 </div>
 </div>
 <script>

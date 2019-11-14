@@ -3,6 +3,7 @@ package mentee.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +23,7 @@ import member.bean.MemberDTO;
 import mentee.bean.MenteeDTO;
 import mentee.service.MenteeService;
 import participation.bean.OrderDTO;
+import participation.bean.OrderHistoryPaging;
 import participation.service.ParticipationService;
 
 @Controller
@@ -31,7 +33,8 @@ public class MenteeController {
 	private MenteeService menteeService;
 	@Autowired
 	private ParticipationService participationService;
-
+	@Autowired
+	private OrderHistoryPaging orderHistoryPaging;
 	/**
 	 * @Title : 계정설정 Form
 	 * @Author : kujun95, @Date : 2019. 11. 11.
@@ -170,12 +173,29 @@ public class MenteeController {
 	 * @Method Name : menteeOrder
 	 */
 	@RequestMapping(value = "menteeOrderHistory", method = RequestMethod.GET)
-	public String menteeOrderHistory(Model model, HttpSession session) {
+	public String menteeOrderHistory(@RequestParam(required = false, defaultValue = "1") String pg, Model model, HttpSession session) {
+		// 1페이지당 5개
+		int endNum = Integer.parseInt(pg) * 5;
+		int startNum = endNum - 4;
+		
 		MemberDTO memDTO = (MemberDTO) session.getAttribute("memDTO");
-		List<OrderDTO> orderHistoryList = participationService.getOrderHistoryUsingMemEmail(memDTO.getMember_email());
+		String member_email = memDTO.getMember_email();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		map.put("member_email", member_email);
 		
-		//페이징 추가해야됨
+		List<OrderDTO> orderHistoryList = participationService.getOrderHistoryUsingMemEmail(map);
 		
+		// 페이징 처리
+		int totalOrderHistory = participationService.getTotalHistory(member_email);
+		orderHistoryPaging.setCurrentPage(Integer.parseInt(pg));
+		orderHistoryPaging.setPageBlock(3);
+		orderHistoryPaging.setPageSize(5);
+		orderHistoryPaging.setTotalA(totalOrderHistory);
+		orderHistoryPaging.makePagingHTML();
+		
+		model.addAttribute("orderHistoryPaging", orderHistoryPaging);
 		model.addAttribute("orderHistoryList", orderHistoryList);
 		model.addAttribute("display","/mentee/menteeUserForm.jsp");
 		model.addAttribute("display2","/mentee/menteeOrderHistory.jsp");

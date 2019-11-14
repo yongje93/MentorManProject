@@ -55,10 +55,25 @@
 		where m.meetingboard_seq = o.meetingboard_seq and order_id=#{order_id}
 	</select>
 	<!-- 내정보에서 결제내역 전체 보여주기 -->
-	<select id="getOrderHistoryUsingMemEmail" parameterType="string" resultType="order">
+	<select id="getOrderHistoryUsingMemEmail" parameterType="java.util.Map" resultType="order">
+		<!-- 
 		select m.job_code, m.meetingboard_title, m.meetingboard_price, o.order_id, o.order_date, o.order_price, o.mentee_email, o.mentee_name, o.mentee_tel, o.meetingboard_seq, o.participation_seq
 		from meetingboard m, meeting_order o
-		where m.meetingboard_seq = o.meetingboard_seq and o.mentee_email=#{member_email}
+		where m.meetingboard_seq = o.meetingboard_seq and o.mentee_email=#{member_email} 
 		order by o.participation_seq desc
+		 -->
+		<![CDATA[
+			select * from
+			(select rownum rn, tt.* from 
+			(select m.job_code, m.meetingboard_title, m.meetingboard_price, o.order_id, o.order_date, o.order_price, o.mentee_email, o.mentee_name, o.mentee_tel, o.meetingboard_seq, o.participation_seq
+			 from meetingboard m, meeting_order o 
+			 where m.meetingboard_seq = o.meetingboard_seq and o.mentee_email=#{member_email}
+			 order by o.participation_seq desc)tt) 
+			 where rn >= #{startNum} and rn <= #{endNum}
+		 ]]>
+	</select>
+	<!-- 회원의 전체 결제 내역 가져오기 -->
+	<select id="getTotalHistory" parameterType="string" resultType="int">
+		  select count(*) from meeting_order where mentee_email=#{member_email}
 	</select>
 </mapper>
