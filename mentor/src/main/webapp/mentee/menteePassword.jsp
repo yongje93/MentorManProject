@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<div class="col-100 tablet-80" style="margin: auto;">
         <div class="block block-strong no-hairlines hero-title">
           <h1 class="title">
             비밀번호 변경
@@ -43,10 +44,11 @@
 	
 </form>
 </div>
+</div>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="../js/mentee.js"></script>
 <script>
 $(function(){
-	$('#menteePassword').attr('class', 'list-button color-gray item-link active');
+	$('#menteePassword').attr('class', 'list-button color-gray item-link active').css('font-weight', 'bold');;
 });
 </script>

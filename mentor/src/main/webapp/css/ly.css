@@ -2893,7 +2893,7 @@ html.with-statusbar.device-iphone-x .framework7-root {
 
 .ios .block {
     margin: 35px 0;
-    /* padding: 0 15px; */
+   	padding: 0 15px;
     color: #6d6d72
 }
 
@@ -35187,7 +35187,7 @@ th,td {
 
 .mentee_programs.show .page-content {
     margin: 0px 8px;
-    word-break: keep-all
+    /* word-break: keep-all */
 }
 
 .mentee_programs.show .cover-image {

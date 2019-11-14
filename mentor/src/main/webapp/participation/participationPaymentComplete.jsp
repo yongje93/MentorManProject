@@ -7,7 +7,7 @@
 
 <div class="page navbar-fixed mentee_participations">
 	<div class="page-content">
-		<div class="block-title strong-title">결제 완료</div>
+		<div class="block-title strong-title">결제 상세 내역</div>
 		<div id="orderContainer">
 			<div id="order_main">
 				<div class="columns">
@@ -15,13 +15,13 @@
 						<div class="box product_item_list" id="order_carts">
 							<c:set var="order_price" value="0"/>
 							<c:set var="order_date" value=""/>
+							<c:set var="order_name" value=""/>
 							<c:forEach var="orderDTO" items="${orderList}">
 								<c:set var="order_price" value="${orderDTO.order_price}" />
 								<c:set var="order_date" value="${orderDTO.order_date}"/>
-								<input type="hidden" name="meetingboard_seq"
-									value="${orderDTO.meetingboard_seq}">
-								<input type="hidden" name="participation_seq"
-									value="${orderDTO.participation_seq}">
+								<c:set var="order_name" value="${orderDTO.mentee_name}"/>
+								<input type="hidden" name="meetingboard_seq" value="${orderDTO.meetingboard_seq}">
+								<input type="hidden" name="participation_seq" value="${orderDTO.participation_seq}">
 								<div class="product_item_container">
 									<div class="columns is-mobile product_item">
 										<div class="column is-3 thumbnail_container">
@@ -31,15 +31,13 @@
 										</div>
 										<div class="column content_container">
 											<div class="product_title">
-												<a type="external"
-													href="/mentor/meetingboard/meetingboardView?seq=${orderDTO.meetingboard_seq}"
-													target="_blank" style="color: black; font-size: 18px;">
-													${orderDTO.meetingboard_title} </a>
+												<a type="external" href="/mentor/meetingboard/meetingboardView?seq=${orderDTO.meetingboard_seq}" target="_blank" style="color: black; font-size: 18px;">
+													${orderDTO.meetingboard_title}
+												</a>
 											</div>
 											<div class="product_meta">
 												<div class="product_amount">
-													<span><fmt:formatNumber
-															value="${orderDTO.meetingboard_price}" pattern="#,###" />원</span>
+													<span><fmt:formatNumber value="${orderDTO.meetingboard_price}" pattern="#,###"/>원</span>
 												</div>
 											</div>
 										</div>
@@ -74,6 +72,18 @@
 								<div class="product_item_container">
 									<div class="columns is-mobile product_item">
 										<div class="column is-3 thumbnail_container">
+											<div class="image is_thumbnail">주문자</div>
+										</div>
+										<div class="column content_container">
+											<div class="product_title">
+												${order_name}
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="product_item_container">
+									<div class="columns is-mobile product_item">
+										<div class="column is-3 thumbnail_container">
 											<div class="image is_thumbnail">주문금액</div>
 										</div>
 										<div class="column content_container">
@@ -88,7 +98,7 @@
 										<a type="external" href="/mentor/main/index">홈으로 가기</a>
 									</button>
 									<button class="button" id="meetingboardDeleteBtn" style="display: inline-block;">
-										<a type="external" href="">결제내역</a>
+										<a type="external" href="/mentor/mentee/menteeOrderHistory">결제내역</a>
 									</button>
 								</div>
 							</div>

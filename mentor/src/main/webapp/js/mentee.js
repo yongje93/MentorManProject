@@ -114,7 +114,11 @@ $('#menteePassword_btn').on('click', function(){
 		$('#member_pwd_check_error').text('비밀번호가 일치하지 않습니다.').css('color','red');
 		$('#member_pwd_check_error').css('font-size','8pt');
 		$('#member_pwd_check').focus();
-	}else {
+	} else if($('#member_pwd').val().length < 8 || $('#member_pwd').val().length > 15){
+	    $('#member_pwd_error').text('비밀번호는 8자~15자리 이하입니다.').css('color','red');
+	    $('#member_pwd_error').css('font-size','8pt');
+	    $('#member_pwd').focus();
+	} else {
 		$.ajax({
 			type: 'post',
 			url:'/mentor/mentee/menteePasswordCheck',

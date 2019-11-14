@@ -67,7 +67,8 @@
 
 						<div class="list links-list no-hairlines-between">
 							<ul>
-								<li><a type="external" href="/mentor/mentee/menteeUserForm">계정설정</a></li>
+								<li><a type="external" href="/mentor/mentee/menteeUserForm">내 정보</a></li>
+								<li><a type="external" href="/mentor/participation/order">모임 바구니</a></li>
 								<li><a type="external" href="/mentor/member/logout">로그아웃</a></li>
 							</ul>
 						</div>

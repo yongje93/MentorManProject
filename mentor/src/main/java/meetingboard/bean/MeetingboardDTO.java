@@ -26,5 +26,13 @@ public class MeetingboardDTO {
 	private int meetingboard_state;				// 상태
 	// 직무 유형 값때매 추가로 넣은 부분
 	private String job_type;
+	// 멘토 정보
+	private String member_name; // 멘토 이름
+	private String mentor_company; // 회사
+	private String mentor_department; // 부서
+	private String mentor_info; // 멘토 소개
+	private String mentor_career; // 멘토 경력
+	private String mentor_etc; // 멘토 기타사항
+	private String mentor_represent; //대표 멘토링 분야
 	
 }

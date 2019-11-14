@@ -14,5 +14,6 @@ public interface ParticipationService {
 	public void orderDelete(int participation_seq);
 	public void orderComplete(Map<String, Object> order);
 	public List<OrderDTO> getOrderHistoryUsingOrderId(String order_id);
+	public List<OrderDTO> getOrderHistoryUsingMemEmail(String member_email);
 
 }

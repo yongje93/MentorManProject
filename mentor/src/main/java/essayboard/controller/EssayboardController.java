@@ -50,7 +50,7 @@ public class EssayboardController {
 		
 		//  멘토 리스트 가져오기
 		List<EssayboardDTO> list = essayboardService.essayboardList(map);
-		System.out.println("밤 늦게 뻘짓의 성과 " + list);
+		//System.out.println("밤 늦게 뻘짓의 성과 " + list);
 		ModelAndView modelAndView = new ModelAndView();
 		
 		essayboardPaging.setCurrentPage(Integer.parseInt(pg));

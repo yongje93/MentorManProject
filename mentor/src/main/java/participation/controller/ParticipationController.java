@@ -68,7 +68,7 @@ public class ParticipationController {
 	}
 	
 	/**
-	 * @Title : 모임 주문하기 화면
+	 * @Title : 모임 바구니 화면
 	 * @Author : yong
 	 * @Date : 2019. 11. 11.
 	 * @Method Name : order
@@ -107,7 +107,7 @@ public class ParticipationController {
 	@RequestMapping(value = "orderComplete", method = RequestMethod.POST)
 	@ResponseBody
 	public void orderComplete(@RequestBody Map<String, Object> order) {
-		System.out.println(order);
+		//System.out.println(order);
 		ArrayList<Integer> meeting_seq = (ArrayList<Integer>) order.get("meetingboard_list");
 		ArrayList<Integer> participation_seq = (ArrayList<Integer>) order.get("participation_list");
 		

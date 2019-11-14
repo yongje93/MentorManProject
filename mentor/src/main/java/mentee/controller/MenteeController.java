@@ -3,7 +3,7 @@ package mentee.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -12,24 +12,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import member.bean.MemberDTO;
 import mentee.bean.MenteeDTO;
 import mentee.service.MenteeService;
+import participation.bean.OrderDTO;
+import participation.service.ParticipationService;
 
 @Controller
 @RequestMapping("/mentee")
 public class MenteeController {
 	@Autowired
 	private MenteeService menteeService;
-	
+	@Autowired
+	private ParticipationService participationService;
+
 	/**
 	 * @Title : 계정설정 Form
 	 * @Author : kujun95, @Date : 2019. 11. 11.
@@ -57,7 +59,6 @@ public class MenteeController {
 		try {
 			FileCopyUtils.copy(member_profile.getInputStream(), new FileOutputStream(file));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		map.put("member_profile", fileName);
@@ -155,8 +156,6 @@ public class MenteeController {
 		menteeService.menteePasswordSave(map);
 	}
 	
-	
-	
 	//계정설정에서 비슷한 코드가 들어가서 세션 함수로 만듬
 	public MemberDTO memberDTO(HttpSession session) {
 		MemberDTO memberEmail = (MemberDTO) session.getAttribute("memDTO");
@@ -164,4 +163,22 @@ public class MenteeController {
 		return memberDTO;
 	}
 	
+	/**
+	 * @Title : 내 결제 내역 보여주기
+	 * @Author : yong
+	 * @Date : 2019. 11. 14.
+	 * @Method Name : menteeOrder
+	 */
+	@RequestMapping(value = "menteeOrderHistory", method = RequestMethod.GET)
+	public String menteeOrderHistory(Model model, HttpSession session) {
+		MemberDTO memDTO = (MemberDTO) session.getAttribute("memDTO");
+		List<OrderDTO> orderHistoryList = participationService.getOrderHistoryUsingMemEmail(memDTO.getMember_email());
+		
+		//페이징 추가해야됨
+		
+		model.addAttribute("orderHistoryList", orderHistoryList);
+		model.addAttribute("display","/mentee/menteeUserForm.jsp");
+		model.addAttribute("display2","/mentee/menteeOrderHistory.jsp");
+		return "/main/index";
+	}
 }

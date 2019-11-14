@@ -50,7 +50,7 @@ $('#orderBtn').click(function(){
 	    IMP.request_pay({ // param
 	      pg: 'kakaopay',
 	      pay_method: 'card',
-	      merchant_uid: 'merchant_' + new Date().getTime(),
+	      merchant_uid: 'men_' + new Date().getTime(),
 	      name: '멘토맨 모임 결제',
 	      amount: $('#total').val(),
 	      buyer_email: $('#mentee_email').val(),
