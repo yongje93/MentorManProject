@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import meetingboard.bean.GuideDTO;
 import meetingboard.bean.MeetingboardDTO;
+import meetingboard.bean.ReviewDTO;
 import meetingboard.dao.MeetingboardDAO;
 
 @Service
@@ -48,5 +49,10 @@ public class MeetingboardServiceImpl implements MeetingboardService {
 	@Override
 	public List<GuideDTO> getGuideList() {
 		return meetingboardDAO.getGuideList();
+	}
+
+	@Override
+	public void meetingReviewWrite(ReviewDTO reviewDTO) {
+		meetingboardDAO.meetingReviewWrite(reviewDTO);
 	}
 }

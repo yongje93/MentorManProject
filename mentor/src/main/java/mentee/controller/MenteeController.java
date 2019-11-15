@@ -13,12 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import meetingboard.bean.ReviewDTO;
+import meetingboard.service.MeetingboardService;
 import member.bean.MemberDTO;
 import mentee.bean.MenteeDTO;
 import mentee.service.MenteeService;
@@ -35,6 +38,8 @@ public class MenteeController {
 	private ParticipationService participationService;
 	@Autowired
 	private OrderHistoryPaging orderHistoryPaging;
+	@Autowired
+	private MeetingboardService meetingboardService;
 	/**
 	 * @Title : 계정설정 Form
 	 * @Author : kujun95, @Date : 2019. 11. 11.
@@ -200,5 +205,34 @@ public class MenteeController {
 		model.addAttribute("display","/mentee/menteeUserForm.jsp");
 		model.addAttribute("display2","/mentee/menteeOrderHistory.jsp");
 		return "/main/index";
+	}
+	
+	/**
+	 * @Title : 모임 후기 작성 창
+	 * @Author : yong
+	 * @Date : 2019. 11. 15.
+	 * @Method Name : meetingReviewWriteForm
+	 */
+	@RequestMapping(value = "meetingReviewWriteForm", method = RequestMethod.GET)
+	public String meetingReviewWriteForm(@RequestParam String seq, Model model) {
+		int meetingboard_seq = Integer.parseInt(seq);
+		model.addAttribute("meetingboard_seq", meetingboard_seq);
+		model.addAttribute("display","/mentee/menteeUserForm.jsp");
+		model.addAttribute("display2","/meetingboard/meetingReviewWriteForm.jsp");
+		return "/main/index";
+	}
+	
+	/**
+	 * @Title : 모임 후기 작성 완료
+	 * @Author : yong
+	 * @Date : 2019. 11. 15.
+	 * @Method Name : meetingReviewWrite
+	 */
+	@RequestMapping(value = "meetingReviewWrite", method = RequestMethod.POST)
+	public String meetingReviewWrite(@ModelAttribute ReviewDTO reviewDTO, HttpSession session) {
+		MemberDTO memDTO = (MemberDTO) session.getAttribute("memDTO");
+		reviewDTO.setMentee_email(memDTO.getMember_email());
+		meetingboardService.meetingReviewWrite(reviewDTO);
+		return "redirect:/mentee/menteeOrderHistory";
 	}
 }

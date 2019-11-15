@@ -89,7 +89,6 @@
 	</div>
 </div>
 </div>
-<script src="../js/mentee.js"></script>
 <script>
 $(document).ready(
 	function() {

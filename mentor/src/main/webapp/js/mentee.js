@@ -31,7 +31,7 @@ function menteeStudent(){
 	$('#menteeStudent_spec_error').empty();
 	
 	if($('#menteeStudent_major').val()==''){
-		$('#menteeStudent_major_error').text('당신의 정공은 무엇인가요?').css('color','red');
+		$('#menteeStudent_major_error').text('당신의 전공은 무엇인가요?').css('color','red');
 		$('#menteeStudent_major_error').css('font-size','8pt');
 		$('#menteeStudent_major').focus();
 	}else if($('#menteeStudent_state').val()==''){
@@ -150,3 +150,13 @@ $('#menteePassword_btn').on('click', function(){
 
 	}
 });
+
+// 모임 작성 후기
+$('#reviewWriteBtn').click(function(){
+	if($('#review_content').val() == '') {
+		$('#review_content').focus();
+	} else {
+		$('#reviewWriteForm').submit();
+	}
+});
+

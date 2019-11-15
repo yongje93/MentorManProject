@@ -5,6 +5,7 @@ import java.util.Map;
 
 import meetingboard.bean.GuideDTO;
 import meetingboard.bean.MeetingboardDTO;
+import meetingboard.bean.ReviewDTO;
 
 public interface MeetingboardService {
 	public void meetingboardWrite(MeetingboardDTO meetingboardDTO);
@@ -14,5 +15,6 @@ public interface MeetingboardService {
 	public void meetingboardModify(MeetingboardDTO meetingboardDTO);
 	public void meetingboardDelete(int meetingboard_seq);
 	public List<GuideDTO> getGuideList();
+	public void meetingReviewWrite(ReviewDTO reviewDTO);
 
 }

@@ -13,6 +13,7 @@
 	<h1 class="title">결제 내역</h1>
 </div>
 <div class="block" style="width: 830px;">
+<form id="menteeOrderForm">
 	<table class="n-table table-col" style="table-layout: fixed;">
 		<thead>
 			<tr>
@@ -47,7 +48,7 @@
 				<td>
 					<c:if test="${today >= meetingday}">
 					<div class="btn-set btn-parents">
-						<button type="button" class="button" onclick="location.href=''" style="font-size: 11px;">수강후기</button>
+						<button type="button" class="button" onclick="location.href='/mentor/mentee/meetingReviewWriteForm?seq=${orderHistoryDTO.meetingboard_seq}'" style="font-size: 11px;">수강후기</button>
 					</div>
 					</c:if>
 					<c:if test="${today < meetingday}">
@@ -60,6 +61,7 @@
 		</c:forEach>
 		</tbody>
 	</table>
+</form>
 </div>
 <div class="pagination-block" style="width: 815px; text-align: right;">
 	<div class="page-entries-info"></div>

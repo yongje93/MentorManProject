@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import meetingboard.bean.GuideDTO;
 import meetingboard.bean.MeetingboardDTO;
+import meetingboard.bean.ReviewDTO;
 
 @Repository
 @Transactional
@@ -50,6 +51,11 @@ public class MeetingboardDAOMybatis implements MeetingboardDAO {
 	@Override
 	public List<GuideDTO> getGuideList() {
 		return sqlSession.selectList("meetingboardSQL.getGuideList");
+	}
+
+	@Override
+	public void meetingReviewWrite(ReviewDTO reviewDTO) {
+		sqlSession.insert("meetingboardSQL.meetingReviewWrite", reviewDTO);
 	}
 
 }

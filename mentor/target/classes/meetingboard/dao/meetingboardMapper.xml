@@ -45,4 +45,10 @@
   	<select id="getGuideList" resultType="meetingboard.bean.GuideDTO">
   		select * from guide
   	</select>
+  	
+  	<!-- 모임 후기 작성 -->
+  	<insert id="meetingReviewWrite" parameterType="review">
+  		insert into meeting_review(review_seq, meetingboard_seq, mentee_email, review_content)
+  		values (review_seq.nextval, #{meetingboard_seq},#{mentee_email},#{review_content})
+  	</insert>
 </mapper>
