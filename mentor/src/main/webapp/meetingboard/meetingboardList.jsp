@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<%-- 오늘 날짜 --%>
+<c:set var="now" value="<%=new java.util.Date()%>"/>
+<fmt:formatDate var="today" value="${now}" pattern="yyyy/MM/dd"/>
 
 <input type="hidden" id="pg" value="${pg}">
 <input type="hidden" id="seq" value="${seq}">
@@ -20,6 +25,9 @@
 			<%--모임 리스트 뿌려주는 영역--%>
 			<div class="row no-gap">
 				<c:forEach var="meetingboardDTO" items="${meetingboardList}">
+					<fmt:parseDate var="parseDate" value="${meetingboardDTO.meetingboard_day}" pattern="yyyy/MM/dd"/>
+					<fmt:formatDate var="meetingday" value="${parseDate}" pattern="MM월 dd일 (E)"/>
+					<fmt:formatDate var="meetingdayCompare" value="${parseDate}" pattern="yyyy/MM/dd"/>	
 					<div class="col-100 tablet-50 desktop-33">
 						<div class="card program-card">
 							<div class="thumbnail">
@@ -44,7 +52,7 @@
 											<div class="item-content">
 												<div class="item-inner">
 													<div class="item-title">일시</div>
-													<div class="item-after">${meetingboardDTO.meetingboard_day}</div>
+													<div class="item-after">${meetingday}</div>
 												</div>
 											</div>
 										</li>
@@ -71,17 +79,19 @@
 											<small>직장</small>
 										</div>
 									</a>
-									<c:if test="${meetingboardDTO.meetingboard_state == 0 }">
-										<span class="badge ongoing-badge">
-											<div>모집중</div>
-										</span>
+									<c:if test="${today <= meetingdayCompare}">
+										<c:if test="${meetingboardDTO.meetingboard_state == 0 }">
+											<span class="badge ongoing-badge">
+												<div>모집중</div>
+											</span>
+										</c:if>
+										<c:if test="${meetingboardDTO.meetingboard_state == 1 }">
+											<span class="badge">
+												<div>모집완료</div>
+											</span>
+										</c:if>
 									</c:if>
-									<c:if test="${meetingboardDTO.meetingboard_state == 1 }">
-										<span class="badge">
-											<div>모집완료</div>
-										</span>
-									</c:if>
-									<c:if test="${meetingboardDTO.meetingboard_state == 2 }">
+									<c:if test="${today > meetingdayCompare}">
 										<span class="badge">
 											<div>종료</div>
 										</span>

@@ -216,7 +216,7 @@
     	timepicker: true,
     	timeFormat: 'hh:ii aa',
     	startDate: start,
-    	minHours: startHours,
+    	minHours: startHours, 
     	maxHours: 22,
     	classes: "only-timepicker"
     });

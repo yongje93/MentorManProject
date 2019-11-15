@@ -11,7 +11,6 @@
 <script src="../js/datepicker.min.js"></script>
 <script src="../js/datepicker.ko.js"></script>
 
-
 <div class="page navbar-fixed mentee_programs index">
 <div class="page-content">
 	<div class="block-title strong-title">모임 작성</div>
@@ -219,10 +218,9 @@
  	
     var dayString = '${meetingboardDTO.meetingboard_day}';
     var daySplit = dayString.split("/");
-    var year = daySplit[0];	//2019
-    var month = daySplit[1];	//11
-    var daySplit2 = daySplit[2].split(" "); //04 월
-    var day = daySplit2[0];
+    var year = daySplit[0];
+    var month = daySplit[1];
+    var day = daySplit[2];
     var setDate = month+'/'+day+'/'+year;
     
     var dp = $('#datepicker').datepicker().data('datepicker');

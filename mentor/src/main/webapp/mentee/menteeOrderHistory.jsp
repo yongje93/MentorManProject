@@ -3,6 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<%-- 오늘 날짜 --%>
+<c:set var="now" value="<%=new java.util.Date()%>"/>
+<fmt:formatDate var="today" value="${now}" pattern="yyyy/MM/dd"/>
+
 <link rel="stylesheet" href="../css/order.css" type="text/css"/>
 <div class="col-100 tablet-90" style="margin: auto;">
 <div class="block block-strong no-hairlines hero-title" style="width: 815px;">
@@ -21,6 +25,8 @@
 		</thead>
 		<tbody>
 		<c:forEach var="orderHistoryDTO" items="${orderHistoryList}">
+			<fmt:parseDate var="parseDate" value="${orderHistoryDTO.meetingboard_day}" pattern="yyyy/MM/dd"/>
+			<fmt:formatDate var="meetingday" value="${parseDate}" pattern="yyyy/MM/dd"/>
 			<tr>
 				<td>
 					<a type="external" href="/mentor/meetingboard/meetingboardView?seq=${orderHistoryDTO.meetingboard_seq}" target="_blank">
@@ -36,23 +42,28 @@
 					</a>
 				</td>
 				<td>
-					<fmt:formatNumber value="${orderHistoryDTO.meetingboard_price}" pattern="#,###" />원
+					<fmt:formatNumber value="${orderHistoryDTO.meetingboard_price}" pattern="#,###"/>원
 				</td>
 				<td>
+					<c:if test="${today >= meetingday}">
 					<div class="btn-set btn-parents">
-						<button type="button" class="button" onclick="location.href=''">후기작성</button>
+						<button type="button" class="button" onclick="location.href=''" style="font-size: 11px;">수강후기</button>
 					</div>
+					</c:if>
+					<c:if test="${today < meetingday}">
+					<div class="btn-set btn-parents">
+						<span>(수강전)</span>
+					</div>
+					</c:if>
 				</td>
 			</tr>
 		</c:forEach>
 		</tbody>
 	</table>
 </div>
-<div class="pagination-block">
-	<div class="page-entries-info">
-
-		${orderHistoryPaging.pagingHTML}
-	</div>
+<div class="pagination-block" style="width: 815px; text-align: right;">
+	<div class="page-entries-info"></div>
+	${orderHistoryPaging.pagingHTML}
 </div>
 </div>
 <script>
