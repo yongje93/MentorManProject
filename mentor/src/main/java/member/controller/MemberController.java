@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import kakao.controller.KakaoApi;
 import member.bean.MemberDTO;
 import member.service.MemberService;
+import naver.controller.NaverLoginBO;
 
 /**
  * @Title : 회원가입 컨트롤.
@@ -32,6 +33,11 @@ import member.service.MemberService;
 @Controller
 @RequestMapping(value = "member")
 public class MemberController {
+	private NaverLoginBO naverLoginBO;
+	@Autowired
+	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
+		this.naverLoginBO = naverLoginBO;
+	}
 	@Autowired
 	private MemberService memberService;
 	@Autowired
@@ -120,7 +126,11 @@ public class MemberController {
 	public String loginForm(Model model, HttpSession session) {
 		// 카카오 url
 		String kakaoUrl = KakaoApi.getAuthorizationUrl(session);
+		// 네이버 url
+		String naverUrl = naverLoginBO.getAuthorizationUrl(session);
+		
 		model.addAttribute("kakaoUrl", kakaoUrl);
+		model.addAttribute("naverUrl", naverUrl);
 		model.addAttribute("display", "/member/loginForm.jsp");
 		return "/main/index";
 	}

@@ -8,10 +8,14 @@
 			<div class="block inset social-block">
 				<div id="kakao_id_login" style="text-align: center">
 				<a type="external" href="${kakaoUrl}">
-					<img width="" src="../image/kakao_account_login_btn_medium_wide.png"/>
+					<img width="300" height="60" src="../image/kakao_account_login_btn_medium_narrow.png"/>
 				</a>
 				</div>
-				<a class="button button-big button-fill bg-naver-color" type="external" href=""> 네이버 아이디로 로그인</a> 
+				<div id="naver_id_login" style="text-align: center">
+					<a type="external" href="${naverUrl}">
+					<img width="300" height="60" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/>
+					</a>
+				</div>	
 			</div>
 			<div class="block inset login-block">
 				<form class="simple_form new_user" id="new_user" novalidate="novalidate" action="" method="post">

@@ -35,6 +35,8 @@
 	
 	<!-- 카카오 API -->
 	<context:component-scan base-package="kakao.controller"/>
+	<!-- 네이버 API -->
+	<context:component-scan base-package="naver.controller"/>
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
