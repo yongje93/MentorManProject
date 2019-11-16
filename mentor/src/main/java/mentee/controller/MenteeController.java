@@ -46,7 +46,8 @@ public class MenteeController {
 	 */
 	@RequestMapping(value = "menteeUserForm", method = RequestMethod.GET)
 	public String menteeWriteForm(Model model, HttpSession session) { //세션으로 값을 뿌려줘야됨
-		model.addAttribute("memberDTO", memberDTO(session));
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("memDTO");
+		model.addAttribute("memberDTO", memberDTO);
 		model.addAttribute("display", "/mentee/menteeUserForm.jsp");
 		model.addAttribute("display2", "/mentee/menteeUserSetting.jsp");
 		return "/main/index";

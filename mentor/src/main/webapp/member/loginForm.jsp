@@ -6,8 +6,12 @@
 		<div class="content-wrapper">
 			<h1 align="center">로그인</h1>
 			<div class="block inset social-block">
+				<div id="kakao_id_login" style="text-align: center">
+				<a type="external" href="${kakaoUrl}">
+					<img width="" src="../image/kakao_account_login_btn_medium_wide.png"/>
+				</a>
+				</div>
 				<a class="button button-big button-fill bg-naver-color" type="external" href=""> 네이버 아이디로 로그인</a> 
-				<a class="button button-big button-fill bg-kakao-color col" type="external" href=""> 카카오 아이디로 로그인</a>
 			</div>
 			<div class="block inset login-block">
 				<form class="simple_form new_user" id="new_user" novalidate="novalidate" action="" method="post">

@@ -139,7 +139,7 @@ $('#menteePassword_btn').on('click', function(){
 					});
 				}else if(data=="no"){
 					$('#currentPassword_error').text('현재 패스워드가 일치하지 않습니다.').css('color','red');
-					$('#currentPassword_error').css('font-size','8pt');
+					$('#currentPas6	sword_error').css('font-size','8pt');
 					$('#currentPassword').focus();
 				}
 			},

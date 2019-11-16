@@ -33,6 +33,9 @@
 	<context:component-scan base-package="adminboard.controller"/>
 	<context:component-scan base-package="adminmember.controller"/>
 	
+	<!-- 카카오 API -->
+	<context:component-scan base-package="kakao.controller"/>
+	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
 

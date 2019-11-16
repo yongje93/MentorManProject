@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
+import kakao.controller.KakaoApi;
 import member.bean.MemberDTO;
 import member.service.MemberService;
 
@@ -107,8 +110,17 @@ public class MemberController {
 	}
 
 	// LoginForm
+	/**
+	 * @Title : 카카오 로그인 + 네이버 로그인  url 추가
+	 * @Author : yong
+	 * @Date : 2019. 11. 16.
+	 * @Method Name : loginForm
+	 */
 	@RequestMapping(value = "loginForm", method = RequestMethod.GET)
-	public String loginForm(Model model) {
+	public String loginForm(Model model, HttpSession session) {
+		// 카카오 url
+		String kakaoUrl = KakaoApi.getAuthorizationUrl(session);
+		model.addAttribute("kakaoUrl", kakaoUrl);
 		model.addAttribute("display", "/member/loginForm.jsp");
 		return "/main/index";
 	}
@@ -135,10 +147,12 @@ public class MemberController {
 			return "login_fail";
 		}
 	}
-	// 로그아웃 처리
-	@RequestMapping(value = "logout", method = RequestMethod.GET)
+	// 로그아웃 처리 
+	// 카카오 로그아웃 추가
+	@RequestMapping(value = "logout", method = RequestMethod.GET, produces="application/json")
 	public ModelAndView logout(HttpSession session) {
-		System.out.println("로그아웃");
+	    JsonNode node =  KakaoApi.kakaoLogout((JsonNode) session.getAttribute("access_token"));
+	    System.out.println("로그아웃 후 반환되는 아이디 : " + node.get("id"));
 		session.invalidate();
 		return new ModelAndView("redirect:/main/index");
 	}
