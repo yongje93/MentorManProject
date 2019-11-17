@@ -74,15 +74,24 @@
 		<div class="mentor-block block block-strong">
 			<div class="block mentor-info-block">
 				<div class="mentor-image img-circle">
-					<a target="_blank" type="external" href=""> <img width="150" height="150" src="">
+					<a target="_blank" type="external" href=""> 
+					<c:if test="${meetingboardDTO.member_profile == 'profile.jpg'}">
+					<img src="../image/profile.jpg" width="150" height="150">
+					</c:if>
+					<c:if test="${meetingboardDTO.member_profile != 'profile.jpg'}">
+					<img src="../storage/${meetingboardDTO.member_email}/${meetingboardDTO.member_profile}" width="150" height="150">
+					</c:if>
 					</a>
 				</div>
 				<div class="block mentor-info">
 					<div class="name">
-						<span class="mentor-name"> <a target="_blank" type="external" href="">멘토이름</a> <small>멘토</small>
+						<span class="mentor-name"> 
+							<a target="_blank" type="external" href="">
+								${meetingboardDTO.member_name}
+							</a> <small>멘토</small>
 						</span>
 					</div>
-					<div class="job">멘토직장</div>
+					<div class="job">${meetingboardDTO.mentor_company},${meetingboardDTO.mentor_department}</div>
 					<div class="detail-block">
 						<div class="mentoring-info">
 							<div class="mentoring-type-block">
@@ -114,7 +123,7 @@
 
 						<div class="mentoring-info">
 							<div class="title text-decoration-underline">대표 멘토링 분야</div>
-							<div class="mentoring-type-block">!!!!!수정</div>
+							<div class="mentoring-type-block">${meetingboardDTO.mentor_represent}</div>
 						</div>
 					</div>
 				</div>
@@ -122,9 +131,9 @@
 		</div>
 		<div class="block mentor-detail-block">
 			<h4 class="title">멘토 소개</h4>
-			<div>멘토소개가져오기</div>
+			<div>${meetingboardDTO.mentor_info}</div>
 			<h4 class="title">주요 경력</h4>
-			<div>경력사항가져오기</div>
+			<div>${meetingboardDTO.mentor_career}</div>
 		</div>
 		<div class="block-title">프로그램 내용</div>
 		<div class="block block-strong trix-content froala-content">

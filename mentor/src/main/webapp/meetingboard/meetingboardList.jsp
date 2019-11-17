@@ -69,14 +69,19 @@
 								<div class="mentor-profile">
 									<a class="mentor-info" type="external" href="">
 										<div class="mentor-image img-circle">
-											<img src="">
+											<c:if test="${meetingboardDTO.member_profile == 'profile.jpg'}">
+											<img src="../image/profile.jpg" width="28" height="28">
+											</c:if>
+											<c:if test="${meetingboardDTO.member_profile != 'profile.jpg'}">
+											<img src="../storage/${meetingboardDTO.member_email}/${meetingboardDTO.member_profile}" width="28" height="28">
+											</c:if>
 										</div>
 										<div class="mentor-name">
-											<span>멘토이름</span>
+											<span>${meetingboardDTO.member_name}</span>
 											<small>멘토</small>
 										</div>
 										<div class="job">
-											<small>직장</small>
+											<small>${meetingboardDTO.mentor_company},${meetingboardDTO.mentor_department}</small>
 										</div>
 									</a>
 									<c:if test="${today <= meetingdayCompare}">
