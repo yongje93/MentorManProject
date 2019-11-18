@@ -4,7 +4,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="mentee.bean.MenteeDTO" alias="mentee"/>
-		<typeAlias type="mentorapply.bean.MentorapplyDTO" alias="mentor"/>
+		<typeAlias type="mentor.bean.MentorDTO" alias="mentor"/>
 		<typeAlias type="noticeboard.bean.NoticeboardDTO" alias="notice"/>
 		<typeAlias type="adminboard.bean.AdminnoticeboardDTO" alias="adminnoticeboard"/>
 		<typeAlias type="member.bean.MemberDTO" alias="member"/>
@@ -16,6 +16,10 @@
   		<typeAlias type="menteeboardReply.bean.MenteeboardReplyDTO" alias="menteeboardReply"/>
 		<typeAlias type="participation.bean.ParticipationDTO" alias="participation"/>
 		<typeAlias type="participation.bean.OrderDTO" alias="order"/>
+
 		<typeAlias type="meetingboard.bean.ReviewDTO" alias="review"/>
+
+		<typeAlias type="essayboard.bean.EssayboardScrapDTO" alias="essayboardScrap"/>
+
 	</typeAliases>
 </configuration>

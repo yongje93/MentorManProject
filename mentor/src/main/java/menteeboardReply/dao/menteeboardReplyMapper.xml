@@ -6,9 +6,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="menteeboardReplySQL">
 
 <insert id="replyWrite" parameterType="java.util.Map">
-	insert into menteeboardReply (seq,menteeboard_seq,nickname,email,content,ref) 
+	insert into menteeboardReply (menteeboardReply_seq,menteeboardReply_mb_seq,menteeboardReply_profile,menteeboardReply_nickname,menteeboardReply_email,menteeboardReply_content,menteeboardReply_ref) 
 	values(menteeboardReply_seq.nextval,
 		   #{menteeboard_seq},
+		   #{profile},
 		   #{nickname},
 		   #{email},
 		   #{content},
@@ -19,29 +20,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select * from 
 	(select rownum rn, tt.* from 
 	(select * 
-	from menteeboardReply where menteeboard_seq =#{menteeboard_seq} order by ref desc, step asc)tt)
+	from menteeboardReply where menteeboardReply_mb_seq =#{menteeboard_seq} order by menteeboardReply_ref desc, menteeboardReply_step asc)tt)
 	where rn<![CDATA[>=]]> #{startNum} and rn <![CDATA[<=]]> #{endNum}
 </select>
 
 <update id="menteeboardReplyUp" parameterType="Integer">
-	update menteeboard set reply=reply+1 where seq = #{menteeboard_seq}
+	update menteeboard set menteeboard_reply=menteeboard_reply+1 where menteeboard_seq = #{menteeboard_seq}
 </update>
 
 <select id="getTotalReplyA" parameterType="Integer" resultType="Integer">
-	select count(*) from menteeboardReply where menteeboard_seq = #{menteeboard_seq}
+	select count(*) from menteeboardReply where menteeboardReply_mb_seq = #{menteeboard_seq}
 </select>
 
 <update id="menteeboardReplyDown" parameterType="Integer">
-	update menteeboard set reply=reply-1 where seq = #{menteeboard_seq}
+	update menteeboard set menteeboard_reply=menteeboard_reply-1 where menteeboard_seq = #{menteeboard_seq}
 </update>
 
 <delete id="replyDelete" parameterType="Integer">
-	delete from menteeboardReply where seq = ${seq_trans}
+	delete from menteeboardReply where menteeboardReply_seq = ${seq_trans}
 </delete>
 
 <update id="replyModify" parameterType="java.util.Map">
-	update menteeboardReply set content = #{content,jdbcType=VARCHAR} 
-	where seq = #{seq , jdbcType=INTEGER}
+	update menteeboardReply set menteeboardReply_content = #{content,jdbcType=VARCHAR} 
+	where menteeboardReply_seq = #{seq , jdbcType=INTEGER}
 </update>
 
 

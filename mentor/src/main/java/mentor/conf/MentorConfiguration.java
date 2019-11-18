@@ -16,7 +16,8 @@ public class MentorConfiguration {
 	public BasicDataSource dataSource() {
 		BasicDataSource basicDataSource = new BasicDataSource();
 		basicDataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-		basicDataSource.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
+		//basicDataSource.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
+		basicDataSource.setUrl("jdbc:oracle:thin:@192.168.0.76:1521:xe");
 		basicDataSource.setUsername("mentors");
 		basicDataSource.setPassword("bitcamp");
 		basicDataSource.setMaxTotal(20);

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mentorSQL">
+	<insert id="mentorapplyWrite" parameterType="Map">
+		insert into mentor(mentor_seq,
+						mentor_company,
+						mentor_department,
+						mentor_position,
+						job_code,
+						mentor_school,
+						mentor_career,
+						mentoring_code,
+						mentor_represent,
+						mentor_info,
+						mentor_etc,
+						mentor_email,
+						mentor_selectNaming,
+						mentor_businesscard,
+						mentor_logtime) values(mentor_seq.nextval,
+											#{mentor_company},
+											#{mentor_department},
+											#{mentor_position},
+											#{job_code},
+											#{mentor_school},
+											#{mentor_career},
+											#{mentoring_code},
+											#{mentor_represent},
+											#{mentor_info},
+											#{mentor_etc},
+											#{mentor_email},
+											#{mentor_selectNaming},
+											#{mentor_businesscard},
+											sysdate)
+	</insert>
+	<select id="getEmail" parameterType="String" resultType="mentor">
+		select * from mentor where mentor_email = #{member_email}
+	</select>
+	
+	<select id="getMentorList" parameterType="Map" resultType="mentor">
+		select * from(select rownum rn, tt.* from(select mt.mentor_seq, mb.member_name, mb.member_profile,mt.mentor_company, mt.mentor_department, 
+		    j.job_type, mentor_school, mentor_career, mentoring_code, mentor_represent, mentor_info, mentor_etc, mentor_email, 
+		    mentor_selectNaming, mentor_businesscard, mentor_badge, mentor_flag, mentor_logtime from mentor mt, job j, 
+			mentors_member mb where mt.mentor_email = mb.member_email and j.job_code = mt.job_code and mentor_flag = #{mentor_flag} order by mt.mentor_seq desc)tt) 
+		where rn between #{startNum} and #{endNum}
+	</select>
+	<select id="getTotalA" parameterType="int" resultType="int">
+		select count(*) from mentor where mentor_flag = #{mentor_flag}
+	</select>
+	<select id="getMentor_info" parameterType="int" resultType="mentor">
+		select mb.member_name, mb.member_profile, mentor_seq, mentor_email, mentor_company, mentor_department, mentor_represent, mentoring_code 
+		from mentor mt,  mentors_member mb where mt.mentor_email = mb.member_email and mentor_seq = #{seq}
+	</select>
+	<select id="getMentoring_code" parameterType="Map" resultType="mentor">
+		select mentoring_type from mentoring where mentoring_code in 
+		<foreach collection="mentoring_code" index="index" item="mentoring_code" open="(" separator="," close=")">
+			#{mentoring_code}
+		</foreach>
+	</select>
+	<insert id="mentorQuestionsSuccess" parameterType="Map">
+		insert into question(question_seq,
+							 mentor_seq,
+							 member_email,
+							 question_title,
+							 question_content,
+							 question_logtime) values(question_seq.nextval, 
+							 							#{mentor_seq}, 
+							 							#{member_email}, 
+							 							#{question_title}, 
+							 							#{question_content}, 
+							 							sysdate)
+	</insert>
+	
+	<!-- 멘토 에세이 리스트 -->
+	<select id="getMentorEssayList" parameterType="int" resultType="mentor">
+		select e.essayboard_title, e.essayboard_content, e.essayboard_scrap, e.essayboard_logtime
+		from essayboard e, mentor mt, mentors_member mm
+		where e.mentor_email = mt.mentor_email and mm.member_email = e.mentor_email and mm.member_seq = ${mentor_seq}
+	</select>
+	<!-- 고맙습니다 리스트 -->
+	<select id="getMentorReviewList" parameterType="int" resultType="review">
+		select rv.review_content, rv.review_date, mm1.member_name as mentor_name, mm2.member_name as mentee_name, mm2.member_profile, rv.mentee_email
+		from meeting_review rv, mentors_member mm1, mentors_member mm2, meetingboard m
+		where rv.meetingboard_seq = m.meetingboard_seq
+			and rv.mentee_email = mm2.member_email
+			and mm1.member_email = m.mentor_email
+			and mm1.member_seq = ${mentor_seq}
+	</select>
+	<!-- 멘토 정보 시리얼 번호 이용 -->
+	<select id="getMentorInfomation" parameterType="int" resultType="mentor">
+		select mt.*, mm.member_name, mm.member_profile, j.job_type
+		from mentor mt, mentors_member mm, job j
+		where mt.mentor_email = mm.member_email and j.job_code = mt.job_code and mm.member_seq = ${mentor_seq}
+	</select>
+</mapper>

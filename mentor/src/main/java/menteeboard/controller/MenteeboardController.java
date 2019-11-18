@@ -87,17 +87,23 @@ public class MenteeboardController {
 		menteeboardPaging.setTotalA(totalA);
 		menteeboardPaging.makePagingHTML();
 		
-		memberDTO = (MemberDTO)session.getAttribute("memDTO"); 
-		String nickname = memberDTO.getMember_nickname();
-		
-		//조회수(쿠키 생성) 
-		if(nickname != null) {
-			Cookie cookie = new Cookie("memHit","0");
-			cookie.setMaxAge(60*60*24);
-			response.addCookie(cookie);
-		}
 		ModelAndView mav=new ModelAndView();
-		mav.addObject("memNickname" , nickname);
+		
+		memberDTO = (MemberDTO)session.getAttribute("memDTO"); 
+		
+		//로그인 여부에 따라
+		if(memberDTO != null) {
+			String nickname = memberDTO.getMember_nickname();
+			mav.addObject("memNickname" , nickname);
+			
+			//조회수(쿠키 생성) 
+			if(nickname != null) {
+				Cookie cookie = new Cookie("memHit","0");
+				cookie.setMaxAge(60*60*24);
+				response.addCookie(cookie);
+			}
+		}
+		
 		mav.addObject("list", list);
 		mav.addObject("menteeboardPaging", menteeboardPaging);
 		mav.setViewName("jsonView");
@@ -126,6 +132,7 @@ public class MenteeboardController {
 		
 		map.put("nickname", memberDTO.getMember_nickname());
 		map.put("email", memberDTO.getMember_email());
+		map.put("profile" , "");
 		System.out.println("map = " + map);
 		menteeboardService.menteeboardWrite(map);
 	}
@@ -200,7 +207,6 @@ public class MenteeboardController {
 			for(int i =0; i<getCookie.length; i++){
 				if(getCookie[i].getName().equals("memHit")){
 					//hit + 1
-					//boardDAO.boardHit(seq);
 					menteeboardService.menteeboardHit(Integer.parseInt(seq));
 					
 					getCookie[i].setMaxAge(0);
@@ -213,8 +219,8 @@ public class MenteeboardController {
 		memberDTO = (MemberDTO)session.getAttribute("memDTO");
 		
 		//좋아요테이블에 값이 있는지 조사
-		menteeboardLikeDTO.setMenteeboard_seq(Integer.parseInt(seq));
-		menteeboardLikeDTO.setEmail(memberDTO.getMember_email());
+		menteeboardLikeDTO.setMenteeboardLike_mb_seq(Integer.parseInt(seq));
+		menteeboardLikeDTO.setMenteeboardLike_mb_email(memberDTO.getMember_email());
 		int heart = menteeboardService.menteeboardSelect(menteeboardLikeDTO);
 		
 		//게시글 댓글 리스트
@@ -301,8 +307,8 @@ public class MenteeboardController {
         memberDTO = (MemberDTO)session.getAttribute("memDTO");
         
         
-        menteeboardLikeDTO.setMenteeboard_seq(menteeboard_seq);
-        menteeboardLikeDTO.setEmail(memberDTO.getMember_email());
+        menteeboardLikeDTO.setMenteeboardLike_mb_seq(menteeboard_seq);
+        menteeboardLikeDTO.setMenteeboardLike_mb_email(memberDTO.getMember_email());
 
         
         if(heart >= 1) {

@@ -6,9 +6,7 @@
 .noticeboardFloat_right_div{/* 공통 */
    float: left;
 }
-.right_div{
 
-}
 </style> 
 <form id="menteeboardViewForm" name="menteeboardViewForm">
 <div class="page navbar-fixed mentors show" data-name="mentors-show">
@@ -19,7 +17,7 @@
 			</div>
 			<div class="block mentor-info mentor-info-box">
 				<div class="name">
-					<span class="mentor-name profile-name">${menteeboardDTO.nickname} <small>멘티</small>
+					<span class="mentor-name profile-name">${menteeboardDTO.menteeboard_nickname} <small>멘티</small>
 					</span>
 				</div>
 				<div class="detail-block">
@@ -39,14 +37,14 @@
 			</div>
 		</div>
 		<div class="block block-strong mentor-detail-block">
-			<div class="block-title"><h2>${menteeboardDTO.subject}</h2></div>
+			<div class="block-title"><h2>${menteeboardDTO.menteeboard_title}</h2></div>
 			<div class="block">
-				${menteeboardDTO.content}
+				${menteeboardDTO.menteeboard_content}
 			</div>
 			<div class="noticeboardFloat_right_div"><input type="button" id="viewOutBtn" class="button color-gray" value="목록"></div>
-			<c:if test="${memEmail == menteeboardDTO.email}">
-	            <div class="noticeboardFloat_right_div"><input type="button" class="button color-gray" value="수정" onclick="location.href='menteeboardModifyForm?pg=${pg}&seq=${menteeboardDTO.seq}'"></div>
-	            <div class="noticeboardFloat_right_div"><input type="button" class="button color-gray" value="삭제" onclick="location.href='menteeboardDelete?seq=${menteeboardDTO.seq}'"></div>
+			<c:if test="${memEmail == menteeboardDTO.menteeboard_email}">
+	            <div class="noticeboardFloat_right_div"><input type="button" class="button color-gray" value="수정" onclick="location.href='menteeboardModifyForm?pg=${pg}&seq=${menteeboardDTO.menteeboard_seq}'"></div>
+	            <div class="noticeboardFloat_right_div"><input type="button" class="button color-gray" value="삭제" onclick="location.href='menteeboardDelete?seq=${menteeboardDTO.menteeboard_seq}'"></div>
           	</c:if>
           	<div class="noticeboardFloat_right_div"><a class="heart"><img id="heartImg" src="" width="25"></a></div>
             <div class="block wrap-share">
@@ -70,15 +68,16 @@
 									<img
 										src="https://www.itdaa.net/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBcmZCIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--f0d5c09d42f655ec75e2351b3a921a3266a435e5/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MY21WemFYcGxTU0lOTVRBd2VERXdNQ0VHT2daRlZEb1FZWFYwYjE5dmNtbGxiblJVIiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--80976855d44dd57bc27b6da84ad9dae42a7e7a2d/profile.jpg">
 								</div>
-								<div class="mentee-name">${list.nickname}</div>
-								<div class="sent-date">${list.logtime}</div>
+								<div class="mentee-name">${list.menteeboardReply_nickname}</div>
+								<div class="sent-date">${list.menteeboardReply_logtime}</div>
 							</div>
-							<div class="modifyReply_hide_${list.seq}">
-							<div class="thanks-note-body content_${list.seq}">${list.content}</div>
-							<c:if test="${memEmail == list.email}">
-							<div class="noticeboardFloat_right_div"><input type="button" id="modifyReply${i.count}" name="${list.seq}" class="button color-gray modifyReply" value="수정" ></div>
-	            			<div class="noticeboardFloat_right_div"><input type="button" id="deleteReply${i.count}" name="${list.seq}" class="button color-gray deleteReply" value="삭제" ></div>
+							<div class="modifyReply_hide_${list.menteeboardReply_seq}">
+							<div class="thanks-note-body content_${list.menteeboardReply_seq}">${list.menteeboardReply_content}</div>
+							<c:if test="${memEmail == list.menteeboardReply_email}">
+							<div class="noticeboardFloat_right_div"><input type="button" id="modifyReply${i.count}" name="${list.menteeboardReply_seq}" class="button color-gray modifyReply" value="수정" ></div>
+	            			<div class="noticeboardFloat_right_div"><input type="button" id="deleteReply${i.count}" name="${list.menteeboardReply_seq}" class="button color-gray deleteReply" value="삭제" ></div>
 							</c:if>
+							<div class="noticeboardFloat_right_div"><input type="button" id="dapgleReply${i.count}" name="${list.menteeboardReply_seq}" class="button color-gray dapgleReply" value="답글" ></div>
 							</div>
 							<div class="modifyReply${i.count}"></div>
 						</div>
@@ -87,20 +86,17 @@
 			</c:forEach>
 			<div class="block mentee-detail-block thanks-note-card" id="menteeboardPagingDiv">${menteeboardPaging.pagingHTML}</div>
 			<hr>
-			</div>
+			</div> 
 			
 			</div>
 			<div class="row no-gap">
 				<div id="thanks-notes">
-					<div class="block mentee-detail-block thanks-note-card" hidden=""
-						style="display: block;">
+					<div class="block mentee-detail-block thanks-note-card" hidden="" style="display: block;">
 						<div class="mentee-info">
 							<div class="mentee-image img-circle">
-								<img src="https://www.itdaa.net/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBcmZCIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--f0d5c09d42f655ec75e2351b3a921a3266a435e5/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MY21WemFYcGxTU0lOTVRBd2VERXdNQ0VHT2daRlZEb1FZWFYwYjE5dmNtbGxiblJVIiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--80976855d44dd57bc27b6da84ad9dae42a7e7a2d/profile.jpg">
 							</div>
 							<div class="">
-							<div class="mentee-name">${menteeboardDTO.nickname}</div>
-							<div class="sent-date">2019년 10월 16일</div>
+							<div class="mentee-name">${menteeboardDTO.menteeboard_nickname}</div>
 							</div>
 						</div>
 						<div class="thanks-note-body">
@@ -116,9 +112,9 @@
 			</div>
 		</div>
 	</div>
-<input type="hidden" id="menteeboard_seq" name="menteeboard_seq" value="${menteeboardDTO.seq}">
-<input type="hidden" id="email" name="email" value="${menteeboardDTO.email}">
-<input type="hidden" name="nickname" value="${menteeboardDTO.nickname}">
+<input type="hidden" id="menteeboard_seq" name="menteeboard_seq" value="${menteeboardDTO.menteeboard_seq}">
+<input type="hidden" id="email" name="email" value="${menteeboardDTO.menteeboard_email}">
+<input type="hidden" name="nickname" value="${menteeboardDTO.menteeboard_nickname}">
 <input type="hidden" id="memEmail" name="memEmail" value="${memEmail}">
 <input type="hidden" name="pg" value="${pg}">
 <input type="hidden" name="seq_trans" id="seq_trans">

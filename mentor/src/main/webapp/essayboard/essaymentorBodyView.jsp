@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-  
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <link rel="stylesheet" media="all" href="https://d2ljmlcsal6xzo.cloudfront.net/assets/application-ec82e4fd3581863fb7280ad4cb1183138cef57405f46a2d44eb51efb8a40a133.css" data-turbolinks-track="reload" />
 	<!-- 스크랩 이미지 -->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
 
 <div class="page navbar-fixed mentor_posts index" style="border: 1px solid red;">
 	<div class="page-content">
@@ -12,7 +13,7 @@
 				<div class="page-content">
 						
 					<div class="post-block-container" style="border: 1px solid blue;">
-						
+						<div class="hit">조회수(${essayHit })</div>
 						
 						<div class="mentor-post-detail-block">
 							<h1 class="mentor-post-title" style="display : flex">
@@ -121,3 +122,24 @@
 		</div>
 	</div>
 </div>
+
+<script src="path/to/jquery.cookie.js"></script>
+  <script src="path/to/jquery.js"></script>
+  <script src="../js/jquery.cookie.js"></script>
+  <script src="../js/essayboardBodyViewCookie.js">
+  $(document).ready(function(){
+		var hit = $('#essay_hit').val();
+		alert($('#essay_hit').val());
+		$.ajax({
+			type : 'post',
+			url : '/mentor/essayboard/essayboardHit',
+			data : {essay_hit : hit},
+			success : function(){
+				
+			},
+			error : function(){
+				
+			}
+	 	});
+	});
+  </script>

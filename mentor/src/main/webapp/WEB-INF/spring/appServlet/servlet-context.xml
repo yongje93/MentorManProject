@@ -7,21 +7,48 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-	<!-- 메인 -->
+	<!-- 메인 컨트롤 -->
 	<context:component-scan base-package="main.controller"/>
-	<!-- 공지 게시판 -->
+	<!-- 공지게시판 -->
 	<context:component-scan base-package="noticeboard.controller"/>
-	<!-- 멘토 지원 -->
-	<context:component-scan base-package="mentorapply.controller"/>
-	<!-- 멘티 -->
+	<!-- 멘토지원하기 -->
+	<context:component-scan base-package="mentor.controller"/>
+	<!-- 멘티 구분 -->
 	<context:component-scan base-package="mentee.controller"/>
 	<!-- 멘티 게시판 -->
 	<context:component-scan base-package="menteeboard.controller"/>
 	<!-- 멘티 게시판 답글 -->
 	<context:component-scan base-package="menteeboardReply.controller"/>
-	<!-- 회원 -->
+
+
+
+	<context:component-scan base-package="intern.controller"/>
+	
+	<context:component-scan base-package="adminmain.controller"/>
+	<context:component-scan base-package="adminboard.controller"/>
+	<context:component-scan base-package="adminmember.controller"/>
+	<!-- 송현 -->
 	<context:component-scan base-package="member.controller"/>
+	
+	<!-- ginkgo 1928, member_Email(Gmail) 발송 --> 	
+	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="ginkgo1928@gmail.com"/>
+		<property name="password" value="newall1013!"/>
+		<property name="javaMailProperties">
+		<props>
+			<prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+			<prop key="mail.smtp.starttls.enable">true</prop>
+			<prop key="mail.smtp.auth">true</prop>
+		</props>
+		</property>
+	</bean>
+	
+	<bean id="mailService" class="member.service.MemberMailService">
+		<property name="javaMailSender"  ref="javaMailSender" />
+	</bean>
+	
 	<!-- 모임 -->
 	<context:component-scan base-package="meetingboard.controller"/>
 	<!-- 모임신청 -->
@@ -56,7 +83,7 @@
 		<!-- <beans:property name="prefix" value="/WEB-INF/views/" /> -->
 		<property name="suffix" value=".jsp"/>
 	</bean>
-
+	
   	<!-- fileUpload -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="5000000"/>

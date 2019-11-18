@@ -7,7 +7,7 @@ import lombok.Data;
 @Component
 @Data
 public class MenteeboardLikeDTO {
-	private int menteeboard_seq;
-    private String email;
+	private int menteeboardLike_mb_seq;
+    private String menteeboardLike_mb_email;
 
 }

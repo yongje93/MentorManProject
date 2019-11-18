@@ -18,11 +18,11 @@ public interface MenteeboardDAO {
 
 	public int getTotalA(String job_code);
 
-	public MenteeboardDTO getMenteeboard(int seq);
+	public MenteeboardDTO getMenteeboard(int menteeboard_seq);
 
-	public void menteeboardHit(int seq);
+	public void menteeboardHit(int menteeboard_seq);
 
-	public void menteeboardDelete(int seq);
+	public void menteeboardDelete(int menteeboard_seq);
 
 	public void menteeboardModify(Map<String, String> map);
 

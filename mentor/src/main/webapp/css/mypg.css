@@ -7,6 +7,7 @@
   padding-left: 130px;
   padding-right: 70px;
 }
+
 /* 사진 동그랗게 */
 .member-img-circle img {
   width: 100px; 
@@ -15,4 +16,4 @@
   -webkit-box-shadow: #dbdbdb 0px 0px 0px 2px;
   box-shadow: #dbdbdb 0px 0px 0px 2px;
 }
- 
+

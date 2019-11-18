@@ -1,0 +1,63 @@
+@charset "UTF-8";
+
+
+/* #noticboardWriteForm_div{
+   margin: 0;
+    padding: 0;
+    height: auto;
+    width: 100%;
+    position: relative;
+    margin-bottom: 200px;
+}
+#writeFormInner_div{
+    width: 701px;
+    margin: auto;
+}
+#summernote_div{
+   width: 900px;
+}
+
+#noticTitle{
+   widows: 300px;
+} */
+#menteeboardModifyForm_table{
+   width: 100%;
+}
+
+table.menteeboardModifyForm_table {
+    border-collapse: collapse;
+    text-align: left;
+    line-height: 1.5;
+   border: 1px solid #fff;
+}
+table.menteeboardModifyForm_table thead th {
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    color: #369;
+    border-bottom: 3px solid #036;
+}
+table.menteeboardModifyForm_table tbody th {
+    width: 900px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    background: #f3f6f7;
+}
+table.menteeboardModifyForm_table td {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+}
+#noticeContent{
+   width: 100%;
+    height: 300px;
+}
+.page-content{      /* ly.css랑 충돌가능성 */
+   overflow: inherit;
+}
+.menteeboardFloat_right_div{/* 공통 */
+   float: right;
+}

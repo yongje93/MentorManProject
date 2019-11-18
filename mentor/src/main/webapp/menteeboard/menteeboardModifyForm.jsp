@@ -4,79 +4,19 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
 <script src="../js/summernote-ko-KR.js"></script>    
-<style>
-#noticboardWriteForm_div{
-   margin: 0;
-    padding: 0;
-    height: auto;
-    width: 100%;
-    position: relative;
-    margin-bottom: 200px;
-}
-#writeFormInner_div{
-    width: 701px;
-    margin: auto;
-}
-#summernote_div{
-   width: 900px;
-}
-
-#noticTitle{
-   widows: 300px;
-}
-#noticeboardWriteForm_table{
-   width: 100%;
-}
-table.noticeboardWriteForm_table {
-    border-collapse: collapse;
-    text-align: left;
-    line-height: 1.5;
-   border: 1px solid #fff;
-}
-table.noticeboardWriteForm_table thead th {
-    padding: 10px;
-    font-weight: bold;
-    vertical-align: top;
-    color: #369;
-    border-bottom: 3px solid #036;
-}
-table.noticeboardWriteForm_table tbody th {
-    width: 900px;
-    padding: 10px;
-    font-weight: bold;
-    vertical-align: top;
-    border-bottom: 1px solid #ccc;
-    background: #f3f6f7;
-}
-table.noticeboardWriteForm_table td {
-    width: 350px;
-    padding: 10px;
-    vertical-align: top;
-    border-bottom: 1px solid #ccc;
-}
-#noticeContent{
-   width: 100%;
-    height: 300px;
-}
-.page-content{      /* ly.css랑 충돌가능성 */
-   overflow: inherit;
-}
-.noticeboardFloat_right_div{/* 공통 */
-   float: right;
-}
-</style>
+<link rel="stylesheet" href="../css/menteeboardModifyForm.css" />
 
 <div class="page navbar-fixed mentee_programs index">
 <div class="page-content" >
    <div class="block-title strong-title">멘티 글 수정</div>
    <div calss="block inset">
-         <form method="post" id="menteeboardModifyForm" name="noticeboardWriteForm">
-            <table id="noticeboardWriteForm_table" class="noticeboardWriteForm_table">
+         <form method="post" id="menteeboardModifyForm" name="menteeboardModifyForm">
+            <table id="menteeboardModifyForm_table" class="menteeboardModifyForm_table">
                <thead>
                </thead>
                <tbody>
                <tr>
-                  <th scope="cols"><input type="text" id="menteeModifyFormSubject" name="menteeModifyFormSubject" value="${menteeboardDTO.subject}"><span id="noticeboardWriteNonTitle_error_span"></span></th>
+                  <th scope="cols"><input type="text" id="menteeModifyFormSubject" name="menteeModifyFormSubject" value="${menteeboardDTO.menteeboard_title}"></th>
                	  <th>
                	  	<select id="job_code_ModifyForm" name="job_code_ModifyForm">
 		        		<option value="">직무 선택</option>
@@ -105,7 +45,7 @@ table.noticeboardWriteForm_table td {
                 <tr>
                    <td colspan="2">
                       <div id="summernoteDiv">
-                              <textarea id="summernote" name="summernote">${menteeboardDTO.content}</textarea>
+                              <textarea id="summernote" name="summernote">${menteeboardDTO.menteeboard_content}</textarea>
                       </div>
                       <div id="summernote_error_div"></div>
                    </td>
@@ -113,8 +53,8 @@ table.noticeboardWriteForm_table td {
                 </tbody>
                 <tr align="center">
                    <td colspan="2">
-                      <div class="noticeboardFloat_right_div"><input type="reset" id="" class="button color-gray" value="취소"></div>
-                      <div class="noticeboardFloat_right_div"><input type="button"  id="menteeboardModifyBtn" class="button color-gray" value="수정"></div>
+                      <div class="menteeboardFloat_right_div"><input type="reset" id="" class="button color-gray" value="취소"></div>
+                      <div class="menteeboardFloat_right_div"><input type="button"  id="menteeboardModifyBtn" class="button color-gray" value="수정"></div>
                    </td>
                 </tr>
             </table>
@@ -125,46 +65,5 @@ table.noticeboardWriteForm_table td {
 </div>
 </div> 
 
-<script type="text/javascript" src="../js/menteeboard.js"></script>
-<script>
-	$(document).ready(function() {
-	    $("#summernote").summernote({
-	       height: 300,                 // set editor height
-	       minHeight: null,             // set minimum height of editor
-	       maxHeight: null,             // set maximum height of editor
-	       focus: true,
-	       lang : 'ko-KR',
-	       callbacks: {
-	           onImageUpload: function(files, editor, welEditable) {
-	             for (var i = files.length - 1; i >= 0; i--) {
-	               sendFile(files[i], this);
-	             }
-	           }
-	         }
-	    });
-	    
-	    $('#job_code_ModifyForm option[value=${menteeboardDTO.job_code}]').attr('selected','selected');
-    });
-    
-    function sendFile(file, el) {
-        var form_data = new FormData();
-        form_data.append('file', file);
-        $.ajax({
-          data: form_data,
-          type: "POST",
-          url: '/mentor/menteeboard/menteeboardImage',
-          cache: false,
-          contentType: false,
-          enctype: 'multipart/form-data',
-          processData: false,
-          success: function(url) {
-            /* $('#imageBoard > ul').append('<img src="../storage/'+url+'" width="480" height="auto"/>');  */
-        	$(el).summernote('editor.insertImage', '../storage/'+url);
-          },
-          error : function(err){
-        	  console.log(err);
-          }
-        });
-      }
-</script>
+<script type="text/javascript" src="../js/menteeboardModifyForm.js"></script>
 

@@ -20,11 +20,8 @@ public class BoardPaging {
 		pagingHTML = new StringBuffer();
 		
 		int totalP = (totalA+pageSize-1)/pageSize;//총페이지수
-		System.out.println("totalP="+totalP);
 		int startPage = (currentPage-1)/pageBlock*pageBlock+1;
-		System.out.println("startPage="+startPage);
 		int endPage = startPage+pageBlock-1;
-		System.out.println("endPage"+endPage);
 		if(endPage>totalP) endPage = totalP;
 		
 		pagingHTML.append("<ul class='pagination'>");

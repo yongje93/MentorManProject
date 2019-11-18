@@ -42,6 +42,7 @@ public class MenteeboardReplyController {
 		
 		Map<String, Object> map2 = new HashMap<String, Object>();
 		map2.put("menteeboard_seq" , menteeboard_seq);
+		map2.put("profile" , "");
 		map2.put("email" , email );
 		map2.put("nickname" , nickname);
 		map2.put("content" , content);

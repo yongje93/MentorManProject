@@ -98,6 +98,7 @@ function menteeEmployee(){
 
 //패스워드 변경
 $('#menteePassword_btn').on('click', function(){
+	
 	$('#currentPassword_error').empty();
 	$('#member_pwd_error').empty();
 	$('#member_pwd_check_error').empty();
@@ -107,14 +108,14 @@ $('#menteePassword_btn').on('click', function(){
 		$('#currentPassword_error').css('font-size','8pt');
 		$('#currentPassword').focus();
 	}else if($('#member_pwd').val()==''){
-		$('#member_pwd_error').text('새로운 비밀번호를 입력해주세요').css('color','red');
+		$('#member_pwd_error').text('새 비밀번호를 입력해주세요').css('color','red');
 		$('#member_pwd_error').css('font-size','8pt');
 		$('#member_pwd').focus();
 	}else if($('#member_pwd_check').val() != $('#member_pwd').val()){
 		$('#member_pwd_check_error').text('비밀번호가 일치하지 않습니다.').css('color','red');
 		$('#member_pwd_check_error').css('font-size','8pt');
 		$('#member_pwd_check').focus();
-	} else if($('#member_pwd').val().length < 8 || $('#member_pwd').val().length > 15){
+	}else if($('#member_pwd').val().length < 8 || $('#member_pwd').val().length > 15){
 	    $('#member_pwd_error').text('비밀번호는 8자~15자리 이하입니다.').css('color','red');
 	    $('#member_pwd_error').css('font-size','8pt');
 	    $('#member_pwd').focus();
@@ -147,7 +148,6 @@ $('#menteePassword_btn').on('click', function(){
 				alert('에러');
 			}
 		});
-
 	}
 });
 

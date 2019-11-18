@@ -92,14 +92,14 @@ $(document).ready(function() {
 										'<div class="mentee-image img-circle">'+
 											'<img src="https://www.itdaa.net/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBcmZCIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--f0d5c09d42f655ec75e2351b3a921a3266a435e5/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MY21WemFYcGxTU0lOTVRBd2VERXdNQ0VHT2daRlZEb1FZWFYwYjE5dmNtbGxiblJVIiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--80976855d44dd57bc27b6da84ad9dae42a7e7a2d/profile.jpg">' +
 										'</div>'+
-										'<div class="mentee-name">'+ value.nickname +','+value.seq+'</div>' +
-										'<div class="sent-date">'+value.logtime+'</div>'+
+										'<div class="mentee-name">'+ value.menteeboardReply_nickname +','+value.menteeboardReply_seq+'</div>' +
+										'<div class="sent-date">'+value.menteeboardReply_logtime+'</div>'+
 									'</div>' +
-									'<div class="modifyReply_hide_'+value.seq +'">'+
-									'<div class="thanks-note-body content_'+value.seq+'">'+value.content+'</div>'; 
-								if(  $('#memEmail').val() === value.email){
-									str += '<div class="noticeboardFloat_right_div"><input type="button" id="modifyReply'+(key+1)+'" name="'+value.seq+'" class="button color-gray modifyReply" value="수정" ></div>'+
-			            			'<div class="noticeboardFloat_right_div"><input type="button" id="deleteReply'+(key+1)+'" name="'+value.seq+'" class="button color-gray deleteReply" value="삭제" ></div>';
+									'<div class="modifyReply_hide_'+value.menteeboardReply_seq +'">'+
+									'<div class="thanks-note-body content_'+value.menteeboardReply_seq+'">'+value.menteeboardReply_content+'</div>'; 
+								if( $('#memEmail').val() === value.menteeboardReply_email){
+									str += '<div class="noticeboardFloat_right_div"><input type="button" id="modifyReply'+(key+1)+'" name="'+value.menteeboardReply_seq+'" class="button color-gray modifyReply" value="수정" ></div>'+
+			            			'<div class="noticeboardFloat_right_div"><input type="button" id="deleteReply'+(key+1)+'" name="'+value.menteeboardReply_seq+'" class="button color-gray deleteReply" value="삭제" ></div>';
 								}
 								str += '</div>'+
 									'<div class="modifyReply'+(key+1)+'"></div>'+
@@ -107,7 +107,7 @@ $(document).ready(function() {
 								'</div>' +
 								'</div>';
 								
-								$frag.append(str);
+								 $frag.append(str);
 							});
 							$frag.append('<div class="block mentee-detail-block thanks-note-card" id="menteeboardPagingDiv">'+data.menteeboardPaging.pagingHTML+'</div><hr>');
 							$('#inputList').append($frag);
@@ -123,7 +123,11 @@ $(document).ready(function() {
 			
 		});
 		
-		
+		$(document).on('click','.dapgleReply',function(){
+			alert($(this).attr('name')+' , 곧 구현');
+			
+			
+		});
 		
 		//댓글 삭제 버튼 클릭시
 		$(document).on('click','.deleteReply',function(){
@@ -151,21 +155,21 @@ $(document).ready(function() {
 								'<div class="mentee-image img-circle">'+
 									'<img src="https://www.itdaa.net/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBcmZCIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--f0d5c09d42f655ec75e2351b3a921a3266a435e5/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MY21WemFYcGxTU0lOTVRBd2VERXdNQ0VHT2daRlZEb1FZWFYwYjE5dmNtbGxiblJVIiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--80976855d44dd57bc27b6da84ad9dae42a7e7a2d/profile.jpg">' +
 								'</div>'+
-								'<div class="mentee-name">'+ value.nickname +','+value.seq+'</div>' +
-								'<div class="sent-date">'+value.logtime+'</div>'+
+								'<div class="mentee-name">'+ value.menteeboardReply_nickname +','+value.menteeboardReply_seq+'</div>' +
+								'<div class="sent-date">'+value.menteeboardReply_logtime+'</div>'+
 							'</div>' +
-							'<div class="modifyReply_hide_'+value.seq +'">'+
-							'<div class="thanks-note-body content_'+value.seq+'">'+value.content+'</div>'; 
-						if(  $('#memEmail').val() === value.email){
-							str += '<div class="noticeboardFloat_right_div"><input type="button" id="modifyReply'+(key+1)+'" name="'+value.seq+'" class="button color-gray modifyReply" value="수정" ></div>'+
-	            			'<div class="noticeboardFloat_right_div"><input type="button" id="deleteReply'+(key+1)+'" name="'+value.seq+'" class="button color-gray deleteReply" value="삭제" ></div>';
+							'<div class="modifyReply_hide_'+value.menteeboardReply_seq +'">'+
+							'<div class="thanks-note-body content_'+value.menteeboardReply_seq+'">'+value.menteeboardReply_content+'</div>'; 
+						if( $('#memEmail').val() === value.menteeboardReply_email){
+							str += '<div class="noticeboardFloat_right_div"><input type="button" id="modifyReply'+(key+1)+'" name="'+value.menteeboardReply_seq+'" class="button color-gray modifyReply" value="수정" ></div>'+
+	            			'<div class="noticeboardFloat_right_div"><input type="button" id="deleteReply'+(key+1)+'" name="'+value.menteeboardReply_seq+'" class="button color-gray deleteReply" value="삭제" ></div>';
 						}
 						str += '</div>'+
 							'<div class="modifyReply'+(key+1)+'"></div>'+
 						'</div>' +
 						'</div>' +
 						'</div>';
-						$frag.append(str);
+						 $frag.append(str);
 					});
 					$frag.append('<div class="block mentee-detail-block thanks-note-card" id="menteeboardPagingDiv">'+data.menteeboardPaging.pagingHTML+'</div><hr>');
 					$('#inputList').append($frag);
@@ -204,14 +208,14 @@ $(document).ready(function() {
 								'<div class="mentee-image img-circle">'+
 									'<img src="https://www.itdaa.net/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBcmZCIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--f0d5c09d42f655ec75e2351b3a921a3266a435e5/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MY21WemFYcGxTU0lOTVRBd2VERXdNQ0VHT2daRlZEb1FZWFYwYjE5dmNtbGxiblJVIiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--80976855d44dd57bc27b6da84ad9dae42a7e7a2d/profile.jpg">' +
 								'</div>'+
-								'<div class="mentee-name">'+ value.nickname +','+value.seq+'</div>' +
-								'<div class="sent-date">'+value.logtime+'</div>'+
+								'<div class="mentee-name">'+ value.menteeboardReply_nickname +','+value.menteeboardReply_seq+'</div>' +
+								'<div class="sent-date">'+value.menteeboardReply_logtime+'</div>'+
 							'</div>' +
-							'<div class="modifyReply_hide_'+value.seq +'">'+
-							'<div class="thanks-note-body content_'+value.seq+'">'+value.content+'</div>'; 
-						if( $('#memEmail').val() === value.email){
-							str += '<div class="noticeboardFloat_right_div"><input type="button" id="modifyReply'+(key+1)+'" name="'+value.seq+'" class="button color-gray modifyReply" value="수정" ></div>'+
-	            			'<div class="noticeboardFloat_right_div"><input type="button" id="deleteReply'+(key+1)+'" name="'+value.seq+'" class="button color-gray deleteReply" value="삭제" ></div>';
+							'<div class="modifyReply_hide_'+value.menteeboardReply_seq +'">'+
+							'<div class="thanks-note-body content_'+value.menteeboardReply_seq+'">'+value.menteeboardReply_content+'</div>'; 
+						if( $('#memEmail').val() === value.menteeboardReply_email){
+							str += '<div class="noticeboardFloat_right_div"><input type="button" id="modifyReply'+(key+1)+'" name="'+value.menteeboardReply_seq+'" class="button color-gray modifyReply" value="수정" ></div>'+
+	            			'<div class="noticeboardFloat_right_div"><input type="button" id="deleteReply'+(key+1)+'" name="'+value.menteeboardReply_seq+'" class="button color-gray deleteReply" value="삭제" ></div>';
 						}
 						str += '</div>'+
 							'<div class="modifyReply'+(key+1)+'"></div>'+

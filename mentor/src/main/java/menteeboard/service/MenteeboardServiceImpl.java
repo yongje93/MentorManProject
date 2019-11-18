@@ -47,20 +47,20 @@ public class MenteeboardServiceImpl implements MenteeboardService {
 
 
 	@Override
-	public MenteeboardDTO getMenteeboard(int seq) {
-		return menteeboardDAO.getMenteeboard(seq);
+	public MenteeboardDTO getMenteeboard(int menteeboard_seq) {
+		return menteeboardDAO.getMenteeboard(menteeboard_seq);
 	}
 
 
 	@Override
-	public void menteeboardHit(int seq) {
-		menteeboardDAO.menteeboardHit(seq);
+	public void menteeboardHit(int menteeboard_seq) {
+		menteeboardDAO.menteeboardHit(menteeboard_seq);
 	}
 
 
 	@Override
-	public void menteeboardDelete(int seq) {
-		menteeboardDAO.menteeboardDelete(seq);
+	public void menteeboardDelete(int menteeboard_seq) {
+		menteeboardDAO.menteeboardDelete(menteeboard_seq);
 	}
 
 
@@ -73,14 +73,14 @@ public class MenteeboardServiceImpl implements MenteeboardService {
 	@Override
 	public void menteeboardLikeDelete(MenteeboardLikeDTO menteeboardLikeDTO) {
 		menteeboardDAO.menteeboardLikeDelete(menteeboardLikeDTO);
-		menteeboardDAO.menteeboardLikeUpdate(menteeboardLikeDTO.getMenteeboard_seq());
+		menteeboardDAO.menteeboardLikeUpdate(menteeboardLikeDTO.getMenteeboardLike_mb_seq());
 	}
 
 
 	@Override
 	public void menteeboardLikeInsert(MenteeboardLikeDTO menteeboardLikeDTO) {
 		menteeboardDAO.menteeboardLikeInsert(menteeboardLikeDTO);
-		menteeboardDAO.menteeboardLikeUpdate(menteeboardLikeDTO.getMenteeboard_seq());
+		menteeboardDAO.menteeboardLikeUpdate(menteeboardLikeDTO.getMenteeboardLike_mb_seq());
 	}
 
 

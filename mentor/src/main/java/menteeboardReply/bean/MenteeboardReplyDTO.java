@@ -11,17 +11,18 @@ import lombok.Data;
 @Data
 @Component
 public class MenteeboardReplyDTO {
-	private int seq;  //댓글의 seq
-	private int menteeboard_seq; //게시물의 seq
-	private String nickname; //댓글 주인
-    private String email;   
-    private String content; //댓글 내용
+	private int menteeboardReply_seq;  //댓글의 seq
+	private int menteeboardReply_mb_seq; //게시물의 seq
+	private String menteeboardReply_profile;
+	private String menteeboardReply_nickname; //댓글 주인
+    private String menteeboardReply_email;   
+    private String menteeboardReply_content; //댓글 내용
     
-    private int ref; //원글의 seq그룹번호, 답글의 답글도 존재
-    private int lev; //답글의 단계
-    private int step; //글순서 원글은 0번으
-    private int pseq; 
+    private int menteeboardReply_ref; //원글의 seq그룹번호, 답글의 답글도 존재
+    private int menteeboardReply_lev; //답글의 단계
+    private int menteeboardReply_step; //글순서 원글은 0번으
+    private int menteeboardReply_pseq; 
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy.MM.dd")
-	private Date logtime;
+	private Date menteeboardReply_logtime;
 
 }

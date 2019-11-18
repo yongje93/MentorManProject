@@ -39,6 +39,7 @@
 		</form>
 	</div>
 </div>
+<script type="text/javascript" src="../js/mentee.js"></script>
 <script>
 $(function() {
 	$('#menteePassword').attr('class','list-button color-gray item-link active').css('font-weight','bold');

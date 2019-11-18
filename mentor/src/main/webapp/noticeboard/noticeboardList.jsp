@@ -33,9 +33,7 @@
 		</div>
 </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="../js/noticeboard.js">
-</script>
+<script src="../js/noticeboard.js"></script>
 <script type="text/javascript">
 /* 엔터 x */
 /* $(document).ready(function(){

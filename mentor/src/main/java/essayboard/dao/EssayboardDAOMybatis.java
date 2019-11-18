@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import essayboard.bean.EssayboardDTO;
+import essayboard.bean.EssayboardScrapDTO;
 
 @Repository
 @Transactional
@@ -30,8 +31,9 @@ public class EssayboardDAOMybatis implements EssayboardDAO {
 
 	// 에세이 직무 유형
 	@Override
-	public List<EssayboardDTO> essayjobType(String jobType) {
-		return sqlSession.selectList("essaySQL.essayjobType", jobType);
+	public List<EssayboardDTO> essayjobType(Map<String, List<String>> map) {
+		System.out.println("매앱 " + map.toString());
+		return sqlSession.selectList("essaySQL.essayjobType", map);
 	}
 
 	// 에세이 총 글 수
@@ -66,20 +68,20 @@ public class EssayboardDAOMybatis implements EssayboardDAO {
 
 	// 해당 멘토가 작성한 에세이 리스트 출력
 	@Override
-	public List<EssayboardDTO> getessayList(String name) {
-		return sqlSession.selectList("essaySQL.getessayList", name);
+	public List<EssayboardDTO> getessayList(int member_seq) {
+		return sqlSession.selectList("essaySQL.getessayList", member_seq);
 	}
 
 	// 해당 멘토가 작성한 에세이 수
 	@Override
-	public int getessayMentorTotal(String name) {
-		return sqlSession.selectOne("essaySQL.getessayMentorTotal", name);
+	public int getessayMentorTotal(int member_seq) {
+		return sqlSession.selectOne("essaySQL.getessayMentorTotal", member_seq);
 	}
 
 	// 에세이 멘토 헤드 뷰
 	@Override
-	public EssayboardDTO essaymentorHeadView(String name) {
-		return sqlSession.selectOne("essaySQL.essaymentorHeadView", name);
+	public EssayboardDTO essaymentorHeadView(int member_seq) {
+		return sqlSession.selectOne("essaySQL.essaymentorHeadView", member_seq);
 	}
 
 	// 모임 후기 (고맙습니다)
@@ -92,5 +94,52 @@ public class EssayboardDAOMybatis implements EssayboardDAO {
 	@Override
 	public int getreTotal() {
 		return sqlSession.selectOne("essaySQL.getreTotal");
+	}
+	
+	// 에세이 보드 조회수
+	@Override
+	public void essayboardHit(int seq) {
+		sqlSession.update("essaySQL.essayboardHit", seq);
+	}
+	
+	// 에세이 보드 조회수 출력
+	@Override
+	public int getessayboardHit(int seq) {
+		return sqlSession.selectOne("essaySQL.getessayboardHit", seq);
+	}
+	
+	// 최신 에세이 리스트
+	@Override
+	public List<EssayboardDTO> getNewEssay(Map<String, Integer> map) {
+		return sqlSession.selectList("essaySQL.getNewEssay", map);
+	}
+	
+	
+	@Override
+	public int getEssayboardScrap(Map<String, Object> scrapMap) {
+		return sqlSession.selectOne("essaySQL.getEssayboardScrap" , scrapMap);
+	}
+
+	@Override
+	public void essayboardScrapUpdate(int essayboardScrap_es_seq) {
+		sqlSession.update("essaySQL.essayboardScrapUpdate" , essayboardScrap_es_seq);
+	}
+	@Override
+	public void essayboardScrapInsert(EssayboardScrapDTO essayboardScrapDTO) {
+		sqlSession.insert("essaySQL.essayboardScrapInsert" , essayboardScrapDTO);
+	}
+	@Override
+	public void essayboardScrapDelete(EssayboardScrapDTO essayboardScrapDTO) {
+		sqlSession.delete("essaySQL.essayboardScrapDelete" , essayboardScrapDTO);
+	}
+
+	@Override
+	public int getTotalScrap(int essayboardScrap_es_seq) {
+		return sqlSession.selectOne("essaySQL.getTotalScrap" , essayboardScrap_es_seq);
+	}
+
+	@Override
+	public List<EssayboardDTO> getEssayboardAttention(String memEmail) {
+		return sqlSession.selectList("essaySQL.getEssayboardAttention" , memEmail);
 	}
 }

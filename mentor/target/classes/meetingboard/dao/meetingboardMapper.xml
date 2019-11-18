@@ -14,7 +14,7 @@
 		<![CDATA[
 			select * from
 			(select rownum rn, tt.* from 
-			(select mb.*, mm.member_name, mm.member_profile, mt.mentor_company, mt.mentor_department
+			(select mb.*, mm.member_name, mm.member_profile, mt.mentor_company, mt.mentor_department, mm.member_seq
 			 from meetingboard mb, mentor mt, mentors_member mm
 			 where mb.mentor_email = mt.mentor_email and mt.mentor_email = mm.member_email
 			 order by meetingboard_seq desc)tt) 

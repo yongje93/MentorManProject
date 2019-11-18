@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="essaySQL">
-	
-	<!-- 에세이 멘토 리스트 출력 -->
-	<!-- <select id="assayboardList" resultType="assay">
-		
-	</select> -->
-	<!-- 에세이 리스트 출력 -->
-	<select id="essayboardList" parameterType="Map" resultType="essay">
-		SELECT
-      		*
-  		FROM
-      	(
+
+   <!-- 에세이 멘토 리스트 출력 -->
+   <!-- <select id="assayboardList" resultType="assay">
+
+   </select> -->
+   <!-- 에세이 리스트 출력 -->
+   <select id="essayboardList" parameterType="Map" resultType="essay">
+      SELECT
+            *
+        FROM
+         (
           SELECT
               ROWNUM rn, tt.*
           FROM
@@ -39,46 +38,107 @@
                       AND mt.mentor_email = mm.member_email
                       AND mt.mentoring_code = mtr.mentoring_code
                   ORDER BY
-                      e.essayboard_seq DESC
+                      e.essayboard_hit DESC
               ) tt)
-		WHERE
-			 <![CDATA[
-	         	rn >= #{startNum} and rn <= #{endNum}
-			 ]]>
-		
+      WHERE
+          <![CDATA[
+               rn >= #{startNum} and rn <= #{endNum}
+          ]]>
+
+   </select>
+
+   <!-- 최신 에세이 리스트 출력 -->
+   <select id="getNewEssay" resultType="essay">
+      SELECT
+            *
+        FROM
+         (
+          SELECT
+              ROWNUM rn, tt.*
+          FROM
+              (
+                  SELECT
+                      e.*,
+                      j.job_type,
+                      mm.member_name,
+                      mt.mentor_company,
+                      mt.mentor_department,
+                      mt.mentor_represent,
+                      mtr.mentoring_code,
+                      mtr.mentoring_type
+                  FROM
+                      essayboard       e,
+                      job              j,
+                      mentor           mt,
+                      mentoring        mtr,
+                      mentors_member   mm
+                  WHERE
+                      e.job_code = j.job_code
+                      AND e.mentor_email = mt.mentor_email
+                      AND mt.mentor_email = mm.member_email
+                      AND mt.mentoring_code = mtr.mentoring_code
+                      AND e.essayboard_scrap > 0
+              ) tt)
+      WHERE
+          <![CDATA[
+               rn >= #{startNum} and rn <= #{endNum}
+          ]]>
+   </select>
+
+   <!-- 에세이 글쓰기 -->
+   <insert id="essayboardWrite" parameterType="java.util.Map">
+      INSERT
+         into essayboard
+         (
+            essayboard_seq,
+            mentor_email,
+            job_code,
+            essayboard_title,
+            essayboard_content,
+            essayboard_logtime
+         )
+      VALUES(essayboard_seq.nextval
+         , #{mentor_email, jdbcType=VARCHAR}
+         , #{job_code, jdbcType=VARCHAR}
+         , #{essayboard_title, jdbcType=VARCHAR}
+         , #{essayboard_content, jdbcType=VARCHAR}
+         , sysdate
+      )
+   </insert>
+
+   <!-- 직무 유형 -->
+   <select id="essayjobType" parameterType="Map" resultType="essay">
+      select * from
+                  (select rownum rn, tt.* from
+                  (SELECT
+                      e.*,
+                      j.job_type,
+                      mm.member_name,
+                      mt.mentor_company,
+                      mt.mentor_department,
+                      mt.mentor_represent,
+                      mtr.mentoring_code,
+                      mtr.mentoring_type
+                  FROM
+                      essayboard       e,
+                      job              j,
+                      mentor           mt,
+                      mentoring        mtr,
+                      mentors_member   mm
+                  WHERE
+                      e.job_code = j.job_code
+                      AND e.mentor_email = mt.mentor_email
+                      AND mt.mentor_email = mm.member_email
+                      AND mt.mentoring_code = mtr.mentoring_code
+                  ORDER BY
+                      e.logtime DESC)tt
+                      where job_code IN 'job_code_9')
+
+			<!-- <foreach collection="job_code" item="job_code" open="(" separator="," close=")">
+				#{job_code}
+			</foreach> -->
 	</select>
-	
-	<!-- 에세이 글쓰기 -->
-	<insert id="essayboardWrite" parameterType="java.util.Map">
-		INSERT
-			into essayboard
-			(
-				essayboard_seq,
-				mentor_email,
-				job_code,
-				essayboard_title,
-				essayboard_content,
-				logtime
-			)
-		VALUES(dumy_seq.nextval
-			, #{mentor_email, jdbcType=VARCHAR}
-			, #{job_code, jdbcType=VARCHAR}
-			, #{essayboard_title, jdbcType=VARCHAR}
-			, #{essayboard_content, jdbcType=VARCHAR}
-			, sysdate
-		)
-	</insert>
-	
-	<!-- 직무 유형 -->
-	<select id="essayjobType" parameterType="String" resultType="essay">
-		SELECT
-			*
-		FROM
-			essayboard
-		WHERE
-			job_code = #{jobType}
-	</select>
-	
+
 	<!-- 에세이 총 글 수 -->
 	<select id="getTotalA" parameterType="Map" resultType="Int">
 		SELECT
@@ -86,10 +146,10 @@
 		FROM
 			essayboard
 	</select>
-	
+
 	<!-- 에세이 멘토 바디 뷰 -->
 	<select id="essaymentorBodyView" parameterType="Int" resultType="essay">
-		SELECT 
+		SELECT
 		    e.*,
 		    j.job_type,
 		    mm.member_name,
@@ -98,10 +158,10 @@
 		    mt.mentor_represent,
 		    mtr.mentoring_code,
 		    mtr.mentoring_type
-		FROM 
+		FROM
 		    essayboard e, job j, mentor mt, mentoring mtr, mentors_member mm
 		WHERE
-		    e.job_code = j.job_code 
+		    e.job_code = j.job_code
 		AND
 		    e.mentor_email = mt.mentor_email
 		AND
@@ -109,21 +169,21 @@
 		AND
 		    mt.mentoring_code = mtr.mentoring_code
 		AND
-		    e.essayboard_seq = #{seq} 
+		    e.essayboard_seq = #{seq}
 	</select>
-	
+
 	<!-- 에세이 수정 -->
 	<select id="essayboardModifyForm" parameterType="Int" resultType="essay">
 		SELECT
 			*
-		FROM 
+		FROM
 		    essayboard e, job j
 		WHERE
 		    e.job_code = j.job_code
 		AND
 		    e.essayboard_seq = #{seq}
 	</select>
-	
+
 	<!-- 에세이 수정 처리 -->
 	<update id="essayboardModify" parameterType="Map">
 		UPDATE
@@ -136,7 +196,7 @@
 		WHERE
 		 essayboard_seq = #{seq, jdbcType=INTEGER}
 	</update>
-	
+
 	<!-- 에세이 글 삭제 -->
 	<delete id="essayboardDelete" parameterType="Int">
 		DELETE
@@ -144,9 +204,9 @@
 		WHERE
 			seq = #{seq}
 	</delete>
-	
+
 	<!-- 해당 멘토가 작성한 에세이 리스트 출력 -->
-	<select id="getessayList" parameterType="String" resultType="essay">
+	<select id="getessayList" parameterType="Int" resultType="essay">
 		SELECT
 		    e.*,
 		    mm.member_name
@@ -156,14 +216,14 @@
 		    mentors_member   mm
 		WHERE
 		    e.mentor_email = mt.mentor_email
-		AND 
+		AND
 		    mt.mentor_email = mm.member_email
-		AND 
-		    mm.member_name = #{name}
+		AND
+		    mm.member_seq = #{member_seq}
 	</select>
-	
+
 	<!-- 해당 멘토가 작성한 에세이 수 -->
-	<select id="getessayMentorTotal" parameterType="String" resultType="Int">
+	<select id="getessayMentorTotal" parameterType="Int" resultType="Int">
 		SELECT
 		    count(*)
 		FROM
@@ -172,15 +232,15 @@
 		    mentors_member   mm
 		WHERE
 		    e.mentor_email = mt.mentor_email
-		AND 
+		AND
 		    mt.mentor_email = mm.member_email
-		AND 
-		    mm.member_name = #{name}
+		AND
+		    mm.member_seq = #{member_seq}
 	</select>
-	
+
 	<!-- 에세이 멘토 헤드 뷰 -->
-	<select id="essaymentorHeadView" parameterType="String" resultType="essay">
-		SELECT 
+	<select id="essaymentorHeadView" parameterType="Int" resultType="essay">
+		SELECT
 		    e.*,
 		    j.job_type,
 		    mm.member_name,
@@ -192,10 +252,10 @@
 		    mt.mentor_etc,
 		    mtr.mentoring_code,
 		    mtr.mentoring_type
-		FROM 
+		FROM
 		    essayboard e, job j, mentor mt, mentoring mtr, mentors_member mm
 		WHERE
-		    e.job_code = j.job_code 
+		    e.job_code = j.job_code
 		AND
 		    e.mentor_email = mt.mentor_email
 		AND
@@ -203,9 +263,9 @@
 		AND
 		    mt.mentoring_code = mtr.mentoring_code
 		AND
-		    mm.member_name = #{name}
+		    mm.member_seq = #{member_seq}
 	</select>
-	
+
 	<!-- 모임 후기 (고맙습니다) -->
 	<select id="getessayReview" resultType="essay">
 		SELECT
@@ -213,7 +273,7 @@
 		FROM
 			meeting_review
 	</select>
-	
+
 	<!-- 모임 후기 글 수 -->
 	<select id="getreTotal" resultType="Int">
 		SELECT
@@ -221,4 +281,79 @@
 		FROM
 			meeting_review
 	</select>
+
+	<!-- 에세이 보드 조회수 -->
+	<update id="essayboardHit" parameterType="Int">
+		UPDATE
+			essayboard
+		SET
+			essayboard_hit = essayboard_hit + 1
+		WHERE
+			essayboard_seq = #{seq}
+	</update>
+
+	<!-- 에세이 보드 조회수 출력  -->
+	<select id="getessayboardHit" resultType="Int">
+		SELECT
+			essayboard_hit
+		FROM
+			essayboard
+		WHERE
+			essayboard_seq = #{seq}
+	</select>
+	
+	
+	<select id="getEssayboardScrap" parameterType="essayboardScrap" resultType="Integer">
+   		select count(*) 
+   		from essayboardScrap 
+   		where essayboardScrap_es_seq =#{seq} and
+   			  essayboardScrap_mem_email = #{memEmail}
+   </select>
+   
+   <delete id="essayboardScrapDelete" parameterType="essayboardScrap">
+   	delete from essayboardScrap where essayboardScrap_es_seq = #{essayboardScrap_es_seq} AND essayboardScrap_mem_email = #{essayboardScrap_mem_email}
+   </delete>
+   <insert id="essayboardScrapInsert" parameterType="essayboardScrap">
+   insert into essayboardScrap (essayboardScrap_es_seq,essayboardScrap_mem_email) values(#{essayboardScrap_es_seq},#{essayboardScrap_mem_email})
+   </insert>
+	<!-- menteeboaerd good 업데이트 -->
+   <update id="essayboardScrapUpdate" parameterType="Integer">
+   update essayboard set essayboard_scrap = (select count(*) from essayboardScrap where essayboardScrap_es_seq = #{essayboardScrap_es_seq})
+   where essayboard_seq = #{essayboardScrap_es_seq}
+   </update>
+   
+   <!--에세이보드의 스크랩 갯수 -->
+   <select id="getTotalScrap" parameterType="Integer" resultType="Integer">
+   select count(*) from essayboardScrap where essayboardScrap_es_seq = #{essayboardScrap_es_seq}
+   </select>
+   
+   <!-- 로그인한 사람이 스크랩한 에세이보드  -->
+   <select id="getEssayboardAttention" parameterType="String" resultType="essay">
+   select
+                      e.*,
+                      j.job_type,
+                      mm.member_name,
+                      mt.mentor_company,
+                      mt.mentor_department,
+                      mt.mentor_represent,
+                      mtr.mentoring_code,
+                      mtr.mentoring_type
+                  from
+                      essayboard       e,
+                      job              j,
+                      mentor           mt,
+                      mentoring        mtr,
+                      mentors_member   mm,
+                      essayboardScrap  ebs
+                  where
+                      e.job_code = j.job_code
+                      and e.mentor_email = mt.mentor_email
+                      and mt.mentor_email = mm.member_email
+                      and mt.mentoring_code = mtr.mentoring_code
+                      and ebs.essayboardscrap_es_seq = e.essayboard_seq
+                      and ebs.essayboardscrap_mem_email = #{memEmail}
+                order by ebs.essatboardscrap_logtime desc
+   
+   </select>
+
 </mapper>
