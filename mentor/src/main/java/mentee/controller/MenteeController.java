@@ -25,7 +25,6 @@ import meetingboard.service.MeetingboardService;
 import member.bean.MemberDTO;
 import mentee.bean.MenteeDTO;
 import mentee.service.MenteeService;
-import mentor.bean.MentorDTO;
 import participation.bean.OrderDTO;
 import participation.bean.OrderHistoryPaging;
 import participation.service.ParticipationService;

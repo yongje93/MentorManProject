@@ -18,11 +18,13 @@
 <div class="page navbar-fixed mentee_programs show" style="width: 800px; margin: auto;">
 	<div class="page-content">
 		<div class="block main-block">
+		<c:if test="${today <= meetingdayCompare}">
 		<c:if test="${memDTO.member_email == meetingboardDTO.mentor_email}">
 			<div style="float: right; margin-bottom: 5px;">
 				<button class="button" id="meetingboardModifyFormBtn" style="display: inline-block;">수정</button>
 				<button class="button" id="meetingboardDeleteBtn" style="display: inline-block;">삭제</button>
 			</div>
+		</c:if>
 		</c:if>
 			<div>
 				<img src="../image/job_code/${meetingboardDTO.job_code}.jpg" style="width: 100%; height: 500px;">

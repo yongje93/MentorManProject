@@ -131,8 +131,8 @@
 					</li>
 					<li>
 						<div id="map" style="width: 400px; height: 400px; margin-top: 10px;"></div>
-						<input type="hidden" id="address_y" name="meetingboard_address_y">
-						<input type="hidden" id="address_x" name="meetingboard_address_x">								
+						<input type="hidden" id="address_y" name="meetingboard_address_y" value="${meetingboardDTO.meetingboard_address_y}">
+						<input type="hidden" id="address_x" name="meetingboard_address_x" value="${meetingboardDTO.meetingboard_address_x}">								
 					</li>
 				</ul>
 			</div>

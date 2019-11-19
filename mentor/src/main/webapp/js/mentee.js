@@ -153,8 +153,21 @@ $('#menteePassword_btn').on('click', function(){
 
 // 모임 작성 후기
 $('#reviewWriteBtn').click(function(){
+	var content = $("#review_content").val();
 	if($('#review_content').val() == '') {
-		$('#review_content').focus();
+		var toastTop = app.toast.create({
+        	text: '모임 후기를 작성해주세요.',
+         	position: 'top',
+         	closeButton: true,
+       });
+       toastTop.open();
+	} else if(content.length < 15) {
+		var toastTop = app.toast.create({
+        	text: '모임 후기는 15자 이상 작성해주세요.',
+         	position: 'top',
+         	closeButton: true,
+       });
+       toastTop.open();
 	} else {
 		$('#reviewWriteForm').submit();
 	}
