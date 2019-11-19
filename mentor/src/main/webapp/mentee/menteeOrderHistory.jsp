@@ -70,8 +70,7 @@
 				<td> <%-- 수강취소 --%>
 					<c:if test="${(oldDays - nowDays) >= 2}">
 						<div class="btn-set btn-parents">
-							<button type="button" class="button" 
-								onclick="location.href='/mentor/participation/paymentCancel?seq=${orderHistoryDTO.meetingboard_seq}&order_id=${orderHistoryDTO.order_id}&price=${orderHistoryDTO.meetingboard_price}&pseq=${orderHistoryDTO.participation_seq }'" style="font-size: 11px;">수강취소</button>
+							<button type="button" class="button" onclick="paymentCancel('${orderHistoryDTO.meetingboard_seq}','${orderHistoryDTO.order_id}','${orderHistoryDTO.meetingboard_price}','${orderHistoryDTO.participation_seq}')" style="font-size: 11px;">수강취소</button>
 						</div>
 					</c:if>
 					<c:if test="${(oldDays - nowDays) < 2}"> <%-- 취소기간 지난거 --%>
@@ -95,5 +94,4 @@
 $(function(){
 	$('#menteeOrderHistory').attr('class', 'list-button color-gray item-link active').css('font-weight', 'bold');
 });
-
 </script>

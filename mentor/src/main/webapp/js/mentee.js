@@ -173,3 +173,22 @@ $('#reviewWriteBtn').click(function(){
 	}
 });
 
+function paymentCancel(seq, order_id, price, pseq) {
+	alert(seq);
+	alert(order_id);
+	alert(price);
+	alert(pseq);
+	
+	var toastWithCallback = app.toast.create({
+		text: '수강을 취소하시겠습니까?',
+		position: 'center',
+		closeButton: true,
+		closeButtonColor: 'blue',
+		on: {
+			close: function() {
+				location.href='/mentor/participation/paymentCancel?seq='+seq+'&order_id='+order_id+'&price='+price+'&pseq='+pseq;
+			}
+		}
+	});	
+	toastWithCallback.open();
+}

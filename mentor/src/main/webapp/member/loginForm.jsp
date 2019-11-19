@@ -145,7 +145,7 @@ if($("#flag").val() == 1) {
     	var toastTop = app.toast.create({
         	text: '로그인 또는 회원 가입하셔야 합니다.',
          	position: 'top',
-         	closeButton: true,
+         	closeButton: true
        });
        toastTop.open();
  	});
