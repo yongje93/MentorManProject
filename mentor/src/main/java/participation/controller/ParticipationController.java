@@ -132,4 +132,24 @@ public class ParticipationController {
 		model.addAttribute("display", "/participation/participationPaymentComplete.jsp");
 		return "/main/index";
 	}
+	
+	/**
+	 * @Title : 결제 취소
+	 * @Author : yong
+	 * @Date : 2019. 11. 19.
+	 * @Method Name : paymentCancel
+	 */
+	@RequestMapping(value = "paymentCancel", method = RequestMethod.GET)
+	public String paymentCancel(@RequestParam String seq, @RequestParam String order_id, @RequestParam String price, @RequestParam String pseq) {
+		int meetingboard_seq = Integer.parseInt(seq);
+		int meetingboard_price = Integer.parseInt(price);
+		int participation_seq = Integer.parseInt(pseq);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("meetingboard_seq", meetingboard_seq);
+		map.put("meetingboard_price", meetingboard_price);
+		map.put("order_id", order_id);
+		map.put("participation_seq", participation_seq);
+		participationService.paymentCancel(map);
+		return "redirect:/mentee/menteeOrderHistory";
+	}
 }

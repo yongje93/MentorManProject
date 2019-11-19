@@ -63,4 +63,5 @@ public class MenteeDAOMybatis implements MenteeDAO {
 	public void menteePasswordSave(Map<String, String> map) {
 		sqlSession.update("menteeSQL.menteePasswordSave", map);
 	}
+	
 }

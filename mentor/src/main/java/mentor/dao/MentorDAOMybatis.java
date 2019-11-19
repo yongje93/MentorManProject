@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import meetingboard.bean.ReviewDTO;
 import mentor.bean.MentorDTO;
 
 @Transactional
@@ -57,7 +58,7 @@ public class MentorDAOMybatis implements MentorDAO {
 	}
 
 	@Override
-	public List<MentorDTO> getMentorReviewList(int mentor_seq) {
+	public List<ReviewDTO> getMentorReviewList(int mentor_seq) {
 		return sqlSession.selectList("mentorSQL.getMentorReviewList", mentor_seq);
 	}
 

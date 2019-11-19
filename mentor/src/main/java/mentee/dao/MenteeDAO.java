@@ -23,6 +23,4 @@ public interface MenteeDAO {
 
 	public void menteePasswordSave(Map<String, String> map);
 
-
-
 }

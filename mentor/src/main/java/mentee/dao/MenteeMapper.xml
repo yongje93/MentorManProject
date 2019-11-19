@@ -52,4 +52,5 @@
 	<update id="menteePasswordSave" parameterType="String">
 		update mentors_member set member_pwd = #{member_pwd} where member_email = #{member_email}
 	</update>
+
 </mapper>

@@ -25,6 +25,7 @@ import meetingboard.service.MeetingboardService;
 import member.bean.MemberDTO;
 import mentee.bean.MenteeDTO;
 import mentee.service.MenteeService;
+import mentor.bean.MentorDTO;
 import participation.bean.OrderDTO;
 import participation.bean.OrderHistoryPaging;
 import participation.service.ParticipationService;
@@ -192,7 +193,7 @@ public class MenteeController {
 		map.put("member_email", member_email);
 		
 		List<OrderDTO> orderHistoryList = participationService.getOrderHistoryUsingMemEmail(map);
-		
+
 		// 페이징 처리
 		int totalOrderHistory = participationService.getTotalHistory(member_email);
 		orderHistoryPaging.setCurrentPage(Integer.parseInt(pg));

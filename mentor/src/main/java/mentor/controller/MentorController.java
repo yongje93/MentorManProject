@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import meetingboard.bean.ReviewDTO;
 import member.bean.MemberDTO;
 import mentor.bean.MentorDTO;
 import mentor.bean.MentorfindPaging;
@@ -156,11 +157,11 @@ public class MentorController {
 	 * @Method Name : mentorInfoView
 	 */
 	@RequestMapping(value = "mentorInfoView", method = RequestMethod.GET)
-	public String mentorInfoView(@RequestParam String pg, @RequestParam String mentors, Model model) {
+	public String mentorInfoView(@RequestParam String mentors, Model model) {
 		int mentor_seq = Integer.parseInt(mentors);
 		MentorDTO mentorDTO = mentorService.getMentorInfomation(mentor_seq);
 		List<MentorDTO> essayList = mentorService.getMentorEssayList(mentor_seq);
-		List<MentorDTO> reviewList = mentorService.getMentorReviewList(mentor_seq);
+		List<ReviewDTO> reviewList = mentorService.getMentorReviewList(mentor_seq);
 		String[] mentoringArray = mentorDTO.getMentoring_code().split(",");
 		Map<String, String[]> map = new HashMap<String, String[]>();
 		map.put("mentoring_code", mentoringArray);

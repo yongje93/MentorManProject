@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <div class="page navbar-fixed mentors show" data-name="mentors-show">
 	<div class="page-content">
@@ -79,7 +80,7 @@
 							<a class="button col js-bookmark" type="external" data-remote="true" rel="nofollow" data-method="post" href=""> 팔로우 </a>
 						</div>
 						<div class="profile-btn">
-							<a class="button button-fill" type="external" href="/mentors/554/questions/new"> 질문하기 </a>
+							<a class="button button-fill" type="external" href="">질문하기</a>
 						</div>
 					</div>
 				</div>
@@ -95,15 +96,16 @@
 				<div class="block">${mentorDTO.mentor_etc}</div>
 			</c:if>
 		</div>
+		<c:if test="${reviewTotal > 0 }">
 		<div class="block section thanks-block">
 			<div class="title-wrap">
 				<div class="block-title strong-title">고맙습니다</div>
-				<div class="count">(${reviewTotal })</div>
+				<div class="count">(${reviewTotal})</div>
 			</div>
 			<div class="row no-gap">
-				<c:forEach var="review" items="${reviewList }">
-				<fmt:formatDate var="review_date" value="${review.review_date}" pattern="yyyy년 MM월 dd일"/>
-					<div id='thanks-notes'>
+				<div id='thanks-notes'>
+					<c:forEach var="review" items="${reviewList}">
+					<fmt:formatDate var="review_date" value="${review.review_date}" pattern="yyyy년 MM월 dd일"/>
 						<div class="block mentee-detail-block thanks-note-card">
 							<div class="mentee-info">
 								<div class="mentee-image img-circle">
@@ -119,29 +121,42 @@
 							</div>
 							<div class="thanks-note-body">${review.review_content}</div>
 						</div>
-					</div>
-				</c:forEach>
+					</c:forEach>
+				</div>
 			</div>
+			<c:if test="${reviewTotal > 3 }">
 			<div class="text-align-center">
 				<button class="button load-more" id="loadMoreThanks">더 보기</button>
 			</div>
+			</c:if>
 		</div>
+		</c:if>
+		<c:if test="${essayTotal > 0 }">
 		<div class="block mentor-post-block section">
 			<div class="title-wrap">
 				<div class="block-title strong-title">에세이</div>
 				<div class="count">(${essayTotal})</div>
 			</div>
 			<div class="row no-gap">
-				<c:forEach var="list" items="${essayList}">
+				<c:forEach var="essayList" items="${essayList}">
+				<fmt:formatDate var="essayboard_date" value="${essayList.essayboard_logtime}" pattern="yyyy년 MM월 dd일"/>
 					<div class="col-100 tablet-100 desktop-100">
-						<div class="card mentor-post-card shadow-card">
-							<div class="card-content card-content-padding profile-card" style="overflow: hidden; text-overflow: ellipsis; height: 200px;">
+						<div class="card mentor-post-card shadow-card" hidden>
+							<div class="card-content card-content-padding profile-card">
 								<a class="content-body" type="external" href="">
 									<div class="mentor-post-title">
-										${list.essayboard_title }
+										${essayList.essayboard_title}
 									</div>
 									<div class="mentor-post-detail">
-										${list.essayboard_content }
+										<c:choose>
+											<c:when test="${fn:length(essayList.essayboard_content) gt 300}">
+												<c:out value='${fn:substring(essayList.essayboard_content.replaceAll("\\\<.*?\\\>|&nbsp;",""), 0, 290)}'/>...
+											</c:when>
+											<c:otherwise>
+												<c:out value="${essayList.essayboard_content}"/>
+											</c:otherwise>
+										</c:choose>
+										
 									</div>
 								</a>
 							</div>
@@ -149,91 +164,70 @@
 								<a class="color-gray js-bookmark" type="external" data-remote="true" rel="nofollow" data-method="post"
 									href="" style="right: 0px; position: unset; margin: 0px 0px;"> 
 								<i class="far fa-bookmark" aria-hidden="true"></i>
-									${list.essayboard_scrap}
+									${essayList.essayboard_scrap}
 								</a>
 								<div class="created-at">
-									<small> ${list.essayboard_logtime} </small>
+									<small> ${essayboard_date}</small>
 								</div>
 							</div>
 						</div>
 					</div>
 				</c:forEach>
 			</div>
+			<c:if test="${essayTotal > 2 }">
 			<div class="text-align-center load-more-container">
 				<button class="button load-more" id="loadMorePost">더 보기</button>
 			</div>
-			<div style="margin-top: 50px; margin-bottom: 100px;">
-				<input type="button" onclick="location.href='/mentor/essayboard/essayboardList'"
-					value="목록" class="btn button button-big button-fill" style="line-height: 0px;">
-			</div>
+			</c:if>
 		</div>
+		</c:if>
 	</div>
 </div>
-<input type="hidden" id="seq" name="seq" value="${essayboardDTO.essayboard_seq }">
 <script>
 	let currentPage = 1;
-	const lastPage = 2
-	$(function () {
-	  $('.open-mentoring-card').prop('hidden', true).slice(0, 2).show();
-	  $("#loadMoreContents").on('click', function (e) {
-	      e.preventDefault();
-	      $(".open-mentoring-card:hidden").slice(0, 2).slideDown();
-	      if ($(".open-mentoring-card:hidden").length == 0) {
-	          $("#loadMoreContents").fadeOut('slow');
-	      }
-	  });
+	const lastPage = 1;
+	
+	$(function() {
+		$('.mentor-post-card').prop('hidden', true).slice(0, 2).show();
+		$("#loadMorePost").on('click', function(e) {
+			e.preventDefault();
+			$(".mentor-post-card:hidden").slice(0, 2).slideDown();
+			if ($(".mentor-post-card:hidden").length == 0) {
+				$("#loadMorePost").fadeOut('slow');
+			}
+		});
 	});
-	$(function () {
-	  $('.mentor-post-card').prop('hidden', true).slice(0, 2).show();
-	  $("#loadMorePost").on('click', function (e) {
-	      e.preventDefault();
-	      $(".mentor-post-card:hidden").slice(0, 2).slideDown();
-	      if ($(".mentor-post-card:hidden").length == 0) {
-	          $("#loadMorePost").fadeOut('slow');
-	      }
-	  });
-	});
-	function toggleThanksNotesText(e){
-	  e.preventDefault();
-	  $(this).hide();
-	  $(this).prev('span.elipsis').fadeToggle(500);
+	
+	function toggleThanksNotesText(e) {
+		e.preventDefault();
+		$(this).hide();
+		$(this).prev('span.elipsis').fadeToggle(500);
 	}
-	function hideLongThanksNotesText(element){
-	  const body = element.text();
-	  if (body.length > 300) {
-	    element.html(body.substr(0, 286) + '<span class="elipsis">' + body.substr(286) + '</span><a class="elipsis" href="#"><span class=gray>...</span> 더 보기</a>');
-	  }
+	
+	function hideLongThanksNotesText(element) {
+		const body = element.text();
+		if (body.length > 300) {
+			element.html(body.substr(0, 286)
+							+ '<span class="elipsis">'
+							+ body.substr(286)
+							+ '</span><a class="elipsis" href="#"><span class=gray>...</span> 더 보기</a>');
+		}
 	}
-	$(function () {
-	  $('.thanks-note-card').prop('hidden', true).slice(0, 5).show();
-	  $("#loadMoreThanks").on('click', function (e) {
-	      e.preventDefault();
-	      if ($(".thanks-note-card:hidden").length == 0) {       
-	        $.ajax({
-	          type: "GET",
-	          url: "https://www.itdaa.net/mentors/14134/thanks",
-	          data: { page: currentPage + 1 },
-	          contentType: "application/json",
-	          success: function(result){
-	            currentPage += 1;
-	            const final = $(result).each(function(){
-	              hideLongThanksNotesText($(this).find('.thanks-note-body'));
-	            });
-	            final.on('click', '.thanks-note-body > a.elipsis', toggleThanksNotesText);
-	            final.prop('hidden', true).appendTo('#thanks-notes');
-	            $(".thanks-note-card:hidden").slice(0, 5).slideDown();
-	          }
-	        });
-	      } else {
-	        $(".thanks-note-card:hidden").slice(0, 5).slideDown();
-	        if($(".thanks-note-card:hidden").length == 0 && lastPage <= currentPage){
-	          $("#loadMoreThanks").fadeOut('slow');
-	        }
-	      }
-	  });
+	
+	$(function() {
+		$('.thanks-note-card').prop('hidden', true).slice(0, 3).show();
+		$("#loadMoreThanks").on( 'click', function(e) {
+			e.preventDefault();
+			$(".thanks-note-card:hidden").slice(0, 3).slideDown();
+			if ($(".thanks-note-card:hidden").length == 0 && lastPage <= currentPage) {
+				$("#loadMoreThanks").fadeOut('slow');
+			}
+		});
 	});
-	$('.thanks-note-body').each(function(){
-	  hideLongThanksNotesText($(this));
+	
+	$('.thanks-note-body').each(function() {
+		hideLongThanksNotesText($(this));
 	});
+	
 	$('.thanks-note-body > a.elipsis').click(toggleThanksNotesText);
 </script>

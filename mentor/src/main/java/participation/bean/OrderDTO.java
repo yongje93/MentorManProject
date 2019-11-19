@@ -24,4 +24,5 @@ public class OrderDTO {
 	private int meetingboard_price;
 	private String meetingboard_day;
 	private String mentor_email;
+	private String review_seq;
 }

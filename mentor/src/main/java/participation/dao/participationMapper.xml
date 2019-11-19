@@ -52,7 +52,7 @@
 	<select id="getOrderHistoryUsingOrderId" parameterType="string" resultType="order">
 		select m.job_code, m.meetingboard_title, m.meetingboard_price, o.order_date, o.order_price, o.mentee_email, o.mentee_name, o.mentee_tel, o.meetingboard_seq, o.participation_seq
 		from meetingboard m, meeting_order o
-		where m.meetingboard_seq = o.meetingboard_seq and order_id=#{order_id}
+		where m.meetingboard_seq = o.meetingboard_seq and order_id=#{order_id} and order_flag=1
 	</select>
 	<!-- 내정보에서 결제내역 전체 보여주기 -->
 	<select id="getOrderHistoryUsingMemEmail" parameterType="java.util.Map" resultType="order">
@@ -65,15 +65,26 @@
 		<![CDATA[
 			select * from
 			(select rownum rn, tt.* from 
-			(select m.job_code, m.meetingboard_title, m.meetingboard_day, m.meetingboard_price, o.order_id, o.order_date, o.order_price, o.mentee_email, o.mentee_name, o.mentee_tel, m.mentor_email, o.meetingboard_seq, o.participation_seq
-			 from meetingboard m, meeting_order o 
-			 where m.meetingboard_seq = o.meetingboard_seq and o.mentee_email=#{member_email}
-			 order by o.participation_seq desc)tt) 
-			 where rn >= #{startNum} and rn <= #{endNum}
+			(select m.job_code, m.meetingboard_title, m.meetingboard_day, m.meetingboard_price, o.order_id, o.order_date, o.order_price, o.mentee_email, o.mentee_name, o.mentee_tel, m.mentor_email, o.meetingboard_seq, o.participation_seq, rv.review_seq
+			from meetingboard m, meeting_order o, meeting_review rv
+			where rv.meetingboard_seq(+) = o.meetingboard_seq and rv.mentee_email(+)=o.mentee_email and m.meetingboard_seq = o.meetingboard_seq and o.mentee_email=#{member_email} and o.order_flag = 1
+			order by o.participation_seq desc)tt)
+			where rn >= #{startNum} and rn <= #{endNum}
 		 ]]>
 	</select>
 	<!-- 회원의 전체 결제 내역 수 가져오기 -->
 	<select id="getTotalHistory" parameterType="string" resultType="int">
-		  select count(*) from meeting_order where mentee_email=#{member_email}
+		  select count(*) from meeting_order where mentee_email=#{member_email} and order_flag = 1
 	</select>
+	<!-- 결제 취소 -->
+	<!-- 결제 취소후 주문 목록에서 해당 금액 만큼 빼기 -->
+	<update id="paymentCanelTotal" parameterType="java.util.Map">
+		update meeting_order set order_price = order_price - #{meetingboard_price}
+		where order_id = #{order_id}
+	</update>
+	<!-- 삭제한 항목 flag 0으로 바꾸기 -->
+	<update id="paymentCancelFlag" parameterType="java.util.Map">
+		update meeting_order set order_flag = 0
+		where order_id = #{order_id} and meetingboard_seq = #{meetingboard_seq} and participation_seq = #{participation_seq}
+	</update>
 </mapper>

@@ -3,6 +3,7 @@ package mentor.dao;
 import java.util.List;
 import java.util.Map;
 
+import meetingboard.bean.ReviewDTO;
 import mentor.bean.MentorDTO;
 
 public interface MentorDAO {
@@ -23,7 +24,7 @@ public interface MentorDAO {
 
 	public List<MentorDTO> getMentorEssayList(int mentor_seq);
 
-	public List<MentorDTO> getMentorReviewList(int mentor_seq);
+	public List<ReviewDTO> getMentorReviewList(int mentor_seq);
 
 	public MentorDTO getMentorInfomation(int mentor_seq);
 

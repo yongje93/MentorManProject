@@ -65,4 +65,12 @@ public class ParticipationDAOMybatis implements ParticipationDAO {
 	public int getTotalHistory(String member_email) {
 		return sqlSession.selectOne("participationSQL.getTotalHistory", member_email);
 	}
+	
+	@Override
+	public void paymentCancel(Map<String, Object> map) {
+		// 일단 전체 금액에서 빼기
+		sqlSession.update("participationSQL.paymentCanelTotal", map);
+		// 삭제한 항목 flag 0으로 바꾸기
+		sqlSession.update("participationSQL.paymentCancelFlag", map);
+	}
 }

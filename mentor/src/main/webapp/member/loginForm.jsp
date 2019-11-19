@@ -10,6 +10,7 @@
 				<a class="button button-big button-fill bg-kakao-color col" type="external" href="${kakaoUrl}">카카오 아이디로 로그인</a>
 			</div>
 			<div class="block inset login-block">
+			<input type="hidden" id="flag" value="${flag}">
 				<form class="simple_form new_user" id="new_user" novalidate="novalidate" action="" method="post">
 					<div class="signup-or-separator">
 						<span class="signup-or-separator--text">또는</span>
@@ -137,4 +138,16 @@ $(document).ready(function() {
 			}
 		});
 	});
+</script>
+<script>
+if($("#flag").val() == 1) {
+ 	document.addEventListener("DOMContentLoaded", function(event) {
+    	var toastTop = app.toast.create({
+        	text: '로그인 또는 회원 가입하셔야 합니다.',
+         	position: 'top',
+         	closeButton: true,
+       });
+       toastTop.open();
+ 	});
+}
 </script>

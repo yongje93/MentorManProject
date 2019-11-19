@@ -77,6 +77,7 @@
 		select e.essayboard_title, e.essayboard_content, e.essayboard_scrap, e.essayboard_logtime
 		from essayboard e, mentor mt, mentors_member mm
 		where e.mentor_email = mt.mentor_email and mm.member_email = e.mentor_email and mm.member_seq = ${mentor_seq}
+		order by essayboard_logtime desc
 	</select>
 	<!-- 고맙습니다 리스트 -->
 	<select id="getMentorReviewList" parameterType="int" resultType="review">
@@ -86,6 +87,7 @@
 			and rv.mentee_email = mm2.member_email
 			and mm1.member_email = m.mentor_email
 			and mm1.member_seq = ${mentor_seq}
+		order by rv.review_date desc
 	</select>
 	<!-- 멘토 정보 시리얼 번호 이용 -->
 	<select id="getMentorInfomation" parameterType="int" resultType="mentor">

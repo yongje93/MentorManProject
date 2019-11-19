@@ -16,5 +16,6 @@ public interface ParticipationDAO {
 	public List<OrderDTO> getOrderHistoryUsingOrderId(String order_id);
 	public List<OrderDTO> getOrderHistoryUsingMemEmail(Map<String, Object> map);
 	public int getTotalHistory(String member_email);
+	public void paymentCancel(Map<String, Object> map);
 
 }

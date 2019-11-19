@@ -161,7 +161,6 @@ $("#meetingboardModifyBtn").click(function(){
 			url: "/mentor/meetingboard/meetingboardModify",
 			data: $("#meetingboardModifyForm").serialize(),
 			success: function(){
-				alert("수정완료");
 				location.href="/mentor/meetingboard/meetingboardList?pg="+$("#pg").val();
 			},
 			error : function(e){
@@ -194,8 +193,7 @@ $("#meetingboardDeleteBtn").click(function(){
 // 모임 신청 버튼
 function callFunction(email){
 	if(email == '') {
-		alert("먼저 로그인을 하세요!");
-		location.href="/mentor/member/loginForm";
+		$("#loginFlagForm").submit();
 	} else {
 		location.href="/mentor/participation/participationWriteForm?seq="+$("#seq").val();
 	}

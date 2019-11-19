@@ -55,4 +55,9 @@ public class ParticipationServiceImpl implements ParticipationService {
 	public int getTotalHistory(String member_email) {
 		return participationDAO.getTotalHistory(member_email);
 	}
+	
+	@Override
+	public void paymentCancel(Map<String, Object> map) {
+		participationDAO.paymentCancel(map);
+	}
 }

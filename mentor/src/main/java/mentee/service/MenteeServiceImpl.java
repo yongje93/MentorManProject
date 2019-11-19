@@ -53,5 +53,5 @@ public class MenteeServiceImpl implements MenteeService {
 	public void menteePasswordSave(Map<String, String> map) {
 		menteeDAO.menteePasswordSave(map);
 	}
-
+	
 }
