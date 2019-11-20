@@ -67,7 +67,7 @@
 									</ul>
 								</div>
 								<div class="mentor-profile">
-									<a class="mentor-info" type="external" href="/mentor/mentor/mentorInfoView?pg=${pg}&mentors=${meetingboardDTO.member_seq}">
+									<a class="mentor-info" type="external" href="/mentor/mentor/mentorInfoView?mentors=${meetingboardDTO.member_seq}">
 										<div class="mentor-image img-circle">
 											<c:if test="${meetingboardDTO.member_profile == 'profile.jpg'}">
 											<img src="../image/profile.jpg" width="28" height="28">

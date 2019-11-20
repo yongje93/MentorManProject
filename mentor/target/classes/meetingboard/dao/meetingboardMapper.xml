@@ -56,4 +56,21 @@
   		insert into meeting_review(review_seq, meetingboard_seq, mentee_email, review_content)
   		values (review_seq.nextval, #{meetingboard_seq},#{mentee_email},#{review_content})
   	</insert>
+  	
+  	<!-- 모임 후기 가져오기 -->
+  	<select id="getMeetingReview" parameterType="int" resultType="review">
+  		select * from meeting_review where review_seq=#{review_seq}
+  	</select>
+  	
+  	<!-- 모임 후기 수정 -->
+  	<update id="meetingReviewModify" parameterType="review">
+  		update meeting_review
+  		set review_content = #{review_content}, review_date = sysdate 
+  		where review_seq = #{review_seq}
+  	</update>
+  	
+  	<!-- 모임 후기 삭제 -->
+  	<delete id="meetingReviewDelete" parameterType="int">
+  		delete from meeting_review where review_seq = #{review_seq} 
+  	</delete>
 </mapper>

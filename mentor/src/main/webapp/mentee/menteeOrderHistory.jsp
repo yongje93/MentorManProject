@@ -55,7 +55,7 @@
 								<button type="button" class="button" onclick="location.href='/mentor/mentee/meetingReviewWriteForm?seq=${orderHistoryDTO.meetingboard_seq}'" style="font-size: 11px;">수강후기</button>
 							</div>
 						</c:if>
-						<c:if test="${orderHistoryDTO.review_seq != null}">
+						<c:if test="${orderHistoryDTO.review_seq != null && orderHist}">
 							<div class="btn-set btn-parents">
 								<span>(작성완료)</span>
 							</div>

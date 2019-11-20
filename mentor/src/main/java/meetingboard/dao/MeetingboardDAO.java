@@ -16,5 +16,8 @@ public interface MeetingboardDAO {
 	public void meetingboardDelete(int meetingboard_seq);
 	public List<GuideDTO> getGuideList();
 	public void meetingReviewWrite(ReviewDTO reviewDTO);
+	public ReviewDTO getMeetingReview(int review_seq);
+	public void meetingReviewModify(ReviewDTO reviewDTO);
+	public void meetingReviewDelete(int review_seq);
 
 }

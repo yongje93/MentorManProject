@@ -167,6 +167,7 @@ public class MentorController {
 		map.put("mentoring_code", mentoringArray);
 		List<MentorDTO> mentoringList = mentorService.getMentoring_code(map);
 				
+		model.addAttribute("mentor_seq", mentor_seq);
 		model.addAttribute("mentoringList", mentoringList);
 		model.addAttribute("mentorDTO", mentorDTO);
 		model.addAttribute("essayList", essayList);

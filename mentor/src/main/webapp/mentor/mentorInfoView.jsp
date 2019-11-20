@@ -120,6 +120,13 @@
 								<div class="sent-date">${review_date}</div>
 							</div>
 							<div class="thanks-note-body">${review.review_content}</div>
+							
+							<c:if test="${memDTO.member_email == review.mentee_email}">
+								<div style="float: right; margin-bottom: 5px;">
+									<button class="button" onclick="location.href='/mentor/mentee/meetingReviewModifyForm?seq=${review.review_seq}&mentors=${mentor_seq}'" style="display: inline-block;">수정</button>
+									<button class="button" onclick="reviewDelete(${review.review_seq})" style="display: inline-block;">삭제</button>
+								</div>
+							</c:if>
 						</div>
 					</c:forEach>
 				</div>
@@ -183,6 +190,7 @@
 		</c:if>
 	</div>
 </div>
+<script src="../js/mentor.js"></script>
 <script>
 	let currentPage = 1;
 	const lastPage = 1;
@@ -230,4 +238,24 @@
 	});
 	
 	$('.thanks-note-body > a.elipsis').click(toggleThanksNotesText);
+	
+	function reviewDelete(review_seq){
+		var toastWithCallback = app.toast.create({
+			text: '후기를 삭제하시겠습니까?',
+			position: 'center',
+			closeButton: true,
+			on: {
+				close: function() {
+					location.href='/mentor/mentee/meetingReviewDelete?seq='+review_seq+'&mentors=${mentor_seq}';
+					var toastCenter = app.toast.create({
+						  text: '삭제완료',
+						  position: 'center',
+						  closeTimeout: 2000
+					});
+					toastCenter.open();
+				}
+			}
+		});	
+		toastWithCallback.open();
+	}
 </script>

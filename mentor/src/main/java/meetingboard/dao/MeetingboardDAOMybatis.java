@@ -58,4 +58,18 @@ public class MeetingboardDAOMybatis implements MeetingboardDAO {
 		sqlSession.insert("meetingboardSQL.meetingReviewWrite", reviewDTO);
 	}
 
+	@Override
+	public ReviewDTO getMeetingReview(int review_seq) {
+		return sqlSession.selectOne("meetingboardSQL.getMeetingReview", review_seq);
+	}
+	
+	@Override
+	public void meetingReviewModify(ReviewDTO reviewDTO) {
+		sqlSession.update("meetingboardSQL.meetingReviewModify", reviewDTO);
+	}
+	
+	@Override
+	public void meetingReviewDelete(int review_seq) {
+		sqlSession.delete("meetingboardSQL.meetingReviewDelete", review_seq);
+	}
 }

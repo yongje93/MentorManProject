@@ -55,4 +55,19 @@ public class MeetingboardServiceImpl implements MeetingboardService {
 	public void meetingReviewWrite(ReviewDTO reviewDTO) {
 		meetingboardDAO.meetingReviewWrite(reviewDTO);
 	}
+	
+	@Override
+	public ReviewDTO getMeetingReview(int review_seq) {
+		return meetingboardDAO.getMeetingReview(review_seq);
+	}
+	
+	@Override
+	public void meetingReviewModify(ReviewDTO reviewDTO) {
+		meetingboardDAO.meetingReviewModify(reviewDTO);
+	}
+	
+	@Override
+	public void meetingReviewDelete(int review_seq) {
+		meetingboardDAO.meetingReviewDelete(review_seq);
+	}
 }

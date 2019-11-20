@@ -151,21 +151,21 @@ $('#menteePassword_btn').on('click', function(){
 	}
 });
 
-// 모임 작성 후기
+// 모임 후기 작성
 $('#reviewWriteBtn').click(function(){
 	var content = $("#review_content").val();
 	if($('#review_content').val() == '') {
 		var toastTop = app.toast.create({
         	text: '모임 후기를 작성해주세요.',
          	position: 'top',
-         	closeButton: true,
+         	closeButton: true
        });
        toastTop.open();
 	} else if(content.length < 15) {
 		var toastTop = app.toast.create({
         	text: '모임 후기는 15자 이상 작성해주세요.',
          	position: 'top',
-         	closeButton: true,
+         	closeButton: true
        });
        toastTop.open();
 	} else {
@@ -173,17 +173,33 @@ $('#reviewWriteBtn').click(function(){
 	}
 });
 
+// 모임 후기 수정
+$('#reviewModifyBtn').click(function(){
+	var content = $("#review_content").val();
+	if($('#review_content').val() == '') {
+		var toastTop = app.toast.create({
+        	text: '모임 후기를 작성해주세요.',
+         	position: 'top',
+         	closeButton: true
+       });
+       toastTop.open();
+	} else if(content.length < 15) {
+		var toastTop = app.toast.create({
+        	text: '모임 후기는 15자 이상 작성해주세요.',
+         	position: 'top',
+         	closeButton: true
+       });
+       toastTop.open();
+	} else {
+		$('#reviewModifyForm').submit();
+	}
+});
+
 function paymentCancel(seq, order_id, price, pseq) {
-	alert(seq);
-	alert(order_id);
-	alert(price);
-	alert(pseq);
-	
 	var toastWithCallback = app.toast.create({
 		text: '수강을 취소하시겠습니까?',
 		position: 'center',
 		closeButton: true,
-		closeButtonColor: 'blue',
 		on: {
 			close: function() {
 				location.href='/mentor/participation/paymentCancel?seq='+seq+'&order_id='+order_id+'&price='+price+'&pseq='+pseq;

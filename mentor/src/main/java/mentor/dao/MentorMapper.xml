@@ -81,7 +81,7 @@
 	</select>
 	<!-- 고맙습니다 리스트 -->
 	<select id="getMentorReviewList" parameterType="int" resultType="review">
-		select rv.review_content, rv.review_date, mm1.member_name as mentor_name, mm2.member_name as mentee_name, mm2.member_profile, rv.mentee_email
+		select rv.review_seq, rv.review_content, rv.review_date, mm1.member_name as mentor_name, mm2.member_name as mentee_name, mm2.member_profile, rv.mentee_email
 		from meeting_review rv, mentors_member mm1, mentors_member mm2, meetingboard m
 		where rv.meetingboard_seq = m.meetingboard_seq
 			and rv.mentee_email = mm2.member_email
