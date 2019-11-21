@@ -51,11 +51,12 @@
 				<td> <%-- 수강 후기 --%>
 					<c:if test="${today >= meetingday}">
 						<c:if test="${orderHistoryDTO.review_seq == null}">
+							<c:if test=""></c:if>
 							<div class="btn-set btn-parents">
 								<button type="button" class="button" onclick="location.href='/mentor/mentee/meetingReviewWriteForm?seq=${orderHistoryDTO.meetingboard_seq}'" style="font-size: 11px;">수강후기</button>
 							</div>
 						</c:if>
-						<c:if test="${orderHistoryDTO.review_seq != null && orderHist}">
+						<c:if test="${orderHistoryDTO.review_seq != null}">
 							<div class="btn-set btn-parents">
 								<span>(작성완료)</span>
 							</div>

@@ -76,7 +76,7 @@
 		<div class="mentor-block block block-strong">
 			<div class="block mentor-info-block">
 				<div class="mentor-image img-circle">
-					<a target="_blank" type="external" href="/mentor/mentor/mentorInfoView?pg=${pg}&mentors=${meetingboardDTO.member_seq}"> 
+					<a target="_blank" type="external" href="/mentor/mentor/mentorInfoView?mentors=${meetingboardDTO.member_seq}"> 
 					<c:if test="${meetingboardDTO.member_profile == 'profile.jpg'}">
 					<img src="../image/profile.jpg" width="150" height="150">
 					</c:if>
@@ -88,7 +88,7 @@
 				<div class="block mentor-info">
 					<div class="name">
 						<span class="mentor-name"> 
-							<a target="_blank" type="external" href="/mentor/mentor/mentorInfoView?pg=${pg}&mentors=${meetingboardDTO.member_seq}">
+							<a target="_blank" type="external" href="/mentor/mentor/mentorInfoView?mentors=${meetingboardDTO.member_seq}">
 								${meetingboardDTO.member_name}
 							</a> <small>멘토</small>
 						</span>

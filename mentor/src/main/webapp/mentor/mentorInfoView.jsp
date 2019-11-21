@@ -67,7 +67,7 @@
 						<div class="title" style="height: 15px;">멘토링 분야</div>
 						<div class="mentoring-type-block">
 							<c:forEach var="mentoring" items="${mentoringList}">
-								<a type="external" href="">
+								<a type="external" href=""> <%--주소 수정 --%>
 									<div class="chip chip-outline no-border-radius job-tags">
 										<div class="chip-label">${mentoring.mentoring_type}</div>
 									</div>
@@ -77,10 +77,10 @@
 					</div>
 					<div class="btn-container">
 						<div class="profile-btn">
-							<a class="button col js-bookmark" type="external" data-remote="true" rel="nofollow" data-method="post" href=""> 팔로우 </a>
+							<a class="button col js-bookmark" type="external" data-remote="true" rel="nofollow" data-method="post" href=""> 팔로우 </a>  <%--주소 수정 --%>
 						</div>
 						<div class="profile-btn">
-							<a class="button button-fill" type="external" href="">질문하기</a>
+							<a class="button button-fill" type="external" href="">질문하기</a>  <%--주소 수정 --%>
 						</div>
 					</div>
 				</div>
@@ -150,7 +150,7 @@
 					<div class="col-100 tablet-100 desktop-100">
 						<div class="card mentor-post-card shadow-card" hidden>
 							<div class="card-content card-content-padding profile-card">
-								<a class="content-body" type="external" href="">
+								<a class="content-body" type="external" href="/mentor/essayboard/essayboardView?"> 		<%--주소 수정 --%>
 									<div class="mentor-post-title">
 										${essayList.essayboard_title}
 									</div>
@@ -169,7 +169,7 @@
 							</div>
 							<div class="card-footer">
 								<a class="color-gray js-bookmark" type="external" data-remote="true" rel="nofollow" data-method="post"
-									href="" style="right: 0px; position: unset; margin: 0px 0px;"> 
+									href="" style="right: 0px; position: unset; margin: 0px 0px;">   <%--주소 수정 --%>
 								<i class="far fa-bookmark" aria-hidden="true"></i>
 									${essayList.essayboard_scrap}
 								</a>
