@@ -2,8 +2,13 @@ package member.service;
 
 import java.util.List;
 import java.util.Map;
+
+import javax.inject.Inject;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+
 import member.bean.MemberDTO;
 import member.dao.MemberDAO;
 import mentor.bean.MentorDTO;
@@ -14,8 +19,10 @@ import mentor.bean.MentorDTO;
  */
 @Service(value="memberService")
 public class MemberServiceImpl implements MemberService {
-	
-	@Autowired private MemberDAO memberDAO;
+	@Autowired 
+	private MemberDAO memberDAO;
+	@Inject
+	private JavaMailSender mailSender;
 	
 	/** @Title : 닉네임 중복확인.
 	 * @author : ginkgo1928 @date : 2019. 11. 5.*/
@@ -61,11 +68,11 @@ public class MemberServiceImpl implements MemberService {
 	public MemberDTO newPwdCommit(Map<String, String> map) {
 		return memberDAO.newPwdCommit(map);
 	}
+	
+
+	
 }
 
 	
 
 	
-	
-
-

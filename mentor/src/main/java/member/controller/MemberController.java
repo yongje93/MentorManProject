@@ -153,7 +153,7 @@ public class MemberController {
 		MemberDTO memberDTO = memberService.login(map);
 		
 		if (memberDTO != null) {
-      memberDTO.setMember_pwd("");
+			memberDTO.setMember_pwd("");
 			session.setAttribute("memDTO", memberDTO);
 			session.setMaxInactiveInterval(60*60*24); // 세션 1일 유지
 			return "login_ok";
@@ -254,5 +254,6 @@ public class MemberController {
 		map.put("member_pwd",member_pwd);
 		memberService.newPwdCommit(map);	
 	}
+	
 	
 }

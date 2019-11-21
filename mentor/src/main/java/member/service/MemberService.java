@@ -2,6 +2,7 @@ package member.service;
 
 import java.util.List;
 import java.util.Map;
+
 import member.bean.MemberDTO;
 import mentor.bean.MentorDTO;
 
@@ -20,6 +21,9 @@ public interface MemberService {
 	public MemberDTO newPwdCommit(Map<String, String> map);
 
 	public List<MentorDTO> getQandA(String member_email);
+
+
+
 
 	
 	

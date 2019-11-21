@@ -51,6 +51,8 @@
 	<update id="newPwdCommit" parameterType="java.util.Map">
 		update mentors_member set member_pwd=#{member_pwd} where member_name=#{member_name} and member_email=#{member_email}
 	</update>
+	
+	
 </mapper>
 
 	

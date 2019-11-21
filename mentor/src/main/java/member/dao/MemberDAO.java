@@ -8,7 +8,6 @@ import mentor.bean.MentorDTO;
 
 public interface MemberDAO {
 
-
 	public MemberDTO writeNicknamecheck(String member_nickname);
 
 	public MemberDTO writeEmailCheck(String member_email);
@@ -22,6 +21,8 @@ public interface MemberDAO {
 	public MemberDTO setsetmemberpwd(Map<String, String> map);
 
 	public MemberDTO newPwdCommit(Map<String, String> map);
+
+
 
 
 	
