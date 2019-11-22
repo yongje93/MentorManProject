@@ -34,17 +34,17 @@ public class MenteeboardReplyController {
 	public ModelAndView menteeboardReplyWrite(@RequestParam Map<String, String> map) {
 		
 		int menteeboard_seq = Integer.parseInt(map.get("menteeboard_seq"));
-		String email = map.get("email");
-		String nickname = map.get("nickname");
 		String content = map.get("content");
 		String memEmail = map.get("memEmail"); //로그인 되어있는 이메일
+		String memNicname = map.get("memNicname");//로그인 되어있는 닉네임
+		System.out.println("댓글에 저장되는 map : " + map);
 		int pg = Integer.parseInt(map.get("pg"));
 		
 		Map<String, Object> map2 = new HashMap<String, Object>();
 		map2.put("menteeboard_seq" , menteeboard_seq);
 		map2.put("profile" , "");
-		map2.put("email" , email );
-		map2.put("nickname" , nickname);
+		map2.put("email" , memEmail );
+		map2.put("nickname" , memNicname);
 		map2.put("content" , content);
 		System.out.println("map2 :: "+ map2 );
 		//DB 댓글 저장

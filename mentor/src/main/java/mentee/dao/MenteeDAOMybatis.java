@@ -64,4 +64,9 @@ public class MenteeDAOMybatis implements MenteeDAO {
 		sqlSession.update("menteeSQL.menteePasswordSave", map);
 	}
 	
+	@Override
+	public MemberDTO getNickname(String member_nickname) {
+		return sqlSession.selectOne("menteeSQL.getNickname", member_nickname);
+	}
+
 }

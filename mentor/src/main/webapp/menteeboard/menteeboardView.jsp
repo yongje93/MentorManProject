@@ -113,9 +113,14 @@
 		</div>
 	</div>
 <input type="hidden" id="menteeboard_seq" name="menteeboard_seq" value="${menteeboardDTO.menteeboard_seq}">
+
 <input type="hidden" id="email" name="email" value="${menteeboardDTO.menteeboard_email}">
-<input type="hidden" name="nickname" value="${menteeboardDTO.menteeboard_nickname}">
+<input type="hidden" id="nickname" name="nickname" value="${menteeboardDTO.menteeboard_nickname}">
+
 <input type="hidden" id="memEmail" name="memEmail" value="${memEmail}">
+<!-- 닉네임은 소켓에 담을때 사용한다 -->
+<input type="hidden" id="memNicname" name="memNicname" value="${memNicname}">
+
 <input type="hidden" name="pg" value="${pg}">
 <input type="hidden" name="seq_trans" id="seq_trans">
 

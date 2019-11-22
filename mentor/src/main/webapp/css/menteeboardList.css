@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+.item-inner {
+	margin-right : 1100px;
+	margin-top : 15px;
+}
 
 #boardListMain_div{
     width: 100%;

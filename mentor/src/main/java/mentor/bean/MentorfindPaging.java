@@ -42,33 +42,5 @@ public class MentorfindPaging {
 	   
 	      pagingHTML.append("</ul>");
 	}	
-//	public void makeSelectPagingHTML() {
-//		pagingHTML = new StringBuffer();		
-//		
-//		int totalP = (totalA+pageSize-1)/pageSize;//총페이지수
-//		
-//		int startPage = (currentPage-1)/pageBlock*pageBlock+1;
-//		int endPage = startPage+pageBlock-1;
-//		if(endPage>totalP) endPage = totalP;
-//	    
-//	    //
-//	    pagingHTML.append("<ul class='pagination'>");
-//	      
-//	      // [이전]
-//	      if (startPage > pageBlock)
-//	         pagingHTML.append("<li><a rel='prev' data-reload='true' type='external' onclick='boardSearch("+(startPage-1)+")'>이전</a></li>");
-//
-//	      for (int i = startPage; i <= endPage; i++) {
-//	         if (i == currentPage)
-//	            pagingHTML.append("<li class='active'><a remote='false' onclick='boardSearch("+i+")'>" + i + "</a></li>");
-//	         else
-//	            pagingHTML.append("<li><a rel='prev' data-reload='true' type='external' onclick='boardSearch("+i+")'>" + i + "</a></li>");
-//	      }
-//	      // [다음]
-//	      if (endPage < totalP)
-//	         pagingHTML.append("<li class='next'><a rel='next' data-reload='true' type='external' onclick='boardSearch("+(endPage+1)+")'>다음</a></li>");
-//	   
-//	      pagingHTML.append("</ul>");
-//	    
-//	}
+
 }

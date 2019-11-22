@@ -23,5 +23,7 @@ public interface MenteeService {
 
 	public void menteePasswordSave(Map<String, String> map);
 
+	public MemberDTO getNickname(String member_nickname);
+
 
 }

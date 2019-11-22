@@ -20,9 +20,9 @@
 						<span class="mentor-name">
 						${mentorDTO.member_name} <small>멘토</small>
 						</span>
-						<a class="button col js-bookmark user_26668" data-params="followed_id=26668" data-disable-with="..." type="external" data-remote="true" rel="nofollow" data-method="post" href="/relationships">
+						<a class="button col js-bookmark mentor_${mentorDTO.mentor_seq}" id="followA" data-params="followed_id=26668" data-disable-with="..." type="external" data-remote="true" rel="nofollow" data-method="post" href="/relationships">
 						팔로우 </a>
-						<a class="button button-small button-fill" type="external" href="/mentor/mentor/mentorQuestionsForm?pg=${pg}&seq=${seq}">
+						<a class="button button-small button-fill" type="external" href="/mentor/mentor/mentorQuestionsForm?pg=${pg}&seq=${seq}&qsseq=${questionDTO.question_seq}">
 						질문하기 </a>
 					</div>
 					<div class="job">
@@ -42,6 +42,13 @@
 								 멘토링 분야
 							</div>
 							<div class="mentoring-type-block">
+							<a type="external" href="/mentors?job_type%5B%5D=18">
+					              <div class="chip chip-outline no-border-radius">
+					                <div class="chip-label">
+					                 	 ${mentorDTO.job_type}
+					                </div>
+					              </div>
+								</a>
 							<c:forEach var="array" items="${list}">
 								<a type="external" href="/mentors?job_type%5B%5D=3">
 								<div class="chip chip-outline no-border-radius">
@@ -74,7 +81,7 @@
 		          <li class="item-content item-input">
 		            <div class="item-inner">
 		              <div class="item-input-wrap">
-		                <input class="string required" placeholder="고민 한줄 요약" type="text" name="question_title" id="question_title">
+		                <input class="string required" placeholder="고민 한줄 요약" type="text" name="question_title" id="question_title" value="${questionDTO.question_title }">
 		              </div>
 		              <div id="question_title_error"></div>
 		            </div>
@@ -98,7 +105,7 @@
 		          <li class="item-content item-input">
 		            <div class="item-inner">
 		              <div class="item-input-wrap">
-		                <textarea class="text required" name="question_content" id="question_content"></textarea>
+		                <textarea class="text required" name="question_content" id="question_content">${questionDTO.question_content}</textarea>
 		              </div>
 		              <div id="question_content_error"></div>
 		            </div>
@@ -115,14 +122,77 @@
 			            - 행사 참여/인터뷰/과제 요청
 			          </li>
      				</div>
-
-      					<input type="button" id="save_btn" name="commit" value="임시저장" class="btn button button-big button-fill" data-disable-with="임시저장">
+     				<c:if test="${questionDTO==null}">
+      					<input type="button" id="save_btn" name="submit_btn" value="보내기" class="btn button button-big button-fill">
+  					</c:if>
+     				<c:if test="${questionDTO!=null}">
+      					<input type="button" id="modify_btn" name="submit_btn" value="수정하기" class="btn button button-big button-fill">
+  					</c:if>
   					</div>
-					<input type="hidden" name="mentor_seq" value="${seq}">
-					<input type="hidden" name="pg" value="${pg}">
+					<input type="hidden" id="mentor_seq" name="mentor_seq" value="${seq}">
+					<input type="hidden" id="question_seq" name="question_seq" value="${questionDTO.question_seq}">
+					<input type="hidden" id="pg" name="pg" value="${pg}">
+  					<input type="hidden" id="followVal" name="followVal" value="${follow}">
+  					<input type="hidden" id="followed_email" name="followed_email" value="${mentorDTO.mentor_email}">
   				</form>
 			</div>
   		</div>
 	</div>
 </div>
 <script src="../js/mentor.js"></script>
+<script>
+var seq = $('#mentor_seq').val();
+
+$(function(){
+	//alert($('#followVal').val());
+	//alert($('#followA').attr('class'));
+	
+	if($('#followVal').val() === '1'){
+		$('#followA').addClass('button-fill');
+	}else{
+		$('#followA').removeClass('button-fill');
+	}
+});
+		
+$('.mentor_'+seq).on('click' , function(){
+	var followBtn = $(this);
+	
+	var sendData = {
+			'followed_email' : $('#followed_email').val(),
+			'follow' : $('#followVal').val()
+		};
+	
+	$.ajax({
+		url : '/mentor/mentor/mentorFollow',
+		type : 'POST',
+		data : sendData,
+		success : function(data) {
+			
+			if (data == 1) {
+				followBtn.addClass('button-fill');
+				var toastIcon = app.toast.create({
+					  text: '관심멘토에 등록 되었습니다',
+					  position: 'center',
+					  closeTimeout: 2000,
+					});
+				toastIcon.open();
+			}else{
+				followBtn.removeClass('button-fill');
+				var toastIcon = app.toast.create({
+					  text: '관심멘토에서 삭제 되었습니다',
+					  position: 'center',
+					  closeTimeout: 2000,
+					});
+				toastIcon.open();
+			}
+			$('#followVal').val(data);
+		},
+		error : function(err){
+			console.log("err");
+		}
+		
+	});
+});
+
+
+</script>

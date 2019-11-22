@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,13 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import meetingboard.bean.ReviewDTO;
 import member.bean.MemberDTO;
 import mentor.bean.MentorDTO;
+import mentor.bean.MentorFollowDTO;
 import mentor.bean.MentorfindPaging;
 import mentor.service.MentorService;
 
@@ -31,6 +34,10 @@ public class MentorController {
 	private MentorService mentorService;
 	@Autowired
 	private MentorfindPaging mentorfindPaging;
+	@Autowired
+	private MemberDTO memberDTO;
+	@Autowired
+	private MentorFollowDTO mentorFollowDTO;
 	
 	/**
 	 * @Title : 멘토 지원하기에 회사명, 부서, 직무
@@ -95,7 +102,9 @@ public class MentorController {
 	 * @Author : kujun95, @Date : 2019. 11. 15.
 	 */
 	@RequestMapping(value = "mentorfindForm", method = RequestMethod.GET)
-	public String mentorfindForm(@RequestParam int pg, Model model) {
+	public String mentorfindForm(@RequestParam int pg, Model model, HttpSession session) {
+		memberDTO = (MemberDTO) session.getAttribute("memDTO");
+		//승인된 멘토
 		int mentor_flag = 1;
 		int endNum = pg*12;
 		int startNum = endNum-11;
@@ -110,6 +119,7 @@ public class MentorController {
 		mentorfindPaging.setPageSize(12);
 		mentorfindPaging.setTotalA(totalA);
 		mentorfindPaging.makePagingHTML();
+		model.addAttribute("memberDTO", memberDTO);
 		model.addAttribute("pg", pg);
 		model.addAttribute("mentorfindPaging", mentorfindPaging);
 		model.addAttribute("list", list);
@@ -117,19 +127,57 @@ public class MentorController {
 		return "/main/index";
 	}
 	
+	
+	@RequestMapping(value = "question_flag", method = RequestMethod.POST)
+	@ResponseBody
+	public String question_flag(@RequestParam String seq, @RequestParam(required = false, defaultValue = "1") String pg, HttpSession session) {
+		String reQuestion = "/mentor/mentor/mentorQuestionsForm?pg="+pg+"&seq="+seq;
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("memDTO");
+		Map<String, String> flagCheck_map = new HashMap<String, String>();
+		flagCheck_map.put("member_email", memberDTO.getMember_email());
+		flagCheck_map.put("mentor_seq", seq);
+		System.out.println(seq);
+		MentorDTO questionDTO = mentorService.getQuestion_flag(flagCheck_map);
+		if(questionDTO != null) {
+		int flag = questionDTO.getQuestion_flag();
+		int qsseq = questionDTO.getQuestion_seq();
+			if(flag == 0) {
+				return "/mentor/member/myQuestionsForm?pg="+pg+"&seq="+seq+"&qsseq="+qsseq;
+			}else {
+				return reQuestion;
+			}
+		}else {
+			return reQuestion;
+		}
+	}
+	
 	/**
 	 * @Title : 멘토에게 질문하기
 	 * @Author : kujun95, @Date : 2019. 11. 15.
 	 */
 	@RequestMapping(value = "mentorQuestionsForm", method = RequestMethod.GET)
-	public String mentorQuestionsForm(@RequestParam int seq, @RequestParam int pg, Model model) {
+	public String mentorQuestionsForm(@RequestParam(required = false, defaultValue = "1") int seq, @RequestParam(required = false, defaultValue = "1") int pg, @RequestParam(required = false, defaultValue = "1") int qsseq, Model model, HttpSession session) {
+		//멘토정보 가져오기
+		MentorDTO questionDTO =  mentorService.questionModifyForm(qsseq);
 		MentorDTO mentorDTO = mentorService.getMentor_info(seq);
 		String[] mentoringArray = mentorDTO.getMentoring_code().split(",");
 		Map<String, String[]> map = new HashMap<String, String[]>();
 		map.put("mentoring_code", mentoringArray);
 		List<MentorDTO> list = mentorService.getMentoring_code(map);
+		
+		//로그인 세션
+		memberDTO = (MemberDTO) session.getAttribute("memDTO");
+		Map<String, String> followMap = new HashMap<String, String>();
+		followMap.put("memEmail" , memberDTO.getMember_email());
+		followMap.put("mentorEmail" , mentorDTO.getMentor_email());
+		
+		//팔로우 찾기
+		int follow = mentorService.getFollowCheck(followMap);
+		
 		model.addAttribute("list", list);
+		model.addAttribute("follow" , follow);
 		model.addAttribute("mentorDTO", mentorDTO);
+		model.addAttribute("questionDTO",questionDTO);
 		model.addAttribute("pg",pg);
 		model.addAttribute("seq",seq);
 		model.addAttribute("display", "/mentor/mentorQuestionsForm.jsp");
@@ -177,4 +225,62 @@ public class MentorController {
 		model.addAttribute("display", "/mentor/mentorInfoView.jsp");
 		return "/main/index";
 	}
+	/**
+	 * @Title : 질문 수정
+	 * @Author : kujun95, @Date : 2019. 11. 20.
+	 */
+	@RequestMapping(value = "questionModify", method = RequestMethod.POST)
+	@ResponseBody
+	public String questionModify(@RequestParam Map <String, String> map) {
+		System.out.println(map);
+		int success = mentorService.questionModify(map);
+		if(success == 0) {
+			return "error";
+		}else {
+			return "success";
+		}
+	}
+	
+	/**
+	 * 
+	 * @Title : 멘토 팔로우 기능 구현
+	 * @Author : yangjaewoo, @Date : 2019. 11. 21.
+	 */
+	@RequestMapping(value = "mentorFollow", method = RequestMethod.POST)
+	@ResponseBody
+	public int mentorFollow(HttpServletRequest httpRequest, HttpSession session) {
+		int follow = Integer.parseInt(httpRequest.getParameter("follow"));
+        String followed_email = httpRequest.getParameter("followed_email");
+        
+        memberDTO = (MemberDTO)session.getAttribute("memDTO");
+        String follower_email = memberDTO.getMember_email();
+        
+        mentorFollowDTO.setFollower_email(follower_email);
+        mentorFollowDTO.setFollowed_email(followed_email);
+       
+        System.out.println("mentorFollowDTO : " + mentorFollowDTO);
+        if(follow >= 1) {
+        	mentorService.mentorFollowDelete(mentorFollowDTO);
+        	follow=0;
+        } else {
+        	mentorService.mentorFollowInsert(mentorFollowDTO);
+        	follow=1;
+        }
+        
+        return follow;
+	}
+	
+	@RequestMapping(value = "mentorAttention", method = RequestMethod.GET)
+	public String mentorAttention(Model model , HttpSession session) {
+		memberDTO = (MemberDTO) session.getAttribute("memDTO");
+		//승인된 멘토 이면서 나를 팔로우한 팔로워 list
+		int mentor_flag = 1;
+		List<MentorDTO> list = mentorService.getMentorAttentionList(mentor_flag);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("display", "/mentor/mentorAttention.jsp");
+		return "/main/index";
+	}
+		
+	
 }

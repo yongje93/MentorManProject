@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="participationSQL">
+	<!-- 신청 form 멘토 정보 가져오기 -->
+	<select id="getMentorInfo" parameterType="int" resultType="member">
+		<!-- 나중에 member_seq 넣기 회사도 가능하면 -->
+		select member_name, member_email 	  
+		from mentors_member, meetingboard
+		where mentors_member.member_email = meetingboard.mentor_email and meetingboard_seq=#{meetingboard_seq}
+	</select>
+	<!-- 모임신청하기 -->
+	<insert id="participationWrite" parameterType="participation">
+		insert into meeting_participation(participation_seq, meetingboard_seq, mentee_email, mentee_name, mentor_email, mentor_name, participation_address, participation_question) 
+		values(participation_seq.nextval,#{meetingboard_seq},#{mentee_email},#{mentee_name},#{mentor_email},#{mentor_name},#{participation_address},#{participation_question})
+	</insert>
+	<!-- 모임신청정보 + 가격 + 사진  + 상태-->
+	<select id="getParticipation" parameterType="java.util.Map" resultType="participation">
+		select p.participation_seq, p.meetingboard_seq, p.mentee_email, p.mentee_name, p.mentor_email, p.mentor_name, m.meetingboard_price, m.job_code, m.meetingboard_title, m.meetingboard_state
+		from meeting_participation p, meetingboard m
+		where p.meetingboard_seq = m.meetingboard_seq and p.mentee_email=#{mentee_email} and p.participation_state = 0
+		order by p.participation_seq asc
+	</select>
+	<!-- 모임 신청 삭제 -->
+	<delete id="orderDelete" parameterType="int">
+		delete from meeting_participation where participation_seq=#{participation_seq}
+	</delete>
+	<!-- 모임 결제 완료(결제내역 테이블에 추가) -->
+	<insert id="orderComplete" parameterType="java.util.Map">
+		insert into meeting_order(order_id, order_price, mentee_email, mentee_name, mentee_tel, meetingboard_seq, participation_seq)
+		values(#{order_id},#{order_price},#{mentee_email},#{mentee_name},#{mentee_tel},#{meetingboard_seq},#{participation_seq})
+	</insert>
+	<!-- 결제 완료후 신청 상태 1로 변경 -->
+	<update id="meetingStateUpdate" parameterType="java.util.Map">
+		update meeting_participation set participation_state = 1
+		where participation_seq = #{participation_seq}
+	</update>
+	<!-- 결제 완료후 해당 seq 몇명 신청인지 보기 -->
+	<select id="menteeCount" parameterType="java.util.Map" resultType="int">
+		select count(*) from meeting_order where meetingboard_seq = #{meetingboard_seq}
+	</select>
+	<!-- 모임당 최대 인원 -->
+	<select id="menteeLimit" parameterType="java.util.Map" resultType="int">
+		select meetingboard_count from meetingboard where meetingboard_seq = #{meetingboard_seq}
+	</select>
+	<!-- 모집완료 일때 -->
+	<update id="updateState" parameterType="java.util.Map">
+		update meetingboard set meetingboard_state = 1 where meetingboard_seq = #{meetingboard_seq}
+	</update>
+	<!-- 결제완료후 결제내역 바로 보여주기 -->
+	<select id="getOrderHistoryUsingOrderId" parameterType="string" resultType="order">
+		select m.job_code, m.meetingboard_title, m.meetingboard_price, o.order_date, o.order_price, o.mentee_email, o.mentee_name, o.mentee_tel, o.meetingboard_seq, o.participation_seq
+		from meetingboard m, meeting_order o
+		where m.meetingboard_seq = o.meetingboard_seq and order_id=#{order_id}
+	</select>
+	<!-- 내정보에서 결제내역 전체 보여주기 -->
+	<select id="getOrderHistoryUsingMemEmail" parameterType="java.util.Map" resultType="order">
+		<!-- 
+		select m.job_code, m.meetingboard_title, m.meetingboard_price, o.order_id, o.order_date, o.order_price, o.mentee_email, o.mentee_name, o.mentee_tel, o.meetingboard_seq, o.participation_seq
+		from meetingboard m, meeting_order o
+		where m.meetingboard_seq = o.meetingboard_seq and o.mentee_email=#{member_email} 
+		order by o.participation_seq desc
+		 -->
+		<![CDATA[
+			select * from
+			(select rownum rn, tt.* from 
+			(select m.job_code, m.meetingboard_title, m.meetingboard_day, m.meetingboard_price, o.order_id, o.order_date, o.order_price, o.mentee_email, o.mentee_name, o.mentee_tel, m.mentor_email, o.meetingboard_seq, o.participation_seq
+			 from meetingboard m, meeting_order o 
+			 where m.meetingboard_seq = o.meetingboard_seq and o.mentee_email=#{member_email}
+			 order by o.participation_seq desc)tt) 
+			 where rn >= #{startNum} and rn <= #{endNum}
+		 ]]>
+	</select>
+	<!-- 회원의 전체 결제 내역 수 가져오기 -->
+	<select id="getTotalHistory" parameterType="string" resultType="int">
+		  select count(*) from meeting_order where mentee_email=#{member_email}
+	</select>
+</mapper>

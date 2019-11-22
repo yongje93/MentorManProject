@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <div class="page navbar-fixed questioner_qa_threads index" data-name="questioner_qa_threads-index">
   <div class="page-content">
     <div class="qa-thread-block">
@@ -42,7 +43,7 @@
 	        <div class="col-100">
 			  <div class="card questioner-qa-thread-card">
 			  <div class="card-header">
-			      <a type="external" href="/mentors/43427">
+			      <a type="external" href="#">
 			        <div>
 			          <div class="mentor-image img-circle">
 			              <c:if test="${member.member_profile != 'profile.jpg'}">
@@ -70,14 +71,30 @@
 					</div>
 	
 				 <div class="card-content card-content-padding">
-				    <a class="content-body" type="external" href="/questioner_qa_threads/29326">
+				    <a class="content-body" type="external" href="/mentor/member/myQuestionsForm?pg=${pg}&seq=${member.mentor_seq}&qsseq=${member.question_seq}">
+				    
 				      <div class="title">
-				       ${member.question_title}
+					      <c:choose>
+				           <c:when test="${fn:length(member.question_title) > 60}">
+				            <c:out value="${fn:substring(member.question_title,0,59)}"/>...
+				           </c:when>
+				           <c:otherwise>
+				            <c:out value="${member.question_title}"/>
+				           </c:otherwise> 
+			         	 </c:choose>
 				      </div>
 				
 				      <div class="body">
-				       ${member.question_content}
+				       <c:choose>
+				           <c:when test="${fn:length(member.question_content) > 400}">
+				            <c:out value="${fn:substring(member.question_content,0,399)}"/>...
+				           </c:when>
+				           <c:otherwise>
+				            <c:out value="${member.question_content}"/>
+				           </c:otherwise> 
+			         	 </c:choose>
 				      </div>
+					 
 					</a>  
 				</div>
 				
@@ -96,6 +113,7 @@
 			</c:forEach>
 		</c:if>
       </div>
+		<div style="float: right;">${QandAPag.pagingHTML}</div>
     </div>
   </div>
 </div>

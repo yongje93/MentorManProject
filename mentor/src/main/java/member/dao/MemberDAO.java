@@ -16,21 +16,26 @@ public interface MemberDAO {
 
 	public MemberDTO login(Map<String, String> map);
 
-	public List<MentorDTO> getQandA(String member_email);
-
 	public MemberDTO setsetmemberpwd(Map<String, String> map);
 
 	public MemberDTO newPwdCommit(Map<String, String> map);
 
+	public List<MentorDTO> getQandA(Map<String, String> map);
 
+	public int getTotalA(String member_email);
 
+	public MentorDTO getMentor_info(Map<String, String> map);
 
-	
-	
-	
-	
-	
-	
+	public List<MentorDTO> getMentoring_type(Map<String, String[]> arrayMap);
 
+	public void questionDelete(int question_seq);
+
+	public MemberDTO getMemberByEmail(String member_email);
+
+	public void createAuthKey(String string, String authKey);
+
+	public MemberDTO checkAuthKey(MemberDTO memberDTO);
+
+	public void updateMemberAuthState(MemberDTO memberDTO);
 
 }

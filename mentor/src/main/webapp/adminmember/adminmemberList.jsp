@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <link rel="stylesheet" href="../admincss/adminListAll.css">  
 <div class="row">
@@ -26,35 +27,31 @@
 							<table class="table">
 								<thead>
 									<tr>
-										<th><input type="checkbox"></th>
-										<th scope="col">#</th>
-										<th scope="col">First</th>
-										<th scope="col">Last</th>
-										<th scope="col">Handle</th>
+										<th scope="col">회원 이름</th>
+										<th scope="col">회원 닉네임</th>
+										<th scope="col">회원 메일</th>
+										<th scope="col">회원 구분</th>
+										<th scope="col">회원가입 날짜 </th>
 									</tr>
 								</thead>
 								<tbody>
+								<c:forEach var="adminmemberDTO" items="${list }">
 									<tr>
-										<th><input type="checkbox"></th>
-										<th scope="row">1</th>
-										<td>Mark</td>
-										<td>Otto</td>
-										<td>@mdo</td>
+										<td><img src="../image/${adminmemberDTO.member_profile }" width="30" height="30">${adminmemberDTO.member_name }</td>
+										<td>${adminmemberDTO.member_nickName }</td>
+										<td>${adminmemberDTO.member_email }</td>
+										<c:if test="${adminmemberDTO.member_flag eq '0'}">
+										<td>회원</td>
+										</c:if>
+										<c:if test="${adminmemberDTO.member_flag eq '1'}">
+										<td>멘티</td>
+										</c:if>
+										<c:if test="${adminmemberDTO.member_flag eq '2'}">
+										<td>멘토</td>
+										</c:if>
+										<td>${adminmemberDTO.member_logtime }</td>
 									</tr>
-									<tr>
-										<th><input type="checkbox"></th>
-										<th scope="row">1</th>
-										<td>Mark</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-									</tr>
-									<tr>
-										<th><input type="checkbox"></th>
-										<th scope="row">1</th>
-										<td>Mark</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-									</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 						</div>
@@ -63,11 +60,8 @@
 						<div class="col-sm-12 searchPage">
 							<nav aria-label="Page navigation example">
 								<ul class="pagination">
-									<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-									<li class="page-item"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">Next</a></li>
+									<li class="page-item">${adminmemberPaging.pagingHTML }</li>
+
 								</ul>
 							</nav>                                                           
 						</div>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="adminmemberSQL">
+ 
+ <!-- 회원들 뽑아오기 -->
+ <select id="getAdminmemberList" parameterType="java.util.Map" resultType="adminmember">
+ 	<![CDATA[select * from
+	(select rownum rn, tt.*from
+	(select member_name,member_nickname,member_email,member_flag,member_profile,to_char(to_date(member_logtime),'YYYY.MM.DD') member_logtime
+	 from mentors_member order by member_logtime desc)tt) where rn >= #{startNum} and rn<=#{endNum}]]>
+ </select>
+ 
+ <!-- 총회원 뽑아ㅋ오기 -->
+ <select id="getTotalA" resultType="Integer">
+		select count(*) cnt from mentors_member
+ </select>
+ </mapper>

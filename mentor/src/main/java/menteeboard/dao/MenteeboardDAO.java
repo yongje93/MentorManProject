@@ -33,4 +33,8 @@ public interface MenteeboardDAO {
 	public void menteeboardLikeUpdate(int menteeboard_seq);
 
 	public int menteeboardSelect(MenteeboardLikeDTO menteeboardLikeDTO);
+
+	public List<MenteeboardDTO> menteeboardSearch(Map<String, String> map);
+
+	public int getSearchTotalA(Map<String, String> map);
 }

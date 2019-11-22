@@ -23,7 +23,6 @@ $('#mentorapplyForm_btn').on('click',function(){
 			alert('이미 지원한 계정입니다. \n관리자의 승인을 기다려주세요');
 			location.href='/mentor/main/index';
 		}
-		
 	}
 });
 
@@ -119,4 +118,57 @@ $('#save_btn').on('click', function(){
 	
 });
 
+
+function mentor_question_seq(seq, pg){
+	$.ajax({
+		type: 'post',
+		url: '/mentor/mentor/question_flag',
+		data: {'seq': seq,'pg': pg},
+		dataType: 'text',
+		success: function(data){
+			location.href=data;
+		},
+		error: function(){
+			alert('에러');
+		}
+	});
+}
+
+
+$('#modify_btn').on('click', function(){
+	$('#question_title_error').empty();
+	$('#question_content_error').empty();
+	var content = $('#question_content').val();
+	if($('#question_title').val()==''){
+		$('#question_title_error').text('내용을 입력해주세요').css('color', 'red');
+		$('#question_title_error').css('font-size','8pt');
+		$('#question_title').focus();
+	}else if($('#question_content').val()==''){
+		$('#question_content_error').text('내용을 입력해주세요').css('color', 'red');
+		$('#question_content_error').css('font-size','8pt');
+		$('#question_content').focus();
+	}else if(content.length > 2000){
+		var toastTop = app.toast.create({
+	           text: '2000자 이내의 내용을 입력해주세요',
+	           position: 'top',
+	           closeButton: true,
+	    });
+	    toastTop.open();
+	}else{
+		$.ajax({
+			type: 'post',
+			url: '/mentor/mentor/questionModify',
+			data: $('#question_form').serialize(),
+			dataType: 'text',
+			success: function(data){
+				if(data=='success'){
+					location.href='/mentor/member/myQandA?pg=1';
+				}
+			},
+			error: function(){
+				alert('에러');
+			}
+		});
+	}
+});
 

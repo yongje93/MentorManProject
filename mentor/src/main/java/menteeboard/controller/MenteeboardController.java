@@ -169,8 +169,8 @@ public class MenteeboardController {
 	public ModelAndView getMenteeboardListJob(@RequestParam String pg,
 											  @RequestParam String job_code) {
 		
-		int endNum = Integer.parseInt(pg) * 5; //한페이지당 5개
-		int startNum = endNum - 4;
+		int endNum = Integer.parseInt(pg) * 10; //한페이지당 5개
+		int startNum = endNum - 9;
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("startNum", startNum);
@@ -181,8 +181,8 @@ public class MenteeboardController {
 		
 		int totalAJob = menteeboardService.getTotalAJob(job_code);
 		menteeboardPaging.setCurrentPage(Integer.parseInt(pg));
-		menteeboardPaging.setPageBlock(3);
-		menteeboardPaging.setPageSize(5);
+		menteeboardPaging.setPageBlock(5);
+		menteeboardPaging.setPageSize(10);
 		menteeboardPaging.setTotalA(totalAJob);
 		menteeboardPaging.makeJobPagingHTML(job_code);
 		
@@ -247,6 +247,7 @@ public class MenteeboardController {
 		mav.addObject("menteeboardPaging" , menteeboardPaging);
 		mav.addObject("list" , list);
 		mav.addObject("memEmail" , memberDTO.getMember_email());
+		mav.addObject("memNicname" , memberDTO.getMember_nickname());
 		mav.addObject("heart" , heart);
 		mav.addObject("seq" , Integer.parseInt(seq));
 		mav.addObject("pg" , Integer.parseInt(pg));
@@ -321,8 +322,39 @@ public class MenteeboardController {
         
         return heart;
 	}
+	/**
+	 * 
+	 * @Title : 게시판 검색
+	 * @Author : yangjaewoo, @Date : 2019. 11. 20.
+	 */
 	
-	
-	
+	@RequestMapping(value = "menteeboardSearch", method = RequestMethod.POST)
+	public ModelAndView menteeboardSearch(@RequestParam Map<String,String> map){
+		
+		int endNum = Integer.parseInt(map.get("pgInput"))*10;
+		int startNum = endNum-9;
+		
+		map.put("startNum", startNum+"");
+		map.put("endNum", endNum+"");
+		
+		List<MenteeboardDTO> list = menteeboardService.menteeboardSearch(map);
+		
+		int totalA = menteeboardService.getSearchTotalA(map);
+		menteeboardPaging.setCurrentPage(Integer.parseInt(map.get("pgInput")));
+		menteeboardPaging.setPageBlock(5);
+		menteeboardPaging.setPageSize(10);
+		menteeboardPaging.setTotalA(totalA);
+		menteeboardPaging.makeSearchContentPagingHTML();
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("search_text",map.get("search_text"));
+		mav.addObject("totalA", totalA);
+		mav.addObject("list", list);
+		mav.addObject("menteeboardPaging",menteeboardPaging);
+		mav.setViewName("jsonView");
+		return mav;
+		
+	}
+ 
 	
 }

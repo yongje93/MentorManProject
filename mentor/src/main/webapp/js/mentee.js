@@ -1,6 +1,39 @@
+var check = null;
+$('#member_nickname').focusout( function(){
+	$.ajax({
+		type: 'post',
+		url: '/mentor/mentee/chackNickname',
+		data: {'member_nickname': $('#member_nickname').val()},
+		dataType: 'text',
+		success: function(data){
+			if(data=='on'){
+				$('#member_nickname_error').text('이미 존재하는 닉네임 입니다.').css('color','red');
+				$('#member_nickname_error').css('font-size','8pt');
+				$('#member_nickname').focus();
+				check = 'on';
+			}else if(data=='ok'){
+				$('#member_nickname_error').text('사용가능한 닉네임 입니다.').css('color','#0042fd');
+				$('#member_nickname_error').css('font-size','8pt');
+				check = 'ok';
+			}
+			if($('#member_nickname').val() == $('#nickname').val()){
+				$('#member_nickname_error').empty();
+				check = 'eq';
+			}
+		},
+		error: function(){
+			alert('에러');
+		}
+	});
+});
+
 $('#menteeUser_Save').on('click', function(){
 	$('#member_name_error').empty();
 	$('#member_nickname_error').empty();
+	if($('#member_nickname').val() == $('#nickname').val()){
+		$('#member_nickname_error').empty();
+		check = true;
+	}
 	if($('#member_name').val() == ''){
 		$('#member_name').focus();
 		$('#member_name_error').text('이름을 입력하세요').css('color','red');
@@ -9,13 +42,18 @@ $('#menteeUser_Save').on('click', function(){
 		$('#member_nickname').focus();
 		$('#member_nickname_error').text('닉네임을 입력하세요').css('color','red');
 		$('#member_nickname_error').css('font-size','8pt');
-	}else{
+	}else if(check == 'on'){
+		$('#member_nickname_error').text('이미 존재하는 닉네임 입니다.').css('color','red');
+		$('#member_nickname_error').css('font-size','8pt');
+		$('#member_nickname').focus();
+	}else {
 		var menteeUserSetting = document.menteeUserSetting
 		menteeUserSetting.setAttribute('action', '/mentor/mentee/mentorUserModify');
 		menteeUserSetting.submit();
-		return;
+		return;		
 	}
 });
+
 //학생 info 입력 버튼
 $('#menteeStudentInsert_btn').on('click', function(){
 	menteeStudent();
@@ -140,7 +178,7 @@ $('#menteePassword_btn').on('click', function(){
 					});
 				}else if(data=="no"){
 					$('#currentPassword_error').text('현재 패스워드가 일치하지 않습니다.').css('color','red');
-					$('#currentPas6	sword_error').css('font-size','8pt');
+					$('#currentPassword_error').css('font-size','8pt');
 					$('#currentPassword').focus();
 				}
 			},

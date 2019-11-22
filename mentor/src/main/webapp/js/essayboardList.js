@@ -87,6 +87,15 @@ $(document).ready(function() {
 			if($(this).children().last().val() == 0){
 				$("#"+seq).prop("src", "../image/scrapOkImg.png");
 				$(this).children().last().val(1);
+				//스크랩 모달
+				
+				var toastIcon = app.toast.create({
+					  icon: app.theme === 'ios' ? '<i class="fas fa-bookmark fa-3x"></i>' : '<i class="fas fa-bookmark" style="width: 30px; height: 30px;"></i>',
+					  text: '',
+					  position: 'center',
+					  closeTimeout: 2000,
+					});
+				toastIcon.open();
 				
 			}else{
 				$("#"+seq).prop("src", "../image/scrapNoImg.png");
@@ -113,6 +122,8 @@ $(document).ready(function() {
 					console.log('에러');
 				}
 			});
+			
+			
 		}
 	});
 	

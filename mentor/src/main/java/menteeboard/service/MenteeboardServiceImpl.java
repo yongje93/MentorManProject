@@ -90,6 +90,18 @@ public class MenteeboardServiceImpl implements MenteeboardService {
 	}
 
 
+	@Override
+	public List<MenteeboardDTO> menteeboardSearch(Map<String, String> map) {
+		return menteeboardDAO.menteeboardSearch(map);
+	}
+
+
+	@Override
+	public int getSearchTotalA(Map<String, String> map) {
+		return menteeboardDAO.getSearchTotalA(map);
+	}
+
+
 
 	
 	

@@ -40,7 +40,7 @@
 								<tbody>
 								<c:forEach var="adminnoticeboardDTO" items="${list }">
 									<tr>
-										<td><input type="checkbox" class="check" name="check" value="${adminnoticeboardDTO.noticeboard_seq }"></td>
+										<td><input type="checkbox" class="check"value="${adminnoticeboardDTO.noticeboard_seq }"></td>
 										<td>${adminnoticeboardDTO.noticeboard_seq }</td>
 										<td><a href="/mentor/adminboard/adminnoticeboardView?seq=${adminnoticeboardDTO.noticeboard_seq }&pg=${pg}" style="text-decoration: none;">${adminnoticeboardDTO.noticeboard_title }</a></td>
 										<td>관리자</td>

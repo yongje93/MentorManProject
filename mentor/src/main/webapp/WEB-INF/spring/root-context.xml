@@ -40,9 +40,21 @@
 	<context:component-scan base-package="member.service"/>
 
 	<!-- 관리자게시판 -->
+	<context:component-scan base-package="adminboard.bean"/>
 	<context:component-scan base-package="adminboard.dao"/>
 	<context:component-scan base-package="adminboard.service"/>
-	<context:component-scan base-package="adminboard.bean"/>
+  
+	<!-- 관리자 회원관리 -->
+	<context:component-scan base-package="adminmember.bean"/>
+	<context:component-scan base-package="adminmember.dao"/>
+	<context:component-scan base-package="adminmember.service"/>
+	
+	<!-- 관리자 매출관리 -->
+	<context:component-scan base-package="adminsales.bean"/>
+	<context:component-scan base-package="adminsales.dao"/>
+	<context:component-scan base-package="adminsales.service"/>
+	<!-- 모임 게시판 관련 부분 -->
+
 
 	<!-- 모임 게시판  -->
 	<context:component-scan base-package="meetingboard.bean"/>
@@ -64,5 +76,22 @@
 	<context:component-scan base-package="menteeboardReply.dao"/>
 	<context:component-scan base-package="menteeboardReply.bean"/>
 	
+	<!-- 메일 보내기 -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com"/>
+		<property name="port" value="587"/>
+		<property name="username" value="didwodn8822@gmail.com"/>
+		<property name="password" value="esiztemuxekyupsz"/>
+		
+		<!-- email 요청시는 SMTP -->
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
 	
 </beans>

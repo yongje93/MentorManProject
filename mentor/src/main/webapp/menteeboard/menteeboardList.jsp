@@ -4,11 +4,14 @@
 <link rel="stylesheet" type="text/css" href="../css/menteeboardList.css">
 <div class="page navbar-fixed mentee_programs index">
 <div class="page-content" >
-   <div class="block-title strong-title">공지</div>
+<form id="menteeboardSearch" method="post">
+   <div class="block-title strong-title">멘티 게시판</div>
    <div id="searchImage_div" style="float: right;"><img id="search_image" src="../image/images.png" style="width: 20px; height: 20px; cursor:pointer;"></div>
-   <div id="searchText_div" style="float: right;"><input type="text" id="search_text" placeholder="찾기" style="width: 200px;"></div>
+   <div id="searchText_div" style="float: right;"><input type="text" id="search_text" name="search_text" placeholder="찾기" style="width: 200px;"></div>
    <div id="searchText_div">
-   	<select id="job_code" name="job_code">
+   <div class="item-inner">
+    <div class="item-input-wrap input-dropdown-wrap">
+   	<select class="select optional" id="job_code" name="job_code">
         	<option value="job_code_n">공통 직무</option>
             <option value="job_code_0">인사/총무/노무</option>
             <option value="job_code_1">마케팅/MD</option>
@@ -30,6 +33,8 @@
            	<option value="job_code_17">생산/품질/제조</option>
            	<option value="job_code_18">기타 사무</option>
       </select>
+      </div>
+      </div>
    </div>
    
    <div id="searchText_error_div"></div>
@@ -59,9 +64,9 @@
          <input type="hidden" id="pgInput" name="pgInput" value="${pg}">
          <input type="hidden" id="heart2" name="heart2" value="">
       </div>
+</form>
 </div>
 </div>
 
-<script type="text/javascript" src="../js/menteeboard.js"></script>
 <script type="text/javascript" src="../js/menteeboardList.js"></script>
 

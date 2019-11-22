@@ -48,11 +48,11 @@ $(document).ready(function(){
 		if(nickName.length==0){
 			jCont = '<div class="msg_error">닉네임을 입력해주세요.</div>';
 			$('.item-input-info-NickName').css('color', 'tomato').css('font-size','9pt').css('text-align', 'left').html(jCont);
-			isNicknameValid =false;
-		}else if(nickName.length< 3 || nickName.length>22){
-			jCont = '<div class="msg_error">닉네임 3자~22자. 이하입니다.</div>';
+			isNicknameValid = false;
+		}else if(nickName.length < 3 || nickName.length > 15){
+			jCont = '<div class="msg_error">닉네임 3자~15자.이하입니다.</div>';
 			$('.item-input-info-NickName').css('color', 'tomato').css('font-size','9pt').css('text-align', 'left').html(jCont);
-			isNicknameValid= false;
+			isNicknameValid = false;
 		}else{
 			$.ajax({
 				type:'post',
@@ -61,16 +61,16 @@ $(document).ready(function(){
 				dataType:'text',
 				success:function(data){
 					if(data=="exist"){
-				jCont='<div class="msg_nickok">사용 가능한 닉네임 입니다.</div>';
-				$('.item-input-info-NickName').css('color', 'blue').css('font-size','9pt').css('text-align', 'left').html(jCont);
-				isNicknameValid=true;
+						jCont='<div class="msg_nickok">사용 가능한 닉네임 입니다.</div>';
+						$('.item-input-info-NickName').css('color', 'blue').css('font-size','9pt').css('text-align', 'left').html(jCont);
+						isNicknameValid=true;
 					}else if(data=="not_exist"){
-				jCont='<div class="msg_nickerror">입력하신 닉네임은 사용중인 닉네임 입니다.</div>';
-				$('.item-input-info-NickName').css('color', 'tomato').css('font-size','9pt').css('text-align', 'left').html(jCont);
-				isNicknameValid=false;
+						jCont='<div class="msg_nickerror">입력하신 닉네임은 사용중인 닉네임 입니다.</div>';
+						$('.item-input-info-NickName').css('color', 'tomato').css('font-size','9pt').css('text-align', 'left').html(jCont);
+						isNicknameValid=false;
 						}
 			},error:function(e){
-				conlose.log(e);
+				console.log(e);
 			}
 			});
 		}	
@@ -109,7 +109,7 @@ $(document).ready(function(){
 				isEmailcheck=false;
 			}
 			},error:function(e){
-				conlose.log(e);
+				console.log(e);
 			}
 		});
 		isEmailcheck= true;
@@ -171,6 +171,14 @@ $(document).ready(function(){
 	$('#writeBtn').click(function(){
 		if(Ifn_NameCheck()&& isEmailcheck==true && isNicknameValid==true && Ifn_PwdCheck() && Ifn_RepwdCheck()&&member_write==true) {
 			$('form[name=writeForm]').submit();
+			/*var toasIcon = app.toast.create({
+		    	icon: app.theme === 'ios' ? '<i class="fas fa-spinner fa-pulse fa-5x"></i>' : '<i class="fas fa-spinner fa-pulse"></i>',
+		    	text: '요청중...',
+		     	position: 'center',
+		     	closeTimeout: 4000,
+		   });
+			toasIcon.open();*/
+			$('#loading-block').css('display', 'block');
 		}
 	});
 });
@@ -252,7 +260,7 @@ $(document).ready(function(){
 						isSetPwdTimer=false;
 					}
 					},error:function(e){
-						conlose.log(e);
+						console.log(e);
 					}
 			});//aj
 			
@@ -282,9 +290,28 @@ $(document).ready(function(){
 					 $('.setPwd-Div').css('color', 'tomato').css('font-size','9pt').css('text-align', 'left').html(jCont);
 				 }
 				},error:function(e){
-					conlose.log(e);
+					console.log(e);
 				}		
 			});
+		}
+	});
+	
+	//질문 삭제
+	$('#delete_question').on('click', function(){
+		if(confirm('질문을 삭제하시겠습니까?')){
+			$.ajax({
+				type: 'post',
+				url: '/mentor/member/questionDelete',
+				data: {'question_seq': $('#question_seq').val()},
+				success: function(){
+					location.href='/mentor/member/myQandA?pg=1';
+				},
+				error: function(){
+					alert('에러');
+				}
+			});
+		}else {
+			return '';
 		}
 	});
 	

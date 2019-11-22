@@ -103,6 +103,35 @@ public class MenteeboardPaging {
 	}
 	
 	
+	public void makeSearchContentPagingHTML() { //[1][2][3][다음] or [이전][4][5][6][다음] or [이전][7][8]
+		pagingHTML = new StringBuffer();
+		
+		//총 페이지수
+		int totalP = (totalA+pageSize-1)/pageSize;
+		
+		int startPage = (currentPage-1)/pageBlock*pageBlock+1;
+		//currentP  2 -> [1]
+		//currentP  6 -> [4]
+		//currentP  7 -> [7]
+		int endPage = startPage + pageBlock -1;
+		if(endPage > totalP) {
+			endPage = totalP;
+		}
+		if(startPage>pageBlock) {
+			pagingHTML.append("[<a href='#' id='paging' onclick='boardSearch2("+(startPage-1)+")'>이전</a>]");
+		}
+		for(int i =startPage; i<=endPage; i++) {
+			if(i == currentPage) {
+				pagingHTML.append("[<a href='#' id='currentPaging' onclick='boardSearch2("+i+")'>"+ i + "</a>]");
+			}else {
+				pagingHTML.append("[<a href='#' id='paging' onclick='boardSearch2("+i+")'>"+ i + "</a>]");
+			}
+		}
+		if(endPage < totalP) {
+			pagingHTML.append("[<a href='#' id='paging' onclick='boardSearch2("+(endPage+1)+")'>다음</a>]");
+		}
+	}
+	
 	public void makeReplyPagingHTML(int seq) { //[1][2][3][다음] or [이전][4][5][6][다음] or [이전][7][8]
 		pagingHTML = new StringBuffer();
 		

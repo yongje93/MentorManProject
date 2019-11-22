@@ -28,15 +28,15 @@
 		<div class="main_container">
 			<!-- 왼쪽 메뉴 전체-->
 			<div class="col-md-3 left_col">
-				<div class="left_col">
+				<div class="left_col scroll-view">
 					<div class="navbar nav_title" style="border: 0;">
-						<a href="" class="site_title"> <i class="fa fa-paw"></i><span>관리자페이지</span></a>
+						<a href="../admin/adminMain" class="site_title"> <i class="fa fa-paw"></i><span>관리자페이지</span></a>
 					</div>
 					<div class="clearfix"></div>
 					<!-- menu prile quick info -->
 					<div class="profile">
 						<div class="profile_pic">
-							<img src=""class="img-circle profile_img">
+							<img src="../image/cookie.jpg"class="img-circle profile_img">
 						</div>
 						<div class="profile_info">
 							<span>안녕하세요!</span>
@@ -57,7 +57,7 @@
 										<li><a href="/mentor/adminmember/adminmentoList">멘토 리스트</a></li>
 										<li><a href="/mentor/adminmember/adminmenteeList">멘티 리스트</a></li>
 									</ul>
-								</li>
+								</li><!-- 회원관리 끝 -->
 								<li class=""><a><i class="fas fa-clipboard-list"></i>게시판관리<span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="display: none;">
 										<li><a href="/mentor/adminboard/adminnoticeboardList">공지사항 게시판</a></li>
@@ -65,7 +65,12 @@
 										<li><a href="/mentor/adminboard/admincommuList">멘티게시판</a></li>
 										<li><a href="/mentor/adminboard/admingroupList">모임</a></li>
 									</ul>
-								</li>
+								</li><!-- 게시판관리 끝 -->
+								<li class=""><a><i class="fas fa-barcode"></i>매출<span class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu" style="display: none;">
+										<li><a href="/mentor/adminsales/adminsales">매출</a></li>
+									</ul>
+								</li><!-- 매출 끝 -->
 							</ul>
 						</div>
 					</div> <!-- sidebar menu 끝-->
@@ -118,6 +123,6 @@
 	</div>
 </body>
 <script src="../adminjs/noticeboard.js"></script>
-<link rel="stylesheet" href="../admincss/board.css">
+<link rel="stylesheet" href="../admincss/adminListAll.css">
 <link rel="stylesheet" href="../admincss/adminnoticeboardView.css">
 </html>

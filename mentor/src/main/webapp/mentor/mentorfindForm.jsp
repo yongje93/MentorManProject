@@ -59,54 +59,61 @@
 	</a>
    </div>
 
-   <div class="row no-gap">
-<c:if test="${list ne '[]'}">
-	<c:forEach var="mentor" items="${list}" >
-	<div class="col-100 tablet-50 desktop-25">
-		  <div class="card mentor-card">
-		<a id="mentorProfileView" type="external" href="/mentors/50121"><!-- 태형이 url -->
-			<div style="background-image:url()" class="cover-image"></div>
-			
-		    <div class="mentor-image img-circle">
-		    <c:if test="${mentor.member_profile != 'profile.jpg'}">
-		      <img width="50" height="50" src="../storage/${mentor.mentor_email}/${mentor.member_profile}">
-		    </c:if>
-		    <c:if test="${mentor.member_profile == 'profile.jpg'}">
-		      <img width="50" height="50" src="../image/profile.jpg">
-		    </c:if>
-		    </div>
-		
-		    <div class="mentor-info">
-		      <div class="name">
-		        <span class="mentor-name">${mentor.member_name}</span>
-		        <span class="position">멘토</span>
-		      </div>
-		      
-		      <div class="job">
-		        <div>${mentor.mentor_company}</div>
-		        <div>${mentor.mentor_department }</div>
-		      </div>
-		    </div>
-		  </a>
-		<div class="primary-mentoring-info">
-		  	<div class="title">${mentor.job_type}</div>
-		   	<div class="info">${mentor.mentor_represent}</div>
-		</div>
-		    <div class="ask-button">
-		        <a class="button button-small button-fill" type="external" href="/mentor/mentor/mentorQuestionsForm?pg=${pg}&seq=${mentor.mentor_seq}"><!-- pg seq 가져가라 -->
-			          질문하기
-				</a>    
+	   <div class="row no-gap">
+		<c:if test="${list ne '[]'}">
+			<c:forEach var="mentor" items="${list}" >
+			<div class="col-100 tablet-50 desktop-25">
+				  <div class="card mentor-card">
+				<a id="mentorProfileView" type="external" href="/mentors/50121"><!-- 태형이 url -->
+					<div style="background-image:url()" class="cover-image"></div>
+					
+				    <div class="mentor-image img-circle">
+				    <c:if test="${mentor.member_profile != 'profile.jpg'}">
+				      <img width="50" height="50" src="../storage/${mentor.mentor_email}/${mentor.member_profile}">
+				    </c:if>
+				    <c:if test="${mentor.member_profile == 'profile.jpg'}">
+				      <img width="50" height="50" src="../image/profile.jpg">
+				    </c:if>
+				    </div>
+				
+				    <div class="mentor-info">
+				      <div class="name">
+				        <span class="mentor-name">${mentor.member_name}</span>
+				        <span class="position">멘토</span>
+				      </div>
+				      
+				      <div class="job">
+				        <div>${mentor.mentor_company}</div>
+				        <div>${mentor.mentor_department }</div>
+				      </div>
+				    </div>
+				  </a>
+				<div class="primary-mentoring-info">
+				  	<div class="title">${mentor.job_type}</div>
+				   	<div class="info">${mentor.mentor_represent}</div>
+				</div>
+				    <div class="ask-button">
+				    <c:if test="${memberDTO != null}">
+				        <a class="question button button-small button-fill" id="mentorQuestions" type="external" onclick="mentor_question_seq(${mentor.mentor_seq},${pg})"><!-- pg seq 가져가라 -->
+					          질문하기
+						</a>
+					</c:if>	
+					<c:if test="${memberDTO == null}">
+				        <a class="button button-small button-fill" type="external" href="/mentor/member/loginForm"><!-- pg seq 가져가라 -->
+					          질문하기
+						</a>
+					</c:if>	
+					</div>
+				</div>
 			</div>
-		</div>
-	</div>
-	</c:forEach>
-</c:if>		
+			</c:forEach>
+		</c:if>		
 	        <div class="col-100 desktop-25"></div>
 	        <div class="col-100 desktop-25"></div>
 	        <div class="col-100 desktop-25"></div>
-	        
-      </div>
+	      </div>
 		<div style="float: right;">${mentorfindPaging.pagingHTML}</div>
     </div>
   </div>
 </div>
+<script src="../js/mentor.js"></script>

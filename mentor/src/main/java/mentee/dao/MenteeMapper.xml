@@ -53,4 +53,8 @@
 		update mentors_member set member_pwd = #{member_pwd} where member_email = #{member_email}
 	</update>
 
+	<select id="getNickname" parameterType="String" resultType="member">
+		select * from mentors_member where member_nickname = #{member_nickname}
+	</select>
+
 </mapper>

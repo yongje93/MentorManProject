@@ -4,12 +4,17 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.mail.MessagingException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +32,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import kakao.controller.KakaoApi;
 
 import member.bean.MemberDTO;
+import member.bean.QandAPaging;
 import member.service.MemberMailService;
 import member.service.MemberService;
 import mentor.bean.MentorDTO;
@@ -52,14 +58,17 @@ public class MemberController {
 	private MemberDTO memberDTO;
 	@Autowired
 	private MemberMailService mailService; 
-
+	@Autowired
+	private QandAPaging QandAPag;
+	
+	
 	// WriteForm 화면
 	@RequestMapping(value = "writeForm", method = RequestMethod.GET)
 	public String writeForm(Model model) {
 		model.addAttribute("display", "/member/writeForm.jsp");
 		return "/main/index";
 	}
-
+	
 	/** @Title : 닉네임 중복확인.
 	 * @author : ginkgo1928  @date : 2019. 11. 1*/
 	@RequestMapping(value = "writeNicknamecheck", method = RequestMethod.POST)
@@ -87,13 +96,15 @@ public class MemberController {
 	/**
 	 * @Title : 회원가입 완료 & 프로필 이미지 storage 연결.
 	 * @author : ginkgo1928
+	 * @throws MessagingException 
+	 * @throws UnsupportedEncodingException 
 	 * @date : 2019. 11. 7.
 	 * 2019. 11. 13 용제 수정
 	 */
 	@RequestMapping(value = "write", method = RequestMethod.POST)
-	public String write(@RequestParam Map<String, String> map, @RequestParam MultipartFile member_profile, Model model) {
+	public String write(@RequestParam Map<String, String> map, @RequestParam MultipartFile member_profile, Model model) throws UnsupportedEncodingException, MessagingException {
 		//회원 이메일 폴더가 자동생성으로 생성된게 아니라 회원이메일 폴더 만들어주고 넣어야 한다.
-		String filePath="C:/Users/yong/Documents/GitHub/MentorMan/mentor/src/main/webapp/storage/"+map.get("member_email");
+		String filePath="C:/github/MentorMan/mentor/src/main/webapp/storage/"+map.get("member_email");
 		String fileName = member_profile.getOriginalFilename();
 		System.out.println("프로필 이미지 파일명: " + fileName);
 		// 폴더만들기
@@ -116,9 +127,24 @@ public class MemberController {
 		memberService.write(map);
 		model.addAttribute("member_email", map.get("member_email"));
 		model.addAttribute("display", "/member/write.jsp");
-		return "/main/index";	
+		return "/main/index";
 	}
-
+	
+	// 이메일 인증 코드 검증
+	@RequestMapping(value = "emailConfirm", method = RequestMethod.GET)
+	public String emailConfirm(@ModelAttribute MemberDTO memberDTO, Model model) {
+		MemberDTO chkMember = memberService.checkAuthKey(memberDTO);
+		if(chkMember == null) { // 이메일+인증키로 맞는 회원이 없음
+			model.addAttribute("member_email", memberDTO.getMember_email());
+			model.addAttribute("display", "/member/write.jsp");
+			return "/main/index";
+		} else {
+			model.addAttribute("member_email", memberDTO.getMember_email());
+			model.addAttribute("display", "/member/emailOk.jsp");
+			return "/main/index";
+		}
+	}
+	
 	// LoginForm
 	/**
 	 * @Title : 카카오 로그인 + 네이버 로그인  url 추가 + flag 추가 11/19
@@ -175,12 +201,53 @@ public class MemberController {
 	 * @Author : kujun95, @Date : 2019. 11. 18.
 	 */
 	@RequestMapping(value = "myQandA", method = RequestMethod.GET)
-	public String myQandA(Model model, HttpSession session){
+	public String myQandA(@RequestParam int pg ,Model model, HttpSession session){
+		
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("memDTO");
-		List<MentorDTO> list = memberService.getQandA(memberDTO.getMember_email());
+		int endNum = pg*3;
+		int startNum = endNum-2;
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("startNum", startNum+"");
+		map.put("endNum", endNum+"");
+		map.put("member_email", memberDTO.getMember_email());
+		List<MentorDTO> list = memberService.getQandA(map);
+		int totalA = memberService.getTotalA(memberDTO.getMember_email());
+		QandAPag.setCurrentPage(pg);
+		QandAPag.setPageBlock(3);
+		QandAPag.setPageSize(3);
+		QandAPag.setTotalA(totalA);
+		QandAPag.makePagingHTML();
+		model.addAttribute("pg", pg);
+		model.addAttribute("QandAPag", QandAPag);
 		model.addAttribute("list", list);
 		model.addAttribute("memberDTO", memberDTO);
 		model.addAttribute("display", "/member/myQandA.jsp");
+		return "/main/index";
+	}
+	/**
+	 * 나의 질문
+	 * @Title : 메소드 간단히 설명
+	 * @Author : kujun95, @Date : 2019. 11. 19.
+	 */
+	@RequestMapping(value = "myQuestionsForm", method = RequestMethod.GET)
+	public String myQuestionsForm(@RequestParam int seq, @RequestParam int pg, @RequestParam int qsseq, Model model, HttpSession session) {
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("memDTO");
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("member_email", memberDTO.getMember_email());
+		map.put("mentor_seq", seq+"");
+		map.put("question_seq", qsseq+"");
+		MentorDTO mentorDTO = memberService.getMentor_info(map);
+		String[] mentoringArray = mentorDTO.getMentoring_code().split(",");
+		Map<String, String[]> arrayMap = new HashMap<String, String[]>();
+		arrayMap.put("mentoring_code", mentoringArray);
+		List<MentorDTO> list = memberService.getMentoring_type(arrayMap);
+		
+		model.addAttribute("seq", seq);
+		model.addAttribute("pg", pg);
+		model.addAttribute("qsseq", qsseq);
+		model.addAttribute("list", list);
+		model.addAttribute("mentorDTO", mentorDTO);
+		model.addAttribute("display", "/member/myQuestionsForm.jsp");
 		return "/main/index";
 	}
 	
@@ -190,7 +257,6 @@ public class MemberController {
  	public String modifyForm(Model model) {
 		model.addAttribute("display", "/member/modifyForm.jsp");
 		return "/main/index";
- 	
  	}
 	/** @Title : 비밀번호 재설정.
 	 * @author : ginkgo1928  @date : 2019. 11. 12.*/
@@ -255,5 +321,17 @@ public class MemberController {
 		memberService.newPwdCommit(map);	
 	}
 	
+
+	/**
+	 * @Title : 질문 삭제
+	 * @Author : kujun95, @Date : 2019. 11. 20.
+	 */
+	@RequestMapping(value = "questionDelete", method=RequestMethod.POST)
+	@ResponseBody
+	public void questionDelete(@RequestParam int question_seq) {
+		memberService.questionDelete(question_seq);
+	}
+	
 	
 }
+

@@ -232,7 +232,7 @@ function f_search(pageNo){
 				var empWantedHomepgDetail = $(this).find('empWantedHomepgDetail').text();
 				
 				var jobTable = 
-					`<tr>
+				`<tr>
 	            	<td><img src='${regLogImgNm}'></td>
 	                <td>
 	                	<a onclick="window.open('https://www.work.go.kr/empInfo/empInfoSrch/list/popup/popDhsOpenEmpInfoDetail.do?empSeqno=${empSeqno}','popUpWindow','height=846,width=980,scrollbars=yes,resizable=no,toolbar=no,status=yes');">${empWantedTitle}</a>

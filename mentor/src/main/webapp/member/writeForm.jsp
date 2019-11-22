@@ -83,10 +83,12 @@
 						<div class="item-input-info-checkbox"></div>
 					</div>
 
-					<input type="button" id="writeBtn"  value="회원가입"  class="btn button button-big button-fill" data-disable-with="요청중..." />
+					<input type="button" id="writeBtn" value="회원가입" class="btn button button-big button-fill" data-disable-with="요청중..." />
 				</form>
 			</div>
-
+			<div id="loading-block" style="display: none; margin-left: 182px;">
+				<img src="../image/ready.gif" style="width: 80px;">
+			</div>
 			<div class="block inset text-align-center">
 				<a class="color-gray" type="external" href="/mentor/member/loginForm"> 이미 계정이 있나요? 로그인 </a>
 			</div>

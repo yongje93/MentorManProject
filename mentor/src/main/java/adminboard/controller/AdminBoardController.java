@@ -37,8 +37,7 @@ public class AdminBoardController {
 	/* description : 공지사항게시판 List뿌리고 paging처리*/
 	@RequestMapping(value="adminnoticeboardList",method = RequestMethod.GET)
 	public String admninnoticeboardList(@RequestParam (required=false,defaultValue="1") String pg, 
-										Model model, 
-										HttpSession session ) {
+										Model model) {
 		int endNum = Integer.parseInt(pg)*10;
 		int startNum = endNum-9;
 		List<AdminnoticeboardDTO> list = adminboardService.getAdmninnoticeboardList(startNum,endNum);

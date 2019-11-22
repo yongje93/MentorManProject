@@ -38,6 +38,7 @@ public class MentorDTO {
 	private String question_title;
 	private String question_content;
 	private int question_flag;
+
 	
 	//--join 에세이
 	private String essayboard_title; // 에세이 보드 제목
@@ -49,5 +50,8 @@ public class MentorDTO {
 	private String review_content;	// 고맙습니다 내용
 	private Date review_date;	// 고맙습니다 쓴날
 	private String mentee_email; // 고맙습니다 쓴 사람 email
+
+
+	private int question_seq;
 
 }

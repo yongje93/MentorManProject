@@ -55,7 +55,7 @@ $(document).ready(function(){
 					
 				}else{
 					var seq = $(this).parent().prev().prev().text();
-					$(location).attr("href", "http://localhost:8080/mentor/menteeboard/menteeboardView?seq="+seq+"&pg="+$('#pgInput').val());
+					$(location).attr("href", "/mentor/menteeboard/menteeboardView?seq="+seq+"&pg="+$('#pgInput').val());
 				}
 			});	
 			
@@ -69,8 +69,9 @@ $(document).ready(function(){
 			          });
 			          toastTop.open();
 				}else{
-					$(location).attr("href", "http://localhost:8080/mentor/menteeboard/menteeboardWriteForm");
+					$(location).attr("href", "/mentor/menteeboard/menteeboardWriteForm");
 				}
+				return false;
 			});
 		},
 		error : function(err){
@@ -127,7 +128,7 @@ $("#job_code").on("change", function(){
 				if(data.memId == null){
 				}else{
 					var seq = $(this).parent().prev().prev().text();
-					$(location).attr("href", "http://localhost:8080/springProject/board/boardView?seq="+seq+"&pg="+$('#pgInput').val());
+					$(location).attr("href", "/springProject/board/boardView?seq="+seq+"&pg="+$('#pgInput').val());
 				}
 			});	
 		},
@@ -142,3 +143,72 @@ function boardSearch(pg){
 	$('input[name=pgInput]').val(pg);
 	$('#job_code').trigger('change','trigger');
 }
+
+
+//검색 버튼 클릭시
+$('#search_image').on('click' , function(){
+	
+	if($('#search_text').val()==0){
+		$('#search_text').focus();
+	}else {
+		$.ajax({
+			type: 'post',
+			url: '/mentor/menteeboard/menteeboardSearch',
+			data: $('#menteeboardSearch').serialize(),
+			dataType: 'json',
+			success: function(data){
+				$('#inputBody2').empty();
+				$('#menteeboardPagingDiv').empty();
+				
+				$.each(data['list'], function(key, value){
+					$('<tr/>').append($('<td/>',{
+						align: 'center',
+						text : value.menteeboard_seq
+					})).append($('<td/>',{
+						align: 'center',
+						text : value.job_type
+					})).append($('<td/>',{
+						}).append($('<a/>',{
+								href : 'javascript:void(0)',
+								id : 'subjectA',
+								text : value.menteeboard_title,
+								class : value.seq+""
+					}))).append($('<td/>',{
+						align: 'center',
+						text : value.menteeboard_nickname
+					})).append($('<td/>',{
+						align: 'center',
+						text : value.menteeboard_logtime
+					})).append($('<td/>',{
+						align: 'center',
+						text : value.menteeboard_hit
+					})).append($('<td/>',{
+						align: 'center',
+						text : value.menteeboard_good
+					})).appendTo($('#inputBody2'));
+				});
+				
+				$('#menteeboardPagingDiv').html(data.menteeboardPaging.pagingHTML);
+				
+				//클릭시 뷰로 이동
+				$('#boardTable').on('click' ,'#subjectA' , function(){
+					if(data.memId == null){
+					}else{
+						var seq = $(this).parent().prev().prev().text();
+						$(location).attr("href", "/springProject/board/boardView?seq="+seq+"&pg="+$('#pgInput').val());
+					}
+				});	
+			},
+			error : function(err){
+				console.log('에러');
+			}
+		});
+	}
+	
+});
+//검색 페이징 트리거
+function boardSearch2(pg){
+	$('input[name=pgInput]').val(pg);
+	$('#search_image').trigger('click','trigger');
+}
+

@@ -31,6 +31,10 @@ public interface MenteeboardService {
 	public void menteeboardLikeInsert(MenteeboardLikeDTO menteeboardLikeDTO);
 
 	public int menteeboardSelect(MenteeboardLikeDTO menteeboardLikeDTO);
+
+	public List<MenteeboardDTO> menteeboardSearch(Map<String, String> map);
+
+	public int getSearchTotalA(Map<String, String> map);
 	
 	
 }

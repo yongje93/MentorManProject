@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import meetingboard.bean.ReviewDTO;
 import mentor.bean.MentorDTO;
+import mentor.bean.MentorFollowDTO;
 
 @Transactional
 @Repository
@@ -65,5 +66,40 @@ public class MentorDAOMybatis implements MentorDAO {
 	@Override
 	public MentorDTO getMentorInfomation(int mentor_seq) {
 		return sqlSession.selectOne("mentorSQL.getMentorInfomation", mentor_seq);
+  }
+
+	@Override
+  public MentorDTO getQuestion_flag(Map<String, String> flagCheck_map) {
+		return sqlSession.selectOne("mentorSQL.getQuestion_flag", flagCheck_map);
+	}
+	
+	@Override
+	public MentorDTO questionModifyForm(int qsseq) {
+		return sqlSession.selectOne("mentorSQL.questionModifyForm",qsseq);
+	}
+
+	@Override
+	public int questionModify(Map<String, String> map) {
+		return sqlSession.update("mentorSQL.questionModify", map);
+	}
+
+	@Override
+	public int getFollowCheck(Map<String, String> followMap) {
+		return sqlSession.selectOne("mentorSQL.getFollowCheck" , followMap);
+	}
+
+	@Override
+	public void mentorFollowInsert(MentorFollowDTO mentorFollowDTO) {
+		sqlSession.insert("mentorSQL.mentorFollowInsert" , mentorFollowDTO);
+	}
+
+	@Override
+	public void mentorFollowDelete(MentorFollowDTO mentorFollowDTO) {
+		sqlSession.delete("mentorSQL.mentorFollowDelete" , mentorFollowDTO);
+	}
+
+	@Override
+	public List<MentorDTO> getMentorAttentionList(int mentor_flag) {
+		return sqlSession.selectList("mentorSQL.getMentorAttentionList" , mentor_flag);
 	}
 }

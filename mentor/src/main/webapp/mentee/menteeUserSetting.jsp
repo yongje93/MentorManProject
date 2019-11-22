@@ -89,7 +89,9 @@
 	</div>
 </div>
 </div>
+<input type="hidden" id="nickname" value="${memberDTO.member_nickname}"> 
 <script>
+
 $(document).ready(
 	function() {
 		function readURL(input) {

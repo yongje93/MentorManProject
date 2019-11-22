@@ -81,4 +81,14 @@ public class MenteeboardDAOMybatis implements MenteeboardDAO {
 		return sqlSession.selectOne("menteeboardSQL.menteeboardSelect" , menteeboardLikeDTO );
 	}
 
+	@Override
+	public List<MenteeboardDTO> menteeboardSearch(Map<String, String> map) {
+		return sqlSession.selectList("menteeboardSQL.menteeboardSearch", map);
+	}
+
+	@Override
+	public int getSearchTotalA(Map<String, String> map) {
+		return sqlSession.selectOne("menteeboardSQL.getSearchTotalA", map);
+	}
+
 }

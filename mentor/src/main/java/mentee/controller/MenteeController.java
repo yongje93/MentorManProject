@@ -25,6 +25,7 @@ import meetingboard.service.MeetingboardService;
 import member.bean.MemberDTO;
 import mentee.bean.MenteeDTO;
 import mentee.service.MenteeService;
+import mentor.bean.MentorDTO;
 import participation.bean.OrderDTO;
 import participation.bean.OrderHistoryPaging;
 import participation.service.ParticipationService;
@@ -46,12 +47,30 @@ public class MenteeController {
 	 */
 	@RequestMapping(value = "menteeUserForm", method = RequestMethod.GET)
 	public String menteeWriteForm(Model model, HttpSession session) { //세션으로 값을 뿌려줘야됨
-		MemberDTO memberDTO = (MemberDTO) session.getAttribute("memDTO");
+		MemberDTO memDTO = (MemberDTO) session.getAttribute("memDTO");
+		MemberDTO memberDTO = menteeService.getSaveMember(memDTO.getMember_email());
 		model.addAttribute("memberDTO", memberDTO);
 		model.addAttribute("display", "/mentee/menteeUserForm.jsp");
 		model.addAttribute("display2", "/mentee/menteeUserSetting.jsp");
 		return "/main/index";
 	}
+	
+	/**
+	 * @Title : 닉네임 중복확인
+	 * @Author : kujun95, @Date : 2019. 11. 18.
+	 */
+	@RequestMapping(value = "chackNickname", method = RequestMethod.POST)
+	@ResponseBody
+	public String chackNickname(@RequestParam String member_nickname) {
+		MemberDTO members = menteeService.getNickname(member_nickname);
+		
+		if(members != null){
+			return "on";
+		}else {
+			return "ok";
+		}
+	}
+	
 	/**
 	 * @Title : 계정설정 프로필 수정
 	 * @Author : kujun95, @Date : 2019. 11. 12.

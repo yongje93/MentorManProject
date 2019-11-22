@@ -22,20 +22,6 @@
 						</div>
 					</div> <!-- 검색 row끝 -->
 					<div class="row">
-						<div class="col-sm-6">
-							<div><label>Show 
-								<select>
-									<option value="10">10</option>
-									<option value="20">20</option>
-									<option value="50">50</option>
-									<option value="100">100</option>
-									<option value="-1">All</option>
-								</select> entries</label>
-							</div>
-						</div>
-					<div class="col-sm-6"></div>
-					</div><!-- 셀렉트박스 row끝-->
-					<div class="row">
 						<div class="col-sm-12">
 							<table class="table">
 								<thead>

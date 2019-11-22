@@ -1,12 +1,12 @@
 $(function(){
-    var $body = $('body'); // 바디
-    var $menu_toggle = $('#menu_toggle'); // 상단 삼지창 bar
-    var $sidebar_menu = $('#sidebar-menu'); // 왼쪽 메뉴 토글전체
-    var $sidebar_footer = $('.sidebar-footer'); // 왼쪽 메뉴 아래 숨기기 기능
-    var $left_col = $('.left_col'); // 왼쪽 메뉴 전체
-    var $right_col = $('.right_col'); // 중앙 info
-    var $nav_menu = $('.nav_menu'); // 상단 메뉴
-    var $footer = $('footer'); // 맨 아래
+    const $body = $('body'); // 바디
+    const $menu_toggle = $('#menu_toggle'); // 상단 삼지창 bar
+    const $sidebar_menu = $('#sidebar-menu'); // 왼쪽 메뉴 토글전체
+    const $sidebar_footer = $('.sidebar-footer'); // 왼쪽 메뉴 아래 숨기기 기능
+    const $left_col = $('.left_col'); // 왼쪽 메뉴 전체
+    const $right_col = $('.right_col'); // 중앙 info
+    const $nav_menu = $('.nav_menu'); // 상단 메뉴
+    const $footer = $('footer'); // 맨 아래
 
     //  this is same kind of easy fix, maybe we can improve this
     var setContentHeight = function(){
@@ -46,7 +46,28 @@ $(function(){
             });
         }
     });
+    
+    // small or large menu
+    $menu_toggle.on('click',function(){
+    	// 바디에 nav-md라는 클래스가있다면
+    	if($body.hasClass('nav-md')){
+    		//nav-md 클래스를 지우고 nav-sm클래스를 만들어라
+    		$body.removeClass('nav-md').addClass('nav-sm');
+    		$left_col.removeClass('scroll-view').removeAttr('style');
+    		
+    		if($sidebar_menu.find('li').hasClass('active')){
+    			$sidebar_menu.find('li.active').addClass('active-sm').removeClass('active');
+    		}
+    	} else{
+    		$body.removeClass('nav-sm').addClass('nav-md');
 
-
+            if ($sidebar_menu.find('li').hasClass('active-sm')) {
+                $sidebar_menu.find('li.active-sm').addClass('active').removeClass('active-sm');
+            }
+    	}
+    	setContentHeight();
+    });
+    
+    $('.x_panel').removeAttr('style');
 
 }); // function

@@ -54,4 +54,9 @@ public class MenteeServiceImpl implements MenteeService {
 		menteeDAO.menteePasswordSave(map);
 	}
 	
+	@Override
+	public MemberDTO getNickname(String member_nickname) {
+		return menteeDAO.getNickname(member_nickname);
+	}
+
 }

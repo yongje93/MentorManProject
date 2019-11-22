@@ -49,8 +49,17 @@
 		select count(*) from mentor where mentor_flag = #{mentor_flag}
 	</select>
 	<select id="getMentor_info" parameterType="int" resultType="mentor">
-		select mb.member_name, mb.member_profile, mentor_seq, mentor_email, mentor_company, mentor_department, mentor_represent, mentoring_code 
-		from mentor mt,  mentors_member mb where mt.mentor_email = mb.member_email and mentor_seq = #{seq}
+		select mb.member_name
+        , mb.member_profile
+        , j.job_type
+        , mentor_seq
+        , mentor_email
+        , mentor_company
+        , mentor_department
+        , mentor_represent
+        , mentoring_code 
+		from job j, mentor mt,  mentors_member mb 
+		where j.job_code = mt.job_code and mt.mentor_email = mb.member_email and mentor_seq = #{seq}
 	</select>
 	<select id="getMentoring_code" parameterType="Map" resultType="mentor">
 		select mentoring_type from mentoring where mentoring_code in 
@@ -71,6 +80,7 @@
 							 							#{question_content}, 
 							 							sysdate)
 	</insert>
+
 	
 	<!-- 멘토 에세이 리스트 -->
 	<select id="getMentorEssayList" parameterType="int" resultType="mentor">
@@ -94,5 +104,35 @@
 		select mt.*, mm.member_name, mm.member_profile, j.job_type
 		from mentor mt, mentors_member mm, job j
 		where mt.mentor_email = mm.member_email and j.job_code = mt.job_code and mm.member_seq = ${mentor_seq}
+  </select>
+	<select id="getQuestion_flag" parameterType="Map" resultType="mentor">
+		select question_flag, question_seq from question where mentor_seq = #{mentor_seq} and member_email = #{member_email}
+	</select>
+	<select id="questionModifyForm" parameterType="int" resultType="mentor">
+		select * from question where question_seq = #{qsseq}
+	</select>
+	<update id="questionModify" parameterType="Map">
+		update question set question_title = #{question_title}, question_content = #{question_content}, question_logtime = sysdate where question_seq = #{question_seq}
+	</update>
+	
+	<select id="getFollowCheck" parameterType="Map" resultType="int">
+		select count(*) from mentorFollow where follower_email = #{memEmail} and followed_email = #{mentorEmail}
+	</select>
+	
+	<insert id="mentorFollowInsert" parameterType="mentorFollow" >
+		insert into mentorFollow (follower_email,followed_email) values(#{follower_email},#{followed_email})
+	</insert>
+	<delete id="mentorFollowDelete" parameterType="mentorFollow" >
+		delete from mentorFollow where follower_email = #{follower_email} AND followed_email = #{followed_email}
+	</delete>
+	
+	<select id="getMentorAttentionList" parameterType="Integer" resultType="mentor">
+		select * from
+		    (select rownum rn, tt.* from
+		        (select mt.mentor_seq, mb.member_name, mb.member_profile,mt.mentor_company, mt.mentor_department, 
+				    j.job_type, mentor_school, mentor_career, mentoring_code, mentor_represent, mentor_info, mentor_etc, mentor_email, 
+				    mentor_selectNaming, mentor_businesscard, mentor_badge, mentor_flag, mentor_logtime from mentor mt, job j, mentors_member mb , mentorFollow mf
+		            where mt.mentor_email = mb.member_email and j.job_code = mt.job_code and mf.followed_email = mt.mentor_email and mentor_flag = #{mentor_flag}
+		            order by mt.mentor_seq desc)tt)
 	</select>
 </mapper>

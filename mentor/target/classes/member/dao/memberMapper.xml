@@ -32,16 +32,54 @@
 	</select>
 
 	<!-- 나의 질문 답변 -->
-	<select id="getQandA" parameterType="String" resultType="mentor">
-		select mb.member_name, mb.member_profile,
-		mt.job_code, mt.mentoring_code, mt.mentor_seq, mt.mentor_email, 
-		mt.mentor_company, mt.mentor_department, mt.mentor_represent, 
-		mt.mentoring_code , qs.mentor_seq, qs.member_email, 
-		qs.question_title, qs.question_content, qs.question_flag
-		from mentors_member mb ,question qs, mentor mt 
-		where mt.mentor_email = mb.member_email and qs.mentor_seq = mt.mentor_seq and qs.member_email = #{member_email}
+	<select id="getQandA" parameterType="Map" resultType="mentor">
+	    select * 
+		  from(select rownum rn
+		            , tt.* 
+		         from(select mb.member_name member_name
+		                   , mb.member_profile       member_profile
+		                   , j.job_type              job_type
+		                   , mt.mentoring_code       mentoring_code
+		                   , mt.mentor_seq           mentor_seq
+		                   , mt.mentor_email         mentor_email
+		                   , mt.mentor_company       mentor_company
+		                   , mt.mentor_department    mentor_department
+		                   , mt.mentor_represent     mentor_represent
+		                   , qs.question_seq         question_seq 
+		                   , qs.question_title       question_title
+		                   , qs.question_content     question_content
+		                   , qs.question_flag        question_flag
+		                from mentors_member mb ,question qs, mentor mt , job j
+		               where j.job_code = mt.job_code and mt.mentor_email = mb.member_email and qs.mentor_seq = mt.mentor_seq and qs.member_email = #{member_email} 
+		               order by qs.question_logtime desc) tt
+		        )
+	    where rn between #{startNum} and #{endNum}
 	</select>
-	
+	<!-- Q&A총 수 -->
+	<select id="getTotalA" parameterType="String" resultType="int">
+		select count(*) from question where member_email = #{member_email}
+	</select>
+	<!-- Q&A 멘토정보 -->
+	<select id="getMentor_info" parameterType="Map" resultType="mentor">
+		select mb.member_name
+		       , mb.member_profile
+		       , mt.mentor_company
+		       , mt.mentor_department
+		       , mt.mentor_represent
+		       , mt.mentoring_code
+		       , j.job_type
+		       , qs.question_seq
+		       , qs.question_title
+		       , qs.question_content
+		    from mentors_member mb, mentor mt, question qs, job j
+		where j.job_code = mt.job_code and  mt.mentor_email = mb.member_email and qs.question_seq = #{question_seq} and qs.member_email = #{member_email} and mt.mentor_seq = #{mentor_seq}
+	</select>
+	<select id="getMentoring_type" parameterType="Map" resultType="mentor">
+		select mentoring_type from mentoring where mentoring_code in 
+		<foreach collection="mentoring_code" index="index" item="mentoring_code" open="(" separator="," close=")">
+			#{mentoring_code}
+		</foreach>
+	</select>
 	<!-- 비밀번호 설정 -->
 	<select id="setsetmemberpwd" parameterType="java.util.Map" resultType="member">
 		select * from mentors_member where member_name=#{member_name} and member_email=#{member_email}
@@ -51,8 +89,29 @@
 	<update id="newPwdCommit" parameterType="java.util.Map">
 		update mentors_member set member_pwd=#{member_pwd} where member_name=#{member_name} and member_email=#{member_email}
 	</update>
+
+	<!-- 질문 삭제 -->
+	<delete id="questionDelete" parameterType="int">
+		delete from question where question_seq = #{question_seq}
+	</delete>
 	
 	
+	<!-- 이메일로 회원정보 가지고 오기 -->
+	<select id="getMemberByEmail" parameterType="String" resultType="member">
+		select * from mentors_member where member_email = #{member_email}
+	</select>
+	<!-- 이메일로 인증키 업데이트 하기 -->
+	<update id="createAuthKey" parameterType="member">
+		update mentors_member set memberAuthKey = #{memberAuthKey} where member_email = #{member_email}
+	</update>
+	<!-- 이메일 인증키 확인 -->
+	<select id="checkAuthKey" parameterType="member" resultType="member">
+		select * from mentors_member where member_email = #{member_email} and memberAuthKey = #{memberAuthKey}
+	</select>
+	<!-- 이메일 인증 완료시 상태 업데이트 -->
+	<update id="updateMemberAuthState" parameterType="member">
+		update mentors_member set memberAuthStatus = #{memberAuthStatus} where member_email = #{member_email}
+	</update>
 </mapper>
 
 	
