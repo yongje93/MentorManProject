@@ -9,10 +9,11 @@
 
 	<http auto-config="true" use-expressions="true">
 		<csrf disabled="true"/>
+		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/participation/**" access="hasRole('ROLE_USER')"/>
 		<intercept-url pattern="/**" access="permitAll"/>
 		
-		<form-login 
+		<form-login
 			username-parameter="member_email"
 			password-parameter="member_pwd"
 			login-page="/member/loginForm"
@@ -28,8 +29,8 @@
 			invalidate-session="true" 
 		/>
 	 
-		<session-management invalid-session-url="/member/loginForm">
-			<concurrency-control max-sessions="1" error-if-maximum-exceeded="true"/>
+		<session-management invalid-session-url="/member/loginForm" session-authentication-error-url="/member/loginForm">
+			<concurrency-control max-sessions="1" expired-url="/member/loginForm" error-if-maximum-exceeded="true"/>
 		</session-management>
 	</http>
 	
@@ -41,7 +42,7 @@
         <authentication-provider user-service-ref="customMemberService"/>
     </authentication-manager>
     
-	<beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	<beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 	<beans:bean id="customMemberService" class="member.service.CustomUserDetailsService"/>
 	<beans:bean id="customMemberAuthProvider" class="member.service.CustomAuthenticationProvider"/>
 	

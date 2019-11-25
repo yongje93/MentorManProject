@@ -37,9 +37,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 			throw new DisabledException(member_email);
 		}
 		
-		List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
-		// 사용자에게 권한 부여
-		roles.add(new SimpleGrantedAuthority("ROLE_USER"));
+		List<GrantedAuthority> roles = (List<GrantedAuthority>) member.getAuthorities();
 		// 스프링 시큐리티 내부 클래스로 인증 토큰 생성
 		UsernamePasswordAuthenticationToken result = new UsernamePasswordAuthenticationToken(member_email, member_pwd, roles);
 

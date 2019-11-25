@@ -11,6 +11,7 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.session.SessionAuthenticationException;
 
 import lombok.Data;
 
@@ -35,6 +36,8 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 			errormsg = "2"; //계정이 존재하지 않습니다.
 		} else if (exception instanceof DisabledException) {
 			errormsg = "3"; //이메일 인증을 해주세요.
+		} else if (exception instanceof SessionAuthenticationException) {
+			errormsg = "4"; //중복 로그인
 		}
 
 		request.setAttribute(loginemailname, member_email);

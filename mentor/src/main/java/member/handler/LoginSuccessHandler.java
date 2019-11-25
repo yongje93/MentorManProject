@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
+import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
@@ -37,11 +38,19 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		MemberDTO memberDTO = memberDAO.getMemberByEmail(authentication.getName());
 		
 		//System.out.println("로그인 된 유저DTO : " + memberDTO);
-		
 		HttpSession session = request.getSession();
 		session.setAttribute("memDTO", memberDTO);
 		session.setMaxInactiveInterval(TIME);
-		resultRedirectStrategy(request, response, authentication);
+		
+		//에러 세션 지우기
+		clearAuthenticationAttributes(request);
+
+		if(memberDTO.getMember_nickname().equals("admin")) {
+			redirectStratgy.sendRedirect(request, response, "/admin/adminMain");
+		} else {
+			resultRedirectStrategy(request, response, authentication);
+		}
+		
 	}
 	
 	protected void resultRedirectStrategy(HttpServletRequest request, HttpServletResponse response,
@@ -54,6 +63,12 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		} else {
 			redirectStratgy.sendRedirect(request, response, defaultUrl);
 		}
-
 	}
+	
+	protected void clearAuthenticationAttributes(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if(session==null) return;
+		session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+	}
+	
 }

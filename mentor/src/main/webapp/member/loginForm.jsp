@@ -140,7 +140,7 @@ $(document).ready(function() {
 });
 </script>
 <script>
-if(${ERRORMSG} == "1") {
+if('${ERRORMSG}' == '1') {
  	document.addEventListener("DOMContentLoaded", function(event) {
     	var toastTop = app.toast.create({
         	text: '아이디 또는 비밀번호를 잘못 입력했습니다.',
@@ -149,8 +149,7 @@ if(${ERRORMSG} == "1") {
        });
        toastTop.open();
  	});
-}
-if(${ERRORMSG}  == "2") {
+} else if('${ERRORMSG}'  == '2') {
  	document.addEventListener("DOMContentLoaded", function(event) {
     	var toastTop = app.toast.create({
         	text: '계정이 존재하지 않습니다.',
@@ -159,11 +158,19 @@ if(${ERRORMSG}  == "2") {
        });
        toastTop.open();
  	});
-}
-if(${ERRORMSG}  == "3") {
+} else if('${ERRORMSG}'  == '3') {
  	document.addEventListener("DOMContentLoaded", function(event) {
     	var toastTop = app.toast.create({
         	text: '이메일 인증을 해주세요.',
+         	position: 'top',
+         	closeButton: true
+       });
+       toastTop.open();
+ 	});
+} else if('${ERRORMSG}'  == '4') {
+ 	document.addEventListener("DOMContentLoaded", function(event) {
+    	var toastTop = app.toast.create({
+        	text: '이미 로그인 중입니다.',
          	position: 'top',
          	closeButton: true
        });

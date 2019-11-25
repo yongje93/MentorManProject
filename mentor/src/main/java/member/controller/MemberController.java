@@ -149,12 +149,13 @@ public class MemberController {
 	 * @Method Name : loginForm
 	 */
 	@RequestMapping(value = "loginForm", method = {RequestMethod.GET, RequestMethod.POST})
-	public String loginForm(Model model, HttpSession session) {
+	public String loginForm(Model model, HttpSession session, @RequestParam(required = false) String status) {
 		// 카카오 url
 		String kakaoUrl = KakaoApi.getAuthorizationUrl(session);
 		// 네이버 url
 		String naverUrl = naverLoginBO.getAuthorizationUrl(session);
 		
+		model.addAttribute("status", status);
 		model.addAttribute("kakaoUrl", kakaoUrl);
 		model.addAttribute("naverUrl", naverUrl);
 		model.addAttribute("display", "/member/loginForm.jsp");
