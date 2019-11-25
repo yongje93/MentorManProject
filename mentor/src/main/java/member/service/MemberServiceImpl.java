@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import member.bean.MemberDTO;
 import member.dao.MemberDAO;
-import member.mailhandler.MailHandler;
+import member.handler.MailHandler;
 import mentor.bean.MentorDTO;
 /**
  * @Title : 회원가입 Service.
@@ -56,7 +56,7 @@ public class MemberServiceImpl implements MemberService {
 		memberDAO.write(map);
 		
 		// 임의의 authkey 생성
-		String authKey = new member.mailhandler.TempKey().getKey(50, false);
+		String authKey = new member.handler.TempKey().getKey(50, false);
 		// 인증키 db 저장
 		memberDAO.createAuthKey(map.get("member_email"), authKey);
 		// 메일 전송

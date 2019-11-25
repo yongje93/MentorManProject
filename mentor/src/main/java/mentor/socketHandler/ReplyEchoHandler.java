@@ -25,7 +25,7 @@ public class ReplyEchoHandler extends TextWebSocketHandler {
 	//서버에 접속이 성공 했을때
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		System.out.println("afterConnectionEstablished "  + session);
+		//System.out.println("afterConnectionEstablished "  + session);
 		sessions.add(session);
 		String senderNickname = getNickname(session);
 		userSessionsMap.put(senderNickname , session);
@@ -34,7 +34,7 @@ public class ReplyEchoHandler extends TextWebSocketHandler {
 	//소켓에 메세지를 보냈을때
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		System.out.println("handleTextMessage " +  session + " , " + message);
+		//System.out.println("handleTextMessage " +  session + " , " + message);
 		String senderNickname = getNickname(session);
 		
 		//모든 유저에게 보낸다 - 브로드 캐스팅
@@ -67,7 +67,7 @@ public class ReplyEchoHandler extends TextWebSocketHandler {
 	//연결 해제될때
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		System.out.println("afterConnectionClosed " + session + ", " + status);
+		//System.out.println("afterConnectionClosed " + session + ", " + status);
 	}
 	
 	

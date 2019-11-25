@@ -22,7 +22,7 @@
 		<c:if test="${memDTO.member_email == meetingboardDTO.mentor_email}">
 			<div style="float: right; margin-bottom: 5px;">
 				<button class="button" id="meetingboardModifyFormBtn" style="display: inline-block;">수정</button>
-				<button class="button" id="meetingboardDeleteBtn" style="display: inline-block;">삭제</button>
+				<%-- <button class="button" id="meetingboardDeleteBtn" style="display: inline-block;">삭제</button> --%>
 			</div>
 		</c:if>
 		</c:if>
@@ -166,12 +166,7 @@
 		<div class="block button-block">
 		<c:if test="${today <= meetingdayCompare}">
 			<c:if test="${meetingboardDTO.meetingboard_state == 0}">
-				<form id="loginFlagForm" action="/mentor/member/loginForm" method="post">
-		      		<c:if test="${memDTO.member_email == null}">
-						<input type="hidden" name="flag" value="1" id="flag">
-		      		</c:if>
-		      		<a class="button button-big button-fill" type="external" href="javascript:void(0)" onclick="callFunction('${memDTO.member_email}')">신청하기</a>
-		    	</form>
+				<a class="button button-big button-fill" type="external" href="/mentor/participation/participationWriteForm?seq=${meetingboardDTO.meetingboard_seq}">신청하기</a>
 		    </c:if>
 		    <c:if test="${meetingboardDTO.meetingboard_state == 1}">
 		      	<div class="button button-big button-fill color-gray">모집완료</div>	  

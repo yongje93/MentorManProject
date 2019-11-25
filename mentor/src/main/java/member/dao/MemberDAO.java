@@ -3,6 +3,7 @@ package member.dao;
 import java.util.List;
 import java.util.Map;
 
+import member.bean.CustomUserDetails;
 import member.bean.MemberDTO;
 import mentor.bean.MentorDTO;
 

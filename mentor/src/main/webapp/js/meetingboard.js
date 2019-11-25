@@ -189,12 +189,3 @@ $("#meetingboardDeleteBtn").click(function(){
 	} else
 		return false;
 });
-
-// 모임 신청 버튼
-function callFunction(email){
-	if(email == '') {
-		$("#loginFlagForm").submit();
-	} else {
-		location.href="/mentor/participation/participationWriteForm?seq="+$("#seq").val();
-	}
-}

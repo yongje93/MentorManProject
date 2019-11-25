@@ -73,7 +73,7 @@
 											<img src="../image/profile.jpg" width="28" height="28">
 											</c:if>
 											<c:if test="${meetingboardDTO.member_profile != 'profile.jpg'}">
-											<img src="../storage/${meetingboardDTO.member_email}/${meetingboardDTO.member_profile}" width="28" height="28">
+											<img src="../storage/${meetingboardDTO.mentor_email}/${meetingboardDTO.member_profile}" width="28" height="28">
 											</c:if>
 										</div>
 										<div class="mentor-name">
