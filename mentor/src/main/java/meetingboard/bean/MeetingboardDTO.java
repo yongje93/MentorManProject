@@ -36,4 +36,5 @@ public class MeetingboardDTO {
 	private String mentor_etc; // 멘토 기타사항
 	private String mentor_represent; //대표 멘토링 분야
 	private int member_seq; // 멘토 seq	
+	private String member_email;
 }

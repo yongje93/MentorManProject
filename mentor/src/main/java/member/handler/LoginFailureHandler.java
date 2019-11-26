@@ -31,13 +31,13 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 		String errormsg = null;
 
 		if (exception instanceof BadCredentialsException) {
-			errormsg = "1"; //비밀번호를 잘못 입력했습니다.
+			errormsg = "1"; // 비밀번호를 잘못 입력했습니다.
 		} else if (exception instanceof UsernameNotFoundException) {
-			errormsg = "2"; //계정이 존재하지 않습니다.
+			errormsg = "2"; // 계정이 존재하지 않습니다.
 		} else if (exception instanceof DisabledException) {
-			errormsg = "3"; //이메일 인증을 해주세요.
+			errormsg = "3"; // 이메일 인증을 해주세요.
 		} else if (exception instanceof SessionAuthenticationException) {
-			errormsg = "4"; //중복 로그인
+			errormsg = "4"; // 중복 로그인
 		}
 
 		request.setAttribute(loginemailname, member_email);

@@ -20,6 +20,7 @@
 							<c:if test="${participationDTO.meetingboard_state == 0}">
 							<input type="hidden" name="meetingboard_seq" value="${participationDTO.meetingboard_seq}">
 							<input type="hidden" name="participation_seq" value="${participationDTO.participation_seq}">
+							<input type="hidden" name="mentor_email" value="${participationDTO.mentor_email}">
 							<c:set var="total" value="${total + participationDTO.meetingboard_price}"/>
 							</c:if>
 							<div class="product_item_container">

@@ -50,7 +50,7 @@
    });
 
    function connectWs(){
-   	sock = new SockJS( "<c:url value="/replyEcho"/>" );
+   	sock = new SockJS( "<c:url value="/echo"/>" );
    	//sock = new SockJS('/replyEcho');
    	socket = sock;
    	

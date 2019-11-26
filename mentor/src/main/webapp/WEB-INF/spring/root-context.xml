@@ -53,8 +53,6 @@
 	<context:component-scan base-package="adminsales.bean"/>
 	<context:component-scan base-package="adminsales.dao"/>
 	<context:component-scan base-package="adminsales.service"/>
-	<!-- 모임 게시판 관련 부분 -->
-
 
 	<!-- 모임 게시판  -->
 	<context:component-scan base-package="meetingboard.bean"/>

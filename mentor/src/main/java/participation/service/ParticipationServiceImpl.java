@@ -60,4 +60,9 @@ public class ParticipationServiceImpl implements ParticipationService {
 	public void paymentCancel(Map<String, Object> map) {
 		participationDAO.paymentCancel(map);
 	}
+
+	@Override
+	public ParticipationDTO getMenteeParticipation(Map<String, Integer> map) {
+		return participationDAO.getMenteeParticipation(map);
+	}
 }

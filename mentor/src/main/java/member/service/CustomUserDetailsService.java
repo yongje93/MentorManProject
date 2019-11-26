@@ -11,15 +11,15 @@ import member.dao.MemberDAO;
 public class CustomUserDetailsService implements UserDetailsService {
 	@Autowired
 	private MemberDAO memberDAO;
-	
+
 	@Override
 	public UserDetails loadUserByUsername(String member_email) throws UsernameNotFoundException {
 		MemberDTO member = memberDAO.getMemberByEmail(member_email);
-		
-		if(member == null) {
+
+		if (member == null) {
 			throw new UsernameNotFoundException(member_email);
 		}
-		
+
 		return member;
 	}
 

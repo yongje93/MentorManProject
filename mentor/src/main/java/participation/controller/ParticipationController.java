@@ -67,6 +67,23 @@ public class ParticipationController {
 		participationService.participationWrite(participationDTO);
 	}
 	
+	@RequestMapping(value = "participationView", method = RequestMethod.GET)
+	public String participationView(Model model, @RequestParam String mseq, @RequestParam String pseq) {
+		int meetingboard_seq = Integer.parseInt(mseq);
+		int participation_seq = Integer.parseInt(pseq);
+		System.out.println();
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("meetingboard_seq", meetingboard_seq);
+		map.put("participation_seq", participation_seq);
+		
+		ParticipationDTO participationDTO = participationService.getMenteeParticipation(map);
+		
+		model.addAttribute("participationDTO", participationDTO);
+		model.addAttribute("display", "/participation/participationView.jsp");
+		return "/main/index";
+	}
+	
 	/**
 	 * @Title : 모임 바구니 화면
 	 * @Author : yong
@@ -152,4 +169,5 @@ public class ParticipationController {
 		participationService.paymentCancel(map);
 		return "redirect:/mentee/menteeOrderHistory";
 	}
+	
 }

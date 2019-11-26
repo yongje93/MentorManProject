@@ -33,12 +33,12 @@ public class MemberDTO implements UserDetails {
 	private String memberAuthKey; // 이메일 인증키
 	private int memberAuthStatus; // 이메일 인증상태
 	private String memberAuthority; // 멤버 권한
-	
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
-		
-		if(this.member_nickname.equals("admin")) {
+
+		if (this.member_nickname.equals("admin")) {
 			auth.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 		} else {
 			auth.add(new SimpleGrantedAuthority("ROLE_USER"));

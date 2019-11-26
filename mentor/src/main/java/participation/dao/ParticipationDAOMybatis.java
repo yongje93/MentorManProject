@@ -72,5 +72,18 @@ public class ParticipationDAOMybatis implements ParticipationDAO {
 		sqlSession.update("participationSQL.paymentCanelTotal", map);
 		// 삭제한 항목 flag 0으로 바꾸기
 		sqlSession.update("participationSQL.paymentCancelFlag", map);
+		// 신청서 삭제
+		sqlSession.delete("participationSQL.deleteParticipation", map);
+		//지원한 멘티수
+		int menteeCount = sqlSession.selectOne("participationSQL.menteeCount", map);
+		int menteeLimit = sqlSession.selectOne("participationSQL.menteeLimit", map);
+		if(menteeLimit > menteeCount) {
+			sqlSession.update("participationSQL.updateStateZero", map);
+		}
+	}
+
+	@Override
+	public ParticipationDTO getMenteeParticipation(Map<String, Integer> map) {
+		return sqlSession.selectOne("participationSQL.getMenteeParticipation", map);
 	}
 }

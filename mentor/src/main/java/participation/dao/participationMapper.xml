@@ -38,7 +38,7 @@
 	</update>
 	<!-- 결제 완료후 해당 seq 몇명 신청인지 보기 -->
 	<select id="menteeCount" parameterType="java.util.Map" resultType="int">
-		select count(*) from meeting_order where meetingboard_seq = #{meetingboard_seq}
+		select count(*) from meeting_order where meetingboard_seq = #{meetingboard_seq} and order_flag = 1
 	</select>
 	<!-- 모임당 최대 인원 -->
 	<select id="menteeLimit" parameterType="java.util.Map" resultType="int">
@@ -47,6 +47,10 @@
 	<!-- 모집완료 일때 -->
 	<update id="updateState" parameterType="java.util.Map">
 		update meetingboard set meetingboard_state = 1 where meetingboard_seq = #{meetingboard_seq}
+	</update>
+	<!-- 취소해서 인원 줄어들때 -->
+	<update id="updateStateZero" parameterType="java.util.Map">
+		update meetingboard set meetingboard_state = 0 where meetingboard_seq = #{meetingboard_seq}
 	</update>
 	<!-- 결제완료후 결제내역 바로 보여주기 -->
 	<select id="getOrderHistoryUsingOrderId" parameterType="string" resultType="order">
@@ -87,4 +91,14 @@
 		update meeting_order set order_flag = 0
 		where order_id = #{order_id} and meetingboard_seq = #{meetingboard_seq} and participation_seq = #{participation_seq}
 	</update>
+	<!-- 결제 취소한 신청서 삭제 -->
+	<delete id="deleteParticipation" parameterType="java.util.Map">
+		delete from meeting_participation where participation_seq=#{participation_seq} and meetingboard_seq = #{meetingboard_seq}
+	</delete>
+	<!-- 멘티가 작성한 신청서 보기 -->
+	<select id="getMenteeParticipation" parameterType="java.util.Map" resultType="participation">
+		select m.meetingboard_title, p.mentee_name, p.mentee_email, p.participation_address, p.participation_question
+		from meeting_participation p, meetingboard m
+		where p.meetingboard_seq = m.meetingboard_seq and p.participation_seq=#{participation_seq} and p.meetingboard_seq = #{meetingboard_seq}
+	</select>
 </mapper>
