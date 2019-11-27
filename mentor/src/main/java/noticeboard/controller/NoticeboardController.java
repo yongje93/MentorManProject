@@ -59,7 +59,6 @@ public class NoticeboardController {
 	@RequestMapping(value = "noticeboardWrite", method = RequestMethod.POST)
 	@ResponseBody
 	public void noticeboardWrite(@RequestParam Map<String,String> map) {
-		System.out.println(map);
 		
 		noticeboardService.noticeboardWrite(map); 
 	}
@@ -70,13 +69,11 @@ public class NoticeboardController {
 		String filePath = "C:/github/MentorMan/mentor/src/main/webapp/storage";
 		String fileName = file.getOriginalFilename();
 		File files = new File(filePath, fileName);
-		System.out.println(fileName);
 		try {
 			FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(files));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(fileName);
 		return fileName;
 	}
 	
@@ -113,7 +110,6 @@ public class NoticeboardController {
 	//공지글은 로그인 하지 않아도 확인이 가능하게 하는가? 아니면 로그인 하면 볼 수 있게하는지 논의하기
 	@RequestMapping(value = "getBoardList", method = RequestMethod.POST)
 	public ModelAndView getBoardList(@RequestParam(required = false, defaultValue = "1") String pg) {
-		System.out.println(pg);
 		int endNum = Integer.parseInt(pg)*10;
 		int startNum = endNum-9;
 		Map<String, Integer> map = new HashMap<String, Integer>();
@@ -169,7 +165,6 @@ public class NoticeboardController {
 	            }
 	         }
 	      }
-		System.out.println(noticeboardDTO);
 		model.addAttribute("pg", pg);
 		model.addAttribute("noticeboardDTO", noticeboardDTO);
 		model.addAttribute("display", "/noticeboard/noticeboardView.jsp");
@@ -190,13 +185,11 @@ public class NoticeboardController {
 		
 		List<NoticeboardDTO> list = noticeboardService.noticeboardSearch(map);
 		
-		System.out.println(list);
 		int totalA = noticeboardService.getSearchTotalA(map);
 		boardPaging.setCurrentPage(Integer.parseInt(map.get("pg")));
 		boardPaging.setPageBlock(3);
 		boardPaging.setPageSize(10);
 		boardPaging.setTotalA(totalA);
-		System.out.println(totalA);
 		boardPaging.makeSelectPagingHTML();
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("searchText",map.get("searchText"));

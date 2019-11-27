@@ -87,7 +87,7 @@
 		    <version>1.18.10</version>
 		    <scope>provided</scope>
 		</dependency>
-		
+		        
 		<!-- Spring WebSocket -->
 		<!-- 2019.11.18 양재우 -->
 		<dependency>
@@ -172,13 +172,12 @@
 			<artifactId>spring-context-support</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-		<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-		<!-- Spring Email 설정 19.11.12 ginkgo1928 -->
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
 			<version>1.4.7</version>
 		</dependency>
+		
 		<!-- 제이슨 파싱 -->
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
@@ -344,5 +343,3 @@
 	</repositories>
     
 </project>
-
-

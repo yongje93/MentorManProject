@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 @Component
 public class MenteeDTO {
+	//학생-------------------------------
 	private String menteeStudent_school;
 	private String menteeStudent_major;
 	private String menteeStudent_state;
@@ -15,7 +16,7 @@ public class MenteeDTO {
 	private String menteeStudent_etc;
 	private String menteeStudent_email;
 	
-	//----------------------------------
+	//직장인------------------------------
 	
 	private int menteeEmployee_year;
 	private String menteeEmployee_final;

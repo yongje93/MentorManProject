@@ -3,22 +3,26 @@ package mentor.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import meetingboard.bean.ReviewDTO;
 import member.bean.MemberDTO;
@@ -96,13 +100,105 @@ public class MentorController {
 		return "/main/index";
 	}
 	
+	/**
+	 * @Title : 직무유형에 맞는 멘토
+	 * @Author : kujun95, @Date : 2019. 11. 25.
+	 */
+	@RequestMapping(value = "mentorjobFind", method = RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView essayjobType(@RequestBody Map<String, Object> jsonData ,
+										  HttpServletResponse response ,
+										  HttpSession session) {
+		List<MentorDTO> list = null;
+		// job_code
+		ArrayList<String> joblist = (ArrayList<String>) jsonData.get("job_code");
+		// 현재 페이지
+		int pg = (Integer) jsonData.get("pg");
+		// 신규에세이, 추천에세이 플래그
+		int flag = (Integer) jsonData.get("flag");
+		
+		// job_code 유무 체크
+		String check = null;
+		
+		for (String jobs : joblist) {
+			System.out.println("list = " + jobs.toString());
+			if(!jobs.equals(null)) {
+				check = "success";
+			}
+		}
+		
+//		System.out.println("check = " + check);
+//		System.out.println("pg = " + pg);
+//		System.out.println("flag = " + flag);
+//		System.out.println("check = " + check);
+		memberDTO = (MemberDTO)session.getAttribute("memDTO");
+		Map<String, Object> map = new HashMap<String, Object>();
+//		
+		// 페이지 당 9개씩
+		int endNum = pg * 9;
+		int startNum = endNum - 8;
+		
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		map.put("job_code", joblist);
+		map.put("flag", flag);
+		map.put("mentor_flag", 1);
+		
+		// 직무유형 총 글 수
+		int jobCodeTotal = 0;
+		
+		// 직무 유형 찾기 
+		if(check == "success") {
+			//멘토 리스트
+			list = mentorService.getJobType(map);			
+			//멘토 인원수
+			jobCodeTotal = mentorService.getJobCode(map);
+		} 
+		
+		// 멘토 테이블 플래그
+		int mentorFlag = 1;
+		
+		// job_code가 없을 경우 아래 코드를 실행한다.
+		if(check == null && flag == 0){
+			list = mentorService.getMentor(map);
+			jobCodeTotal = mentorService.getMemberCount(mentorFlag);
+		} else if(check == null && flag == 1) {
+			list = mentorService.getHonorMentor(map);
+//			jobCodeTotal = mentorService.getRecommendTotal();
+		}
+		
+		ModelAndView modelAndView = new ModelAndView();	
+
+		mentorfindPaging.setCurrentPage(pg);
+		mentorfindPaging.setPageBlock(3);
+		mentorfindPaging.setPageSize(12);
+		mentorfindPaging.setTotalA(jobCodeTotal);
+		mentorfindPaging.makePagingHTML();
+		
+		System.out.println("listsize = " + list.size());
+		if(memberDTO != null) {
+			modelAndView.addObject("memberDTO", memberDTO);
+		}
+		
+		modelAndView.addObject("pg", pg);
+		modelAndView.addObject("flag", flag);
+		modelAndView.addObject("pageSize", mentorfindPaging.getPageSize());
+		modelAndView.addObject("boardpaging", mentorfindPaging.getCurrentPage());
+		modelAndView.addObject("jobCodeTotal", jobCodeTotal);
+		modelAndView.addObject("list", list);
+		modelAndView.setViewName("jsonView");
+		
+		return modelAndView;
+	}
+	
+	
 	
 	/**
 	 * @Title : 멘토 찾기
 	 * @Author : kujun95, @Date : 2019. 11. 15.
 	 */
 	@RequestMapping(value = "mentorfindForm", method = RequestMethod.GET)
-	public String mentorfindForm(@RequestParam int pg, Model model, HttpSession session) {
+	public String mentorfindForm(@RequestParam(required = false, defaultValue = "1") int pg, Model model, HttpSession session) {
 		memberDTO = (MemberDTO) session.getAttribute("memDTO");
 		//승인된 멘토
 		int mentor_flag = 1;
@@ -119,6 +215,8 @@ public class MentorController {
 		mentorfindPaging.setPageSize(12);
 		mentorfindPaging.setTotalA(totalA);
 		mentorfindPaging.makePagingHTML();
+		
+		model.addAttribute("flag", 0);
 		model.addAttribute("memberDTO", memberDTO);
 		model.addAttribute("pg", pg);
 		model.addAttribute("mentorfindPaging", mentorfindPaging);
@@ -136,19 +234,16 @@ public class MentorController {
 		Map<String, String> flagCheck_map = new HashMap<String, String>();
 		flagCheck_map.put("member_email", memberDTO.getMember_email());
 		flagCheck_map.put("mentor_seq", seq);
-		System.out.println(seq);
-		MentorDTO questionDTO = mentorService.getQuestion_flag(flagCheck_map);
-		if(questionDTO != null) {
-		int flag = questionDTO.getQuestion_flag();
-		int qsseq = questionDTO.getQuestion_seq();
-			if(flag == 0) {
-				return "/mentor/member/myQuestionsForm?pg="+pg+"&seq="+seq+"&qsseq="+qsseq;
-			}else {
-				return reQuestion;
+		
+		List<MentorDTO> list = mentorService.getQuestion_flag(flagCheck_map);
+		if(list != null) {
+			for (int i = 0; i < list.size(); i++) {
+				if(list.get(i).getQuestion_flag() == 0) {
+					return "/mentor/member/myQuestionsForm?pg="+pg+"&seq="+seq+"&qsseq="+list.get(i).getQuestion_seq();
+				}
 			}
-		}else {
-			return reQuestion;
 		}
+		return reQuestion;
 	}
 	
 	/**
@@ -167,13 +262,14 @@ public class MentorController {
 		
 		//로그인 세션
 		memberDTO = (MemberDTO) session.getAttribute("memDTO");
+		
 		Map<String, String> followMap = new HashMap<String, String>();
 		followMap.put("memEmail" , memberDTO.getMember_email());
 		followMap.put("mentorEmail" , mentorDTO.getMentor_email());
 		
 		//팔로우 찾기
 		int follow = mentorService.getFollowCheck(followMap);
-		
+		model.addAttribute("memNicname" , memberDTO.getMember_nickname());
 		model.addAttribute("list", list);
 		model.addAttribute("follow" , follow);
 		model.addAttribute("mentorDTO", mentorDTO);
@@ -205,16 +301,33 @@ public class MentorController {
 	 * @Method Name : mentorInfoView
 	 */
 	@RequestMapping(value = "mentorInfoView", method = RequestMethod.GET)
-	public String mentorInfoView(@RequestParam String mentors, Model model) {
+	public String mentorInfoView(@RequestParam String mentors, @RequestParam(required = false, defaultValue = "1") String pg, Model model, HttpSession sesstion) {
 		int mentor_seq = Integer.parseInt(mentors);
 		MentorDTO mentorDTO = mentorService.getMentorInfomation(mentor_seq);
 		List<MentorDTO> essayList = mentorService.getMentorEssayList(mentor_seq);
 		List<ReviewDTO> reviewList = mentorService.getMentorReviewList(mentor_seq);
+		
+		int mentor_answer = mentorService.getAnswer(mentor_seq); // 답변수
+		int mentor_question = mentorService.getQuestion(mentor_seq);// 질문수
+		double questionPercent = (double)mentor_answer/(double)mentor_question;
+		System.out.println(mentor_answer+"-----"+mentor_question);
 		String[] mentoringArray = mentorDTO.getMentoring_code().split(",");
 		Map<String, String[]> map = new HashMap<String, String[]>();
 		map.put("mentoring_code", mentoringArray);
 		List<MentorDTO> mentoringList = mentorService.getMentoring_code(map);
-				
+		
+		memberDTO = (MemberDTO) sesstion.getAttribute("memDTO");
+		
+		model.addAttribute("pg", pg);
+		if(memberDTO!= null) {
+			model.addAttribute("email_check", memberDTO.getMember_email());
+		}
+		if(Double.isNaN(questionPercent)) {
+			model.addAttribute("questionPercent", 0);			
+		}else {
+			model.addAttribute("questionPercent", questionPercent);
+		}
+		model.addAttribute("mentor_answer",mentor_answer);
 		model.addAttribute("mentor_seq", mentor_seq);
 		model.addAttribute("mentoringList", mentoringList);
 		model.addAttribute("mentorDTO", mentorDTO);
@@ -273,9 +386,13 @@ public class MentorController {
 	@RequestMapping(value = "mentorAttention", method = RequestMethod.GET)
 	public String mentorAttention(Model model , HttpSession session) {
 		memberDTO = (MemberDTO) session.getAttribute("memDTO");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memEmail" , memberDTO.getMember_email());
+		map.put("mentor_flag", 1);
 		//승인된 멘토 이면서 나를 팔로우한 팔로워 list
-		int mentor_flag = 1;
-		List<MentorDTO> list = mentorService.getMentorAttentionList(mentor_flag);
+		System.out.println("map :::: " + map);
+		List<MentorDTO> list = mentorService.getMentorAttentionList(map);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("display", "/mentor/mentorAttention.jsp");

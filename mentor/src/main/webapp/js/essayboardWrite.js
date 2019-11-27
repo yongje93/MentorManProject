@@ -10,6 +10,16 @@ $('#essayboardWriteBtn').on('click', function(){
 	} else if ($('#summernote').val() == ''){
 		$('.essayboard_content_error_div').text('내용을 입력해주세요.').css('color', 'red').css('font-size', '8pt');
 	} else {
-		$('#essayboardWriteForm').submit();		
+		$.ajax({
+			type : 'post',
+			url : '/mentor/essayboard/essayboardWrite',
+			data : $('#essayboardWriteForm').serialize(),
+			success : function(data){
+				location.href="/mentor/essayboard/essayboardList";
+			},
+			error : function(){
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		});		
 	}
 });

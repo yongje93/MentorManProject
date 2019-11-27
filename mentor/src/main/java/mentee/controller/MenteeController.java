@@ -61,11 +61,16 @@ public class MenteeController {
 	 */
 	@RequestMapping(value = "chackNickname", method = RequestMethod.POST)
 	@ResponseBody
-	public String chackNickname(@RequestParam String member_nickname) {
+	public String chackNickname(@RequestParam String member_nickname, @RequestParam String nickname) {
 		MemberDTO members = menteeService.getNickname(member_nickname);
+		if(member_nickname.equals(nickname)){
+			return "eq";
+		}
 		
-		if(members != null){
-			return "on";
+		if(member_nickname.length() < 3 || member_nickname.length() > 22){
+			return "length_error";
+		}else if(members != null){
+			return "no";
 		}else {
 			return "ok";
 		}
@@ -77,20 +82,43 @@ public class MenteeController {
 	 */
 	@RequestMapping(value = "mentorUserModify", method = RequestMethod.POST)
 	public String mentorUserModify(@RequestParam Map<String, String> map, @RequestParam("member_profile") MultipartFile member_profile, Model model, HttpSession session) {
-		String filePath = "C:/github/MentorMan/mentor/src/main/webapp/storage/"+memberDTO(session).getMember_email();
-		String fileName = member_profile.getOriginalFilename();
-		File filemake = new File(filePath);
-		if(!filemake.exists()) {
-			filemake.mkdirs();
+		if(member_profile.getOriginalFilename()!="") {
+			MemberDTO memberDTO = (MemberDTO) session.getAttribute("memDTO");
+			String filePath = "C:/github/MentorMan/mentor/src/main/webapp/storage/"+memberDTO.getMember_email();
+			String fileName = member_profile.getOriginalFilename();
+			File filemake = new File(filePath);
+			if(!filemake.exists()) {
+				filemake.mkdirs();
+			}
+			File file = new File(filePath, fileName);
+			System.out.println(file);
+			try {
+					FileCopyUtils.copy(member_profile.getInputStream(), new FileOutputStream(file));				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			map.put("member_profile", fileName);
+			menteeService.mentorUserModify(map);
+		}else {
+			MemberDTO memberDTO = (MemberDTO) session.getAttribute("memDTO");
+			String filePath = "C:/github/MentorMan/mentor/src/main/webapp/storage/"+memberDTO.getMember_email();
+			String fileName = memberDTO.getMember_profile();
+			File filemake = new File(filePath);
+			if(!filemake.exists()) {
+				filemake.mkdirs();
+			}
+			File file = new File(filePath, fileName);
+			System.out.println(file);
+			try {
+					FileCopyUtils.copy(member_profile.getInputStream(), new FileOutputStream(file));				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			map.put("member_profile", fileName);
+			menteeService.mentorUserModify(map);
 		}
-		File file = new File(filePath, fileName);
-		try {
-			FileCopyUtils.copy(member_profile.getInputStream(), new FileOutputStream(file));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		map.put("member_profile", fileName);
-		menteeService.mentorUserModify(map);
+		
+		
 		model.addAttribute("memberDTO", memberDTO(session)); 
 		model.addAttribute("display","/mentee/menteeUserForm.jsp");
 		model.addAttribute("display2","/mentee/menteeUserSetting.jsp");

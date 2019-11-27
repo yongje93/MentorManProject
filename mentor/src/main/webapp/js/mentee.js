@@ -1,57 +1,50 @@
-var check = null;
-$('#member_nickname').focusout( function(){
+
+
+$('#menteeUser_Save').on('click', function(){
+	$('#member_name_error').empty();
+	$('#member_nickname_error').empty();
+	var check = 'ok';
 	$.ajax({
 		type: 'post',
 		url: '/mentor/mentee/chackNickname',
-		data: {'member_nickname': $('#member_nickname').val()},
+		data: {'member_nickname': $('#member_nickname').val(), 'nickname': $('#nickname').val()},
 		dataType: 'text',
 		success: function(data){
-			if(data=='on'){
-				$('#member_nickname_error').text('이미 존재하는 닉네임 입니다.').css('color','red');
-				$('#member_nickname_error').css('font-size','8pt');
-				$('#member_nickname').focus();
-				check = 'on';
+			if(data=='qe'){
+				$('#member_nickname_error').empty();
+				check = 'ok';
 			}else if(data=='ok'){
 				$('#member_nickname_error').text('사용가능한 닉네임 입니다.').css('color','#0042fd');
 				$('#member_nickname_error').css('font-size','8pt');
 				check = 'ok';
 			}
-			if($('#member_nickname').val() == $('#nickname').val()){
-				$('#member_nickname_error').empty();
-				check = 'eq';
+			
+			if(data=='no'){
+				$('#member_nickname_error').text('이미 존재하는 닉네임 입니다.').css('color','red');
+				$('#member_nickname_error').css('font-size','8pt');
+				$('#member_nickname').focus();
+				check = 'no';
+			}else if(data=='length_error'){
+				$('#member_nickname_error').text('닉네임을 3자리에서 22자리 이하로 입력해주세요').css('color','red');
+				$('#member_nickname_error').css('font-size','8pt');
+				check = 'on';
+			}
+			if($('#member_name').val() == ''){
+				$('#member_name').focus();
+				$('#member_name_error').text('이름을 입력하세요').css('color','red');
+				$('#member_name_error').css('font-size','8pt');
+			}else if(check == 'ok'){
+				var menteeUserSetting = document.menteeUserSetting
+				menteeUserSetting.setAttribute('action', '/mentor/mentee/mentorUserModify');
+				menteeUserSetting.submit();
+				return;		
 			}
 		},
 		error: function(){
 			alert('에러');
 		}
 	});
-});
-
-$('#menteeUser_Save').on('click', function(){
-	$('#member_name_error').empty();
-	$('#member_nickname_error').empty();
-	if($('#member_nickname').val() == $('#nickname').val()){
-		$('#member_nickname_error').empty();
-		check = true;
-	}
-	if($('#member_name').val() == ''){
-		$('#member_name').focus();
-		$('#member_name_error').text('이름을 입력하세요').css('color','red');
-		$('#member_name_error').css('font-size','8pt');
-	}else if($('#member_nickname').val() == ''){
-		$('#member_nickname').focus();
-		$('#member_nickname_error').text('닉네임을 입력하세요').css('color','red');
-		$('#member_nickname_error').css('font-size','8pt');
-	}else if(check == 'on'){
-		$('#member_nickname_error').text('이미 존재하는 닉네임 입니다.').css('color','red');
-		$('#member_nickname_error').css('font-size','8pt');
-		$('#member_nickname').focus();
-	}else {
-		var menteeUserSetting = document.menteeUserSetting
-		menteeUserSetting.setAttribute('action', '/mentor/mentee/mentorUserModify');
-		menteeUserSetting.submit();
-		return;		
-	}
+	
 });
 
 //학생 info 입력 버튼

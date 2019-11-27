@@ -44,6 +44,7 @@
 						<div class="setPwd-Div"></div>
 					</div>
 					<input type="button" name="setpwdBtn" id="setpwdBtn" value="비밀번호 재설정 메일 발송" class="btn button button-big button-fill submit-button" data-disable-with="요청중..." />
+					<img id="rodingImg" class="hideRoding" src="../image/rodingImg.gif" style="width : 80px; margin-left: 160px;">
 				</form>
 			</div>
 		</div>
@@ -124,3 +125,8 @@ $('#newpwdBtn').click(function(){
 	});
 });
 </script>
+<style>
+.hideRoding{
+	display : none;
+}
+</style>

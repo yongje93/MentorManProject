@@ -39,17 +39,36 @@
 	</select>
 	
 	<select id="getMentorList" parameterType="Map" resultType="mentor">
-		select * from(select rownum rn, tt.* from(select mt.mentor_seq, mb.member_name, mb.member_profile,mt.mentor_company, mt.mentor_department, 
-		    j.job_type, mentor_school, mentor_career, mentoring_code, mentor_represent, mentor_info, mentor_etc, mentor_email, 
-		    mentor_selectNaming, mentor_businesscard, mentor_badge, mentor_flag, mentor_logtime from mentor mt, job j, 
-			mentors_member mb where mt.mentor_email = mb.member_email and j.job_code = mt.job_code and mentor_flag = #{mentor_flag} order by mt.mentor_seq desc)tt) 
+		select * from(select rownum rn, tt.* from
+                    (select mb.member_name
+                            , mb.member_seq
+                            , mb.member_profile
+                            , mt.mentor_company
+                            , mt.mentor_department
+                            , j.job_type
+                            , mt.mentor_seq
+                            , mt.mentor_school
+                            , mt.mentor_career
+                            , mt.mentoring_code
+                            , mt.mentor_represent
+                            , mt.mentor_info
+                            , mt.mentor_etc
+                            , mt.mentor_email
+                            , mt.mentor_selectNaming
+                            , mt.mentor_businesscard
+                            , mt.mentor_badge
+                            , mt.mentor_flag
+                            , mt.mentor_logtime
+            from mentor mt, job j, mentors_member mb where mt.mentor_email = mb.member_email and j.job_code = mt.job_code and mentor_flag = #{mentor_flag} order by mt.mentor_seq desc)tt) 
 		where rn between #{startNum} and #{endNum}
 	</select>
 	<select id="getTotalA" parameterType="int" resultType="int">
 		select count(*) from mentor where mentor_flag = #{mentor_flag}
 	</select>
 	<select id="getMentor_info" parameterType="int" resultType="mentor">
-		select mb.member_name
+		select 
+		mb.member_name
+		, mb.member_nickname
         , mb.member_profile
         , j.job_type
         , mentor_seq
@@ -101,7 +120,7 @@
 	</select>
 	<!-- 멘토 정보 시리얼 번호 이용 -->
 	<select id="getMentorInfomation" parameterType="int" resultType="mentor">
-		select mt.*, mm.member_name, mm.member_profile, j.job_type
+		select mt.*, mm.member_name, mm.member_profile, mm.member_email, mt.mentor_seq,j.job_type
 		from mentor mt, mentors_member mm, job j
 		where mt.mentor_email = mm.member_email and j.job_code = mt.job_code and mm.member_seq = ${mentor_seq}
   </select>
@@ -126,13 +145,93 @@
 		delete from mentorFollow where follower_email = #{follower_email} AND followed_email = #{followed_email}
 	</delete>
 	
-	<select id="getMentorAttentionList" parameterType="Integer" resultType="mentor">
+	<select id="getMentorAttentionList" parameterType="Map" resultType="mentor">
 		select * from
 		    (select rownum rn, tt.* from
 		        (select mt.mentor_seq, mb.member_name, mb.member_profile,mt.mentor_company, mt.mentor_department, 
 				    j.job_type, mentor_school, mentor_career, mentoring_code, mentor_represent, mentor_info, mentor_etc, mentor_email, 
 				    mentor_selectNaming, mentor_businesscard, mentor_badge, mentor_flag, mentor_logtime from mentor mt, job j, mentors_member mb , mentorFollow mf
-		            where mt.mentor_email = mb.member_email and j.job_code = mt.job_code and mf.followed_email = mt.mentor_email and mentor_flag = #{mentor_flag}
+		            where mt.mentor_email = mb.member_email and j.job_code = mt.job_code and mf.followed_email = mt.mentor_email and mentor_flag = #{mentor_flag,jdbcType=INTEGER} and mf.follower_email = #{memEmail,jdbcType=VARCHAR}
 		            order by mt.mentor_seq desc)tt)
 	</select>
+	
+	<select id="getHonorMentor" parameterType="Map" resultType="mentor">
+			select * from(select rownum rn, tt.* from
+                    (select mb.member_name
+                            , mb.member_seq
+                            , mb.member_profile
+                            , j.job_type
+                            , mt.*
+            from mentor mt, job j, mentors_member mb where mt.mentor_email = mb.member_email and j.job_code = mt.job_code and mentor_badge = #{flag} order by mt.mentor_seq desc)tt) 
+		where rn between #{startNum} and #{endNum}
+	</select>
+	
+	<select id="getJobCode" parameterType="Map" resultType="int">
+		select count(*) from(select mt.*
+							, mb.member_name
+                            , mb.member_seq
+                            , mb.member_profile
+                            , j.job_type
+            from mentor mt, job j, mentors_member mb 
+            where mt.mentor_email = mb.member_email and j.job_code = mt.job_code and mentor_flag = #{mentor_flag} 
+            <if test='flag == "0"'>
+            	order by mt.mentor_logtime desc 
+            </if> 
+            <if test='flag == "1"'>
+            	and mt.mentor_badge > 0
+            </if>
+            )
+            where job_code in
+             <foreach collection="job_code" item="job_code" index="index" separator="," open="(" close=")">
+                  	#{job_code, jdbcType=VARCHAR}
+             </foreach>
+	</select>
+	
+	<select id="getJobType" parameterType="Map" resultType="mentor">
+		select * from(select rownum rn, tt.* from(select mt.*
+												, mb.member_name
+					                            , mb.member_seq
+					                            , mb.member_profile
+					                            , j.job_type
+		from mentor mt, job j, mentors_member mb 
+           where mt.mentor_email = mb.member_email and j.job_code = mt.job_code and mentor_flag = #{mentor_flag}
+           <if test='flag == "0"'>
+              	ORDER BY mt.mentor_logtime DESC
+           </if>
+           <if test='flag == "1"'>
+           		AND mt.mentor_badge > 0 
+           </if>
+           )tt
+           where job_code in
+         <foreach collection="job_code" item="job_code" index="index" separator="," open="(" close=")">
+        	  #{job_code, jdbcType=VARCHAR}
+       	 </foreach>
+         )
+       <![CDATA[ 
+              where rn >= #{startNum, jdbcType=INTEGER} and rn<= #{endNum, jdbcType=INTEGER}
+       ]]>
+	</select>
+	
+	<select id="getMemberCount" parameterType="int" resultType="int">
+		select count(*) from mentor where mentor_flag = ${mentorFlag}
+	</select>
+	
+	<select id="getMentor" parameterType="Map" resultType="mentor">
+		select * from(select rownum rn, tt.* from
+                    (select mt.*
+                    		, mb.member_name
+                            , mb.member_seq
+                            , mb.member_profile
+                            , j.job_type
+            from mentor mt, job j, mentors_member mb where mt.mentor_email = mb.member_email and j.job_code = mt.job_code and mentor_flag = #{mentor_flag} order by mt.mentor_seq desc)tt) 
+		where rn between #{startNum} and #{endNum}
+	</select>
+	<select id="getAnswer" parameterType="int" resultType="int">
+		select count(*) from mentor mt, mentors_member mm, question qs where mt.mentor_email = mm.member_email and qs.mentor_seq = mt.mentor_seq and mm.member_seq = #{mentor_seq} and qs.question_flag = 1
+	</select>
+	
+	<select id="getQuestion" parameterType="int" resultType="int">
+		select count(*) from mentor mt, mentors_member mm, question qs where mt.mentor_email = mm.member_email and qs.mentor_seq = mt.mentor_seq and mm.member_seq = #{mentor_seq}
+	</select>
+	
 </mapper>

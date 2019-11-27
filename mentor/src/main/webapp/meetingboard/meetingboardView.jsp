@@ -154,7 +154,6 @@
 	        <div>
 	          	${meetingboardDTO.meetingboard_buildingname}
 	        </div>
-	
 	        <div class="block-footer">
 	          <div>
 	            ${meetingboardDTO.meetingboard_address}, ${meetingboardDTO.meetingboard_buildingname}

@@ -25,10 +25,10 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
-
 		String member_email = request.getParameter(loginemailname);
 		String member_pwd = request.getParameter(loginpwdname);
 		String errormsg = null;
+		defaultFailureUrl = "/member/loginForm?error";
 
 		if (exception instanceof BadCredentialsException) {
 			errormsg = "1"; // 비밀번호를 잘못 입력했습니다.
@@ -44,7 +44,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 		request.setAttribute(loginpwdname, member_pwd);
 		request.setAttribute(errormsgname, errormsg);
 
-		request.getRequestDispatcher(defaultFailureUrl).forward(request, response);
+		request.getRequestDispatcher(this.defaultFailureUrl).forward(request, response);
 	}
 
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import noticeboard.bean.NoticeboardDTO;
 import noticeboard.dao.NoticeboardDAO;
 
-@Service("boardService")
+@Service("noticeboardService")
 public class NoticeboardServiceImpl implements NoticeboardService {
 	@Autowired
 	private NoticeboardDAO noticeboardDAO;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="memberSQL">
@@ -15,17 +15,17 @@
 			values(member_seq.nextval, #{member_name},#{member_nickname},#{member_email},#{member_pwd},#{member_profile})
 		</if>
 	</insert>
-	
+
 	<!-- Nickname 중복확인 -->
 	<select id="writeNicknamecheck" parameterType="String" resultType="member">
 		select * from mentors_member where member_nickname=#{member_nickname}
 	</select>
-	
+
 	<!--Email 중복확인  -->
 	<select id="writeEmailCheck" parameterType="String" resultType="member">
 		select * from mentors_member where member_email=#{member_email}
 	</select>
-	
+
 	<!-- 로그인 처리  -->
 	<select id="login" parameterType="java.util.Map" resultType="member">
 		select * from mentors_member where member_email=#{member_email} and member_pwd=#{member_pwd}
@@ -33,10 +33,11 @@
 
 	<!-- 나의 질문 답변 -->
 	<select id="getQandA" parameterType="Map" resultType="mentor">
-	    select * 
+	    select *
 		  from(select rownum rn
-		            , tt.* 
-		         from(select mb.member_name member_name
+		            , tt.*
+		         from(select mb.member_name          member_name
+		         		   , mb.member_seq           member_seq
 		                   , mb.member_profile       member_profile
 		                   , j.job_type              job_type
 		                   , mt.mentoring_code       mentoring_code
@@ -45,37 +46,84 @@
 		                   , mt.mentor_company       mentor_company
 		                   , mt.mentor_department    mentor_department
 		                   , mt.mentor_represent     mentor_represent
-		                   , qs.question_seq         question_seq 
+		                   , qs.question_seq         question_seq
 		                   , qs.question_title       question_title
 		                   , qs.question_content     question_content
 		                   , qs.question_flag        question_flag
 		                from mentors_member mb ,question qs, mentor mt , job j
-		               where j.job_code = mt.job_code and mt.mentor_email = mb.member_email and qs.mentor_seq = mt.mentor_seq and qs.member_email = #{member_email} 
+		               where j.job_code = mt.job_code and mt.mentor_email = mb.member_email and qs.mentor_seq = mt.mentor_seq and qs.member_email = #{member_email}
 		               order by qs.question_logtime desc) tt
 		        )
 	    where rn between #{startNum} and #{endNum}
 	</select>
-	<!-- Q&A총 수 -->
+
+
+	<select id="getMemtee_question" parameterType="int" resultType="mentor">
+		select    mm.member_seq
+        , mm.member_name
+        , mm.member_profile
+        , mm.member_flag
+        , qs.member_email
+        , qs.mentor_seq
+        , qs.question_seq
+        , qs.question_title
+        , qs.question_content
+        , qs.question_flag
+        , qs.question_logtime
+        from mentors_member mm, question qs
+        where mm.member_email = qs.member_email and qs.mentor_seq = #{mentor_seq} order by qs.question_logtime DESC
+	</select>
+	<!-- 회원의 Q&A총 수 -->
 	<select id="getTotalA" parameterType="String" resultType="int">
 		select count(*) from question where member_email = #{member_email}
 	</select>
+
+
 	<!-- Q&A 멘토정보 -->
 	<select id="getMentor_info" parameterType="Map" resultType="mentor">
-		select mb.member_name
+	<if test="member_email == getEmail">
+		select   mb.member_name
 		       , mb.member_profile
+		       , mb.member_flag
+		       , mb.member_seq
+		       , mt.mentor_email
 		       , mt.mentor_company
 		       , mt.mentor_department
 		       , mt.mentor_represent
 		       , mt.mentoring_code
+		       , mt.mentor_email
 		       , j.job_type
 		       , qs.question_seq
+		       , qs.member_email
 		       , qs.question_title
 		       , qs.question_content
+		       , qs.question_flag
 		    from mentors_member mb, mentor mt, question qs, job j
 		where j.job_code = mt.job_code and  mt.mentor_email = mb.member_email and qs.question_seq = #{question_seq} and qs.member_email = #{member_email} and mt.mentor_seq = #{mentor_seq}
+	</if>
+	<if test="member_email != getEmail">
+		select    mm.member_seq
+		        , mm.member_name
+		        , mm.member_profile
+		        , mm.member_flag
+		        , mt.mentor_email
+		        , qs.member_email
+		        , qs.mentor_seq
+		        , qs.question_seq
+		        , qs.question_title
+		        , qs.question_content
+		        , qs.question_flag
+		        , qs.question_logtime
+		        from mentors_member mm, question qs, mentor mt
+        where mm.member_email = qs.member_email and mt.mentor_email = #{member_email} and qs.mentor_seq = #{mentor_seq} and qs.question_seq = #{question_seq}
+	</if>
 	</select>
+
+
+
+
 	<select id="getMentoring_type" parameterType="Map" resultType="mentor">
-		select mentoring_type from mentoring where mentoring_code in 
+		select mentoring_type from mentoring where mentoring_code in
 		<foreach collection="mentoring_code" index="index" item="mentoring_code" open="(" separator="," close=")">
 			#{mentoring_code}
 		</foreach>
@@ -84,18 +132,21 @@
 	<select id="setsetmemberpwd" parameterType="java.util.Map" resultType="member">
 		select * from mentors_member where member_name=#{member_name} and member_email=#{member_email}
 	</select>
-	
+
 	<!-- 비밀번호 변경완료  -->
 	<update id="newPwdCommit" parameterType="java.util.Map">
 		update mentors_member set member_pwd=#{member_pwd} where member_name=#{member_name} and member_email=#{member_email}
 	</update>
 
-	<!-- 질문 삭제 -->
-	<delete id="questionDelete" parameterType="int">
-		delete from question where question_seq = #{question_seq}
+	<!-- 질문 삭제  -->
+	<delete id="questionDelete" parameterType="Map">
+	begin
+		delete from answer where question_seq = #{question_seq};
+
+		delete from question where question_seq = #{question_seq};
+	end;
 	</delete>
-	
-	
+
 	<!-- 이메일로 회원정보 가지고 오기 -->
 	<select id="getMemberByEmail" parameterType="String" resultType="member">
 		select * from mentors_member where member_email = #{member_email}
@@ -112,6 +163,38 @@
 	<update id="updateMemberAuthState" parameterType="member">
 		update mentors_member set memberAuthStatus = #{memberAuthStatus} where member_email = #{member_email}
 	</update>
-</mapper>
 
-	
+	<!-- 멘토 flag / seq -->
+	<select id="getMentor_seq" parameterType="String" resultType="int">
+		select mentor_seq from mentor where mentor_email = #{member_email}
+	</select>
+
+	<select id="getMember_flag" parameterType="String" resultType="int">
+		select member_flag from mentors_member where member_email = #{member_email}
+	</select>
+
+
+	<select id="getMember_email" parameterType="int" resultType="String">
+		select member_email from question where question_seq = #{qsseq}
+	</select>
+	<insert id="answerSave" parameterType="Map">
+	begin
+		insert into answer values(answer_seq.nextval,
+								 #{question_seq},
+								 #{mentor_seq},
+								 #{member_email},
+								 #{answer_content},
+								 sysdate);
+
+		update question set question_flag = 1 where question_seq = #{question_seq};
+	end;
+	</insert>
+	<select id="getMentor_auswer" parameterType="int" resultType="mentor">
+		select * from answer where question_seq = #{qsseq}
+	</select>
+
+	<update id="answerModify" parameterType="Map">
+		update answer set answer_content = #{answer_content}, answer_logtime = sysdate where question_seq = #{question_seq}
+	</update>
+
+</mapper>

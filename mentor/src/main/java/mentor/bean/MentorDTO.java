@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 
 @Data
@@ -29,6 +31,7 @@ public class MentorDTO {
 	
 	
 	//---join 멘토 찾기-------------------------
+	private String member_nickname;
 	private String mentoring_type;
 	private String member_name;
 	private String member_profile;
@@ -53,5 +56,18 @@ public class MentorDTO {
 
 
 	private int question_seq;
+	
+	//---join 질문한 사람 데이터------------------
+	private int member_seq;
+	private int member_flag;
+	private String member_email;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd")
+	private Date question_logtime;
+	
+	//---join 답변---------------------------
+	private int answer_seq;
+	private String answer_content;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd")
+	private Date answer_logtime;
 
 }

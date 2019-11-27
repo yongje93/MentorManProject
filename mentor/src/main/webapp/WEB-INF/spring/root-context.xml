@@ -9,78 +9,18 @@
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<context:component-scan base-package="mentor.conf"/>
-	<!-- 공지사항 -->
-	<context:component-scan base-package="noticeboard.service"/>
-	<context:component-scan base-package="noticeboard.bean"/>
-	<context:component-scan base-package="noticeboard.dao"/>
-	
-	<!-- 멘토지원 -->
-	<context:component-scan base-package="mentor.service"/>
-	<context:component-scan base-package="mentor.bean"/>
-	<context:component-scan base-package="mentor.dao"/>
-	
-	<!-- 멘티계정정보 -->
-	<context:component-scan base-package="mentee.service"/>
-	<context:component-scan base-package="mentee.bean"/>
-	<context:component-scan base-package="mentee.dao"/>
-	
-	<!-- 에세이  -->
-	<context:component-scan base-package="essayboard.bean"/>
-	<context:component-scan base-package="essayboard.dao"/>
-	<context:component-scan base-package="essayboard.service"/>
-	
-	<!-- 모임 신청 -->
-    <context:component-scan base-package="participation.bean"/>
-    <context:component-scan base-package="participation.dao"/>
-    <context:component-scan base-package="participation.service"/>
-	   
-	<!-- 회원 -->
-	<context:component-scan base-package="member.bean"/>
-	<context:component-scan base-package="member.dao"/>
-	<context:component-scan base-package="member.service"/>
 
-	<!-- 관리자게시판 -->
-	<context:component-scan base-package="adminboard.bean"/>
-	<context:component-scan base-package="adminboard.dao"/>
-	<context:component-scan base-package="adminboard.service"/>
-  
-	<!-- 관리자 회원관리 -->
-	<context:component-scan base-package="adminmember.bean"/>
-	<context:component-scan base-package="adminmember.dao"/>
-	<context:component-scan base-package="adminmember.service"/>
-	
-	<!-- 관리자 매출관리 -->
-	<context:component-scan base-package="adminsales.bean"/>
-	<context:component-scan base-package="adminsales.dao"/>
-	<context:component-scan base-package="adminsales.service"/>
+	<context:component-scan base-package="*.service"/>
+	<context:component-scan base-package="*.bean"/>
+	<context:component-scan base-package="*.dao"/>
 
-	<!-- 모임 게시판  -->
-	<context:component-scan base-package="meetingboard.bean"/>
-	<context:component-scan base-package="meetingboard.dao"/>
-	<context:component-scan base-package="meetingboard.service"/>
-
-	<!-- 모임 신청 -->
-	<context:component-scan base-package="participation.bean"/>
-	<context:component-scan base-package="participation.dao"/>
-	<context:component-scan base-package="participation.service"/>
-	
-	<!-- 게시판 -->
-	<context:component-scan base-package="menteeboard.service"/>
-	<context:component-scan base-package="menteeboard.dao"/>
-	<context:component-scan base-package="menteeboard.bean"/>
-
-	<!-- 게시판 댓글 -->
-	<context:component-scan base-package="menteeboardReply.service"/>
-	<context:component-scan base-package="menteeboardReply.dao"/>
-	<context:component-scan base-package="menteeboardReply.bean"/>
-	
 	<!-- 메일 보내기 -->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com"/>
 		<property name="port" value="587"/>
 		<property name="username" value="didwodn8822@gmail.com"/>
 		<property name="password" value="esiztemuxekyupsz"/>
-		
+
 		<!-- email 요청시는 SMTP -->
 		<property name="javaMailProperties">
 			<props>

@@ -30,11 +30,10 @@
 			</c:if>
 			<c:if test="${memDTO.member_email == null}">
 			<a class="button button-big" type="external" href="/mentor/member/writeForm">회원가입</a>
-			<a class="button button-big" type="external" href="/mentor/member/loginForm">로그인</a>
+			<a class="button button-big" type="external" href="/mentor/member/loginForm?status=true">로그인</a>
 			</c:if>
 
 			<c:if test="${memDTO.member_email != null}">
-
 			<a type="internal" class="button button-big popover-open me-profile" data-popover=".js-me-popover" href=""> 
 				<c:if test="${memDTO.member_profile == 'profile.jpg'}">
 				<img src="../image/profile.jpg" width="28" height="28">
@@ -46,7 +45,6 @@
 			<div class="popover popover-flat me-popover js-me-popover">
 				<div class="popover-inner">
 					<div class="popover-angle on-top"></div>
-
 					<div class="menu-list">
 						<div class="list links-list no-hairlines-between">
 							<ul>
@@ -57,18 +55,14 @@
 								<li><a type="external" href="/mentor/mentor/mentorapplyForm">멘토지원하기</a></li>
 							</ul>
 						</div>
-
 						<div class="list links-list no-hairlines-between">
 							<ul>
 								<li><a type="external" href="">에세이 쓰기</a></li>
-								<li>
-									<a type="external" href="/mentor/member/myQandA?pg=1">나의 질문/답변 <span class="badge color-red alim">15</span></a>
-								</li>
+								<li><a type="external" href="/mentor/member/myQandA?pg=1">나의 질문/답변 <span class="badge color-red alim">15</span></a></li>						
 								<li><a type="external" href="/mentor/essayboard/essayboardAttention">관심에세이</a></li>
 								<li><a type="external" href="/mentor/mentor/mentorAttention">관심멘토</a></li>
 							</ul>
 						</div>
-
 						<div class="list links-list no-hairlines-between">
 							<ul>
 								<li><a type="external" href="/mentor/mentee/menteeUserForm">내 정보</a></li>
@@ -76,9 +70,9 @@
 								<li><a type="external" href="/mentor/member/logout">로그아웃</a></li>
 							</ul>
 						</div>
-						</div>
 					</div>
 				</div>
+			</div>
 			</c:if>
 		</div>
 	</div>

@@ -1,70 +1,54 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <div class="page navbar-fixed mentors index" data-name="mentors-index">
   <div class="page-content">
-    <!-- <div class="block job-type-block">
+    <div class="block job-type-block">
       <div class="block-title">
         직무 유형
       </div>
 
       <div class="row">
-          <a class="button color-gray " type="external" href="/mentors?job_type%5B%5D=13">인사/총무/노무</a>
-          <a class="button color-gray " type="external" href="/mentors?job_type%5B%5D=9">마케팅/MD</a>
-          <a class="button color-gray " type="external" href="/mentors?job_type%5B%5D=19">홍보/CSR</a>
-          <a class="button color-gray " type="external" href="/mentors?job_type%5B%5D=12">영업/영업관리</a>
-          <a class="button color-gray " type="external" href="/mentors?job_type%5B%5D=14">회계/재무/금융</a>
-          <a class="button color-gray " type="external" href="/mentors?job_type%5B%5D=20">해외/기술영업</a>
-          <a class="button color-gray " type="external" href="/mentors?job_type%5B%5D=6">유통/무역/구매</a>
-          <a class="button color-gray " type="external" href="/mentors?job_type%5B%5D=18">전략/기획</a>
-          <a class="button color-gray " type="external" href="/mentors?job_type%5B%5D=17">IT개발</a>
-          <a class="button color-gray " type="external" href="/mentors?job_type%5B%5D=7">서비스 기획/UI, UX등</a>
-          <a class="button color-gray " type="external" href="/mentors?job_type%5B%5D=11">디자인/예술</a>
-          <a class="button color-gray " type="external" href="/mentors?job_type%5B%5D=4">미디어</a>
-          <a class="button color-gray " type="external" href="/mentors?job_type%5B%5D=5">서비스</a>
-          <a class="button color-gray " type="external" href="/mentors?job_type%5B%5D=8">연구/설계</a>
-          <a class="button color-gray " type="external" href="/mentors?job_type%5B%5D=2">전문/특수</a>
-          <a class="button color-gray " type="external" href="/mentors?job_type%5B%5D=16">교육/상담/컨설팅</a>
-          <a class="button color-gray " type="external" href="/mentors?job_type%5B%5D=15">공무원/공공/비영리</a>
-          <a class="button color-gray " type="external" href="/mentors?job_type%5B%5D=3">생산/품질/제조</a>
-          <a class="button color-gray " type="external" href="/mentors?job_type%5B%5D=1">기타 사무</a>
-      </div>
-    </div> -->
+         <a id="job_code_0" class="button color-gray " type="external" href="job_code_0">인사/총무/노무</a>
+         <a id="job_code_1" class="button color-gray " type="external" href="job_code_1">마케팅/MD</a>
+         <a id="job_code_2" class="button color-gray " type="external" href="job_code_2">홍보/CSR</a>
+         <a id="job_code_3" class="button color-gray " type="external" href="job_code_3">영업/영업관리</a>
+         <a id="job_code_4" class="button color-gray " type="external" href="job_code_4">회계/재무/금융</a>
+         <a id="job_code_5" class="button color-gray " type="external" href="job_code_5">해외/기술영업</a>
+         <a id="job_code_6" class="button color-gray " type="external" href="job_code_6">유통/무역/구매</a>
+         <a id="job_code_7" class="button color-gray " type="external" href="job_code_7">전략/기획</a>
+         <a id="job_code_8" class="button color-gray " type="external" href="job_code_8">IT개발</a>
+         <a id="job_code_9" class="button color-gray " type="external" href="job_code_9">서비스 기획/UI, UX등</a>
+         <a id="job_code_10" class="button color-gray " type="external" href="job_code_10">디자인/예술</a>
+         <a id="job_code_11" class="button color-gray " type="external" href="job_code_11">미디어</a>
+         <a id="job_code_12" class="button color-gray " type="external" href="job_code_12">서비스</a>
+         <a id="job_code_13" class="button color-gray " type="external" href="job_code_13">연구/설계</a>
+         <a id="job_code_14" class="button color-gray " type="external" href="job_code_14">전문/특수</a>
+         <a id="job_code_15" class="button color-gray " type="external" href="job_code_15">교육/상담/컨설팅</a>
+         <a id="job_code_16" class="button color-gray " type="external" href="job_code_16">공무원/공공/비영리</a>
+         <a id="job_code_17" class="button color-gray " type="external" href="job_code_17">생산/품질/제조</a>
+         <a id="job_code_18" class="button color-gray " type="external" href="job_code_18">기타 사무</a>
 
-    <!-- <div class="block job-type-block">
-      <div class="block-title">
-        멘토링 유형
-      </div>
-
-      <div class="row">
-        <div class="row">
-            <a class="button color-gray " type="external" href="/mentors?mentoring_type%5B%5D=1">직무</a>
-            <a class="button color-gray " type="external" href="/mentors?mentoring_type%5B%5D=7">진로</a>
-            <a class="button color-gray " type="external" href="/mentors?mentoring_type%5B%5D=4">스펙</a>
-            <a class="button color-gray " type="external" href="/mentors?mentoring_type%5B%5D=3">외국어</a>
-            <a class="button color-gray " type="external" href="/mentors?mentoring_type%5B%5D=5">면접/자소서</a>
-            <a class="button color-gray " type="external" href="/mentors?mentoring_type%5B%5D=15">회사생활</a>
-            <a class="button color-gray " type="external" href="/mentors?mentoring_type%5B%5D=10">창업</a>
-            <a class="button color-gray " type="external" href="/mentors?mentoring_type%5B%5D=17">이직</a>
-            <a class="button color-gray " type="external" href="/mentors?mentoring_type%5B%5D=8">기타</a>
-        </div>
-      </div>
-    </div> -->
+  	</div>
+   </div>
 
 <div class="mentor-block">
    <div class="block-title strong-title">
-       멘토
+   <div class="mentor_div">
+     멘토
+   </div>
     <a class="button color-gray" type="external" href="/mentors?hall_of_fame=true">
-    	<i class="fas fa-trophy"></i> 명예 멘토
-	</a>
+       <i class="fas fa-trophy"></i> 명예 멘토
+   </a>
    </div>
 
-	   <div class="row no-gap">
+	   <div class="row no-gap" id="mentor_findList">
 		<c:if test="${list ne '[]'}">
 			<c:forEach var="mentor" items="${list}" >
 			<div class="col-100 tablet-50 desktop-25">
 				  <div class="card mentor-card">
-				<a id="mentorProfileView" type="external" href="/mentors/50121"><!-- 태형이 url -->
+				<a id="mentorProfileView" type="external" href="/mentor/mentor/mentorInfoView?pg=${pg}&mentors=${mentor.member_seq}"><!-- 태형이 url -->
 					<div style="background-image:url()" class="cover-image"></div>
 					
 				    <div class="mentor-image img-circle">
@@ -93,10 +77,12 @@
 				   	<div class="info">${mentor.mentor_represent}</div>
 				</div>
 				    <div class="ask-button">
-				    <c:if test="${memberDTO != null}">
-				        <a class="question button button-small button-fill" id="mentorQuestions" type="external" onclick="mentor_question_seq(${mentor.mentor_seq},${pg})"><!-- pg seq 가져가라 -->
-					          질문하기
-						</a>
+				   <c:if test="${memberDTO != null}">
+				    	<c:if test="${mentor.mentor_email != memberDTO.member_email}">
+					        <a class="question button button-small button-fill" id="mentorQuestions" type="external" onclick="mentor_question_seq(${mentor.mentor_seq},${pg})"><!-- pg seq 가져가라 -->
+						          질문하기
+							</a>
+						</c:if>
 					</c:if>	
 					<c:if test="${memberDTO == null}">
 				        <a class="button button-small button-fill" type="external" href="/mentor/member/loginForm"><!-- pg seq 가져가라 -->
@@ -112,8 +98,15 @@
 	        <div class="col-100 desktop-25"></div>
 	        <div class="col-100 desktop-25"></div>
 	      </div>
-		<div style="float: right;">${mentorfindPaging.pagingHTML}</div>
-    </div>
-  </div>
+	      <div class="pagination-block">
+          <div class="page-entries-info">
+          </div>
+          <div class="paging" id="paging">
+    		${mentorfindPaging.pagingHTML }
+		  	</div>
+  		  </div>
+  		  </div>
 </div>
+<input type="hidden" id="memNick" value="${memberDTO.member_nickname}">
+<input type="hidden" id="mentorFlag" name="mentorFlag" value="${flag}">
 <script src="../js/mentor.js"></script>

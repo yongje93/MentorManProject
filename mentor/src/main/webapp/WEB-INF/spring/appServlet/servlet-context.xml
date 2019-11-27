@@ -40,14 +40,13 @@
 	<context:component-scan base-package="intern.controller"/>
 	<!-- 송현 -->
 	<context:component-scan base-package="member.controller"/>
-	
-	<!-- ginkgo 1928, member_Email(Gmail) 발송 --> 	
+
+	<!-- ginkgo 1928, member_Email(Gmail) 발송 -->
 	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
-		<property name="username" value="ginkgo1928@gmail.com"/>
-		<property name="password" value="newall1013!"/>
-		
+		<property name="username" value="didwodn8822@gmail.com"/>
+		<property name="password" value="esiztemuxekyupsz"/>
 		<property name="javaMailProperties">
 		<props>
 			<prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
@@ -56,11 +55,11 @@
 		</props>
 		</property>
 	</bean>
-	
-	<bean id="mailService" class="member.service.MemberMailService">
+
+	<!-- <bean id="mailService" class="member.service.MemberMailService">
 		<property name="javaMailSender"  ref="javaMailSender" />
-	</bean>
-	
+	</bean> -->
+
 	<!-- 모임 -->
 	<context:component-scan base-package="meetingboard.controller"/>
 	<!-- 모임신청 -->
@@ -71,12 +70,12 @@
 	<context:component-scan base-package="adminmain.controller"/>
 	<context:component-scan base-package="adminboard.controller"/>
 	<context:component-scan base-package="adminmember.controller"/>
-	
+
 	<!-- 카카오 API -->
 	<context:component-scan base-package="kakao.controller"/>
 	<!-- 네이버 API -->
 	<context:component-scan base-package="naver.controller"/>
-	
+
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
 
@@ -95,7 +94,7 @@
 		<!-- <beans:property name="prefix" value="/WEB-INF/views/" /> -->
 		<property name="suffix" value=".jsp"/>
 	</bean>
-	
+
   	<!-- fileUpload -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="5000000"/>
@@ -110,16 +109,16 @@
   	<bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<property name="order" value="0"/>
 	</bean>
-	
+
 	<!-- websocket handler -->
 	<bean id="echoHandler" class="mentor.socketHandler.EchoHandler"/>
-	
+
 	<websocket:handlers>
 		<websocket:mapping handler="echoHandler" path="/echo"/>
 		<websocket:handshake-interceptors>
 	         <bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
 	      </websocket:handshake-interceptors>
-	      
+
 	      <websocket:sockjs/>
 	 </websocket:handlers>
 	<mvc:default-servlet-handler/>

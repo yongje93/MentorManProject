@@ -27,17 +27,12 @@
 						<div class="mentoring-type-block">
 							<div class="chip chip-outline no-border-radius mentor-index">
 								<div class="chip-label">
-									<span>답변율 <strong class="highlight">!!!수정</strong></span>
+									<span>답변율 <strong class="highlight"><fmt:formatNumber value="${questionPercent}" pattern="0%"/></strong></span>
 								</div>
 							</div>
 							<div class="chip chip-outline no-border-radius mentor-index">
 								<div class="chip-label">
-									<span>답변수 <strong class="highlight">!!!수정</strong></span>
-								</div>
-							</div>
-							<div class="chip chip-outline no-border-radius mentor-index">
-								<div class="chip-label">
-									<span>뱃지 <strong class="highlight">!!!수정</strong></span>
+									<span>답변수 <strong class="highlight">${mentor_answer}</strong></span>
 								</div>
 							</div>
 							<div class="chip chip-outline no-border-radius mentor-index">
@@ -56,33 +51,46 @@
 					<div class="mentoring-info">
 						<div class="title" style="height: 15px;">직무 유형</div>
 						<div class="mentoring-type-block">
-							<a type="external" href="">
-								<div class="chip chip-outline no-border-radius job-tags">
-									<div class="chip-label">${mentorDTO.job_type}</div>
-								</div>
-							</a>
+							<div class="chip chip-outline no-border-radius" style="border-radius: 5px;">
+								<div class="chip-label">${mentorDTO.job_type}</div>
+							</div>
 						</div>
 					</div>
 					<div class="mentoring-info">
 						<div class="title" style="height: 15px;">멘토링 분야</div>
 						<div class="mentoring-type-block">
 							<c:forEach var="mentoring" items="${mentoringList}">
-								<a type="external" href=""> <%--주소 수정 --%>
-									<div class="chip chip-outline no-border-radius job-tags">
-										<div class="chip-label">${mentoring.mentoring_type}</div>
-									</div>
-								</a>
+								<div class="chip chip-outline no-border-radius" style="border-radius: 5px;">
+									<div class="chip-label">${mentoring.mentoring_type}</div>
+								</div>
 							</c:forEach>
 						</div>
 					</div>
-					<div class="btn-container">
-						<div class="profile-btn">
-							<a class="button col js-bookmark" type="external" data-remote="true" rel="nofollow" data-method="post" href=""> 팔로우 </a>  <%--주소 수정 --%>
+					<!-- [멘토 찾기에서 수정] 로그아웃 상태에서 멘토 프로필 확인 할 때 질문이나 팔로우는 로그인 창으로 보내기  -->
+					<c:if test="${email_check == null}">
+						<div class="btn-container">
+							<div class="profile-btn">
+								<a class="button col js-bookmark" type="external" data-remote="true" rel="nofollow" data-method="post" href="/mentor/member/loginForm"> 팔로우 </a>  <%--주소 수정 --%>
+							</div>
+							<c:if test="${mentorDTO.mentor_email != email_check}">
+							<div class="profile-btn">
+								<a class="button button-fill" type="external" href="/mentor/member/loginForm">질문하기</a>  <%--주소 수정 --%>
+							</div>
+							</c:if>
 						</div>
-						<div class="profile-btn">
-							<a class="button button-fill" type="external" href="">질문하기</a>  <%--주소 수정 --%>
+					</c:if>
+					<c:if test="${email_check != null}">
+						<div class="btn-container">
+							<c:if test="${mentorDTO.mentor_email != email_check}">
+								<div class="profile-btn">
+									<a class="button col js-bookmark" type="external" data-remote="true" rel="nofollow" data-method="post" href=""> 팔로우 </a>  <%--주소 수정 --%>
+								</div>
+								<div class="profile-btn">
+									<a class="button button-fill" type="external" onclick="mentor_question_seq(${mentorDTO.mentor_seq},${pg})">질문하기</a>  <%--주소 수정 --%>
+								</div>
+							</c:if>
 						</div>
-					</div>
+					</c:if>
 				</div>
 			</div>
 		</div>

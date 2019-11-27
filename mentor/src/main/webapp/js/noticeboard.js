@@ -36,7 +36,7 @@ function search(event, str){
 						style: 'overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 300px; display: block; line-height: 40px;'
 						}).append($('<a/>',{
 						href: 'javascript:void(0)',
-						text: '[공지] '+value.noticeboard_title,
+						text: '[공지]'+value.noticeboard_title,
 						id: 'notice_seq',
 						class: value.noticeboard_seq+''
 					}))).append($('<td/>',{

@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 
 import member.bean.MemberDTO;
 import member.dao.MemberDAO;
+
 import member.handler.MailHandler;
+import mentee.bean.MenteeDTO;
 import mentor.bean.MentorDTO;
 /**
  * @Title : 회원가입 Service.
@@ -23,38 +25,38 @@ import mentor.bean.MentorDTO;
  */
 @Service(value="memberService")
 public class MemberServiceImpl implements MemberService {
-	@Autowired 
+	@Autowired
 	private MemberDAO memberDAO;
 	@Inject
 	private JavaMailSender mailSender;
 	@Inject
 	private PasswordEncoder passwordEncoder;
-	
-	
+
+
 	/** @Title : 닉네임 중복확인.
 	 * @author : ginkgo1928 @date : 2019. 11. 5.*/
 	@Override
 	public MemberDTO writeNicknamecheck(String member_nickname) {
 		return memberDAO.writeNicknamecheck(member_nickname);
 	}
-	
+
 	/** @Title : 이메일 중복확인
 	 * @author : ginkgo1928  @date : 2019. 11. 5.*/
 	@Override
 	public MemberDTO writeEmailCheck(String member_email) {
 		return memberDAO.writeEmailCheck(member_email);
 	}
-	
+
 	/* 회원가입 완료 */
 	@Override
 	public void write(Map<String, String> map) throws MessagingException, UnsupportedEncodingException {
-		System.out.println("암호화 전 : " + map.get("member_pwd"));		
+		System.out.println("암호화 전 : " + map.get("member_pwd"));
 		String encPassword = passwordEncoder.encode(map.get("member_pwd"));
 		System.out.println("암호화 후 : " + encPassword);
 		map.replace("member_pwd", encPassword);
 		// 암호화 후 디비에 저장
 		memberDAO.write(map);
-		
+
 		// 임의의 authkey 생성
 		String authKey = new member.handler.TempKey().getKey(50, false);
 		// 인증키 db 저장
@@ -87,7 +89,7 @@ public class MemberServiceImpl implements MemberService {
 				 + "<table class='large expand button' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; margin: 0 0 16px; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><td align='left' valign='top' style='word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0; padding: 0;'><table style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><td align='left' valign='top' style='word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; color: #fefefe; font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0; padding: 0; border: 2px solid #ff2d55;' bgcolor='#ff2d55'><center style='width: 100%; min-width: 0;'>"
 				 + "<a class='float-center' href='http://localhost:8080/mentor/member/emailConfirm?member_email="
 				 + map.get("member_email")+"&memberAuthKey="
-				 + authKey + "' align='center' style='color: #fefefe; font-family: -apple-system, blinkmacsystemfont, segoe ui, roboto, helvetica neue, arial, sans-serif, apple color emoji, segoe ui emoji, segoe ui symbol !important; font-weight: bold; text-align: center; line-: 1.4; text-decoration: none; font-size: 20px; display: inline-block; border-radius: 3px; : 100%; margin: 0; padding: 10px 0; border: 0 solid #ff2d55;' rel='noreferrer noopener' target='_blank'>" 
+				 + authKey + "' align='center' style='color: #fefefe; font-family: -apple-system, blinkmacsystemfont, segoe ui, roboto, helvetica neue, arial, sans-serif, apple color emoji, segoe ui emoji, segoe ui symbol !important; font-weight: bold; text-align: center; line-: 1.4; text-decoration: none; font-size: 20px; display: inline-block; border-radius: 3px; : 100%; margin: 0; padding: 10px 0; border: 0 solid #ff2d55;' rel='noreferrer noopener' target='_blank'>"
 			 	 + "이메일 인증"
 			 	 + "</a></center></td></tr></tbody></table></td><td align='left' valign='top' style='word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; visibility: hidden; width: 0; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0; padding: 0;'></td></tr></tbody></table>"
 			 	 + "<table class='spacer' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><td align='left' valign='top' height='16px' style='font-size: 16px; line-height: 16px; word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; mso-line-height-rule: exactly; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; margin: 0; padding: 0;'>&nbsp;</td></tr></tbody></table>"
@@ -101,27 +103,27 @@ public class MemberServiceImpl implements MemberService {
 			     + "</center>"
 			     + "</td></tr>"
 			     + "</tbody></table>";
-		
+
 		sendMail.setSubject("[멘토맨 서비스 이메일 인증]");
 		sendMail.setText(mailContent);
 		sendMail.setFrom("yongje1211@gmail.com", "멘토맨 고객센터");
 		sendMail.setTo(map.get("member_email"));
 		sendMail.send();
 	}
-	
+
 	// 이메일 인증키 검사
 	@Override
 	public MemberDTO checkAuthKey(MemberDTO memberDTO) {
 		MemberDTO chkMember = new MemberDTO();
 		chkMember = memberDAO.checkAuthKey(memberDTO);
-		
+
 		if(chkMember != null) {
 			memberDTO.setMemberAuthStatus(1);
 			memberDAO.updateMemberAuthState(memberDTO);
 		}
 		return chkMember;
 	}
-	
+
 	/* 로그인 */
 	@Override
 	public MemberDTO login(Map<String, String> map) {
@@ -132,13 +134,13 @@ public class MemberServiceImpl implements MemberService {
 	public List<MentorDTO> getQandA(Map<String, String> map) {
 		return memberDAO.getQandA(map);
 	}
-	
+
 	/* 비밀번호 찾기 */
 	@Override
 	public MemberDTO setmemberpwd(Map<String, String> map) {
 		return memberDAO.setsetmemberpwd(map);
 	}
-	
+
 	/** @Title : 이메일 인증을 하고 새로운 비밀번호로 변경
 	 * @author : ginkgo1928
 	 * @date : 2019. 11. 13. */
@@ -146,7 +148,7 @@ public class MemberServiceImpl implements MemberService {
 	public MemberDTO newPwdCommit(Map<String, String> map) {
 		return memberDAO.newPwdCommit(map);
 	}
-	
+
 	/**
 	 * Q&A페이징
 	 */
@@ -154,7 +156,7 @@ public class MemberServiceImpl implements MemberService {
 	public int getTotalA(String member_email) {
 		return memberDAO.getTotalA(member_email);
 	}
-	
+
 	/**
 	 * Q&A 멘토 정도 및 질문 내용
 	 */
@@ -163,24 +165,54 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.getMentor_info(map);
 	}
 
+	/**
+	 * 멘토링 정보 꺼내옴
+	 */
 	@Override
 	public List<MentorDTO> getMentoring_type(Map<String, String[]> arrayMap) {
 		return memberDAO.getMentoring_type(arrayMap);
 	}
-
+	//질문 지우기
 	@Override
 	public void questionDelete(int question_seq) {
 		memberDAO.questionDelete(question_seq);
 	}
 
+	//멘토의 seq
+	@Override
+	public int getMentor_seq(String member_email) {
+		return memberDAO.getMentor_seq(member_email);
+	}
+	//로그인 한 사람이 멘토인지 확인
+	@Override
+	public int getMember_flag(String member_email) {
+		return memberDAO.getMember_flag(member_email);
+	}
+
+	//로그인 한 사람의 글이 맞는지 확인
+	@Override
+	public List<MentorDTO> getMemtee_question(int mentor_seq) {
+		return memberDAO.getMemtee_question(mentor_seq);
+	}
+	//질문을 한 사람의 이메일 가져옴
+	@Override
+	public String getMember_email(int qsseq) {
+		return memberDAO.getMember_email(qsseq);
+	}
+	//답변 저장
+	@Override
+	public void answerSave(Map<String, String> map) {
+		memberDAO.answerSave(map);
+	}
+	//답변 가져오기
+	@Override
+	public MentorDTO getMentor_auswer(int qsseq) {
+		return memberDAO.getMentor_auswer(qsseq);
+	}
+
+	@Override
+	public void answerModify(Map<String, String> map) {
+		memberDAO.answerModify(map);
+	}
 
 }
-
-	
-
-	
-
-
-	
-
-	

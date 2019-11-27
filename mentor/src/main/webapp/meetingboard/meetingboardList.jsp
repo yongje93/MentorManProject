@@ -12,7 +12,7 @@
 
 <div class="page navbar-fixed mentee_programs index">
 	<div class="page-content">
-		<div class="pogram-block">
+		<div class="program-block">
 			<div class="block-title strong-title">
 				모임
 				<%-- 접속한 유저가 멘토일 때 모임 작성 버튼 --%>
