@@ -207,13 +207,41 @@ $(function(){
 						  closeTimeout: 2000,
 						});
 					toastIcon.open();
-
+					
+					let memNickname = $('#memNickname').val(); //팔로우를 누른사람
+					let nickname = $('#member_nickname').val();	   //팔로우 당사자
+					let receiverEmail = $('#followed_email').val();     //팔로우 당사자 이메일
+					let member_seq = $('#mentor_seq').val(); // seq
+					//alert(memNickname+',' + nickname +',' + receiverEmail +',' + seq);
 					//socket에 보내자
 					if(socket) {
-						let socketMsg = "follow," + $('#memNicname').val() +","+$('#member_nickname').val() +","+$('#mentor_seq').val()
+						let socketMsg = "follow," + memNickname +","+nickname +","+ receiverEmail + "," +member_seq;
 						console.log("msgmsg :: " + socketMsg );
 						socket.send(socketMsg);
 					}
+					
+					var AlarmData = {
+							"myAlarm_receiverEmail" : receiverEmail,
+							"myAlarm_callerNickname" : memNickname,
+							"myAlarm_title" : "팔로우 알림",
+							"myAlarm_content" :  memNickname + "님이 팔로우를 시작 했습니다."
+					};
+					//팔로우 알림 DB저장
+					$.ajax({
+						type : 'post',
+						url : '/mentor/member/saveAlarm',
+						data : JSON.stringify(AlarmData),
+						contentType: "application/json; charset=utf-8",
+						dataType : 'text',
+						success : function(data){
+							//alert(data);
+							
+						},
+						error : function(err){
+							console.log(err);
+						}
+					});
+					
 
 				}else{
 					followBtn.removeClass('button-fill');

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import adminboard.bean.AdminnoticeboardDTO;
+import meetingboard.bean.MeetingboardDTO;
 
 
 /**
@@ -21,5 +22,13 @@ public interface AdminboardDAO {
 	public void adminnoticeboardDelete(Map<String, String[]> map);
 
 	public AdminnoticeboardDTO adminnoticeboardView(int seq);
+
+	public List<MeetingboardDTO> getMeetingboardList(Map<String, Integer> map);
+
+	public int getMeetingboardTotalA();
+
+	public void adminmeetingboardDelete(Map<String, String[]> map);
+
+	public void adminnoticeboardWrite(Map<String, String> map);
 
 }

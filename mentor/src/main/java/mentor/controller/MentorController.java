@@ -269,7 +269,7 @@ public class MentorController {
 		
 		//팔로우 찾기
 		int follow = mentorService.getFollowCheck(followMap);
-		model.addAttribute("memNicname" , memberDTO.getMember_nickname());
+		model.addAttribute("memNickname" , memberDTO.getMember_nickname());
 		model.addAttribute("list", list);
 		model.addAttribute("follow" , follow);
 		model.addAttribute("mentorDTO", mentorDTO);

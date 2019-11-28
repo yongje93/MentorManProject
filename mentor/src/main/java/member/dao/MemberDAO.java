@@ -3,6 +3,7 @@ package member.dao;
 import java.util.List;
 import java.util.Map;
 
+import member.bean.AlarmDTO;
 import member.bean.MemberDTO;
 import mentor.bean.MentorDTO;
 
@@ -51,6 +52,14 @@ public interface MemberDAO {
 	public void updateMemberAuthState(MemberDTO memberDTO);
 
 	public void answerModify(Map<String, String> map);
+
+	public List<AlarmDTO> getAlarm(String memEmail);
+	public void checkSubscribe(String memEmail);
+
+	public void saveAlarm(Map<String, String> map);
+
+	public void deleteAlarm(int seq);
+
 
 
 

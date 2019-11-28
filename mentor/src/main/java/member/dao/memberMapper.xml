@@ -197,4 +197,26 @@
 		update answer set answer_content = #{answer_content}, answer_logtime = sysdate where question_seq = #{question_seq}
 	</update>
 
+  	<select id="getAlarm" parameterType="String" resultType="alarm">
+  		select * from myAlarm where myAlarm_receiverEmail = #{memEmail}
+  							  order by myAlarm_logtime desc
+  	</select>
+
+  	<update id="checkSubscribe" parameterType="String">
+  		update myAlarm set myAlarm_subscribeFlag = 1 where myAlarm_receiverEmail = #{memEmail}
+  	</update>
+
+  	<insert id="saveAlarm" parameterType="Map">
+  		insert into myAlarm (myAlarm_seq,myAlarm_receiverEmail,myAlarm_callerNickname,myAlarm_title,myAlarm_content,myAlarm_logtime)
+  							values (myAlarm_seq.nextval,
+  								    #{myAlarm_receiverEmail},
+  								    #{myAlarm_callerNickname},
+  								    #{myAlarm_title},
+  								    #{myAlarm_content},
+  								  	sysdate)
+  	</insert>
+
+  	<delete id="deleteAlarm" parameterType="Integer">
+  		delete from myAlarm where myAlarm_seq = #{seq}
+  	</delete>
 </mapper>

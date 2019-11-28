@@ -2,22 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
 <link rel="stylesheet" type="text/css" href="../css/intern.css">
 
-<div class="page mentee_programs show" style="margin-top:120px;margin-left:400px;">
+<div class="page navbar-fixed mentee_programs index">
+	<div class="page-content" >
+		<div id="boardList_div">
+		
+		
+		
+		<div class="page mentee_programs show" style="margin-left:0px; ">
 		<!-- 체크로 알아보는 -->
 		<form id="srchFrm" name="srchFrm" action="/mentor/intern/getInternList" method="post">
-		<!-- <input type="hidden" name="srchLocation" id="srchLocation" value="#mounth">
-		<input type="hidden" name="empSeqno" id="empSeqno" value="">
-		<input type="hidden" name="sortField" id="sortField" value="comnm">
-		<input type="hidden" name="sortOrderBy" id="sortOrderBy" value="ASC">
-		<input type="hidden" name="sortOrderByCloseDt" id="sortOrderByCloseDt" value="">
-		<input type="hidden" name="sortOrderByDATE" id="sortOrderByDATE" value="">
-		<input type="hidden" name="sortOrderByComnm" id="sortOrderByComnm" value="ASC">
-		<input type="hidden" name="keyWord" id="keyWord" value=""> -->
-		<!-- 지역워크넷을 위한 파라미터 : header를 보여줄지 여부를 설정 한다 -->
-		<!-- <input type="hidden" id="isEmptyHeader" name="isEmptyHeader" value=""> -->
 		<input type="hidden" name="pageIndex" id="pageIndex" value="1">
 					<h3>공채정보 간편검색</h3>
 					<div class="board-view mb30" id="curEmpList">
@@ -90,73 +85,12 @@
 
 						
 						</div>
-						<script>
-						/* $(document).ready(function(){
-							$('input[type="checkbox"]').click(function(){
-								var selTxt = $(this).closest('span').text(); // 체크한 텍스트
 								
-								if($(this).is(':checked') == true) {
-									var html = '';
-									html += '<div><span>';
-									html += selTxt;
-									html += '</span><button type="button" class="btn-del" onclick="f_delSelVal(this);">삭제</button>';
-									html += '</div>';
-									
-									$('#sel_items').append(html); 
-								}else{
-									$('.list div').each(function(){
-										var saveTxt = $(this).text().replace('삭제', '');
-										alert(saveTxt);
-										if(selTxt == saveTxt) $(this).remove();
-									}) ;
-								}
-							});
-						
-							$('input[name="workRegion"]').each(function(){
-								f_addSrchList(this);
-							});
-				
-							$('input[name="enterPriseGbn"]').each(function(){
-								f_addSrchList(this);
-							});
-				
-							$('input[name="empWantedCareerCd"]').each(function(){
-								f_addSrchList(this);
-							});
-				
-							$('input[name="academicGbn"]').each(function(){
-								f_addSrchList(this);
-							});
-				
-							$('input[name="employGbn"]').each(function(){
-								f_addSrchList(this);
-							});
-							
-							$('input[name="blindYn"]').each(function(){
-								f_addSrchList(this);
-							});
-						});
-				
-						function f_addSrchList(obj){
-							var selTxt = '';
-							var html = '';
-							if($(obj).is(':checked') == true){
-								alert('f_addSrchList');
-								selTxt = $(obj).closest('span').text();
-								html = '';
-								html += '<div><span>';
-								html += selTxt;
-								html += '</span><button type="button" class="btn-del" onclick="f_delSelVal(this);">삭제</button>';
-								html += '</div>';
-								$('#sel_items').append(html);
-							}
-						} */
-						</script>		
 				       <div class="condition"><!-- 2018-10-24 -->
 							<div class="search-chk-tag">
 								<div class="list" id="sel_items">
 									<div><strong>선택조건 : </strong></div><!-- 2018-10-24 -->
-									
+									<div id="sel_items2"></div>
 								</div>
 							</div>							
 							<div class="right-btn-area"><!-- 2018-10-24 -->
@@ -188,13 +122,22 @@
 	        <tbody id="inputIntern" class="table-tbody">
 	        	
 	        </tbody>
-    	</table>
-    	
+	        
+    	</table> 
     	<div>
+	</div>
+</div>
+		
+		
+		
 		</div>
+	</div>
 </div>
 
-<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+<style>
+.pagination {
+  width: max-content;
+  margin-left: 400px;
+}
+</style>
 <script type="text/javascript" src="../js/internList.js"></script>
-
-

@@ -331,6 +331,8 @@
 				</div>
 			</div>
 			</c:forEach>
+			<div class="col-100 tablet-50 desktop-33"></div>
+			<div class="col-100 tablet-50 desktop-33"></div>
 		</div>
 	</div>
 	<%-- 추천 에세이 끝 --%>

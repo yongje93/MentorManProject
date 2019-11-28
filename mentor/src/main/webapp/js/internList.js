@@ -27,6 +27,8 @@ $(document).ready(function(){
 				//채용 URL
 				var empWantedHomepgDetail = $(this).find('empWantedHomepgDetail').text();
 				
+				//console.log('empWantedStdt : ' + (empWantedEndt-empWantedStdt));
+				var dDay = empWantedEndt-empWantedStdt;
 				
 				var jobTable = 
 					`<tr>
@@ -41,8 +43,8 @@ $(document).ready(function(){
 	                	${empBusiNm}	
 	                    <p><i class="ico-txt v1 ico-cp-major">${coClcdNm}</i></p>
 	                </td>
-	                <td>${empWantedStdt}~ ${empWantedEndt}</td>
-	                <td class="d-day">D-</td>
+	                <td>${empWantedStdt} ~ ${empWantedEndt}</td>
+	                <td class="d-day">D-${dDay}</td>
 	            </tr>`;
 				
 				$frag.append($(jobTable));
@@ -69,21 +71,25 @@ $(document).ready(function(){
 				endPage = totalP;
 			}
 			if(startPage>pageBlock) {
-				atag += '[<a id="paging" href="#" onclick="f_search('+(startPage-1)+'); return false;">이전</a>]&nbsp;';
+				atag += "<li><a rel='prev' data-reload='true' type='external' href='#' onclick='f_search("+(startPage-1)+"); return false;'>이전</a></li>;"
 			}
 			for(j =startPage; j<=endPage; j++) {
 				if(j == currentPage) {
-					atag += '<a id="currentPaging" href="#" onclick="f_search('+j+');return false;">'+ j +'</a>&nbsp;';
+					atag += "<li class='active'><a remote='false' href='#' onclick='f_search("+j+"); return false;'>" + j + "</a></li>"
 				}else {
-					atag += '<a id="paging" href="#" onclick="f_search('+j+');return false;">'+ j +'</a>&nbsp;';
+					atag += "<li><a rel='prev' data-reload='true' type='external' href='#' onclick='f_search("+j+"); return false;'>" + j + "</a></li>"
 				}
 			}
 			if(endPage < totalP) {
-				atag += '[<a id="paging" href="#" onclick="f_search('+(startPage+1)+'); return false;">다음</a>]&nbsp;';
+				atag += "<li class='next'><a rel='next' data-reload='true' type='external' href='#' onclick='f_search("+(endPage+1)+"); return false;' >다음</a></li>"
 			}
 			
-			$frag.append(atag);
+			//$frag.append(atag);
 			$('#inputIntern').append($frag);
+			
+			$('#inputIntern').append($('<ul/>', {
+    			class : 'pagination'
+    		}).append(atag));
 			
 		},
 		error : function(err){
@@ -130,43 +136,44 @@ $(function(){
 
 
 
-function f_resultJobsCodeSrchNew(resultObj){
-	var arrCodeNm = [];
-	var arrCodeNo = [];
-	var name = 'jobsCd';
-	var chkLng = 10;
-	
-	//console.log(resultObj[0]);
-	//console.log(resultObj[1]);
-
-	arrCertNo =  resultObj[0].split('|');
-	arrCertNm =  resultObj[1].split('|');
-
-	$("[id^='" + name + "NmArr']").remove();
-
-	var regionLength = $("[id^='" + name + "NmArr']").length;
-
-	for(var i=0; i < arrCertNm.length; i++){
-		if(regionLength + i < chkLng && $("#"+name+"NmArr"+arrCertNo[i]).length == 0 && arrCertNo[i] != ''){	//중복된 검색 제외
-			var html = $("#resultTemplate").html();
-			html = html.replace("_keyNo_", name +'NmArr'+ arrCertNo[i]);
-			html = html.replace(/_keyNm_/gi, arrCertNm[i]);
-			html = html.replace("_keyNoId_", name + arrCertNo[i]);
-			html = html.replace("_kayNmParam_", name);
-			html = html.replace("_kayNoParam_", arrCertNo[i]);
-			html = html.replace("_keyNmId_", name + arrCertNm[i]);
-			html = html.replace("_kayNmNmParam_", name+"NmArr");
-			html = html.replace("_kayNmNoParam_", arrCertNm[i]);
-			$('#sel_items').append(html);
-		}
-	}
-}
+//function f_resultJobsCodeSrchNew(resultObj){
+//	var arrCodeNm = [];
+//	var arrCodeNo = [];
+//	var name = 'jobsCd';
+//	var chkLng = 10;
+//	
+//	//console.log(resultObj[0]);
+//	//console.log(resultObj[1]);
+//
+//	arrCertNo =  resultObj[0].split('|');
+//	arrCertNm =  resultObj[1].split('|');
+//
+//	$("[id^='" + name + "NmArr']").remove();
+//
+//	var regionLength = $("[id^='" + name + "NmArr']").length;
+//
+//	for(var i=0; i < arrCertNm.length; i++){
+//		if(regionLength + i < chkLng && $("#"+name+"NmArr"+arrCertNo[i]).length == 0 && arrCertNo[i] != ''){	//중복된 검색 제외
+//			var html = $("#resultTemplate").html();
+//			html = html.replace("_keyNo_", name +'NmArr'+ arrCertNo[i]);
+//			html = html.replace(/_keyNm_/gi, arrCertNm[i]);
+//			html = html.replace("_keyNoId_", name + arrCertNo[i]);
+//			html = html.replace("_kayNmParam_", name);
+//			html = html.replace("_kayNoParam_", arrCertNo[i]);
+//			html = html.replace("_keyNmId_", name + arrCertNm[i]);
+//			html = html.replace("_kayNmNmParam_", name+"NmArr");
+//			html = html.replace("_kayNmNoParam_", arrCertNm[i]);
+//			$('#sel_items').append(html);
+//		}
+//	}
+//}
 
 //선택조건 삭제 
 function f_delSelVal(obj){
 	var saveTxt = $(obj).closest('div').text().replace('삭제', '');
 	
-	alert(saveTxt);
+	alert($(obj).closest('div').attr('id'));
+	
 	$(obj).closest('div').remove();
 
 	$('input[type="checkbox"]').each(function(){
@@ -201,7 +208,7 @@ function f_search(pageNo){
 		$('#pageIndex').val(1);
 	}
 	
-	alert($('#srchFrm').serialize());
+//	alert($('#srchFrm').serialize());
 	$.ajax({
 		type : 'post' ,
 		url : '/mentor/intern/getInternSearchList',
@@ -245,7 +252,7 @@ function f_search(pageNo){
 	                    <p><i class="ico-txt v1 ico-cp-major">${coClcdNm}</i></p>
 	                </td>
 	                <td>${empWantedStdt}~ ${empWantedEndt}</td>
-	                <td class="d-day">D-</td>
+	                <td class="d-day">D-${empWantedEndt-empWantedStdt}</td>
 	            </tr>`;
 				
 				$frag.append($(jobTable));
@@ -271,22 +278,24 @@ function f_search(pageNo){
 				endPage = totalP;
 			}
 			if(startPage>pageBlock) {
-				atag += '[<a id="paging" href="#" onclick="f_search('+(startPage-1)+'); return false;">이전</a>]&nbsp;';
+				atag += "<li><a rel='prev' data-reload='true' type='external' href='#' onclick='f_search("+(startPage-1)+"); return false;'>이전</a></li>;"
 			}
-			for(j=startPage; j<=endPage; j++) {
+			for(j =startPage; j<=endPage; j++) {
 				if(j == currentPage) {
-					atag += '<a id="currentPaging" href="#" onclick="f_search('+j+');return false;">'+ j +'</a>&nbsp;';
+					atag += "<li class='active'><a remote='false' href='#' onclick='f_search("+j+"); return false;'>" + j + "</a></li>"
 				}else {
-					atag += '<a id="paging" href="#" onclick="f_search('+j+');return false;">'+ j +'</a>&nbsp;';
+					atag += "<li><a rel='prev' data-reload='true' type='external' href='#' onclick='f_search("+j+"); return false;'>" + j + "</a></li>"
 				}
 			}
 			if(endPage < totalP) {
-				atag += '[<a id="paging" href="#" onclick="f_search('+(endPage+1)+'); return false;">다음</a>]&nbsp;';
+				atag += "<li class='next'><a rel='next' data-reload='true' type='external' href='#' onclick='f_search("+(endPage+1)+"); return false;' >다음</a></li>"
 			}
 			
-			$frag.append(atag);
 			$('#inputIntern').append($frag);
 			
+			$('#inputIntern').append($('<ul/>', {
+    			class : 'pagination'
+    		}).append(atag));
 			
 		},
 		error : function(err){
@@ -298,46 +307,46 @@ function f_search(pageNo){
 
 
 //목록정렬 조회처리
-function sortOption(sortField){
-	var sortOrderBy = 'ASC';
-	if(sortField == 'DATE') {
-		sortOrderBy = 'DESC';
-		$("#sortOrderByDATE").val(sortOrderBy);
-		$("#sortOrderByCloseDt").val("");
-		$("#sortOrderByComnm").val("");
-	}
-	if(sortField == 'receiptCloseDt') {
-		$("#sortOrderByDATE").val("");
-		$("#sortOrderByCloseDt").val(sortOrderBy);
-		$("#sortOrderByComnm").val("");
-	}
-	if(sortField == 'comnm') {
-		$("#sortOrderByDATE").val("");
-		$("#sortOrderByCloseDt").val("");
-		$("#sortOrderByComnm").val(sortOrderBy);
-	}
+//function sortOption(sortField){
+//	var sortOrderBy = 'ASC';
+//	if(sortField == 'DATE') {
+//		sortOrderBy = 'DESC';
+//		$("#sortOrderByDATE").val(sortOrderBy);
+//		$("#sortOrderByCloseDt").val("");
+//		$("#sortOrderByComnm").val("");
+//	}
+//	if(sortField == 'receiptCloseDt') {
+//		$("#sortOrderByDATE").val("");
+//		$("#sortOrderByCloseDt").val(sortOrderBy);
+//		$("#sortOrderByComnm").val("");
+//	}
+//	if(sortField == 'comnm') {
+//		$("#sortOrderByDATE").val("");
+//		$("#sortOrderByCloseDt").val("");
+//		$("#sortOrderByComnm").val(sortOrderBy);
+//	}
+//
+//	document.getElementById('sortField').value = sortField;
+//	document.getElementById('sortOrderBy').value = sortOrderBy;
+//
+//	var frm = document.getElementById("srchFrm");
+//		frm.submit();
+//}
 
-	document.getElementById('sortField').value = sortField;
-	document.getElementById('sortOrderBy').value = sortOrderBy;
+//function f_enterSearch(){
+//
+//	f_setKeyWord();
+//	f_search();
+//	return false;
+//}
+//
+//function f_setKeyWord(){
+//	$("#keyWord").val($("#txtKeyWord").val());
+//}
 
-	var frm = document.getElementById("srchFrm");
-		frm.submit();
-}
-
-function f_enterSearch(){
-
-	f_setKeyWord();
-	f_search();
-	return false;
-}
-
-function f_setKeyWord(){
-	$("#keyWord").val($("#txtKeyWord").val());
-}
-
-function f_clear(id){
-	$("#"+id).val("");
-};
+//function f_clear(id){
+//	$("#"+id).val("");
+//};
 
 function f_goAllnewOpen(id){
 	$('input[type="checkbox"]').attr('checked', false);
@@ -360,36 +369,35 @@ $(document).ready(function(){
 		var selTxt = $(this).closest('span').text(); // 체크한 텍스트
 		
 		if($(this).is(':checked') == true) {
+			id = $(this).attr('id');
 			var html = '';
-			html += '<span>';
+			html += '<span id="sp_'+ id +'">';
 			html += selTxt ;
-			html += '</span><button type="button" class="btn-del" onclick="f_delSelVal(this);">삭제</button>';
+			html += '&nbsp&nbsp&nbsp</span>';
 			
-			$('#sel_items').append(html);
+			$('#sel_items2').append(html);
 		}else{
-			$('.list div').each(function(){
-				var saveTxt = $(this).text().replace('삭제', '');
-				if(selTxt == saveTxt) $(this).remove();
-			}) ;
+			var id = $(this).attr('id');
+			$("span").remove("#sp_"+id);
 		}
 	});
 
 
-	$('input[name="coClcd"]').each(function(){
-		f_addSrchList(this);
-	});
-
-	$('input[name="empWantedCareerCd"]').each(function(){
-		f_addSrchList(this);
-	});
-
-	$('input[name="empWantedEduCd"]').each(function(){
-		f_addSrchList(this);
-	});
-
-	$('input[name="empWantedTypeCd"]').each(function(){
-		f_addSrchList(this);
-	});
+//	$('input[name="coClcd"]').each(function(){
+//		f_addSrchList(this);
+//	});
+//
+//	$('input[name="empWantedCareerCd"]').each(function(){
+//		f_addSrchList(this);
+//	});
+//
+//	$('input[name="empWantedEduCd"]').each(function(){
+//		f_addSrchList(this);
+//	});
+//
+//	$('input[name="empWantedTypeCd"]').each(function(){
+//		f_addSrchList(this);
+//	});
 });
 
 //function f_addSrchList(obj){

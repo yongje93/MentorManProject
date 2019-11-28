@@ -13,7 +13,7 @@ public class AdminboardPaging {
 	private int totalA; // 총글수 1 
 	private StringBuffer pagingHTML;
 	
-	public void makePagingHTML() {
+	public void noticeboardPagingHTML() {
 		pagingHTML = new StringBuffer();
 		
 		int totalP = (totalA+(pageSize-1))/pageSize;// 1
@@ -22,17 +22,40 @@ public class AdminboardPaging {
 		int endPage = startPage+pageBlock-1; // 
 		if(endPage>totalP)
 			endPage = totalP;
-		if(startPage>pageBlock)
-			pagingHTML.append("<a class='page-link' href='adminnoticeboardList?pg="+(startPage-1)+"'>Previous</a>");
+		pagingHTML.append("<a class='page-link' href='adminnoticeboardList?pg="+(startPage-1)+"'>Previous</a>");
 		for(int i=startPage; i<=endPage; i++) {
 			if(i==currentPage)
 				pagingHTML.append("<a class='page-link' href='adminnoticeboardList?pg="+i+"'>"+i+"</a>");
 			else
 				pagingHTML.append("<a class='page-link' href='adminnoticeboardList?pg="+i+"'>"+i+"</a>");
 		}
-		if(endPage<totalP)
-			pagingHTML.append("<a class='page-link' href='adminnoticeboardList?pg="+(endPage+1)+"'>Next</a>");
+		pagingHTML.append("<a class='page-link' href='adminnoticeboardList?pg="+(endPage+1)+"'>Next</a>");
 	}
+	
+	public void meetingPagingHTML() {
+		pagingHTML = new StringBuffer();
+		
+		int totalP = (totalA+(pageSize-1))/pageSize;// 1
+		
+		int startPage = (currentPage-1)/pageBlock*pageBlock+1; 
+		int endPage = startPage+pageBlock-1; // 
+		if(endPage>totalP)
+			endPage = totalP;
+		pagingHTML.append("<a class='page-link' href='adminmeetingboardList?pg="+(startPage-1)+"'>Previous</a>");
+		for(int i=startPage; i<=endPage; i++) {
+			if(i==currentPage)
+				pagingHTML.append("<a class='page-link' href='adminmeetingboardList?pg="+i+"'>"+i+"</a>");
+			else
+				pagingHTML.append("<a class='page-link' href='adminmeetingboardList?pg="+i+"'>"+i+"</a>");
+		}
+		pagingHTML.append("<a class='page-link' href='adminmeetingboardList?pg="+(endPage+1)+"'>Next</a>");
+	}
+	
+	
+	
+	
+	
+	
 	
 	public void makeSearchPagingHTML() {
 		pagingHTML = new StringBuffer();

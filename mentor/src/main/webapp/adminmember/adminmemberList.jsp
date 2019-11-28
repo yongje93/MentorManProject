@@ -17,10 +17,13 @@
 			<div class="x_content">
 				<div class="table-responsive" style="overflow:hidden;">
 					<div class="row">
+						<form method="post" action="/mentor/adminmember/adminmemberSearch">
+						<input type="hidden" name="pg" value="${pg }">
 						<div class="col-sm-12 memberSearch">
-							<input type="text"  placeholder="찾기">
-							<button type="button" class="btn btn-success btn-sm">찾기</button>
+							<input type="text" name="adminmemberKeyword" placeholder="이름을 입력하세요." style="height:30px;">
+							<button type="submit" class="btn btn-success btn-sm">찾기</button>
 						</div>
+						</form>
 					</div> <!-- 검색 row끝 -->
 					<div class="row">
 						<div class="col-sm-12">
@@ -38,18 +41,21 @@
 								<c:forEach var="adminmemberDTO" items="${list }">
 									<tr>
 										<td><img src="../image/${adminmemberDTO.member_profile }" width="30" height="30">${adminmemberDTO.member_name }</td>
-										<td>${adminmemberDTO.member_nickName }</td>
+										<td>${adminmemberDTO.member_nickname }</td>
 										<td>${adminmemberDTO.member_email }</td>
 										<c:if test="${adminmemberDTO.member_flag eq '0'}">
 										<td>회원</td>
 										</c:if>
 										<c:if test="${adminmemberDTO.member_flag eq '1'}">
-										<td>멘티</td>
-										</c:if>
-										<c:if test="${adminmemberDTO.member_flag eq '2'}">
 										<td>멘토</td>
 										</c:if>
-										<td>${adminmemberDTO.member_logtime }</td>
+										<c:if test="${adminmemberDTO.member_flag eq '2'}">
+										<td>멘티</td>
+										</c:if>
+										<c:if test="${adminmemberDTO.member_flag eq '3'}">
+										<td>관리자</td>
+										</c:if>
+										<td>${adminmemberDTO.logtime }</td>
 									</tr>
 									</c:forEach>
 								</tbody>
@@ -72,4 +78,21 @@
 		</div><!--x_panel-->
 	</div>
 </div><!-- row -->
-
+<script>
+function adminmemberSearch(pg){
+	$.ajax({
+		type : 'post',
+		url : '/mentor/adminmember/adminmemberSearch',
+		contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+		data : {
+			pg : pg,
+			adminmemberKeyword : '${adminmemberKeyword}'
+		},
+		success : function(){
+			console.log("ok");
+		}
+	});	
+	/* location.href="/mentor/adminmember/adminmemberSearch?pg="+pg
+				+"&adminmemberKeyword="+encodeURIComponent("${adminmemberKeyword}"); */
+}
+</script>

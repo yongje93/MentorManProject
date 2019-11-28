@@ -243,12 +243,40 @@ $(document).ready(function() {
 					$frag.append('<div class="block mentee-detail-block thanks-note-card" id="menteeboardPagingDiv">'+data.menteeboardPaging.pagingHTML+'</div><hr>');
 					$('#inputList').append($frag);
 					
+					
+					let memNickname = $('#memNickname').val();
+					let nickname = $('#nickname').val();
+					let receiverEmail = $('#email').val();
+					let menteeboard_seq = $('#menteeboard_seq').val();
 					//socket에 보내자
 					if(socket) {
-						let socketMsg = "reply," + $('#memNicname').val() +","+$('#nickname').val() +","+$('#menteeboard_seq').val()
-						console.log("msgmsg :: " + socketMsg );
+						let socketMsg = "reply," + memNickname +","+ nickname +","+ receiverEmail +","+ menteeboard_seq;
+						console.log("msgmsg : " + socketMsg);
 						socket.send(socketMsg);
 					}
+					
+					
+					var AlarmData = {
+							"myAlarm_receiverEmail" : receiverEmail,
+							"myAlarm_callerNickname" : memNickname,
+							"myAlarm_title" : "댓글 알림",
+							"myAlarm_content" :  memNickname + "님이 <a type='external' href='/mentor/menteeboard/menteeboardView?seq="+menteeboard_seq+"&pg=1'>" + menteeboard_seq + "</a> 번 게시글에 댓글을 남겼습니다."
+					};
+					//알림 저장
+					$.ajax({
+						type : 'post',
+						url : '/mentor/member/saveAlarm',
+						data : JSON.stringify(AlarmData),
+						contentType: "application/json; charset=utf-8",
+						dataType : 'text',
+						success : function(data){
+							//alert(data);
+							
+						},
+						error : function(err){
+							console.log(err);
+						}
+					});
 					
 				},
 				error : function(){

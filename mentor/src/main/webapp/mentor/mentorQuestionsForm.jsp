@@ -121,7 +121,7 @@
 					<input type="hidden" id="pg" name="pg" value="${pg}">
   					<input type="hidden" id="followVal" name="followVal" value="${follow}">
   					<!-- 소켓 알림으로 사용 -->
-  					<input type="hidden" id="memNicname" name="memNicname" value="${memNicname}">
+  					<input type="hidden" id="memNickname" name="memNickname" value="${memNickname}">
   					<input type="hidden" id="member_nickname" name="member_nickname" value="${mentorDTO.member_nickname}">
   					
   					<input type="hidden" id="followed_email" name="followed_email" value="${mentorDTO.mentor_email}">

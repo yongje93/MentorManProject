@@ -1,13 +1,33 @@
-$(function(){
-    const $body = $('body'); // 바디
-    const $menu_toggle = $('#menu_toggle'); // 상단 삼지창 bar
-    const $sidebar_menu = $('#sidebar-menu'); // 왼쪽 메뉴 토글전체
-    const $sidebar_footer = $('.sidebar-footer'); // 왼쪽 메뉴 아래 숨기기 기능
-    const $left_col = $('.left_col'); // 왼쪽 메뉴 전체
-    const $right_col = $('.right_col'); // 중앙 info
-    const $nav_menu = $('.nav_menu'); // 상단 메뉴
-    const $footer = $('footer'); // 맨 아래
 
+//var URL = window.location,  	
+//	 $body = $('body'), // 바디
+//     $menu_toggle = $('#menu_toggle'), // 상단 삼지창 bar
+//     $sidebar_menu = $('#sidebar-menu'), // 왼쪽 메뉴 토글전체
+//     $sidebar_footer = $('.sidebar-footer'), // 왼쪽 메뉴 아래 숨기기 기능
+//     $left_col = $('.left_col'), // 왼쪽 메뉴 전체
+//     $right_col = $('.right_col'), // 중앙 info
+//     $nav_menu = $('.nav_menu'), // 상단 메뉴
+//     $footer = $('footer'); // 맨 아래
+//const $body = $('body'); // 바디
+//	const $menu_toggle = $('#menu_toggle');// 상단 삼지창 bar
+//	const $sidebar_menu = $('#sidebar-menu'); // 왼쪽 메뉴 토글전체
+//	const $sidebar_footer = $('.sidebar-footer'); // 왼쪽 메뉴 아래 숨기기 기능
+//	const $left_col = $('.left_col'); // 왼쪽 메뉴 전체
+//	const $right_col = $('.right_col'); // 중앙 info
+//	const $nav_menu = $('.nav_menu'); // 상단 메뉴
+//	const $footer = $('footer'); // 맨 아래
+$(function(){
+	var URL = window.location,  	
+	 $body = $('body'), // 바디
+    $menu_toggle = $('#menu_toggle'), // 상단 삼지창 bar
+    $sidebar_menu = $('#sidebar-menu'), // 왼쪽 메뉴 토글전체
+    $sidebar_footer = $('.sidebar-footer'), // 왼쪽 메뉴 아래 숨기기 기능
+    $left_col = $('.left_col'), // 왼쪽 메뉴 전체
+    $right_col = $('.right_col'), // 중앙 info
+    $nav_menu = $('.nav_menu'), // 상단 메뉴
+    $footer = $('footer'); // 맨 아래
+	$('.x_panel').removeAttr('style');
+	
     //  this is same kind of easy fix, maybe we can improve this
     var setContentHeight = function(){
         // reset height
@@ -40,7 +60,6 @@ $(function(){
             }
             
             $li.addClass('active');
-
             $('ul:first', $li).slideDown(function() {
                 setContentHeight();
             });
@@ -68,6 +87,54 @@ $(function(){
     	setContentHeight();
     });
     
-    $('.x_panel').removeAttr('style');
+ // check active menu
+    $sidebar_menu.find('a[href="' + URL + '"]').parent('li').addClass('current-page');
+
+    $sidebar_menu.find('a').filter(function () {
+        return this.href == URL;
+    }).parent('li').addClass('current-page').parents('ul').slideDown(function() {
+        setContentHeight();
+    }).parent().addClass('active');
+
+    // recompute content when resizing
+    $(window).smartresize(function(){  
+        setContentHeight();
+    });
 
 }); // function
+
+/**
+ * Resize function without multiple trigger
+ * 
+ * Usage:
+ * $(window).smartresize(function(){  
+ *     // code here
+ * });
+ */
+(function($,sr){
+    // debouncing function from John Hann
+    // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
+    var debounce = function (func, threshold, execAsap) {
+      var timeout;
+
+        return function debounced () {
+            var obj = this, args = arguments;
+            function delayed () {
+                if (!execAsap)
+                    func.apply(obj, args);
+                timeout = null; 
+            }
+
+            if (timeout)
+                clearTimeout(timeout);
+            else if (execAsap)
+                func.apply(obj, args);
+
+            timeout = setTimeout(delayed, threshold || 100); 
+        };
+    };
+
+    // smartresize 
+    jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
+
+})(jQuery,'smartresize');

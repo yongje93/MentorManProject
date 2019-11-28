@@ -41,7 +41,7 @@ $(document).ready(function() {
       }
     
     
-    //글작성 버튼 클릭시 ajax통신
+    //작성하기 버튼 클릭시 ajax통신
     $('#menteeboardWriteForm_Btn').on('click' , function(){
     	if($('#menteeWriteFormSubject').val() == ''){
     	}else if($('#summernote').val() == ''){

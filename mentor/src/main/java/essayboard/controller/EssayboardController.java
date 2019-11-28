@@ -414,9 +414,8 @@ public class EssayboardController {
 		   else {
 			   essayboardService.essayboardScrapDelete(essayboardScrapDTO);
 		   }
-		   
+		   //에세이의 총 스크랩수
 		   int totalScrap = essayboardService.getTotalScrap(essayboardScrap_es_seq);
-		   System.out.println("totalScrap ^^ : " + totalScrap);
 		   
 		   return totalScrap+"";
 	   }

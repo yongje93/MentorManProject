@@ -119,12 +119,11 @@
 
 <input type="hidden" id="memEmail" name="memEmail" value="${memEmail}">
 <!-- 닉네임은 소켓에 담을때 사용한다 -->
-<input type="hidden" id="memNicname" name="memNicname" value="${memNicname}">
+<input type="hidden" id="memNickname" name="memNickname" value="${memNickname}">
 
 <input type="hidden" name="pg" value="${pg}">
 <input type="hidden" name="seq_trans" id="seq_trans">
 
 </form>
 
-<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="../js/menteeboardView.js"></script>

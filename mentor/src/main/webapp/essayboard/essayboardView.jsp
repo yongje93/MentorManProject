@@ -8,7 +8,7 @@
 		<div class="post-block-container">
 			<div class="mentor-post-detail-block">
 				<h1 class="mentor-post-title" style="display: flex;">
-					${essayboardDTO.essayboard_title} 
+					${essayboardDTO.essayboard_title}
 				</h1>
 				<div class="trix-content">
 					${essayboardDTO.essayboard_content }
@@ -101,3 +101,26 @@
 		</div>
 	</div>
 </div>
+  <script src="../js/jquery.cookie.js"></script>
+  <script src="../js/essayboardBodyViewCookie.js">
+  $(document).ready(function(){
+		var hit = $('#essay_hit').val();
+		alert($('#essay_hit').val());
+		$.ajax({
+			type : 'post',
+			url : '/mentor/essayboard/essayboardHit',
+			data : {essay_hit : hit},
+			success : function(){
+
+			},
+			error : function(){
+
+			}
+	 	});
+	});
+
+  $('.fa-bookmark').on('click' , function(){
+	  alert('click');
+  });
+
+  </script>

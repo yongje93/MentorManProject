@@ -11,7 +11,7 @@
 			<div class="block-title">직무 유형</div>
 			<div class="row">
 				<a id="job_code_0" class="button color-gray" type="external" href="job_code_0">인사/총무/노무</a>
-	          	<a id="job_code_1" class="button color-gray" type="external" href="job_code_1">마케팅/MD</a>
+	      <a id="job_code_1" class="button color-gray" type="external" href="job_code_1">마케팅/MD</a>
 				<a id="job_code_2" class="button color-gray" type="external" href="job_code_2">홍보/CSR</a>
 				<a id="job_code_3" class="button color-gray" type="external" href="job_code_3">영업/영업관리</a>
 				<a id="job_code_4" class="button color-gray" type="external" href="job_code_4">회계/재무/금융</a>
@@ -39,11 +39,11 @@
 						<div class="essayName">신규 에세이</div>
 						<div style="float: right; margin-bottom: 5px;">
 						<c:if test="${memFlag == '1' }">
-							<a id="essay_write_btn" class="button" type="external" href="/mentor/essayboard/essayboardWriteForm" style="display: inline-block;"> 
+							<a id="essay_write_btn" class="button" type="external" href="/mentor/essayboard/essayboardWriteForm" style="display: inline-block;">
 							<i class="fas fa-pencil-alt"></i> 글쓰기
 							</a>
 						</c:if>
-						<a class="button color-gray" id="recommend_essay" type="external" href="javascript:void(0)" style="display: inline-block;"> 
+						<a class="button color-gray" id="recommend_essay" type="external" href="javascript:void(0)" style="display: inline-block;">
 						<i class="fas fa-pencil-alt"></i> 추천 에세이
 						</a>
 						</div>
@@ -78,8 +78,12 @@
 
 								<div class="card-content card-content-padding" style="overflow: hidden; text-overflow: ellipsis; height: 200px;">
 									<input type="hidden" id="seq" name="seq" value="${list.essayboard_seq }">
+				   				<input type="hidden" id="essayNickname" name="essayNickname" value="${list.mentor_email }">
+				   				<input type="hidden" id="essayName" name="essayName" value="${list.member_name }">
+				   				<input type="hidden" id="memberSeq" name="memberSeq" value="${list.member_seq }">
 									<a class="content-body" type="external" href="/mentor/essayboard/essayboardView?pg=${pg }&seq=${list.essayboard_seq}&mentors=${list.member_seq }">
-										<div class="mentor-post-title">${list.essayboard_title}
+										<div class="mentor-post-title">
+											${list.essayboard_title}
 										</div>
 										<div class="mentor-post-detail">
 											<c:choose>
@@ -95,16 +99,16 @@
 								</div>
 
 								<div class="card-footer">
-									<a class="color-gray js-bookmark" id="scrap" type="externalScrap" data-remote="true" rel="nofollow" 
-										data-method="post" href="" style="right: 0px; position: unset; margin: 0px 0px;"> 
+									<a class="color-gray js-bookmark" id="scrap" type="externalScrap" data-remote="true" rel="nofollow"
+										data-method="post" href="" style="right: 0px; position: unset; margin: 0px 0px;">
 										<!-- <i class="far fa-bookmark" aria-hidden="false"></i> -->
 										<c:if test="${list.essayboard_scrapFlag == 1}">
 											<img id="${list.essayboard_seq}" src="../image/scrapOkImg.png" width="13">
 										</c:if> <c:if test="${list.essayboard_scrapFlag == 0}">
 											<img id="${list.essayboard_seq}" src="../image/scrapNoImg.png" width="13">
-										</c:if> 
+										</c:if>
 										<span id="ScrapDiv_${list.essayboard_seq}">${list.essayboard_scrap}</span>
-										<!-- 스크랩 끌고와야 함 --> 
+										<!-- 스크랩 끌고와야 함 -->
 										<input type="hidden" id="scrapFlag"	name="scrapFlag" value="${list.essayboard_scrapFlag}">
 									</a>
 

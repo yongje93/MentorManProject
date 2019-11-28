@@ -1,19 +1,20 @@
 package adminmember.controller;
 
+import java.util.HashMap;
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import adminmember.bean.AdminmemberDTO;
 import adminmember.bean.AdminmemberPaging;
+import adminmember.bean.AdminmentorDTO;
 import adminmember.service.AdminmemberService;
 
 
@@ -42,13 +43,15 @@ public class AdminMemberController {
 		int endNum = Integer.parseInt(pg)*10;
 		int startNum = endNum-9;
 		List<AdminmemberDTO> list = adminmemberService.getAdminmemberList(startNum,endNum);
+		System.out.println(list.size());
 		//페이징 처리
-		int totalA = adminmemberService.getTotalA();
+		int totalA = adminmemberService.getMemeberTotalA();
+		System.out.println(totalA);
 		adminmemberPaging.setCurrentPage(Integer.parseInt(pg));
 		adminmemberPaging.setPageBlock(3);
 		adminmemberPaging.setPageSize(10);
 		adminmemberPaging.setTotalA(totalA);
-		adminmemberPaging.makePagingHTML();
+		adminmemberPaging.memberPagingHTML();
 		
 		mav.addObject("list", list);
 		mav.addObject("pg", pg);
@@ -57,21 +60,219 @@ public class AdminMemberController {
 		mav.setViewName("/admin/adminMain");
 		return mav;
 	}
-	
-	
-	
-	/* description : 멘티리스트 화면페이지 */
-	@RequestMapping(value="adminmenteeList",method = RequestMethod.GET)
-	public String adminmenteeList(Model model) {
-		model.addAttribute("display", "/adminmember/adminmenteeList.jsp");
-		return "/admin/adminMain";
+	/* description : 회원리스트 서치 */
+	@RequestMapping(value="adminmemberSearch", method = RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView adminmemberSearch(ModelAndView mav,
+									@RequestParam (required=false,defaultValue="1") String pg,
+									@RequestParam String adminmemberKeyword) {
+		System.out.println(adminmemberKeyword);
+		int endNum = Integer.parseInt(pg)*10;
+		int startNum = endNum-9;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("adminmemberKeyword", adminmemberKeyword);
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		List<AdminmemberDTO> list = adminmemberService.getSearchadminmemberList(map);
+		//페이징 처리
+		int totalA = adminmemberService.getSearchmemeberTotalA(map);
+		adminmemberPaging.setCurrentPage(Integer.parseInt(pg));
+		adminmemberPaging.setPageBlock(3);
+		adminmemberPaging.setPageSize(10);
+		adminmemberPaging.setTotalA(totalA);
+		adminmemberPaging.memberSearchPagingHTML();
+		
+		mav.addObject("adminmemberKeyword",adminmemberKeyword);
+		mav.addObject("list", list);
+		mav.addObject("pg", pg);
+		mav.addObject("adminmemberPaging", adminmemberPaging);
+		mav.addObject("display", "/adminmember/adminmemberList.jsp");
+		mav.setViewName("/admin/adminMain");
+		return mav;
+	}
+/*----멘토--------------------------------------------------------------------------------------------------*/
+	/* description : 멘토리스트 화면페이지 */
+	@RequestMapping(value="adminmentorList",method = RequestMethod.GET)
+	public ModelAndView adminmentorList(ModelAndView mav,
+									   @RequestParam (required=false,defaultValue="1") String pg ) {
+		int endNum = Integer.parseInt(pg)*10;
+		int startNum = endNum-9;
+		List<AdminmentorDTO> list = adminmemberService.getAdminmentorList(startNum,endNum);
+
+		//페이징 처리
+		int totalA = adminmemberService.getMentorTotalA();
+		adminmemberPaging.setCurrentPage(Integer.parseInt(pg));
+		adminmemberPaging.setPageBlock(3);
+		adminmemberPaging.setPageSize(10);
+		adminmemberPaging.setTotalA(totalA);
+		adminmemberPaging.mentorPagingHTML();
+		
+		mav.addObject("list", list);
+		mav.addObject("pg", pg);
+		mav.addObject("adminmemberPaging", adminmemberPaging);
+		mav.addObject("display", "/adminmember/adminmentorList.jsp");
+		mav.setViewName("/admin/adminMain");
+		return mav;
 	}
 	
+	/* description : 멘토리스트 서치 */
+	@RequestMapping(value="adminmentorSearch", method = RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView adminmentorSearch(ModelAndView mav,
+									@RequestParam (required=false,defaultValue="1") String pg,
+									@RequestParam String adminmentorKeyword) {
+		int endNum = Integer.parseInt(pg)*10;
+		int startNum = endNum-9;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("adminmentorKeyword", adminmentorKeyword);
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		List<AdminmentorDTO> list = adminmemberService.getSearchadminmentorList(map);
+		//페이징 처리
+		int totalA = adminmemberService.getSearchmentorTotalA(map);
+		System.out.println(totalA);
+		adminmemberPaging.setCurrentPage(Integer.parseInt(pg));
+		adminmemberPaging.setPageBlock(3);
+		adminmemberPaging.setPageSize(10);
+		adminmemberPaging.setTotalA(totalA);
+		adminmemberPaging.mentorSearchPagingHTML();
+		
+		mav.addObject("adminmentorKeyword",adminmentorKeyword);
+		mav.addObject("list", list);
+		mav.addObject("pg", pg);
+		mav.addObject("adminmemberPaging", adminmemberPaging);
+		mav.addObject("display", "/adminmember/adminmentorList.jsp");
+		mav.setViewName("/admin/adminMain");
+		return mav;
+	}
 	
-	/* description : 멘토리스트 화면페이지 */
-	@RequestMapping(value="adminmentoList",method = RequestMethod.GET)
-	public String adminmentoList(Model model) {
-		model.addAttribute("display", "/adminmember/adminmentoList.jsp");
-		return "/admin/adminMain";
+	/* description : 멘토신청리스트 화면페이지 */
+	@RequestMapping(value="adminmentorApplyList",method = RequestMethod.GET)
+	public ModelAndView adminmentorApplyList(ModelAndView mav,
+									   @RequestParam (required=false,defaultValue="1") String pg ) {
+		int endNum = Integer.parseInt(pg)*10;
+		int startNum = endNum-9;
+		List<AdminmentorDTO> list = adminmemberService.getAdminmentorApplyList(startNum,endNum);
+		
+		//페이징 처리
+		int totalA = adminmemberService.getMentorApplyTotalA();
+		adminmemberPaging.setCurrentPage(Integer.parseInt(pg));
+		adminmemberPaging.setPageBlock(3);
+		adminmemberPaging.setPageSize(10);
+		adminmemberPaging.setTotalA(totalA);
+		adminmemberPaging.mentorApplyPagingHTML();
+		
+		mav.addObject("list", list);
+		mav.addObject("pg", pg);
+		mav.addObject("adminmemberPaging", adminmemberPaging);
+		mav.addObject("display", "/adminmember/adminmentorApplyList.jsp");
+		mav.setViewName("/admin/adminMain");
+		return mav;
+	}
+	
+	/* description : 멘토리스트 서치 */
+	@RequestMapping(value="adminmentorApplySearch", method = RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView adminmentorApplySearch(ModelAndView mav,
+									@RequestParam (required=false,defaultValue="1") String pg,
+									@RequestParam String adminmentorApplyKeyword) {
+		int endNum = Integer.parseInt(pg)*10;
+		int startNum = endNum-9;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("adminmentorApplyKeyword", adminmentorApplyKeyword);
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		List<AdminmentorDTO> list = adminmemberService.getSearchadminmentorApplyList(map);
+		//페이징 처리
+		int totalA = adminmemberService.getSearchmentorApplyTotalA(map);
+		System.out.println(totalA);
+		adminmemberPaging.setCurrentPage(Integer.parseInt(pg));
+		adminmemberPaging.setPageBlock(3);
+		adminmemberPaging.setPageSize(10);
+		adminmemberPaging.setTotalA(totalA);
+		adminmemberPaging.mentorSearchPagingHTML();
+		
+		mav.addObject("adminmentorApplyKeyword",adminmentorApplyKeyword);
+		mav.addObject("list", list);
+		mav.addObject("pg", pg);
+		mav.addObject("adminmemberPaging", adminmemberPaging);
+		mav.addObject("display", "/adminmember/adminmentorList.jsp");
+		mav.setViewName("/admin/adminMain");
+		return mav;
+	}
+	
+	/* description : 멘토 승인 */
+	@RequestMapping(value="adminmentorSuccess",method = RequestMethod.POST)
+	@ResponseBody
+	public void adminmentorSuccess(@RequestParam String[] check) {
+		Map<String, String[]> map = new HashMap<String, String[]>();
+		map.put("check", check);
+		adminmemberService.adminmentorSuccess(map);
+	}
+	
+	/* description : 멘토승인 거절 */
+	@RequestMapping(value="adminmentorReject",method = RequestMethod.POST)
+	@ResponseBody
+	public void adminmentorReject(@RequestParam String[] check) {
+		Map<String, String[]> map = new HashMap<String, String[]>();
+		map.put("check", check);
+		adminmemberService.adminmentorReject(map);
+	}
+	
+/*----멘티--------------------------------------------------------------------------------------------------*/	
+	/* description : 멘티리스트 화면페이지 */
+	@RequestMapping(value="adminmenteeList",method = RequestMethod.GET)
+	public ModelAndView adminmenteeList(ModelAndView mav,
+										@RequestParam (required=false,defaultValue="1") String pg ) {
+		int endNum = Integer.parseInt(pg)*10;
+		int startNum = endNum-9;
+		List<AdminmemberDTO> list = adminmemberService.getAdminmenteeList(startNum,endNum);
+		
+		//페이징 처리
+		int totalA = adminmemberService.getMenteeTotalA();
+		
+		adminmemberPaging.setCurrentPage(Integer.parseInt(pg));
+		adminmemberPaging.setPageBlock(3);
+		adminmemberPaging.setPageSize(10);
+		adminmemberPaging.setTotalA(totalA);
+		adminmemberPaging.menteePagingHTML();
+		
+		mav.addObject("list", list);
+		mav.addObject("pg", pg);
+		mav.addObject("adminmemberPaging", adminmemberPaging);
+		mav.addObject("display", "/adminmember/adminmenteeList.jsp");
+		mav.setViewName("/admin/adminMain");
+		return mav;
+	}
+	
+	/* description : 멘티리스트 서치 */
+	@RequestMapping(value="adminmenteeSearch", method = RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView adminmenteeSearch(ModelAndView mav,
+									@RequestParam (required=false,defaultValue="1") String pg,
+									@RequestParam String adminmenteeKeyword) {
+		int endNum = Integer.parseInt(pg)*10;
+		int startNum = endNum-9;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("adminmenteeKeyword", adminmenteeKeyword);
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		List<AdminmemberDTO> list = adminmemberService.getSearchadminmenteeList(map);
+		//페이징 처리
+		int totalA = adminmemberService.getSearchmenteeTotalA(map);
+		System.out.println(totalA);
+		adminmemberPaging.setCurrentPage(Integer.parseInt(pg));
+		adminmemberPaging.setPageBlock(3);
+		adminmemberPaging.setPageSize(10);
+		adminmemberPaging.setTotalA(totalA);
+		adminmemberPaging.menteeSearchPagingHTML();
+		
+		mav.addObject("adminmenteeKeyword",adminmenteeKeyword);
+		mav.addObject("list", list);
+		mav.addObject("pg", pg);
+		mav.addObject("adminmemberPaging", adminmemberPaging);
+		mav.addObject("display", "/adminmember/adminmenteeList.jsp");
+		mav.setViewName("/admin/adminMain");
+		return mav;
 	}
 }

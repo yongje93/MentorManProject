@@ -7,18 +7,24 @@
 		<typeAlias type="mentor.bean.MentorDTO" alias="mentor"/>
 		<typeAlias type="mentor.bean.MentorFollowDTO" alias="mentorFollow"/>
 		<typeAlias type="noticeboard.bean.NoticeboardDTO" alias="notice"/>
+		<!-- 관리자 -->
 		<typeAlias type="adminboard.bean.AdminnoticeboardDTO" alias="adminnoticeboard"/>
 		<typeAlias type="adminmember.bean.AdminmemberDTO" alias="adminmember"/>
+		<typeAlias type="adminmember.bean.AdminmentorDTO" alias="adminmentor"/>
+		<!-- 관리자 끝 -->
+
 		<typeAlias type="member.bean.MemberDTO" alias="member"/>
 		<typeAlias type="meetingboard.bean.MeetingboardDTO" alias="meetingboard"/>
 		<typeAlias type="essayboard.bean.EssayboardDTO" alias="essay"/>
 		<typeAlias type="essayboard.bean.EssayboardPaging" alias="paging"/>
 		<typeAlias type="menteeboard.bean.MenteeboardDTO" alias="menteeboard"/>
 		<typeAlias type="menteeboard.bean.MenteeboardLikeDTO" alias="menteeboardLike"/>
-  		<typeAlias type="menteeboardReply.bean.MenteeboardReplyDTO" alias="menteeboardReply"/>
+  	<typeAlias type="menteeboardReply.bean.MenteeboardReplyDTO" alias="menteeboardReply"/>
 		<typeAlias type="participation.bean.ParticipationDTO" alias="participation"/>
 		<typeAlias type="participation.bean.OrderDTO" alias="order"/>
 		<typeAlias type="meetingboard.bean.ReviewDTO" alias="review"/>
 		<typeAlias type="essayboard.bean.EssayboardScrapDTO" alias="essayboardScrap"/>
+		<typeAlias type="member.bean.AlarmDTO" alias="alarm"/>
+
 	</typeAliases>
 </configuration>

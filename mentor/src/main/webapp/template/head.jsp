@@ -5,7 +5,7 @@
 <div class="navbar">
 	<div class="navbar-inner">
 		<div class="left">
-			<a class="logo" type="external" href="/mentor/main/index"> 
+			<a class="logo" type="external" href="/mentor/main/index">
 				<img src="../image/mentorlogo.jpg" />
 			</a>
 		</div>
@@ -13,18 +13,18 @@
 			<div class="searchbar-inner">
 				<!-- <div class="searchbar-input-wrap">
 					<input type="search" name="q" value=""
-						placeholder="직무, 회사, 멘토, 제목" autocomplete="off"> 
+						placeholder="직무, 회사, 멘토, 제목" autocomplete="off">
 						<i class="searchbar-icon"></i> <span class="input-clear-button"></span>
 				</div> -->
 			</div>
 		</form>
 		<div class="right">
-			<a class="button button-big" type="external" href="/mentor/mentor/mentorfindForm?pg=1">멘토찾기</a> 
-			<a class="button button-big" type="external" href="/mentor/noticeboard/noticeboardList">공지사항</a> 
-			<a class="button button-big" type="external" href="/mentor/essayboard/essayboardList">에세이</a> 
+			<a class="button button-big" type="external" href="/mentor/mentor/mentorfindForm?pg=1">멘토찾기</a>
+			<a class="button button-big" type="external" href="/mentor/noticeboard/noticeboardList">공지사항</a>
+			<a class="button button-big" type="external" href="/mentor/essayboard/essayboardList">에세이</a>
 			<a class="button button-big" type="external" href="/mentor/meetingboard/meetingboardList">모임</a>
-			<a class="button button-big" type="external" href="/mentor/intern/internMain">공채 속보</a> 
-			<a class="button button-big" type="external" href="/mentor/menteeboard/menteeboardList">멘티 게시판</a> 
+			<a class="button button-big" type="external" href="/mentor/intern/internMain">공채 속보</a>
+			<a class="button button-big" type="external" href="/mentor/menteeboard/menteeboardList">멘티 게시판</a>
 			<c:if test="${memDTO!=null}">
 			<a class="button button-big" type="external" href="/mentor/mentor/mentorapplyForm">멘토 지원하기</a>
 			</c:if>
@@ -34,7 +34,7 @@
 			</c:if>
 
 			<c:if test="${memDTO.member_email != null}">
-			<a type="internal" class="button button-big popover-open me-profile" data-popover=".js-me-popover" href=""> 
+			<a type="internal" class="button button-big popover-open me-profile" data-popover=".js-me-popover" href="">
 				<c:if test="${memDTO.member_profile == 'profile.jpg'}">
 				<img src="../image/profile.jpg" width="28" height="28">
 				</c:if>
@@ -58,7 +58,11 @@
 						<div class="list links-list no-hairlines-between">
 							<ul>
 								<li><a type="external" href="">에세이 쓰기</a></li>
-								<li><a type="external" href="/mentor/member/myQandA?pg=1">나의 질문/답변 <span class="badge color-red alim">15</span></a></li>						
+								<li><a type="external" href="/mentor/member/myAlarm">나의 알림<span class="badge color-red alim"></span></a></li>
+								<li>
+									<a type="external" href="/mentor/member/myQandA?pg=1">나의 질문/답변 <span class="badge color-red alim">15</span></a>
+								</li>
+
 								<li><a type="external" href="/mentor/essayboard/essayboardAttention">관심에세이</a></li>
 								<li><a type="external" href="/mentor/mentor/mentorAttention">관심멘토</a></li>
 							</ul>

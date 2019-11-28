@@ -55,7 +55,7 @@
 	box-sizing:border-box;
 	color:rgb(102, 102, 102);
 	display:block;
-	font-size:15px;
+	font-size:12px;
 	font-weight:400;
 	height:auto;
 	line-height:27px;
@@ -258,7 +258,7 @@
 	display:block;
 	font-size:14px;
 	font-weight:400;
-	height:490.742px;
+/* 	height:490.742px; */
 	line-height:25.2px;
 	margin-bottom:30px;
 	text-size-adjust:100%;
@@ -323,7 +323,7 @@
 	empty-cells:show;
 	font-size:14px;
 	font-weight:400;
-	height:1062.5px;
+	height:150.5px;
 	line-height:25.2px;
 	margin-bottom:0px;
 	margin-left:0px;
@@ -336,7 +336,7 @@
 	-webkit-border-vertical-spacing:1.25px;
 }
 
-.table-tbody {
+table-tbody {
 	border-bottom-color:rgb(102, 102, 102);
 	border-collapse:collapse;
 	border-left-color:rgb(102, 102, 102);
@@ -355,7 +355,7 @@
 	width:1160px;
 	-webkit-border-horizontal-spacing:1.25px;
 	-webkit-border-vertical-spacing:1.25px;
-}
+} 
 
 .table-tr {
 	border-bottom-color:rgb(102, 102, 102);
@@ -369,7 +369,7 @@
 	empty-cells:show;
 	font-size:14px;
 	font-weight:400;
-	height:93.75px;
+ 	height:93.75px; 
 	line-height:25.2px;
 	text-size-adjust:100%;
 	vertical-align:middle;
@@ -378,8 +378,7 @@
 	-webkit-border-vertical-spacing:1.25px;
 }
 
-td {
-	
+ td {
 	border-bottom-color:rgb(230, 230, 230);
 	border-bottom-style:solid;
 	border-bottom-width:0.996094px;
@@ -405,7 +404,7 @@ td {
 	-webkit-border-horizontal-spacing:1.25px;
 	-webkit-border-vertical-spacing:1.25px;
 	
-}
+} 
 
 #paging {
 	color: black; 
@@ -416,3 +415,7 @@ td {
 	color: red; 
 	text-decoration: underline;
 }
+/* .mentee_programs{
+	margin-top:2000px;
+	margin-left:auto;
+} */

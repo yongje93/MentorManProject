@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import adminboard.bean.AdminnoticeboardDTO;
 import adminboard.dao.AdminboardDAO;
+import meetingboard.bean.MeetingboardDTO;
 
 /**
  * 
@@ -20,6 +21,7 @@ public class AdminboardServiceImpl implements AdminboardService{
 	@Autowired
 	private AdminboardDAO adminboardDAO;
 	
+	//공지사항
 	@Override
 	public List<AdminnoticeboardDTO> getAdmninnoticeboardList(int startNum, int endNum) {
 		return adminboardDAO.getAdmninnoticeboardList(startNum,endNum);
@@ -39,4 +41,27 @@ public class AdminboardServiceImpl implements AdminboardService{
 	public AdminnoticeboardDTO adminnoticeboardView(int seq) {
 		return adminboardDAO.adminnoticeboardView(seq);
 	}
+	
+	@Override
+	public void adminnoticeboardWrite(Map<String, String> map) {
+		adminboardDAO.adminnoticeboardWrite(map);
+	}
+
+	//모임
+	@Override
+	public List<MeetingboardDTO> getMeetingboardList(Map<String, Integer> map) {
+		return adminboardDAO.getMeetingboardList(map);
+	}
+
+	@Override
+	public int getMeetingboardTotalA() {
+		return adminboardDAO.getMeetingboardTotalA();
+	}
+
+	@Override
+	public void adminmeetingboardDelete(Map<String, String[]> map) {
+		adminboardDAO.adminmeetingboardDelete(map);
+	}
+	
+	
 }

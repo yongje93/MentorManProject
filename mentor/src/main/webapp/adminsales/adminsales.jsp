@@ -23,23 +23,5 @@
 		</div><!--x_panel-->
 	</div>
 </div><!-- row -->
-<script>
-        $(function(){
-            Highcharts.stockChart('myChart',{
-           rangeSelector:{
-               selected:2
-           },
+<script src="../adminjs/adminsales.js"></script>
 
-           title:{
-               text:'가계산'
-           },
-           series:[{
-               name:'아아아',
-               data:[[1516924800000,100],[1517184000000,200],300,400],
-               tooltip:{
-                   valueDecimals:2
-               }
-           }]
-       });
-        });
-    </script>

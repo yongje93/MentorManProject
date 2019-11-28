@@ -30,6 +30,11 @@ public class MenteeboardReplyController {
 	@Autowired
 	private MenteeboardPaging menteeboardPaging;
 	
+	/**
+	 * 
+	 * @Title : 댓글 쓰기 
+	 * @Author : yangjaewoo, @Date : 2019. 11. 7.
+	 */
 	@RequestMapping(value="menteeboardReplyWrite" , method=RequestMethod.POST)
 	public ModelAndView menteeboardReplyWrite(@RequestParam Map<String, String> map) {
 		

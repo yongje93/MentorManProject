@@ -69,7 +69,7 @@
 					</div>
 					<div class="col-md-6 col-sm-6 col-xs-12">
 						<div class="pull-right">
-							<button type="button" class="btn btn-success btn-sm" id="adminnoticeWriteForm"><i class="fa fa-plus"></i> 등록</button>
+							<button type="button" class="btn btn-success btn-sm btn_noticeboardinsert"><i class="fa fa-plus"></i> 등록</button>
 						</div>
 					</div>
 				</div>
@@ -78,3 +78,4 @@
 		</div><!--x_panel-->
 	</div>
 </div><!-- row -->
+<script src="../adminjs/noticeboard.js"></script>

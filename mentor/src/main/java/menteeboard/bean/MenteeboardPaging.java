@@ -29,17 +29,17 @@ public class MenteeboardPaging {
 			endPage = totalP;
 		}
 		if(startPage>pageBlock) {
-			pagingHTML.append("[<a id='paging' onclick=location.href='menteeboardList?pg=" +(startPage-1)+"'>이전</a>]");
+			pagingHTML.append("<li><a rel='prev' data-reload='true' type='external' href='menteeboardList?pg=" +(startPage-1)+"'>이전</a></li>;");
 		}
 		for(int i =startPage; i<=endPage; i++) {
 			if(i == currentPage) {
-				pagingHTML.append("[<a id='currentPaging' onclick=location.href='menteeboardList?pg="+i+"'>"+ i + "</a>]");
+				pagingHTML.append("<li class='active'><a remote='false' href='#' >" + i + "</a></li>");
 			}else {
-				pagingHTML.append("[<a id='paging' onclick=location.href='menteeboardList?pg="+i+"'>"+ i + "</a>]");
+				pagingHTML.append("<li><a rel='prev' data-reload='true' type='external' href='menteeboardList?pg="+i+"' >" + i + "</a></li>");
 			}
 		}
 		if(endPage < totalP) {
-			pagingHTML.append("[<a id='paging' onclick=location.href='menteeboardList?pg="+(endPage+1)+"'>다음</a>]");
+			pagingHTML.append("<li class='next'><a rel='next' data-reload='true' type='external' href='menteeboardList?pg="+(endPage+1)+"' >다음</a></li>");
 		}
 	}
 	
@@ -88,17 +88,17 @@ public class MenteeboardPaging {
 			endPage = totalP;
 		}
 		if(startPage>pageBlock) {
-			pagingHTML.append("[<a href='#' id='paging' onclick='boardSearch("+(startPage-1)+")'>이전</a>]");
+			pagingHTML.append("<li><a rel='prev' data-reload='true' type='external' href='#' onclick='boardSearch("+(startPage-1)+"); return false;'>이전</a></li>;");
 		}
 		for(int i =startPage; i<=endPage; i++) {
 			if(i == currentPage) {
-				pagingHTML.append("[<a href='#' id='currentPaging' onclick='getMenteeboardListJob?pg="+i+"'>"+ i + "</a>]");
+				pagingHTML.append("<li class='active'><a remote='false' href='#' onclick='boardSearch("+i+"); return false;'>" + i + "</a></li>");
 			}else {
-				pagingHTML.append("[<a href='#' id='paging' onclick='boardSearch("+i+")'>"+ i + "</a>]");
+				pagingHTML.append("<li><a rel='prev' data-reload='true' type='external' href='#' onclick='boardSearch("+i+"); return false;'>" + i + "</a></li>");
 			}
 		}
 		if(endPage < totalP) {
-			pagingHTML.append("[<a href='#' id='paging' onclick='boardSearch("+(endPage+1)+")'>다음</a>]");
+			pagingHTML.append("<li class='next'><a rel='next' data-reload='true' type='external' href='#' onclick='boardSearch("+(endPage+1)+"); return false;' >다음</a></li>");
 		}
 	}
 	

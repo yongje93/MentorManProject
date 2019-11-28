@@ -38,5 +38,50 @@ $('.noticeListBtn').click(function(){
 });
 
 $('.btn-info').on('click',function(){
-	location.href="/mentor/adminboard/adminnoticeboardList?pg";
+	location.href="/mentor/adminboard/adminnoticeboardList";
 });
+
+$('.btn_noticeboardinsert').on('click',function(){
+	location.href="/mentor/adminboard/adminnoticeboardWriteForm";
+});
+
+//글쓰기에서  뒤로가기
+$('.noticeboerdWriteForm_backBtn').on('click',function(){
+	location.href="/mentor/adminboard/adminnoticeboardList";
+});
+
+//글쓰기
+function error(){
+	$('#summernote').focus();
+	$('#summernote_error_div').text('내용을 입력해주세요');
+	$('#summernote_error_div').css('color','red');
+}
+$('.noticeboardWriteForm_Btn').on('click', function(){
+	$('#noticeboardWriteNonTitle_error_span').empty();
+	$('#summernote_error_div').empty();
+	if($('#noticeTitle').val()==''){
+		$('#noticboardWriteTitle').focus();
+		$('#noticeboardWriteNonTitle_error_span').text('제목을 입력해주세요');
+		$('#noticeboardWriteNonTitle_error_span').css('color','red');
+	}else if($('#summernote').val()==''){
+		error();
+	}else if($('#summernote').val()=='<p class=""><br></p>'){
+		error();
+	}else if($('#summernote').val()=='<p><br></p>'){
+		error();
+	}else {
+		$.ajax({
+			type: 'post',
+			url: '/mentor/adminboard/adminnoticeboardWrite',
+			data: {'noticeboard_title':$('#noticeTitle').val(), 'noticeboard_content':$('#summernote').val()},
+			success: function(){
+				location.href='/mentor/adminboard/adminnoticeboardList';
+			},
+			error: function(){
+				alert('에러');
+			}
+		});
+	}
+});
+
+

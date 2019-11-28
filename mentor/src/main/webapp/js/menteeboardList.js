@@ -39,7 +39,9 @@ $(document).ready(function(){
 			});
 			
 			//paging 처리
-			$('#menteeboardPagingDiv').html(data.menteeboardPaging.pagingHTML);
+			$('#menteeboardPagingDiv').append($('<ul/>', {
+    			class : 'pagination'
+    		}).append(data.menteeboardPaging.pagingHTML));
 			
 			//클릭시 뷰로 이동
 			$('#boardTable').on('click' ,'#subjectA' , function(){
@@ -121,7 +123,9 @@ $("#job_code").on("change", function(){
 				})).appendTo($('#inputBody2'));
 			});
 			//paging 처리
-			$('#menteeboardPagingDiv').html(data.menteeboardPaging.pagingHTML);
+			$('#menteeboardPagingDiv').append($('<ul/>', {
+    			class : 'pagination'
+    		}).append(data.menteeboardPaging.pagingHTML));
 			
 			//클릭시 뷰로 이동
 			$('#boardTable').on('click' ,'#subjectA' , function(){

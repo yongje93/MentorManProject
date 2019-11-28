@@ -5,7 +5,11 @@
 <div class="page navbar-fixed bookmarks mentor_posts" data-name="bookmarks-mentor_posts">
 	<div class="page-content">
 		<div class="qa-thread-block">
-			<div class="block-title strong-title" style="padding-bottom: 20px;">관심 에세이</div>
+			<div class="block-title strong-title">나의 관심 에세이</div>
+
+			<div class="block block-strong no-hairlines">
+			</div>
+
 			<div class="mentor-post-block">
 				<div class="row no-gap">
 				<c:forEach var="list" items="${list }">
@@ -34,16 +38,16 @@
 
 							<div class="card-content card-content-padding" style="overflow: hidden; text-overflow: ellipsis; height: 200px; ">
 								<input type="hidden" id="seq" name="seq" value="${list.essayboard_seq }">
-							
+
 							    	<%-- <a class="content-body" type="external" href="/mentor/essayboard/essaymentorBodyView?pg=${pg }&seq=${list.essayboard_seq}" > --%>
 									<div class="mentor-post-title">﻿ ${list.essayboard_title } </div>
 									<div class="mentor-post-detail">${list.essayboard_content }</div>
 								<%-- </a> --%>
-								
+
 							</div>
 
 							<div class="card-footer">
-								<a class="color-gray js-bookmark" id="scrap" type="externalScrap" data-remote="true" rel="nofollow" data-method="post" href="javascript:void(0);"> 
+								<a class="color-gray js-bookmark" id="scrap" type="externalScrap" data-remote="true" rel="nofollow" data-method="post" href="javascript:void(0);">
 									<c:if test="${list.essayboard_scrapFlag == 1}">
 								    <img id="${list.essayboard_seq}" src="../image/scrapOkImg.png" width="13">
 								    </c:if>
@@ -53,7 +57,7 @@
 									<span id="ScrapDiv_${list.essayboard_seq}">${list.essayboard_scrap}</span>
 								  	<!-- 스크랩 끌고와야 함 -->
 								  	<input type="hidden" id="scrapFlag" name="scrapFlag" value="${list.essayboard_scrapFlag}">
-  	
+
 									<!-- <i class="fas fa-bookmark bookmarked" aria-hidden="true"></i> 6 -->
 								</a>
 								<div class="created-at"></div>

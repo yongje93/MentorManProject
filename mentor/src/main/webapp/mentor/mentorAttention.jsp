@@ -6,7 +6,7 @@
 	data-name="relationships-index">
 	<div class="page-content">
 		<div class="block top-block">
-			<h1 class="title">관심 멘토</h1>
+			<h1 class="title">나의 관심 멘토</h1>
 			<div class="block-footer">관심 멘토를 추가하고 질문해 보세요.</div>
 		</div>
 		<div class="row no-gap">

@@ -30,4 +30,33 @@
 	<select id="adminnoticeboardView" parameterType="int" resultType="adminnoticeboard">
 		select *from noticeboard where noticeboard_seq=#{noticeboard_seq}
 	</select>
+	
+	<insert id="adminnoticeboardWrite" parameterType="Map">
+		insert into noticeboard(noticeboard_seq,noticeboard_adminEmail,noticeboard_title,noticeboard_content,noticeboard_logtime) values(noticeboard_seq.nextval,'admin@naver.com',#{noticeboard_title},#{noticeboard_content},sysdate)
+	</insert>
+	
+	<!-- 모임 게시글 목록 -->
+	<select id="getMeetingboardList" parameterType="java.util.Map" resultType="meetingboard">
+		<![CDATA[
+			select * from
+			(select rownum rn, tt.* from 
+			(select mb.*, mm.member_name, mm.member_profile, mt.mentor_company, mt.mentor_department
+			 from meetingboard mb, mentor mt, mentors_member mm
+			 where mb.mentor_email = mt.mentor_email and mt.mentor_email = mm.member_email
+			 order by meetingboard_seq desc)tt) 
+			where rn >= #{startNum} and rn <= #{endNum}	
+		]]>
+	</select>
+	<!-- 전체 모임 게시글 수 -->
+  	<select id="getMeetingboardTotalA" resultType="int">
+  		select count(*) from meetingboard
+  	</select>
+  	
+  	<!-- 모임 게시글 삭제 -->
+  	<!-- <delete id="adminmeetingboardDelete" parameterType="java.util.Map">
+  		delete from meetingboard where meetingboard_seq in
+  		<foreach collection="check" item="meetingboard_seq" index="i" open="(" close=")" separator=",">
+			#{meetingboard_seq}${check[i]} 컬렉션만 $먹고 item인 seq는 #과$같이먹는다
+		</foreach>
+  	</delete> -->
 </mapper>
