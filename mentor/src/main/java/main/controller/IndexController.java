@@ -19,6 +19,7 @@ import mentor.service.MentorService;
 
 @Controller
 public class IndexController {
+	
 	@Autowired
 	private MeetingboardService meetingboardService;
 	@Autowired
@@ -26,7 +27,7 @@ public class IndexController {
 	@Autowired
 	private EssayboardService essayboardService;
 	
-	@RequestMapping(value = "/main/index", method = RequestMethod.GET)
+	@RequestMapping(value = "/main/index", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView index() {
 		// 모임
 		Map<String, Integer> meetingMap = new HashMap<String, Integer>();
@@ -34,8 +35,7 @@ public class IndexController {
 		meetingMap.put("endNum", 6);
 		List<MeetingboardDTO> meetingboardList = meetingboardService.getMeetingboardList(meetingMap);
 		
-		// 멘토
-		//승인된 멘토
+		// 신규멘토
 		int mentor_flag = 1;
 		int endNum = 8;
 		int startNum = 1;
@@ -45,22 +45,26 @@ public class IndexController {
 		mentorMap.put("mentor_flag",mentor_flag+"");
 		List<MentorDTO> mentorList = mentorService.getMentorList(mentorMap);
 		
-		// 명예멘토 
-		// 넣어야됨
+		Map<String, Object> honorMap = new HashMap<String, Object>();
+		honorMap.put("startNum", 1);
+		honorMap.put("endNum", 8);
+		honorMap.put("mentor_badge", 1);
+		honorMap.put("mentor_flag", 1);
+		// 명예멘토
+		List<MentorDTO> honorMentorList = mentorService.getHonorMentor(honorMap);
 		
-		// 신규에세이
 		Map<String, Object> essayMap = new HashMap<String, Object>();
-		// 3개
-		essayMap.put("endNum", 3);
 		essayMap.put("startNum", 1);
+		essayMap.put("endNum", 3);
+		// 신규에세이
 		List<EssayboardDTO> newEssayList = essayboardService.getNewEssay(essayMap);
-		
 		// 추천에세이
 		List<EssayboardDTO> bestEssayList = essayboardService.getBestEssay(essayMap);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("meetingboardList", meetingboardList);
 		mav.addObject("mentorList", mentorList);
+		mav.addObject("honorMentorList", honorMentorList);
 		mav.addObject("newEssayList", newEssayList);
 		mav.addObject("bestEssayList", bestEssayList);
 		mav.addObject("display", "/template/container.jsp");

@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <div class="col-100 tablet-80" style="margin: auto;">
-	<div class="block block-strong no-hairlines hero-title">
+	<div class="block no-hairlines hero-title">
 		<h1 class="title">비밀번호 변경</h1>
 	</div>
 	<div class="block inset mentor-request-block">

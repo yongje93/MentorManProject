@@ -4,19 +4,20 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
 <meta charset="UTF-8">
 <title>멘토맨</title>
-
 <link rel="shortcut icon" href="../image/mentorlogo.ico" type="image/x-icon"/>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 <link rel="stylesheet" href="../css/ly.css" type="text/css"/>
 <link rel="stylesheet" href="../css/footer.css" type="text/css"/>
+	
+</head>
+
+<body class="color-theme-pink">
 <script src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/application_layout.js"></script>
-
-</head>
-<body class="color-theme-pink">
 	<div id="app" class="framework7-root">
 		<div class="view view-main">
 			<!-- head -->
@@ -33,7 +34,7 @@
 	<div id="foot" id="foot">
 		<jsp:include page="../template/footer.jsp" />
 	</div>
-
+	
 	<!-- 웹소켓 작동 -->
 	<script type="text/javascript" src="../js/sockjs.js"></script>
 	<script type="text/javascript">

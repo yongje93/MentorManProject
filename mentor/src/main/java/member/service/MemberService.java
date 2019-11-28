@@ -4,11 +4,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
-import member.bean.AlarmDTO;
 import javax.mail.MessagingException;
 
+import member.bean.AlarmDTO;
 import member.bean.MemberDTO;
-import mentee.bean.MenteeDTO;
 import mentor.bean.MentorDTO;
 
 public interface MemberService {

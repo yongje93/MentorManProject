@@ -28,7 +28,7 @@
 		<logout
 			logout-url="/member/logout" 
 			logout-success-url="/main/index"
-			invalidate-session="true" 
+			invalidate-session="true"
 		/>
 	 
 		<session-management invalid-session-url="/main/index" session-authentication-error-url="/member/loginForm">

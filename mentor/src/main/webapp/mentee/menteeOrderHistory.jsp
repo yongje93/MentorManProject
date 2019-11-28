@@ -9,7 +9,7 @@
 
 <link rel="stylesheet" href="../css/order.css" type="text/css"/>
 <div class="col-100 tablet-90" style="margin: auto;">
-<div class="block block-strong no-hairlines hero-title" style="width: 815px;">
+<div class="block no-hairlines hero-title" style="width: 815px;">
 	<h1 class="title">결제 내역</h1>
 </div>
 <div class="block" style="width: 840px;">

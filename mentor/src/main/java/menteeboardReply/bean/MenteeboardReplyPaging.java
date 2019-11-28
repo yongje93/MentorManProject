@@ -3,7 +3,6 @@ package menteeboardReply.bean;
 import org.springframework.stereotype.Component;
 
 import lombok.Data;
-import menteeboard.bean.MenteeboardPaging;
 
 @Component
 @Data

@@ -94,12 +94,8 @@
 									</div>
 								</div>
 								<div style="float: right; margin-top: 5px;">
-									<button class="button" style="display: inline-block;">
-										<a type="external" href="/mentor/main/index">홈으로 가기</a>
-									</button>
-									<button class="button" id="meetingboardDeleteBtn" style="display: inline-block;">
-										<a type="external" href="/mentor/mentee/menteeOrderHistory">결제내역</a>
-									</button>
+								<a class="button" type="external" href="/mentor/main/index" style="display: inline-block;">홈으로 가기</a>
+								<a class="button" type="external" href="/mentor/mentee/menteeOrderHistory" style="display: inline-block;">결제내역</a>
 								</div>
 							</div>
 						</div>

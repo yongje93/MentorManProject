@@ -102,7 +102,27 @@ $('#orderBtn').click(function(){
 	                	}
 	                }
 	                
+	                var AlarmData = {
+	                		"myAlarm_receiverEmail" : mentor_list[i],
+	                		"myAlarm_callerNickname" : rsp.buyer_name,
+	                		"myAlarm_title" : "모임 알림",
+	                		"myAlarm_content" :  rsp.buyer_name + "님이 모임을 신청했습니다. <a type='external' href='/mentor/participation/participationView?mseq="+ meetingboard_list[i] +"&pseq="+ participation_list[i] +"'>신청서 보기</a>"
+	                };
 	                
+	                //모임 결제 알림 DB저장
+	                $.ajax({
+	                	type : 'post',
+	                	url : '/mentor/member/saveAlarm',
+	                	data : JSON.stringify(AlarmData),
+	                	contentType: "application/json; charset=utf-8",
+	                	dataType : 'text',
+	                	success : function(data){
+	                		console.log(data);
+	                	},
+	                	error : function(err){
+	                		console.log(err);
+	                	}
+	                });   
 	            } else {
 	                var msg = '결제에 실패하였습니다.' + '\n';
 	                msg += rsp.error_msg + '\n';

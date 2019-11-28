@@ -3,7 +3,6 @@ package mentor.dao;
 import java.util.List;
 import java.util.Map;
 
-import essayboard.bean.EssayboardDTO;
 import meetingboard.bean.ReviewDTO;
 import mentor.bean.MentorDTO;
 import mentor.bean.MentorFollowDTO;
@@ -57,7 +56,5 @@ public interface MentorDAO {
 	public int getAnswer(int mentor_seq);
 
 	public int getQuestion(int mentor_seq);
-
-
 
 }

@@ -1,27 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <div class="page navbar-fixed questioner_qa_threads show" data-name="questioner_qa_threads-show">
   <div class="page-content">
     <div class="qa-thread-block-container">
       <div class="block mentor-info-block">
 		  <div class="mentor-image img-circle">
-		      
-		          <c:if test="${memberDTO.member_email == getEmail}">
-		            <a type="external" onclick="location.href='/mentor/mentor/mentorInfoView?mentors=${mentorDTO.member_seq}'">
-		              <c:if test="${mentorDTO.member_profile != 'profile.jpg'}">
-					     <img width="50" height="50" src="../storage/${mentorDTO.mentor_email}/${mentorDTO.member_profile}">
-					  </c:if>
-					</a>
+	          <c:if test="${memberDTO.member_email == getEmail}">
+	            <a type="external" onclick="location.href='/mentor/mentor/mentorInfoView?mentors=${mentorDTO.member_seq}'">
+	              <c:if test="${mentorDTO.member_profile != 'profile.jpg'}">
+				     <img width="50" height="50" src="../storage/${mentorDTO.mentor_email}/${mentorDTO.member_profile}">
 				  </c:if>
-				  <c:if test="${memberDTO.member_email != getEmail}">
-	                  <c:if test="${mentorDTO.member_profile != 'profile.jpg'}">
-				         <img width="50" height="50" src="../storage/${mentorDTO.member_email}/${mentorDTO.member_profile}">
-				      </c:if>
-				  </c:if>
-			      <c:if test="${mentorDTO.member_profile == 'profile.jpg'}">
-		          	  <img width="50" height="50" src="../image/profile.jpg">
+				</a>
+			  </c:if>
+			  <c:if test="${memberDTO.member_email != getEmail}">
+                  <c:if test="${mentorDTO.member_profile != 'profile.jpg'}">
+			         <img width="50" height="50" src="../storage/${mentorDTO.member_email}/${mentorDTO.member_profile}">
 			      </c:if>
+			  </c:if>
+		      <c:if test="${mentorDTO.member_profile == 'profile.jpg'}">
+	          	  <img width="50" height="50" src="../image/profile.jpg">
+		      </c:if>
 		  </div>
 
 		  <div class="block mentor-info">

@@ -11,7 +11,7 @@
 			<div class="block-title">직무 유형</div>
 			<div class="row">
 				<a id="job_code_0" class="button color-gray" type="external" href="job_code_0">인사/총무/노무</a>
-	      <a id="job_code_1" class="button color-gray" type="external" href="job_code_1">마케팅/MD</a>
+	      		<a id="job_code_1" class="button color-gray" type="external" href="job_code_1">마케팅/MD</a>
 				<a id="job_code_2" class="button color-gray" type="external" href="job_code_2">홍보/CSR</a>
 				<a id="job_code_3" class="button color-gray" type="external" href="job_code_3">영업/영업관리</a>
 				<a id="job_code_4" class="button color-gray" type="external" href="job_code_4">회계/재무/금융</a>
@@ -132,7 +132,7 @@
 						<div class="col-100 tablet-50 desktop-33"></div>
 					</div>
 					<input type="hidden" id="essayFlag" name="essayFlag" value="${flag}">
-					<input type="hidden" id="recommend_view_essay" value="${essayFlag}">
+					<input type="hidden" id="recommend_view_essay" value="${param.essayFlag}">
 					<div class="pagination-block">
 						<div class="page-entries-info"></div>
 						<div class="paging" id="paging">${boardpaging.pagingHTML}</div>

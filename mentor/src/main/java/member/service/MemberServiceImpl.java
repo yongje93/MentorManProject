@@ -15,9 +15,7 @@ import org.springframework.stereotype.Service;
 import member.bean.AlarmDTO;
 import member.bean.MemberDTO;
 import member.dao.MemberDAO;
-
 import member.handler.MailHandler;
-import mentee.bean.MenteeDTO;
 import mentor.bean.MentorDTO;
 /**
  * @Title : 회원가입 Service.

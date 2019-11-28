@@ -10,8 +10,6 @@
 			<div class="block-footer">관심 멘토를 추가하고 질문해 보세요.</div>
 		</div>
 		<div class="row no-gap">
-		
-		
 			<c:forEach var="mentor" items="${list}" >
 				<div class="col-100 tablet-50">
 					<div class="card mentor-card">

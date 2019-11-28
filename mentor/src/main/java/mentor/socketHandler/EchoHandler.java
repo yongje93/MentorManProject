@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -25,9 +23,7 @@ public class EchoHandler extends TextWebSocketHandler {
 	List<WebSocketSession> sessions = new ArrayList<WebSocketSession>();
 	// 1대1
 	Map<String, WebSocketSession> userSessionsMap = new HashMap<String, WebSocketSession>();
-	
-	private static Logger logger = LoggerFactory.getLogger(EchoHandler.class);
-	
+		
 	//서버에 접속이 성공 했을때
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -35,15 +31,12 @@ public class EchoHandler extends TextWebSocketHandler {
 		
 		String senderEmail = getEmail(session);
 		userSessionsMap.put(senderEmail , session);
-		
-		//logger.info("{} 연결됨", session.getId()); 
 	}
 	
 	//소켓에 메세지를 보냈을때
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 //		String senderEmail = getEmail(session);
-		
 		//모든 유저에게 보낸다 - 브로드 캐스팅
 //		for (WebSocketSession sess : sessions) {
 //			sess.sendMessage(new TextMessage(senderNickname + ": " +  message.getPayload()));
@@ -97,20 +90,16 @@ public class EchoHandler extends TextWebSocketHandler {
 					mentorSession.sendMessage(tmpMsg);
 				}
 			}
-			
-			
 		}
 	}
+	
 	//연결 해제될때
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		//System.out.println("afterConnectionClosed " + session + ", " + status);
 		userSessionsMap.remove(session.getId());
 		sessions.remove(session);
-		
-        //logger.info("{} 연결 끊김.", session.getId());
 	}
-	
 	
 	//웹소켓 email 가져오기
 	private String getEmail(WebSocketSession session) {
@@ -119,10 +108,8 @@ public class EchoHandler extends TextWebSocketHandler {
 		
 		if(loginUser == null) {
 			return session.getId();
-		}else {
+		} else {
 			return loginUser.getMember_email();
 		}
 	}
-	
-
 }

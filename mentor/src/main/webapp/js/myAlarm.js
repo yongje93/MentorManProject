@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 $(function(){
 	//$('.alarmGarbage').on('click' , function(){
 	$(document).on('click' , '.alarmGarbage' , function(){

@@ -4,7 +4,7 @@
 <div class="page navbar-fixed mentor_request-steps show" data-name="mentor-request-steps-show">
   <div class="page-content">
 
-    <div class="block block-strong no-hairlines text-align-center hero-title">
+    <div class="block no-hairlines text-align-center hero-title">
       <h1>
         기본 정보
       </h1>
@@ -152,7 +152,7 @@
         </div>
         
         
-            <div class="block block-strong no-hairlines text-align-center hero-title">
+            <div class="block no-hairlines text-align-center hero-title">
       <h1>
         멘토링 분야
       </h1>
@@ -326,7 +326,7 @@
 	</div>
 
 
-    <div class="block block-strong no-hairlines text-align-center hero-title">
+    <div class="block no-hairlines text-align-center hero-title">
       <h1>
         멘토링 정보
       </h1>
@@ -378,7 +378,7 @@
     </div>
 
 
-    <div class="block block-strong no-hairlines text-align-center hero-title">
+    <div class="block  no-hairlines text-align-center hero-title">
       <h1>
         멘토 확인
       </h1>
