@@ -55,6 +55,7 @@
 								<li><a type="external" href="/mentor/mentor/mentorapplyForm">멘토지원하기</a></li>
 							</ul>
 						</div>
+						<hr style="background-color: #c8c7cc;">
 						<div class="list links-list no-hairlines-between">
 							<ul>
 								<li><a type="external" href="">에세이 쓰기</a></li>
@@ -67,6 +68,7 @@
 								<li><a type="external" href="/mentor/mentor/mentorAttention">관심멘토</a></li>
 							</ul>
 						</div>
+						<hr style="background-color: #c8c7cc;">
 						<div class="list links-list no-hairlines-between">
 							<ul>
 								<li><a type="external" href="/mentor/mentee/menteeUserForm">내 정보</a></li>

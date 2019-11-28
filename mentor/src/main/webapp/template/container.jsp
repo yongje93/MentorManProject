@@ -203,7 +203,7 @@
 					<a type="external" href="/mentors/500">
 						<div style="background-image: url()" class="cover-image"></div>
 						<div class="mentor-image img-circle">
-							<img width="50" height="50" src="" />
+							<img width="50" height="50" src="#"/>
 						</div>
 						<div class="mentor-info">
 							<div class="name">
@@ -413,94 +413,4 @@
 	<%-- 신규 에세이 끝 --%>
 	</div>
 </div>
-
-
-<script>
-	!function(e, o, n) {
-		window.HSCW = o, window.HS = n, n.beacon = n.beacon || {};
-		var t = n.beacon;
-		t.userConfig = {}, t.readyQueue = [], t.config = function(e) {
-			this.userConfig = e
-		}, t.ready = function(e) {
-			this.readyQueue.push(e)
-		}, o.config = {
-			docs : {
-				enabled : !0,
-				//고객센터 링크
-				baseUrl : "https://itdaa.helpscoutdocs.com/"
-			},
-			contact : {
-				enabled : !0,
-				formId : "e6312df0-a823-11e8-89df-0ee9bb0328ce"
-			}
-		};
-		var r = e.getElementsByTagName("script")[0], c = e
-				.createElement("script");
-		c.type = "text/javascript", c.async = !0,
-				c.src = "https://djtflbt20bdde.cloudfront.net/", r.parentNode
-						.insertBefore(c, r)
-	}(document, window.HSCW || {}, window.HS || {});
-</script>
-
-
-<script>
-	HS.beacon
-			.config({
-				color : '#ff2d55',
-				icon : 'message',
-				showContactFields : true,
-				showName : true,
-				showSubject : true,
-				topArticles : true,
-				translation : {
-					searchLabel : '질문을 입력하거나 키워드로 검색하세요.',
-					searchErrorLabel : '찾을 수 없습니다.',
-					noResultsLabel : '찾을 수 없습니다.',
-					contactLabel : '문의하기',
-					attachFileLabel : '파일 첨부',
-					attachFileError : '파일이 너무 큽니다.',
-					nameLabel : '이름',
-					nameError : '이름을 입력해 주세요.',
-					emailLabel : '이메일',
-					emailError : '이메일을 입력해 주세요.',
-					topicLabel : '어떤 문의인가요?',
-					topicError : '리스트에서 선택해주세요.',
-					subjectLabel : '제목',
-					subjectError : '제목을 입력해 주세요.',
-					messageLabel : '현재 이용하고 계신 itdaa 서비스는 Beta 버전입니다.여러분의 소중한 의견은 itdaa 서비스 개발에 큰 힘이 됩니다. 보내주신 의견들은 성실히 검토하겠습니다. 감사합니다.',
-					messageError : '내용을 입력해 주세요.',
-					sendLabel : '보내기',
-					contactSuccessLabel : '문의사항이 접수되었습니다.',
-					contactSuccessDescription : '소중한 의견 보내 주셔서 감사합니다. 내용 검토 후에 회신 드리겠습니다.'
-				},
-				topics : [ {
-					val : '버그 신고',
-					label : '버그 신고'
-				}, {
-					val : '이용 문의',
-					label : '이용 문의'
-				}, {
-					val : '서비스 제안',
-					label : '서비스 제안'
-				}, {
-					val : '콘텐츠 제안',
-					label : '콘텐츠 제안'
-				}, {
-					val : '기타',
-					label : '기타'
-				}, ],
-				attachment : true,
-				instructions : '무엇을 도와드릴까요?',
-				zIndex : 10050,
-				poweredBy : false
-			});
-
-		HS.beacon.ready(function() {
-
-		$(document).on('click', '.open-beacon', function(e) {
-			e.preventDefault();
-			HS.beacon.open();
-		});
-	});
-</script>
 <script src="../js/mentor.js"></script>

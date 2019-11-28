@@ -25,3 +25,5 @@
 		</div>
 	</div>
 </footer>
+
+<a href="#" class="top"><i class="fa fa-arrow-up"></i></a>

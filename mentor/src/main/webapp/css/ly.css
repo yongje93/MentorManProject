@@ -314,26 +314,8 @@ p {
     display: none
 }
 
-html.device-ios .statusbar,html.ios:not(.device-ios):not(.device-android) .statusbar {
-    height: 20px
-}
-
-html.device-ios.device-iphone-x .statusbar {
-    height: constant(safe-area-inset-top);
-    height: env(safe-area-inset-top)
-}
-
 html.with-statusbar .statusbar {
     display: block
-}
-
-html.with-statusbar.device-ios .framework7-root,html.with-statusbar.ios:not(.device-ios):not(.device-android) .framework7-root {
-    padding-top: 20px
-}
-
-html.with-statusbar.device-iphone-x .framework7-root {
-    padding-top: constant(safe-area-inset-top);
-    padding-top: env(safe-area-inset-top)
 }
 
 .ios .statusbar {
@@ -921,16 +903,6 @@ html.with-statusbar.device-iphone-x .framework7-root {
     transform-origin: 50% 100%
 }
 
-.ios.device-pixel-ratio-2 .navbar:after {
-    -webkit-transform: scaleY(0.5);
-    transform: scaleY(0.5)
-}
-
-.ios.device-pixel-ratio-3 .navbar:after {
-    -webkit-transform: scaleY(0.33);
-    transform: scaleY(0.33)
-}
-
 .ios .navbar-inner {
     -ms-flex-pack: justify;
     justify-content: space-between;
@@ -1037,18 +1009,6 @@ html.with-statusbar.device-iphone-x .framework7-root {
 
 .ios .theme-dark .navbar .subtitle,.navbar.ios .theme-dark .subtitle {
     color: #8e8e93
-}
-
-@media (orientation: landscape) {
-    .ios.device-iphone-x .ios-left-edge .navbar-inner,.ios.device-iphone-x .ios-edges .navbar-inner,.ios.device-iphone-x .popup .navbar-inner,.ios.device-iphone-x .sheet-modal .navbar-inner,.ios.device-iphone-x .panel-left .navbar-inner {
-        padding-left:calc(8px + constant(safe-area-inset-right));
-        padding-left: calc(8px + env(safe-area-inset-right))
-    }
-
-    .ios.device-iphone-x .ios-right-edge .navbar-inner,.ios.device-iphone-x .ios-edges .navbar-inner,.ios.device-iphone-x .popup .navbar-inner,.ios.device-iphone-x .sheet-modal .navbar-inner,.ios.device-iphone-x .panel-right .navbar-inner {
-        padding-right: calc(8px + constant(safe-area-inset-right));
-        padding-right: calc(8px + env(safe-area-inset-right))
-    }
 }
 
 @-webkit-keyframes ios-navbar-element-fade-in {
@@ -1266,16 +1226,6 @@ html.with-statusbar.device-iphone-x .framework7-root {
     transform-origin: 50% 0%
 }
 
-.ios.device-pixel-ratio-2 .toolbar:before {
-    -webkit-transform: scaleY(0.5);
-    transform: scaleY(0.5)
-}
-
-.ios.device-pixel-ratio-3 .toolbar:before {
-    -webkit-transform: scaleY(0.33);
-    transform: scaleY(0.33)
-}
-
 .ios .toolbar-inner {
     padding: 0 8px
 }
@@ -1447,58 +1397,6 @@ html.with-statusbar.device-iphone-x .framework7-root {
     color: #000000
 }
 
-.ios.device-iphone-x .views>.toolbar,.ios.device-iphone-x .view>.toolbar,.ios.device-iphone-x .page>.toolbar,.ios.device-iphone-x .popup>.toolbar,.ios.device-iphone-x .panel>.toolbar,.ios.device-iphone-x .login-screen>.toolbar {
-    height: calc(44px + constant(safe-area-inset-bottom));
-    height: calc(44px + env(safe-area-inset-bottom))
-}
-
-.ios.device-iphone-x .views>.toolbar .toolbar-inner,.ios.device-iphone-x .view>.toolbar .toolbar-inner,.ios.device-iphone-x .page>.toolbar .toolbar-inner,.ios.device-iphone-x .popup>.toolbar .toolbar-inner,.ios.device-iphone-x .panel>.toolbar .toolbar-inner,.ios.device-iphone-x .login-screen>.toolbar .toolbar-inner {
-    height: auto;
-    bottom: constant(safe-area-inset-bottom);
-    bottom: env(safe-area-inset-bottom)
-}
-
-.ios.device-iphone-x .views>.tabbar-labels,.ios.device-iphone-x .view>.tabbar-labels,.ios.device-iphone-x .page>.tabbar-labels,.ios.device-iphone-x .popup>.tabbar-labels,.ios.device-iphone-x .panel>.tabbar-labels,.ios.device-iphone-x .login-screen>.tabbar-labels {
-    height: calc(50px + constant(safe-area-inset-bottom));
-    height: calc(50px + env(safe-area-inset-bottom))
-}
-
-@media (min-width: 768px) {
-    .ios.device-iphone-x .views>.tabbar-labels,.ios.device-iphone-x .view>.tabbar-labels,.ios.device-iphone-x .page>.tabbar-labels,.ios.device-iphone-x .popup>.tabbar-labels,.ios.device-iphone-x .panel>.tabbar-labels,.ios.device-iphone-x .login-screen>.tabbar-labels {
-        height:calc(56px + constant(safe-area-inset-bottom));
-        height: calc(56px + env(safe-area-inset-bottom))
-    }
-}
-
-.ios.device-iphone-x .toolbar ~ * .page-content,.ios.device-iphone-x .toolbar ~ .page-content {
-    padding-bottom: calc(44px + constant(safe-area-inset-bottom));
-    padding-bottom: calc(44px + env(safe-area-inset-bottom))
-}
-
-.ios.device-iphone-x .tabbar-labels ~ * .page-content,.ios.device-iphone-x .tabbar-labels ~ .page-content {
-    padding-bottom: calc(50px + constant(safe-area-inset-bottom));
-    padding-bottom: calc(50px + env(safe-area-inset-bottom))
-}
-
-@media (min-width: 768px) {
-    .ios.device-iphone-x .tabbar-labels ~ * .page-content,.ios.device-iphone-x .tabbar-labels ~ .page-content {
-        padding-bottom:calc(56px + constant(safe-area-inset-bottom));
-        padding-bottom: calc(56px + env(safe-area-inset-bottom))
-    }
-}
-
-@media (orientation: landscape) {
-    .ios.device-iphone-x .ios-left-edge .toolbar-inner,.ios.device-iphone-x .ios-edges .toolbar-inner,.ios.device-iphone-x .popup .toolbar-inner,.ios.device-iphone-x .sheet-modal .toolbar-inner,.ios.device-iphone-x .panel-left .toolbar-inner {
-        padding-left:calc(8px + constant(safe-area-inset-left));
-        padding-left: calc(8px + env(safe-area-inset-left))
-    }
-
-    .ios.device-iphone-x .ios-right-edge .toolbar-inner,.ios.device-iphone-x .ios-edges .toolbar-inner,.ios.device-iphone-x .popup .toolbar-inner,.ios.device-iphone-x .sheet-modal .toolbar-inner,.ios.device-iphone-x .panel-right .toolbar-inner {
-        padding-right: calc(8px + constant(safe-area-inset-right));
-        padding-right: calc(8px + env(safe-area-inset-right))
-    }
-}
-
 .subnavbar {
     width: 100%;
     position: absolute;
@@ -1642,16 +1540,6 @@ html.with-statusbar.device-iphone-x .framework7-root {
     transform-origin: 50% 100%
 }
 
-.ios.device-pixel-ratio-2 .subnavbar:after {
-    -webkit-transform: scaleY(0.5);
-    transform: scaleY(0.5)
-}
-
-.ios.device-pixel-ratio-3 .subnavbar:after {
-    -webkit-transform: scaleY(0.33);
-    transform: scaleY(0.33)
-}
-
 .ios .subnavbar-inner {
     padding: 0 8px
 }
@@ -1675,20 +1563,6 @@ html.with-statusbar.device-iphone-x .framework7-root {
 .ios .theme-dark .subnavbar:after,.subnavbar.ios .theme-dark:after {
     background-color: #282829
 }
-
-@media (orientation: landscape) {
-    .ios.device-iphone-x .ios-left-edge .subnavbar-inner,.ios.device-iphone-x .ios-edges .subnavbar-inner,.ios.device-iphone-x .popup .subnavbar-inner,.ios.device-iphone-x .sheet-modal .subnavbar-inner,.ios.device-iphone-x .panel-left .subnavbar-inner {
-        padding-left:calc(8px + constant(safe-area-inset-left));
-        padding-left: calc(8px + env(safe-area-inset-left))
-    }
-
-    .ios.device-iphone-x .ios-right-edge .subnavbar-inner,.ios.device-iphone-x .ios-edges .subnavbar-inner,.ios.device-iphone-x .popup .subnavbar-inner,.ios.device-iphone-x .sheet-modal .subnavbar-inner,.ios.device-iphone-x .panel-right .subnavbar-inner {
-        padding-right: calc(8px + constant(safe-area-inset-right));
-        padding-right: calc(8px + env(safe-area-inset-right))
-    }
-}
-
-
 
 .block {
     -webkit-box-sizing: border-box;
@@ -1802,16 +1676,6 @@ html.with-statusbar.device-iphone-x .framework7-root {
     transform-origin: 50% 0%
 }
 
-.ios.device-pixel-ratio-2 .block-strong:before {
-    -webkit-transform: scaleY(0.5);
-    transform: scaleY(0.5)
-}
-
-.ios.device-pixel-ratio-3 .block-strong:before {
-    -webkit-transform: scaleY(0.33);
-    transform: scaleY(0.33)
-}
-
 .ios .block-strong:after {
     content: '';
     position: absolute;
@@ -1826,16 +1690,6 @@ html.with-statusbar.device-iphone-x .framework7-root {
     width: 100%;
     -webkit-transform-origin: 50% 100%;
     transform-origin: 50% 100%
-}
-
-.ios.device-pixel-ratio-2 .block-strong:after {
-    -webkit-transform: scaleY(0.5);
-    transform: scaleY(0.5)
-}
-
-.ios.device-pixel-ratio-3 .block-strong:after {
-    -webkit-transform: scaleY(0.33);
-    transform: scaleY(0.33)
 }
 
 .ios .block.inset {
@@ -2073,6 +1927,34 @@ html.with-statusbar.device-iphone-x .framework7-root {
 
 .list.simple-list li:last-child:after {
     display: none !important
+}
+
+.list.no-hairlines-between.links-list a:after,.md .list.no-hairlines-between-md.links-list a:after,.ios .list.no-hairlines-between-ios.links-list a:after {
+    display: none !important
+}
+
+.ios .popover .list:first-child ul {
+    border-radius: 13px 13px 0 0
+}
+
+.ios .popover .list:first-child li:first-child,.ios .popover .list:first-child li:first-child a,.ios .popover .list:first-child li:first-child>label {
+    border-radius: 13px 13px 0 0
+}
+
+.ios .popover .list:last-child ul {
+    border-radius: 0 0 13px 13px
+}
+
+.ios .popover .list:last-child li:last-child,.ios .popover .list:last-child li:last-child a,.ios .popover .list:last-child li:last-child>label {
+    border-radius: 0 0 13px 13px
+}
+
+.ios .popover .list:first-child:last-child li:first-child:last-child,.ios .popover .list:first-child:last-child li:first-child:last-child a,.ios .popover .list:first-child:last-child li:first-child:last-child>label,.ios .popover .list:first-child:last-child ul {
+    border-radius: 13px
+}
+
+.ios .popover .list+.list {
+    margin-top: 35px
 }
 
 .list.links-list a {
@@ -2323,16 +2205,6 @@ li.list-group-title:before {
     transform-origin: 50% 100%
 }
 
-.ios.device-pixel-ratio-2 .simple-list li:after {
-    -webkit-transform: scaleY(0.5);
-    transform: scaleY(0.5)
-}
-
-.ios.device-pixel-ratio-3 .simple-list li:after {
-    -webkit-transform: scaleY(0.33);
-    transform: scaleY(0.33)
-}
-
 .ios .simple-list li {
     padding-left: 15px;
     padding-right: 15px;
@@ -2362,16 +2234,6 @@ li.list-group-title:before {
     transform-origin: 50% 100%
 }
 
-.ios.device-pixel-ratio-2 .links-list a:after {
-    -webkit-transform: scaleY(0.5);
-    transform: scaleY(0.5)
-}
-
-.ios.device-pixel-ratio-3 .links-list a:after {
-    -webkit-transform: scaleY(0.33);
-    transform: scaleY(0.33)
-}
-
 .ios .links-list a {
     height: 44px;
     color: inherit
@@ -2388,8 +2250,8 @@ li.list-group-title:before {
 }
 /* 네비바 */
 .ios .links-list a {
-    padding-left: 5px;
-    padding-right: 35px
+    padding-left: 12px;
+    padding-right: 30px;
 }
 
 .ios .links-list a:after {
@@ -2466,16 +2328,6 @@ li.list-group-title:before {
     transform-origin: 50% 0%
 }
 
-.ios.device-pixel-ratio-2 .item-divider:before {
-    -webkit-transform: scaleY(0.5);
-    transform: scaleY(0.5)
-}
-
-.ios.device-pixel-ratio-3 .item-divider:before {
-    -webkit-transform: scaleY(0.33);
-    transform: scaleY(0.33)
-}
-
 .ios .list-group-title:before {
     content: '';
     position: absolute;
@@ -2490,16 +2342,6 @@ li.list-group-title:before {
     width: 100%;
     -webkit-transform-origin: 50% 0%;
     transform-origin: 50% 0%
-}
-
-.ios.device-pixel-ratio-2 .list-group-title:before {
-    -webkit-transform: scaleY(0.5);
-    transform: scaleY(0.5)
-}
-
-.ios.device-pixel-ratio-3 .list-group-title:before {
-    -webkit-transform: scaleY(0.33);
-    transform: scaleY(0.33)
 }
 
 .ios .list .list-button:after {
@@ -2518,16 +2360,6 @@ li.list-group-title:before {
     transform-origin: 50% 100%
 }
 
-.ios.device-pixel-ratio-2 .list .list-button:after {
-    -webkit-transform: scaleY(0.5);
-    transform: scaleY(0.5)
-}
-
-.ios.device-pixel-ratio-3 .list .list-button:after {
-    -webkit-transform: scaleY(0.33);
-    transform: scaleY(0.33)
-}
-
 .ios .list .item-inner:after {
     content: '';
     position: absolute;
@@ -2544,20 +2376,9 @@ li.list-group-title:before {
     transform-origin: 50% 100%
 }
 
-.ios.device-pixel-ratio-2 .list .item-inner:after {
-    -webkit-transform: scaleY(0.5);
-    transform: scaleY(0.5)
-}
-
-.ios.device-pixel-ratio-3 .list .item-inner:after {
-    -webkit-transform: scaleY(0.33);
-    transform: scaleY(0.33)
-}
-
 .ios .list ul:before {
     content: '';
     position: absolute;
-    background-color: #c8c7cc;
     display: block;
     z-index: 15;
     top: 0;
@@ -2570,20 +2391,10 @@ li.list-group-title:before {
     transform-origin: 50% 0%
 }
 
-.ios.device-pixel-ratio-2 .list ul:before {
-    -webkit-transform: scaleY(0.5);
-    transform: scaleY(0.5)
-}
-
-.ios.device-pixel-ratio-3 .list ul:before {
-    -webkit-transform: scaleY(0.33);
-    transform: scaleY(0.33)
-}
 
 .ios .list ul:after {
     content: '';
     position: absolute;
-    background-color: #c8c7cc;
     display: block;
     z-index: 15;
     top: auto;
@@ -2594,16 +2405,6 @@ li.list-group-title:before {
     width: 100%;
     -webkit-transform-origin: 50% 100%;
     transform-origin: 50% 100%
-}
-
-.ios.device-pixel-ratio-2 .list ul:after {
-    -webkit-transform: scaleY(0.5);
-    transform: scaleY(0.5)
-}
-
-.ios.device-pixel-ratio-3 .list ul:after {
-    -webkit-transform: scaleY(0.33);
-    transform: scaleY(0.33)
 }
 
 .ios .list.inset {
@@ -2666,16 +2467,6 @@ li.list-group-title:before {
     width: 100%;
     -webkit-transform-origin: 50% 100%;
     transform-origin: 50% 100%
-}
-
-html.device-pixel-ratio-2 .ios li li:last-child .item-inner:after,html.device-pixel-ratio-2 .ios li:last-child li .item-inner:after {
-    -webkit-transform: scaleY(0.5);
-    transform: scaleY(0.5)
-}
-
-html.device-pixel-ratio-3 .ios li li:last-child .item-inner:after,html.device-pixel-ratio-3 .ios li:last-child li .item-inner:after {
-    -webkit-transform: scaleY(0.33);
-    transform: scaleY(0.33)
 }
 
 .ios .color-theme-red .list-button {
@@ -3638,16 +3429,6 @@ html.with-modal-dialog .page-content {
     transform-origin: 50% 100%
 }
 
-.ios.device-pixel-ratio-2 .dialog-inner:after {
-    -webkit-transform: scaleY(0.5);
-    transform: scaleY(0.5)
-}
-
-.ios.device-pixel-ratio-3 .dialog-inner:after {
-    -webkit-transform: scaleY(0.33);
-    transform: scaleY(0.33)
-}
-
 .ios .dialog-title {
     font-size: 18px;
     text-align: center;
@@ -3741,16 +3522,6 @@ html.with-modal-dialog .page-content {
     transform-origin: 100% 50%
 }
 
-.ios.device-pixel-ratio-2 .dialog-button:after {
-    -webkit-transform: scaleX(0.5);
-    transform: scaleX(0.5)
-}
-
-.ios.device-pixel-ratio-3 .dialog-button:after {
-    -webkit-transform: scaleX(0.33);
-    transform: scaleX(0.33)
-}
-
 .ios .dialog-buttons-vertical .dialog-button:after {
     content: '';
     position: absolute;
@@ -3765,16 +3536,6 @@ html.with-modal-dialog .page-content {
     width: 100%;
     -webkit-transform-origin: 50% 100%;
     transform-origin: 50% 100%
-}
-
-.ios.device-pixel-ratio-2 .dialog-buttons-vertical .dialog-button:after {
-    -webkit-transform: scaleY(0.5);
-    transform: scaleY(0.5)
-}
-
-.ios.device-pixel-ratio-3 .dialog-buttons-vertical .dialog-button:after {
-    -webkit-transform: scaleY(0.33);
-    transform: scaleY(0.33)
 }
 
 .ios .dialog-no-buttons .dialog-inner {
@@ -3955,34 +3716,6 @@ html.with-modal-dialog .page-content {
     html.with-statusbar .popup-backdrop {
         z-index:9500
     }
-
-    html.with-statusbar.device-ios .popup,html.with-statusbar.ios:not(.device-ios):not(.device-android) .popup {
-        height: calc(100% - 20px);
-        top: 20px
-    }
-
-    html.with-statusbar.device-iphone-x .popup {
-        height: calc(100% - constant(safe-area-inset-top));
-        height: calc(100% - env(safe-area-inset-top));
-        top: constant(safe-area-inset-top);
-        top: env(safe-area-inset-top)
-    }
-
-}
-
-@media (min-width: 630px), (min-height: 630px) {
-    html.with-statusbar.device-ios .popup-tablet-fullscreen,html.with-statusbar.ios:not(.device-ios):not(.device-android) .popup-tablet-fullscreen {
-        height:calc(100% - 20px);
-        top: 20px
-    }
-
-    html.with-statusbar.device-iphone-x .popup-tablet-fullscreen {
-        height: calc(100% - constant(safe-area-inset-top));
-        height: calc(100% - env(safe-area-inset-top));
-        top: constant(safe-area-inset-top);
-        top: env(safe-area-inset-top)
-    }
-
 }
 
 html.with-modal-popup .framework7-root>.views .page-content,html.with-modal-popup .framework7-root>.view .page-content,html.with-modal-popup .framework7-root>.panel .page-content {
@@ -4199,16 +3932,6 @@ html.with-modal-popup .framework7-root>.views .page-content,html.with-modal-popu
     width: 100%;
     -webkit-transform-origin: 50% 100%;
     transform-origin: 50% 100%
-}
-
-.ios.device-pixel-ratio-2 .popover-from-actions-label:after {
-    -webkit-transform: scaleY(0.5);
-    transform: scaleY(0.5)
-}
-
-.ios.device-pixel-ratio-3 .popover-from-actions-label:after {
-    -webkit-transform: scaleY(0.33);
-    transform: scaleY(0.33)
 }
 
 .ios .theme-dark .popover,.popover.ios .theme-dark {
@@ -4537,16 +4260,6 @@ html.with-modal-popup .framework7-root>.views .page-content,html.with-modal-popu
     transform-origin: 50% 100%
 }
 
-.ios.device-pixel-ratio-2 .actions-button:after {
-    -webkit-transform: scaleY(0.5);
-    transform: scaleY(0.5)
-}
-
-.ios.device-pixel-ratio-3 .actions-button:after {
-    -webkit-transform: scaleY(0.33);
-    transform: scaleY(0.33)
-}
-
 .ios .actions-label:after {
     content: '';
     position: absolute;
@@ -4561,16 +4274,6 @@ html.with-modal-popup .framework7-root>.views .page-content,html.with-modal-popu
     width: 100%;
     -webkit-transform-origin: 50% 100%;
     transform-origin: 50% 100%
-}
-
-.ios.device-pixel-ratio-2 .actions-label:after {
-    -webkit-transform: scaleY(0.5);
-    transform: scaleY(0.5)
-}
-
-.ios.device-pixel-ratio-3 .actions-label:after {
-    -webkit-transform: scaleY(0.33);
-    transform: scaleY(0.33)
 }
 
 .ios .actions-button.color-red,.ios .actions-label.color-red {
@@ -4607,13 +4310,6 @@ html.with-modal-popup .framework7-root>.views .page-content,html.with-modal-popu
 
 .ios .actions-button.color-black,.ios .actions-label.color-black {
     color: #000000
-}
-
-.ios.device-iphone-x .actions-modal.modal-in {
-    -webkit-transform: translate3d(0, calc(0px - constant(safe-area-inset-bottom)), 0);
-    transform: translate3d(0, calc(0px - constant(safe-area-inset-bottom)), 0);
-    -webkit-transform: translate3d(0, calc(0px - env(safe-area-inset-bottom)), 0);
-    transform: translate3d(0, calc(0px - env(safe-area-inset-bottom)), 0)
 }
 
 .sheet-backdrop {
@@ -4724,21 +4420,6 @@ html.with-modal-popup .framework7-root>.views .page-content,html.with-modal-popu
     transform-origin: 50% 0%
 }
 
-.ios.device-pixel-ratio-2 .sheet-modal .toolbar:before {
-    -webkit-transform: scaleY(0.5);
-    transform: scaleY(0.5)
-}
-
-.ios.device-pixel-ratio-3 .sheet-modal .toolbar:before {
-    -webkit-transform: scaleY(0.33);
-    transform: scaleY(0.33)
-}
-
-.ios.device-iphone-x .sheet-modal .toolbar ~ .sheet-modal-inner .page-content,.ios.device-iphone-x .sheet-modal .sheet-modal-inner>.page-content {
-    padding-bottom: constant(safe-area-inset-bottom);
-    padding-bottom: env(safe-area-inset-bottom)
-}
-
 .ios .theme-dark .sheet-modal,.sheet-modal.ios .theme-dark {
     background-color: #171717
 }
@@ -4822,15 +4503,6 @@ html.with-modal-popup .framework7-root>.views .page-content,html.with-modal-popu
     .toast {
         opacity:0
     }
-}
-
-html.with-statusbar.device-ios .toast-top,html.with-statusbar.ios:not(.device-ios):not(.device-android) .toast-top {
-    margin-top: 20px
-}
-
-html.with-statusbar.device-iphone-x .toast-top {
-    margin-top: constant(safe-area-inset-top);
-    margin-top: env(safe-area-inset-top)
 }
 
 .ios .toast {
@@ -4931,20 +4603,6 @@ html.with-statusbar.device-iphone-x .toast-top {
 .ios .toast-button {
     color: #fff;
     margin-left: 15px
-}
-
-@media (max-width: 568px) {
-    .ios.device-iphone-x .toast-bottom .toast-content {
-        padding-bottom:calc(12px + constant(safe-area-inset-bottom));
-        padding-bottom: calc(12px + env(safe-area-inset-bottom))
-    }
-}
-
-@media (min-width: 569px) {
-    .ios.device-iphone-x .toast-bottom {
-        bottom:calc(15px + constant(safe-area-inset-bottom));
-        bottom: calc(15px + env(safe-area-inset-bottom))
-    }
 }
 
 .preloader {
@@ -5085,195 +4743,6 @@ body>.progressbar,.view>.progressbar,.views>.progressbar,.page>.progressbar,.pan
     border-radius: 0 !important;
     -webkit-transform-origin: center top !important;
     transform-origin: center top !important
-}
-
-.with-statusbar.device-ios body>.progressbar,.with-statusbar.ios:not(.device-ios):not(.device-android) body>.progressbar,.with-statusbar.device-ios .framework7-root>.progressbar,.with-statusbar.ios:not(.device-ios):not(.device-android) .framework7-root>.progressbar,.with-statusbar.device-ios body>.progressbar-infinite,.with-statusbar.ios:not(.device-ios):not(.device-android) body>.progressbar-infinite,.with-statusbar.device-ios .framework7-root>.progressbar-infinite,.with-statusbar.ios:not(.device-ios):not(.device-android) .framework7-root>.progressbar-infinite {
-    top: 20px
-}
-
-.with-statusbar.device-iphone-x body>.progressbar,.with-statusbar.device-iphone-x .framework7-root>.progressbar,.with-statusbar.device-iphone-x body>.progressbar-infinite,.with-statusbar.device-iphone-x .framework7-root>.progressbar-infinite {
-    top: constant(safe-area-inset-top);
-    top: env(safe-area-inset-top)
-}
-
-.sortable .sortable-handler {
-    position: absolute;
-    top: 0;
-    bottom: 1px;
-    z-index: 10;
-    background-repeat: no-repeat;
-    background-size: 18px 12px;
-    opacity: 0;
-    pointer-events: none;
-    cursor: move;
-    -webkit-transition-duration: 300ms;
-    transition-duration: 300ms;
-    right: 0;
-    background-position: 100% 50%
-}
-
-.sortable .item-inner {
-    -webkit-transition-duration: 300ms;
-    transition-duration: 300ms
-}
-
-.sortable li.sorting {
-    z-index: 50;
-    background: rgba(255,255,255,0.8);
-    -webkit-transition-duration: 0ms;
-    transition-duration: 0ms
-}
-
-.sortable li.sorting .item-inner:after {
-    display: none !important
-}
-
-.sortable-sorting li {
-    -webkit-transition-duration: 300ms;
-    transition-duration: 300ms
-}
-
-.sortable-enabled .sortable-handler {
-    pointer-events: auto;
-    opacity: 1;
-    background-position: 50% 50%
-}
-
-.sortable-enabled .item-link .item-inner,.sortable-enabled .item-link .item-title-row {
-    background-image: none !important
-}
-
-.theme-dark .sortable li.sorting,.sortable.theme-dark li.sorting {
-    background-color: rgba(50,50,50,0.8)
-}
-
-.ios .sortable-handler {
-    width: 35px;
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2018%2012'%20fill%3D'%23c7c7cc'%3E%3Cpath%20d%3D'M0%2C2V0h22v2H0z'%2F%3E%3Cpath%20d%3D'M0%2C7V5h22v2H0z'%2F%3E%3Cpath%20d%3D'M0%2C12v-2h22v2H0z'%2F%3E%3C%2Fsvg%3E")
-}
-
-.ios .sortable li.sorting {
-    -webkit-box-shadow: 0px 2px 8px rgba(0,0,0,0.6);
-    box-shadow: 0px 2px 8px rgba(0,0,0,0.6)
-}
-
-.ios .sortable-enabled .item-inner,.ios .sortable-enabled .item-link .item-inner {
-    padding-right: 35px
-}
-
-.ios .list.sortable-enabled .item-link.no-chevron .item-inner,.ios .list.sortable-enabled.no-chevron .item-link .item-inner,.ios .list.sortable-enabled .no-chevron .item-link .item-inner,.ios .no-chevron .list.sortable-enabled .item-link .item-inner {
-    padding-right: 35px
-}
-
-@media (orientation: landscape) {
-    .ios.device-iphone-x .ios-right-edge .sortable-handler,.ios.device-iphone-x .ios-edges .sortable-handler,.ios.device-iphone-x .popup .sortable-handler,.ios.device-iphone-x .sheet-modal .sortable-handler,.ios.device-iphone-x .panel-right .sortable-handler {
-        right:constant(safe-area-inset-right);
-        right: env(safe-area-inset-right)
-    }
-
-    .ios.device-iphone-x .ios-right-edge .sortable-enabled:not(.inset):not(.tablet-inset):not(.no-ios-edges):not(.no-ios-right-edge) .item-inner,.ios.device-iphone-x .ios-edges .sortable-enabled:not(.inset):not(.tablet-inset):not(.no-ios-edges):not(.no-ios-right-edge) .item-inner,.ios.device-iphone-x .popup .sortable-enabled:not(.inset):not(.tablet-inset):not(.no-ios-edges):not(.no-ios-right-edge) .item-inner,.ios.device-iphone-x .sheet-modal .sortable-enabled:not(.inset):not(.tablet-inset):not(.no-ios-edges):not(.no-ios-right-edge) .item-inner,.ios.device-iphone-x .panel-right .sortable-enabled:not(.inset):not(.tablet-inset):not(.no-ios-edges):not(.no-ios-right-edge) .item-inner,.ios.device-iphone-x .ios-right-edge .sortable-enabled:not(.inset):not(.tablet-inset):not(.no-ios-edges):not(.no-ios-right-edge) .item-link .item-inner,.ios.device-iphone-x .ios-edges .sortable-enabled:not(.inset):not(.tablet-inset):not(.no-ios-edges):not(.no-ios-right-edge) .item-link .item-inner,.ios.device-iphone-x .popup .sortable-enabled:not(.inset):not(.tablet-inset):not(.no-ios-edges):not(.no-ios-right-edge) .item-link .item-inner,.ios.device-iphone-x .sheet-modal .sortable-enabled:not(.inset):not(.tablet-inset):not(.no-ios-edges):not(.no-ios-right-edge) .item-link .item-inner,.ios.device-iphone-x .panel-right .sortable-enabled:not(.inset):not(.tablet-inset):not(.no-ios-edges):not(.no-ios-right-edge) .item-link .item-inner {
-        padding-right: calc(35px + constant(safe-area-inset-right));
-        padding-right: calc(35px + env(safe-area-inset-right))
-    }
-}
-
-.accordion-item-toggle {
-    cursor: pointer;
-    -webkit-transition-duration: 300ms;
-    transition-duration: 300ms
-}
-
-.accordion-item-toggle.active-state {
-    -webkit-transition-duration: 300ms;
-    transition-duration: 300ms
-}
-
-.accordion-item-toggle.active-state>.item-inner:after {
-    background-color: transparent
-}
-
-.accordion-item-toggle .item-inner {
-    -webkit-transition-duration: 300ms;
-    transition-duration: 300ms;
-    -webkit-transition-property: background-color;
-    transition-property: background-color
-}
-
-.accordion-item-toggle .item-inner:after {
-    -webkit-transition-duration: 300ms;
-    transition-duration: 300ms
-}
-
-.accordion-item .item-link .item-inner:after {
-    -webkit-transition-duration: 300ms;
-    transition-duration: 300ms
-}
-
-.accordion-item .list,.accordion-item .block {
-    margin-top: 0;
-    margin-bottom: 0
-}
-
-.accordion-item .block>h1:first-child,.accordion-item .block>h2:first-child,.accordion-item .block>h3:first-child,.accordion-item .block>h4:first-child,.accordion-item .block>p:first-child {
-    margin-top: 10px
-}
-
-.accordion-item .block>h1:last-child,.accordion-item .block>h2:last-child,.accordion-item .block>h3:last-child,.accordion-item .block>h4:last-child,.accordion-item .block>p:last-child {
-    margin-bottom: 10px
-}
-
-.accordion-item-opened .accordion-item-toggle .item-inner:after,.accordion-item-opened>.item-link .item-inner:after {
-    background-color: transparent
-}
-
-.list li.accordion-item ul {
-    padding-left: 0
-}
-
-.accordion-item-content {
-    position: relative;
-    overflow: hidden;
-    height: 0;
-    font-size: 14px;
-    -webkit-transition-duration: 300ms;
-    transition-duration: 300ms
-}
-
-.accordion-item-opened>.accordion-item-content {
-    height: auto
-}
-
-html.device-android-4 .accordion-item-content {
-    -webkit-transform: none;
-    transform: none
-}
-
-.ios .list .accordion-item-toggle .item-inner {
-    background-size: 8px 13px;
-    background: no-repeat calc(100% - 15px) center;
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20width%3D'8px'%20height%3D'13px'%20viewBox%3D'0%200%208%2013'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cpolygon%20fill%3D'%23c7c7cc'%20transform%3D'translate(1.500000%2C%206.500000)%20rotate(-45.000000)%20translate(-1.500000%2C%20-6.500000)%20'%20points%3D'6%2011%206%202%204%202%204%209%20-3%209%20-3%2011%205%2011'%3E%3C%2Fpolygon%3E%3C%2Fsvg%3E");
-    padding-right: 35px
-}
-
-.ios .list .accordion-item-toggle.active-state {
-    background-color: #d9d9d9
-}
-
-.ios .list:not(.media-list) .accordion-item-opened:not(.media-item) .accordion-item-toggle .item-inner,.ios .list:not(.media-list) .accordion-item-opened:not(.media-item)>.item-link .item-inner,.ios .media-list .accordion-item-opened .accordion-item-toggle .item-title-row,.ios .media-list .accordion-item-opened>.item-link .item-title-row,.ios .accordion-item-opened.media-item .accordion-item-toggle .item-title-row,.ios .accordion-item-opened.media-item>.item-link .item-title-row,.ios .links-list .accordion-item-opened>a {
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20width%3D'13px'%20height%3D'8px'%20viewBox%3D'0%200%208%2013'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cpolygon%20fill%3D'%23c7c7cc'%20transform%3D'translate(6.5%2C%206.5)%20rotate(-315)%20translate(-10%2C%20-6.5)'%20points%3D'11%2011%2011%202%209%202%209%209%202%209%202%2011%2010%2011'%3E%3C%2Fpolygon%3E%3C%2Fsvg%3E");
-    background-size: 13px 13px
-}
-
-.ios .theme-dark .list .accordion-item-toggle .item-inner {
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20width%3D'8px'%20height%3D'13px'%20viewBox%3D'0%200%208%2013'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cpolygon%20fill%3D'%23434345'%20transform%3D'translate(1.500000%2C%206.500000)%20rotate(-45.000000)%20translate(-1.500000%2C%20-6.500000)%20'%20points%3D'6%2011%206%202%204%202%204%209%20-3%209%20-3%2011%205%2011'%3E%3C%2Fpolygon%3E%3C%2Fsvg%3E")
-}
-
-.ios .theme-dark .list .accordion-item-toggle.active-state {
-    background-color: #363636
-}
-
-.ios .theme-dark .list:not(.media-list) .accordion-item-opened:not(.media-item) .accordion-item-toggle .item-inner,.ios .theme-dark .list:not(.media-list) .accordion-item-opened:not(.media-item)>.item-link .item-inner,.ios .theme-dark .media-list .accordion-item-opened .accordion-item-toggle .item-title-row,.ios .theme-dark .media-list .accordion-item-opened>.item-link .item-title-row,.ios .theme-dark .accordion-item-opened.media-item .accordion-item-toggle .item-title-row,.ios .theme-dark .accordion-item-opened.media-item>.item-link .item-title-row,.ios .theme-dark .links-list .accordion-item-opened>a {
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20width%3D'13px'%20height%3D'8px'%20viewBox%3D'0%200%208%2013'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cpolygon%20fill%3D'%23434345'%20transform%3D'translate(6.5%2C%206.5)%20rotate(-315)%20translate(-10%2C%20-6.5)'%20points%3D'11%2011%2011%202%209%202%209%209%202%209%202%2011%2010%2011'%3E%3C%2Fpolygon%3E%3C%2Fsvg%3E")
 }
 
 .contacts-list .list-group:first-child ul:before {
@@ -5741,19 +5210,6 @@ html.with-panel-right-cover .panel-right {
     transform: translate3d(0px, 0, 0)
 }
 
-html.with-statusbar.device-ios .panel,html.with-statusbar.ios:not(.device-ios):not(.device-android) .panel {
-    top: 20px;
-    height: calc(100% - 20px)
-}
-
-
-html.with-statusbar.device-iphone-x .panel {
-    top: constant(safe-area-inset-top);
-    top: env(safe-area-inset-top);
-    height: calc(100% - constant(safe-area-inset-top));
-    height: calc(100% - env(safe-area-inset-top))
-}
-
 .ios .panel-backdrop {
     -webkit-transition-duration: 400ms;
     transition-duration: 400ms;
@@ -5875,16 +5331,6 @@ html.with-statusbar.device-iphone-x .panel {
     transform-origin: 50% 100%
 }
 
-html.device-pixel-ratio-2 .card-header:after {
-    -webkit-transform: scaleY(0.5);
-    transform: scaleY(0.5)
-}
-
-html.device-pixel-ratio-3 .card-header:after {
-    -webkit-transform: scaleY(0.33);
-    transform: scaleY(0.33)
-}
-
 .card-header.no-hairline:after {
     display: none !important
 }
@@ -5973,18 +5419,6 @@ html.device-pixel-ratio-3 .card-footer:before {
 
 .ios .card-footer {
     color: #6d6d72
-}
-
-@media (orientation: landscape) {
-    .ios.device-iphone-x .ios-left-edge .card:not(.no-ios-edges):not(.no-ios-left-edge),.ios.device-iphone-x .ios-edges .card:not(.no-ios-edges):not(.no-ios-left-edge),.ios.device-iphone-x .popup .card:not(.no-ios-edges):not(.no-ios-left-edge),.ios.device-iphone-x .sheet-modal .card:not(.no-ios-edges):not(.no-ios-left-edge),.ios.device-iphone-x .panel-left .card:not(.no-ios-edges):not(.no-ios-left-edge) {
-        margin-left:calc(10px + constant(safe-area-inset-left));
-        margin-left: calc(10px + env(safe-area-inset-left))
-    }
-
-    .ios.device-iphone-x .ios-right-edge .card:not(.no-ios-edges):not(.no-ios-right-edge),.ios.device-iphone-x .ios-edges .card:not(.no-ios-edges):not(.no-ios-right-edge),.ios.device-iphone-x .popup .card:not(.no-ios-edges):not(.no-ios-right-edge),.ios.device-iphone-x .sheet-modal .card:not(.no-ios-edges):not(.no-ios-right-edge),.ios.device-iphone-x .panel-right .card:not(.no-ios-edges):not(.no-ios-right-edge) {
-        margin-right: calc(10px + constant(safe-area-inset-right));
-        margin-right: calc(10px + env(safe-area-inset-right))
-    }
 }
 
 .ios .theme-dark .card {
@@ -6752,18 +6186,6 @@ label.item-radio.disabled,.disabled label.item-radio {
     background-color: #d9d9d9
 }
 
-@media (orientation: landscape) {
-    .ios.device-iphone-x .ios-right-edge label.item-radio input[type="radio"] ~ .icon-radio,.ios.device-iphone-x .ios-edges label.item-radio input[type="radio"] ~ .icon-radio,.ios.device-iphone-x .popup label.item-radio input[type="radio"] ~ .icon-radio,.ios.device-iphone-x .sheet-modal label.item-radio input[type="radio"] ~ .icon-radio,.ios.device-iphone-x .panel-right label.item-radio input[type="radio"] ~ .icon-radio {
-        right:calc(10px + constant(safe-area-inset-right));
-        right: calc(10px + env(safe-area-inset-right))
-    }
-
-    .ios.device-iphone-x .ios-right-edge .list:not(.inset):not(.tablet-inset) label.item-radio .item-inner,.ios.device-iphone-x .ios-edges .list:not(.inset):not(.tablet-inset) label.item-radio .item-inner,.ios.device-iphone-x .popup .list:not(.inset):not(.tablet-inset) label.item-radio .item-inner,.ios.device-iphone-x .sheet-modal .list:not(.inset):not(.tablet-inset) label.item-radio .item-inner,.ios.device-iphone-x .panel-right .list:not(.inset):not(.tablet-inset) label.item-radio .item-inner {
-        padding-right: calc(35px + constant(safe-area-inset-right)) !important;
-        padding-right: calc(35px + env(safe-area-inset-right))
-    }
-}
-
 .ios .theme-dark label.item-radio.active-state {
     background-color: #363636
 }
@@ -7076,243 +6498,6 @@ label.item-radio.disabled,.disabled label.item-radio {
 
 .ios .toggle.color-black input[type="checkbox"]:checked+.toggle-icon {
     background-color: #000000
-}
-
-.range-slider {
-    display: block;
-    width: 100%;
-    position: relative;
-    -ms-flex-item-align: center;
-    align-self: center;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none
-}
-
-.range-slider input[type="range"] {
-    display: none
-}
-
-.range-bar {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 100%;
-    overflow: hidden
-}
-
-.range-bar-active {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%
-}
-
-.range-knob-wrap {
-    z-index: 20;
-    position: absolute;
-    top: 50%;
-    left: 0
-}
-
-.range-knob {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    border-radius: 50%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1
-}
-
-.range-knob:after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 44px;
-    height: 44px;
-    margin-left: -22px;
-    margin-top: -22px
-}
-
-.range-knob-label {
-    position: absolute;
-    left: 50%;
-    bottom: 100%;
-    text-align: center;
-    -webkit-transition-duration: 120ms;
-    transition-duration: 120ms;
-    -webkit-transition-property: -webkit-transform;
-    transition-property: -webkit-transform;
-    transition-property: transform;
-    transition-property: transform, -webkit-transform;
-    -webkit-transform: translateY(100%) scale(0);
-    transform: translateY(100%) scale(0)
-}
-
-.range-knob-active-state .range-knob-label {
-    -webkit-transform: translateY(0%) scale(1);
-    transform: translateY(0%) scale(1)
-}
-
-.ios .range-slider {
-    height: 28px
-}
-
-.ios .range-bar {
-    background: #b7b8b7;
-    border-radius: 2px;
-    height: 1px
-}
-
-.ios .range-bar-active {
-    background: #007aff
-}
-
-.ios .range-knob-wrap {
-    height: 28px;
-    width: 28px;
-    margin-top: -14px;
-    margin-left: -14px
-}
-
-.ios .range-knob {
-    background: #fff;
-    -webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.3)
-}
-
-.ios .range-knob-label {
-    min-width: 20px;
-    height: 20px;
-    line-height: 20px;
-    background: #fff;
-    border-radius: 5px;
-    color: #000;
-    font-size: 12px;
-    margin-bottom: 6px;
-    -webkit-transform: translateX(-50%) translateY(100%) scale(0);
-    transform: translateX(-50%) translateY(100%) scale(0)
-}
-
-.ios .range-knob-active-state .range-knob-label {
-    -webkit-transform: translateX(-50%) translateY(0%) scale(1);
-    transform: translateX(-50%) translateY(0%) scale(1)
-}
-
-.ios .color-theme-red .range-slider .range-bar-active {
-    background-color: #ff3b30
-}
-
-.ios .color-theme-green .range-slider .range-bar-active {
-    background-color: #4cd964
-}
-
-.ios .color-theme-blue .range-slider .range-bar-active {
-    background-color: #007aff
-}
-
-.ios .color-theme-pink .range-slider .range-bar-active {
-    background-color: #ff2d55
-}
-
-.ios .color-theme-yellow .range-slider .range-bar-active {
-    background-color: #ffcc00
-}
-
-.ios .color-theme-orange .range-slider .range-bar-active {
-    background-color: #ff9500
-}
-
-.ios .color-theme-gray .range-slider .range-bar-active {
-    background-color: #8e8e93
-}
-
-.ios .color-theme-white .range-slider .range-bar-active {
-    background-color: #ffffff
-}
-
-.ios .color-theme-black .range-slider .range-bar-active {
-    background-color: #000000
-}
-
-.ios .range-slider.color-red .range-bar-active {
-    background-color: #ff3b30
-}
-
-.ios .range-slider.color-green .range-bar-active {
-    background-color: #4cd964
-}
-
-.ios .range-slider.color-blue .range-bar-active {
-    background-color: #007aff
-}
-
-.ios .range-slider.color-pink .range-bar-active {
-    background-color: #ff2d55
-}
-
-.ios .range-slider.color-yellow .range-bar-active {
-    background-color: #ffcc00
-}
-
-.ios .range-slider.color-orange .range-bar-active {
-    background-color: #ff9500
-}
-
-.ios .range-slider.color-gray .range-bar-active {
-    background-color: #8e8e93
-}
-
-.ios .range-slider.color-white .range-bar-active {
-    background-color: #ffffff
-}
-
-.ios .range-slider.color-black .range-bar-active {
-    background-color: #000000
-}
-
-.ios .smart-select-sheet .page {
-    background: #fff
-}
-
-.ios .smart-select-sheet .toolbar:after {
-    content: '';
-    position: absolute;
-    background-color: #c4c4c4;
-    display: block;
-    z-index: 15;
-    top: auto;
-    right: auto;
-    bottom: 0;
-    left: 0;
-    height: 1px;
-    width: 100%;
-    -webkit-transform-origin: 50% 100%;
-    transform-origin: 50% 100%
-}
-
-.ios.device-pixel-ratio-2 .smart-select-sheet .toolbar:after {
-    -webkit-transform: scaleY(0.5);
-    transform: scaleY(0.5)
-}
-
-.ios.device-pixel-ratio-3 .smart-select-sheet .toolbar:after {
-    -webkit-transform: scaleY(0.33);
-    transform: scaleY(0.33)
-}
-
-.ios .theme-dark .smart-select-sheet .page,.ios .theme-dark .smart-select-sheet .sheet-modal-inner {
-    background-color: #1c1c1d
-}
-
-.ios .theme-dark .smart-select-sheet .toolbar:after {
-    background-color: #282829
 }
 
 .row {
@@ -8616,10 +7801,6 @@ label.item-radio.disabled,.disabled label.item-radio {
     opacity: 0
 }
 
-html.device-desktop .data-table .sortable-cell:not(.sortable-cell-active):hover:after,html.device-desktop .data-table .sortable-cell:not(.sortable-cell-active) .table-head-label:hover:after,html.device-desktop .data-table .sortable-cell:not(.sortable-cell-active):hover:before,html.device-desktop .data-table .sortable-cell:not(.sortable-cell-active) .table-head-label:hover:before {
-    opacity: 0.54
-}
-
 .data-table .sortable-cell.sortable-cell-active:after,.data-table .sortable-cell.sortable-cell-active .table-head-label:after,.data-table .sortable-cell.sortable-cell-active:before,.data-table .sortable-cell.sortable-cell-active .table-head-label:before {
     opacity: 0.87 !important
 }
@@ -8898,20 +8079,6 @@ html.device-desktop .data-table .sortable-cell:not(.sortable-cell-active):hover:
     transform-origin: 50% 0%
 }
 
-.ios.device-pixel-ratio-2 .data-table tbody td:before {
-    -webkit-transform: scaleY(0.5);
-    transform: scaleY(0.5)
-}
-
-.ios.device-pixel-ratio-3 .data-table tbody td:before {
-    -webkit-transform: scaleY(0.33);
-    transform: scaleY(0.33)
-}
-
-.ios.device-desktop .data-table tbody tr:hover {
-    background: #f7f7f8
-}
-
 .ios .data-table-footer {
     height: 44px;
     color: #8e8e93
@@ -8948,16 +8115,6 @@ html.device-desktop .data-table .sortable-cell:not(.sortable-cell-active):hover:
     width: 100%;
     -webkit-transform-origin: 50% 0%;
     transform-origin: 50% 0%
-}
-
-.ios.device-pixel-ratio-2 .data-table-footer:before {
-    -webkit-transform: scaleY(0.5);
-    transform: scaleY(0.5)
-}
-
-.ios.device-pixel-ratio-3 .data-table-footer:before {
-    -webkit-transform: scaleY(0.33);
-    transform: scaleY(0.33)
 }
 
 .ios .input-cell {
@@ -9003,15 +8160,6 @@ html.device-desktop .data-table .sortable-cell:not(.sortable-cell-active):hover:
         transform-origin: 50% 0%
     }
 
-    .ios.device-pixel-ratio-2 .data-table-collapsible tr:before {
-        -webkit-transform: scaleY(0.5);
-        transform: scaleY(0.5)
-    }
-
-    .ios.device-pixel-ratio-3 .data-table-collapsible tr:before {
-        -webkit-transform: scaleY(0.33);
-        transform: scaleY(0.33)
-    }
 }
 
 .ios .theme-dark .data-table tbody td:before,.data-table.ios .theme-dark tbody td:before {
@@ -9024,10 +8172,6 @@ html.device-desktop .data-table .sortable-cell:not(.sortable-cell-active):hover:
 
 .ios .theme-dark .data-table tbody tr.data-table-row-selected,.data-table.ios .theme-dark tbody tr.data-table-row-selected {
     background-color: #363636
-}
-
-.ios.device-desktop .theme-dark .data-table tbody tr:hover,.ios.device-desktop .theme-dark.data-table tbody tr:hover {
-    background: #363636
 }
 
 .ios .color-theme-red .data-table-header-selected,.ios .data-table-header-selected.color-red {
@@ -9720,23 +8864,6 @@ html.device-desktop .data-table .sortable-cell:not(.sortable-cell-active):hover:
     background: #000000
 }
 
-.ios.device-iphone-x .fab[class*="-bottom"] {
-    bottom: calc(15px + constant(safe-area-inset-bottom));
-    bottom: calc(15px + env(safe-area-inset-bottom))
-}
-
-@media (orientation: landscape) {
-    .ios.device-iphone-x .ios-left-edge .fab[class*="fab-left"],.ios.device-iphone-x .ios-edges .fab[class*="fab-left"],.ios.device-iphone-x .popup .fab[class*="fab-left"],.ios.device-iphone-x .sheet-modal .fab[class*="fab-left"],.ios.device-iphone-x .panel-left .fab[class*="fab-left"] {
-        left:calc(15px + constant(safe-area-inset-left));
-        left: calc(15px + env(safe-area-inset-left))
-    }
-
-    .ios.device-iphone-x .ios-right-edge .fab[class*="fab-right"],.ios.device-iphone-x .ios-edges .fab[class*="fab-right"],.ios.device-iphone-x .popup .fab[class*="fab-right"],.ios.device-iphone-x .sheet-modal .fab[class*="fab-right"],.ios.device-iphone-x .panel-right .fab[class*="fab-right"] {
-        right: calc(15px + constant(safe-area-inset-right));
-        right: calc(15px + env(safe-area-inset-right))
-    }
-}
-
 .searchbar {
     width: 100%;
     position: relative;
@@ -9936,16 +9063,6 @@ html.device-desktop .data-table .sortable-cell:not(.sortable-cell-active):hover:
     transform-origin: 50% 100%
 }
 
-.ios.device-pixel-ratio-2 .searchbar:after {
-    -webkit-transform: scaleY(0.5);
-    transform: scaleY(0.5)
-}
-
-.ios.device-pixel-ratio-3 .searchbar:after {
-    -webkit-transform: scaleY(0.33);
-    transform: scaleY(0.33)
-}
-
 .ios .searchbar-disable-button {
     font-size: 17px;
     -ms-flex-negative: 0;
@@ -10061,18 +9178,6 @@ html.device-desktop .data-table .sortable-cell:not(.sortable-cell-active):hover:
 
 .ios .color-theme-black .searchbar-disable-button {
     color: #000000
-}
-
-@media (orientation: landscape) {
-    .ios.device-iphone-x .ios-left-edge .searchbar-inner,.ios.device-iphone-x .ios-edges .searchbar-inner,.ios.device-iphone-x .popup .searchbar-inner,.ios.device-iphone-x .sheet-modal .searchbar-inner,.ios.device-iphone-x .panel-left .searchbar-inner {
-        padding-left:calc(8px + constant(safe-area-inset-left));
-        padding-left: calc(8px + env(safe-area-inset-left))
-    }
-
-    .ios.device-iphone-x .ios-right-edge .searchbar-inner,.ios.device-iphone-x .ios-edges .searchbar-inner,.ios.device-iphone-x .popup .searchbar-inner,.ios.device-iphone-x .sheet-modal .searchbar-inner,.ios.device-iphone-x .panel-right .searchbar-inner {
-        padding-right: calc(8px + constant(safe-area-inset-right));
-        padding-right: calc(8px + env(safe-area-inset-right))
-    }
 }
 
 .photo-browser {
@@ -10411,16 +9516,6 @@ html.device-desktop .data-table .sortable-cell:not(.sortable-cell-active):hover:
     color: #fff
 }
 
-.ios.device-iphone-x .photo-browser-captions {
-    bottom: constant(safe-area-inset-bottom);
-    bottom: env(safe-area-inset-bottom)
-}
-
-.ios.device-iphone-x .toolbar ~ .photo-browser-captions {
-    bottom: calc(44px + constant(safe-area-inset-bottom));
-    bottom: calc(44px + env(safe-area-inset-bottom))
-}
-
 .notification {
     position: absolute;
     left: 0;
@@ -10456,15 +9551,6 @@ html.device-desktop .data-table .sortable-cell:not(.sortable-cell-active):hover:
 .notification-close-button {
     margin-left: auto;
     cursor: pointer
-}
-
-html.with-statusbar.device-ios .notification,html.with-statusbar.ios:not(.device-ios):not(.device-android) .notification {
-    margin-top: 20px
-}
-
-html.with-statusbar.device-iphone-x .notification {
-    margin-top: constant(safe-area-inset-top);
-    margin-top: env(safe-area-inset-top)
 }
 
 .ios .notification {
@@ -12406,7 +11492,7 @@ footer.footer .info {
 }
 /* 네비바 div 상하 간격  */
 .menu-list .links-list ul {
-    padding: 30px 0px
+    padding: 13px 0px
 }
 
 .menu-list .links-list ul:after {
@@ -12416,16 +11502,7 @@ footer.footer .info {
 .menu-list .links-list a {
     padding-right: 15px;
     background-image: none;
-    height: 32px
-}
-/* 네이바 beta-text */
-.menu-list .links-list .beta-text {
-    font-size: 14px;
-    color: #ff0000;
-    position: absolute;
-    font-weight: bold;
-    margin: 0 0 0 0;
-    left: 60px
+    height: 38px
 }
 
 .menu-list .links-list .alim {
@@ -17218,95 +16295,5 @@ th,td {
 
     .page.mentee_participations.index .card-footer .badge {
         margin: 0 15px 10px 0px
-    }
-}
-
-.searchs.index mark {
-    background-color: rgba(255,0,0,0.226)
-}
-
-.searchs.index .job-type-block .block-title {
-    margin-left: 4px
-}
-
-.searchs.index .job-type-block .row {
-    -ms-flex-pack: start;
-    justify-content: flex-start
-}
-
-.searchs.index .block-title {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-pack: justify;
-    justify-content: space-between
-}
-
-.searchs.index .block-title .button {
-    font-weight: 400
-}
-
-.searchs.index .block-title a {
-    font-size: 13px;
-    font-weight: 400;
-    color: #6d6d72
-}
-
-.searchs.index .big-title {
-    margin-top: 40px;
-    margin-bottom: 25px;
-    font-size: 28px;
-    width: auto;
-    border-bottom: 1px solid #EBEBEB !important;
-    padding-bottom: 15px;
-    border-bottom: none
-}
-
-.searchs.index .sub-title {
-    margin-top: 65px;
-    font-size: 25px
-}
-
-.searchs.index .ongoing-badge {
-    background-color: #ff2d55
-}
-
-.searchs.index .mentor-profile {
-    bottom: 15px;
-    left: 15px;
-    width: 315px
-}
-
-.searchs.index .badge {
-    right: 0px;
-    position: absolute;
-    margin: 10px 15px 10px 10px;
-    vertical-align: middle
-}
-
-.searchs.index .list {
-    margin-bottom: 10px
-}
-
-@media all and (min-width: 1025px) {
-    .searchs.index .job-type-block {
-        width:800px;
-        margin: 0 auto;
-        margin-top: 45px
-    }
-
-    .searchs.index .mentor-block {
-        width: 1200px;
-        margin: 0 auto
-    }
-
-    .searchs.index .mentor-block .mentor-card {
-        margin-bottom: 30px
-    }
-
-    .searchs.index .mentor-profile {
-        position: absolute;
-        bottom: 15px;
-        left: 15px;
-        width: 342px
     }
 }
