@@ -22,7 +22,7 @@
 		<c:if test="${memDTO.member_email == meetingboardDTO.mentor_email}">
 			<div style="float: right; margin-bottom: 5px;">
 				<button class="button" id="meetingboardModifyFormBtn" style="display: inline-block;">수정</button>
-				<%-- <button class="button" id="meetingboardDeleteBtn" style="display: inline-block;">삭제</button> --%>
+				<%--<button class="button" id="meetingboardDeleteBtn" style="display: inline-block;">삭제</button>--%>
 			</div>
 		</c:if>
 		</c:if>

@@ -93,7 +93,6 @@ $("#meetingboardWriteBtn").click(function(){
 			},
 			error: function(e){
 				console.log(e);
-				alert("실패");
 			}
 		});
 	}
@@ -165,7 +164,6 @@ $("#meetingboardModifyBtn").click(function(){
 			},
 			error : function(e){
 				console.log(e);
-				alert("실패");
 			}
 		});
 	}
@@ -173,19 +171,26 @@ $("#meetingboardModifyBtn").click(function(){
 
 // 모임글 삭제
 $("#meetingboardDeleteBtn").click(function(){
-	if(confirm("정말 삭제하시겠습니까?") == true) {
-		$.ajax({
-			type: "post",
-			url: "/mentor/meetingboard/meetingboardDelete",
-			data: {"seq" : $("#seq").val()},
-			success : function(){
-				alert("삭제완료");
-				location.href="/mentor/meetingboard/meetingboardList";
-			}, 
-			error : function(err) {
-				console.log(err);
+	var toastWithCallback = app.toast.create({
+		text: '모임을 삭제하시겠습니까?',
+		position: 'center',
+		closeButton: true,
+		on: {
+			close: function() {
+				$.ajax({
+					type: 'post',
+					url: '/mentor/meetingboard/meetingboardDelete',
+					data: {"seq" : $("#seq").val()},
+					success: function(){
+						location.href="/mentor/meetingboard/meetingboardList";
+					},
+					error: function(error){
+						console.log(error);
+					}
+				});
 			}
-		});
-	} else
-		return false;
+		}
+	});	
+	toastWithCallback.open();
+	
 });

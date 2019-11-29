@@ -14,7 +14,7 @@
 			</div>
 
 			<div class="block inset text-center next-button-block">
-				<a class="button button-big button-fill" type="external" href="/mentor/member/loginForm">로그인 하기</a>
+				<a class="button button-big button-fill" type="external" href="/mentor/member/loginForm?status=true">로그인 하기</a>
 			</div>
 
 		</div>
