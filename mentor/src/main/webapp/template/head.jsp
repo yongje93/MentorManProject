@@ -19,11 +19,10 @@
 			</div>
 		</form>
 		<div class="right">
-			<a class="button button-big" type="external" href="/mentor/mentor/mentorfindForm?pg=1">멘토 찾기</a>
 			<a class="button button-big" type="external" href="/mentor/noticeboard/noticeboardList">공지사항</a>
+			<a class="button button-big" type="external" href="/mentor/mentor/mentorfindForm?pg=1">멘토 찾기</a>
 			<a class="button button-big" type="external" href="/mentor/essayboard/essayboardList">에세이</a>
 			<a class="button button-big" type="external" href="/mentor/meetingboard/meetingboardList">모임</a>
-			<a class="button button-big" type="external" href="/mentor/intern/internMain">공채 속보</a>
 			<a class="button button-big" type="external" href="/mentor/menteeboard/menteeboardList">멘티 게시판</a>
 			<c:if test="${memDTO!=null}">
 			<a class="button button-big" type="external" href="/mentor/mentor/mentorapplyForm">멘토 지원하기</a>
@@ -48,8 +47,8 @@
 					<div class="menu-list">
 						<div class="list links-list no-hairlines-between">
 							<ul>
+								<li><a type="external" href="/mentor/noticeboard/noticeboardList">공지사항</a></li>
 								<li><a type="external" href="/mentor/mentor/mentorfindForm?pg=1">멘토찾기</a></li>
-								<li><a type="external" href="/mentor/noticeboard/noticeboardList">공지게시판</a></li>
 								<li><a type="external" href="/mentor/essayboard/essayboardList">에세이</a></li>
 								<li><a type="external" href="/mentor/meetingboard/meetingboardList">모임</a></li>
 								<li><a type="external" href="/mentor/mentor/mentorapplyForm">멘토지원하기</a></li>
@@ -58,8 +57,11 @@
 						<hr style="background-color: #c8c7cc;">
 						<div class="list links-list no-hairlines-between">
 							<ul>
-								<li><a type="external" href="">에세이 쓰기</a></li>
-								<li><a type="external" href="/mentor/member/myAlarm">나의 알림<span class="badge color-red alim"></span></a></li>
+								<c:if test="${memDTO.member_flag == 1}">
+								<li><a type="external" href="/mentor/essayboard/essayboardWriteForm">에세이 쓰기</a></li>
+								</c:if>
+								<li><a type="external" href="/mentor/menteeboard/menteeboardList">멘티 게시판</a></li>
+								<li><a type="external" href="/mentor/intern/internMain">공채 정보</a></li>
 								<li><a type="external" href="/mentor/member/myQandA?pg=1">나의 질문/답변 <span class="badge color-red alim">15</span></a></li>
 								<li><a type="external" href="/mentor/essayboard/essayboardAttention">관심에세이</a></li>
 								<li><a type="external" href="/mentor/mentor/mentorAttention">관심멘토</a></li>

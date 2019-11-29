@@ -7,7 +7,7 @@
 		<div class="qa-thread-block">
 			<div class="block-title strong-title">나의 관심 에세이</div>
 
-			<div class="block block-strong no-hairlines">
+			<div class="block no-hairlines">
 			</div>
 
 			<div class="mentor-post-block">

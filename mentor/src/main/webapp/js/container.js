@@ -9,6 +9,7 @@ $(document).ready(function(){
 	});
 });
 
+
 // 메인 화면 에세이 관련 
 // 스크랩 버튼을 누를시
 $(document).ready(function() {

@@ -310,7 +310,7 @@ public class MentorController {
 		int mentor_answer = mentorService.getAnswer(mentor_seq); // 답변수
 		int mentor_question = mentorService.getQuestion(mentor_seq);// 질문수
 		double questionPercent = (double)mentor_answer/(double)mentor_question;
-		System.out.println(mentor_answer+"-----"+mentor_question);
+		//System.out.println(mentor_answer+"-----"+mentor_question);
 		String[] mentoringArray = mentorDTO.getMentoring_code().split(",");
 		Map<String, String[]> map = new HashMap<String, String[]>();
 		map.put("mentoring_code", mentoringArray);

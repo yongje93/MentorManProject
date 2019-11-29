@@ -52,7 +52,7 @@ public class InternController {
 		  
 		 try {
 			 int responseCode = client.executeMethod(method);
-			  System.out.println("responseCode -->"+responseCode);
+			  //System.out.println("responseCode -->"+responseCode);
 	
 			  if (responseCode != HttpStatus.SC_OK) {
 			   
@@ -62,7 +62,7 @@ public class InternController {
 		    
 				  //iso 8859로 리턴 되기 때문에 한번 변환해 준다.
 				  rtnXml=new String(responseBody,"UTF-8");
-				  System.out.println("rtnXml :  " + rtnXml);
+				  //System.out.println("rtnXml :  " + rtnXml);
 			  }
 		 } catch (Exception e) {
 			  
@@ -90,7 +90,7 @@ public class InternController {
 		empWantedEduCd = empWantedEduCd.replace(",", "|");
 		empWantedTypeCd = empWantedTypeCd.replace(",", "|");
 		
-		System.out.println(coClcd + ", " + empWantedCareerCd + ", " + empWantedEduCd + ", " + empWantedTypeCd+" ,pg = " + pageIndex);
+		//System.out.println(coClcd + ", " + empWantedCareerCd + ", " + empWantedEduCd + ", " + empWantedTypeCd+" ,pg = " + pageIndex);
 		
 		String rtnXml="";
 		byte []responseBody = null;

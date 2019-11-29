@@ -48,7 +48,7 @@
 				       	<th class="noticeboardList_tbody_th" scope="row" align="center">직무유형</th>
 				    	<th class="noticeboardList_tbody_th" scope="row" align="center">제목</th>
 				        <th class="noticeboardList_tbody_th" scope="row" align="center">글쓴이</th>
-				        <th class="noticeboardList_tbody_th" scope="row" align="center">작성시간</th>
+				        <th class="noticeboardList_tbody_th" scope="row" align="center">작성일</th>
 				        <th class="noticeboardList_tbody_th" scope="row" align="center">조회수</th>
 				        <th class="noticeboardList_tbody_th" scope="row" align="center">좋아요</th>
                    </tr>
@@ -58,7 +58,9 @@
          <br>
          <div id="page_number" style="float: left;"></div>
          <div class="noticeboardFloat_right_div">
-            <button id="menteeboardWriteformBtn" class="button color-gray">글쓰기</button>
+            <a id="menteeboardWriteformBtn" class="button" type="external" href="javascript:void(0);">
+				<i class="fas fa-pencil-alt"></i> 글쓰기
+			</a>
          </div>
          <div id="menteeboardPagingDiv"></div>
          <input type="hidden" id="pgInput" name="pgInput" value="${pg}">
@@ -67,6 +69,4 @@
 </form>
 </div>
 </div>
-
 <script type="text/javascript" src="../js/menteeboardList.js"></script>
-

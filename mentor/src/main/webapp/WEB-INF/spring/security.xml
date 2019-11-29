@@ -10,9 +10,9 @@
 	<http auto-config="true" use-expressions="true">
 		<csrf disabled="true"/>
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
-		<intercept-url pattern="/participation/**" access="hasRole('ROLE_USER')"/>
-		<intercept-url pattern="/mentor/mentorapplyForm/**" access="hasRole('ROLE_USER')"/>
-		<intercept-url pattern="/essayboard/essayboardView/**" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/participation/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
+		<intercept-url pattern="/mentor/mentorapplyForm/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
+		<intercept-url pattern="/essayboard/essayboardView/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
 		<intercept-url pattern="/**" access="permitAll"/>
 		
 		<form-login

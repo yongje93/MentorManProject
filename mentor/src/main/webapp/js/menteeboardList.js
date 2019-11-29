@@ -16,7 +16,8 @@ $(document).ready(function(){
 					text : value.menteeboard_seq
 				})).append($('<td/>',{
 					align: 'center',
-					text : value.job_type
+					text : value.job_type,
+					style: 'line-height: 40px;'
 				})).append($('<td/>',{
 					}).append($('<a/>',{
 							href : 'javascript:void(0)',

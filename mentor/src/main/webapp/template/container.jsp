@@ -23,24 +23,33 @@
 	<div class="page-content">
 	<%-- 배너 시작 --%>
 	<div class="owl-carousel owl-theme">
-		<a class="banner" type="external" href="">
-			<div class="photo">
-				<div class="cover-image" style="background-image: url('')"></div>
-				<div class="hello-content">
-					<h1 class="title"></h1>
-					<div class="description"></div>
-				</div>
-			</div>
-		</a>
 		<a class="banner" type="external" href="/mentor/mentor/mentorapplyForm">
 			<div class="photo">
-				<div class="cover-image" style="background-image: url('../image/banner2.png')"></div>
+				<div class="cover-image" style="background-image: url('../image/slider/banner01.png')"></div>
 				<div class="hello-content">
 					<h1 class="title">가치 있는 커리어 경험을 나눠보세요</h1>
 					<div class="description">멘토 지원하기</div>
 				</div>
 			</div>
-		</a> 
+		</a>
+		<a class="banner" type="external" href="/mentor/intern/internMain">
+			<div class="photo">
+				<div class="cover-image" style="background-image: url('../image/slider/banner02.png')"></div>
+				<div class="hello-content">
+					<h1 class="title">취업/이직을 하고 싶으신가요?</h1>
+					<div class="description">공채 정보 확인</div>
+				</div>
+			</div>
+		</a>
+		<a class="banner" type="external" href="/mentor/meetingboard/meetingboardList">
+			<div class="photo">
+				<div class="cover-image" style="background-image: url('../image/slider/banner03.png')"></div>
+				<div class="hello-content">
+					<h1 class="title">온/오프라인 멘토링으로 정보를 공유해보세요</h1>
+					<div class="description">멘토맨 클래스</div>
+				</div>
+			</div>
+		</a>
 	</div>
 
 		<%-- 모임 영역 시작 --%>
@@ -414,6 +423,8 @@
 					</div>
 				</div>
 			</c:forEach>
+			<div class="col-100 tablet-50 desktop-33"></div>
+			<div class="col-100 tablet-50 desktop-33"></div>
 			<input type="hidden" id="memNickname" name="memNickname" value="${memDTO.member_name}">
 		</div>
 	</div>
