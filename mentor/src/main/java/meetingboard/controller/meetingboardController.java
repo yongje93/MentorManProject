@@ -26,6 +26,7 @@ import meetingboard.bean.MeetingboardDTO;
 import meetingboard.bean.MeetingboardPaging;
 import meetingboard.service.MeetingboardService;
 import member.bean.MemberDTO;
+import mentor.service.MentorService;
 
 /**
  * 모임 게시판 관련 컨트롤러
@@ -39,7 +40,9 @@ public class MeetingboardController {
 	private MeetingboardService meetingboardService;
 	@Autowired
 	private MeetingboardPaging meetingboardPaging;
-
+	@Autowired 
+	private MentorService mentorService;
+	
 	/**
 	 * @Title : 모임 게시판 리스트. head 영역의 모임 버튼 눌렀을때 화면
 	 * @Author : yong
@@ -134,9 +137,21 @@ public class MeetingboardController {
 	public ModelAndView meetingboardView(@RequestParam(required = false, defaultValue = "1") String pg, @RequestParam String seq) {
 		int meetingboard_seq = Integer.parseInt(seq);
 		MeetingboardDTO meetingboardDTO = meetingboardService.getMeetingboard(meetingboard_seq);
+		int mentor_seq = meetingboardDTO.getMember_seq();
+		
+		int mentor_answer = mentorService.getAnswer(mentor_seq); // 답변수
+		int mentor_question = mentorService.getQuestion(mentor_seq);// 질문수
+		double questionPercent = (double)mentor_answer/(double)mentor_question;
+		
 		// 안내사항
 		List<GuideDTO> guideList = meetingboardService.getGuideList();
 		ModelAndView mav = new ModelAndView();
+		if (Double.isNaN(questionPercent)) {
+			mav.addObject("questionPercent", 0);			
+		} else {
+			mav.addObject("questionPercent", questionPercent);
+		}
+		mav.addObject("mentor_answer",mentor_answer);
 		mav.addObject("guideList", guideList);
 		mav.addObject("meetingboardDTO", meetingboardDTO);
 		mav.addObject("pg", pg);

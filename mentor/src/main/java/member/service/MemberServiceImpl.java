@@ -49,9 +49,9 @@ public class MemberServiceImpl implements MemberService {
 	/* 회원가입 완료 */
 	@Override
 	public void write(Map<String, String> map) throws MessagingException, UnsupportedEncodingException {
-		System.out.println("암호화 전 : " + map.get("member_pwd"));
+		//System.out.println("암호화 전 : " + map.get("member_pwd"));
 		String encPassword = passwordEncoder.encode(map.get("member_pwd"));
-		System.out.println("암호화 후 : " + encPassword);
+		//System.out.println("암호화 후 : " + encPassword);
 		map.replace("member_pwd", encPassword);
 		// 암호화 후 디비에 저장
 		memberDAO.write(map);

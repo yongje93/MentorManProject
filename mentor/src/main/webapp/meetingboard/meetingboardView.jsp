@@ -99,22 +99,14 @@
 							<div class="mentoring-type-block">
 								<div class="chip chip-outline no-border-radius mentor-index">
 									<div class="chip-label">
-										<span>답변율 <strong class="highlight">!!!!!수정</strong></span>
+										<span>답변율 <strong class="highlight"><fmt:formatNumber value="${questionPercent}" pattern="0%"/></strong></span>
 									</div>
 								</div>
-
 								<div class="chip chip-outline no-border-radius mentor-index">
 									<div class="chip-label">
-										<span>답변수 <strong class="highlight">!!!!!수정</strong></span>
+										<span>답변수 <strong class="highlight">${mentor_answer}</strong></span>
 									</div>
 								</div>
-
-								<div class="chip chip-outline no-border-radius mentor-index">
-									<div class="chip-label">
-										<span>뱃지 <strong class="highlight">!!!!!수정</strong></span>
-									</div>
-								</div>
-
 								<div class="chip chip-outline no-border-radius mentor-index">
 									<div class="chip-label">
 										<span>팔로워 <strong class="highlight">!!!!!수정</strong></span>
@@ -122,7 +114,6 @@
 								</div>
 							</div>
 						</div>
-
 						<div class="mentoring-info">
 							<div class="title text-decoration-underline">대표 멘토링 분야</div>
 							<div class="mentoring-type-block">${meetingboardDTO.mentor_represent}</div>
