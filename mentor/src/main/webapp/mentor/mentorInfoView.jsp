@@ -158,7 +158,7 @@
 					<div class="col-100 tablet-100 desktop-100">
 						<div class="card mentor-post-card shadow-card" hidden>
 							<div class="card-content card-content-padding profile-card">
-								<a class="content-body" type="external" href="/mentor/essayboard/essayboardView?"> 		<%--주소 수정 --%>
+								<a class="content-body" type="external" href="/mentor/essayboard/essayboardView?seq=${essayList.essayboard_seq}&mentors=${essayList.member_seq}"> 		<%--주소 수정 --%>
 									<div class="mentor-post-title">
 										${essayList.essayboard_title}
 									</div>

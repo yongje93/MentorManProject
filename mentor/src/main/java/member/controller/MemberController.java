@@ -194,8 +194,8 @@ public class MemberController {
 //			return "login_fail";
 //		}
 //	}
-	// 로그아웃 처리
-	// 카카오 로그아웃 추가
+//	// 로그아웃 처리
+//	// 카카오 로그아웃 추가
 //	@RequestMapping(value = "logout", method = RequestMethod.GET, produces="application/json")
 //	public ModelAndView logout(HttpSession session) {
 //		KakaoApi.kakaoLogout((JsonNode) session.getAttribute("access_token"));

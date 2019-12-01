@@ -48,6 +48,7 @@ public class MentorDTO {
 	private String essayboard_content; // 에세이 보드 내용
 	private int essayboard_scrap;
 	private Date essayboard_logtime; //
+	private int essayboard_seq; // 에세이 보드 seq
 	
 	//--join 고맙습니다
 	private String review_content;	// 고맙습니다 내용
