@@ -20,8 +20,8 @@
 				<th width="35%">모임정보</th>
 				<th width="13%">주문일자</th>
 				<th width="20%">주문번호</th>
-				<th width="9%">주문금액</th>
-				<th width="11%"></th>
+				<th width="10%">주문금액</th>
+				<th width="10%"></th>
 				<th width="10%"></th>
 			</tr>
 		</thead>
