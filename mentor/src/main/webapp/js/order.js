@@ -91,17 +91,7 @@ $('#orderBtn').click(function(){
 	                		console.log(error);
 	                	}
 	                });
-	                
-	                // socket에 보내기
-	                if(socket) {
-	                	for(var i in meetingboard_list) {
-	                		// apply, 구매한사람, 멘토이메일, 모임 번호, 신청 번호
-	                		let socketMsg = "apply," + rsp.buyer_name + "," + mentor_list[i] + "," + meetingboard_list[i] + "," + participation_list[i];              		
-	                		console.log("socketMessage : " + socketMsg);
-	                		socket.send(socketMsg);
-	                	}
-	                }
-	                
+	                              
 	                var AlarmData = {
 	                		"myAlarm_receiverEmail" : mentor_list[i],
 	                		"myAlarm_callerNickname" : rsp.buyer_name,
@@ -117,6 +107,15 @@ $('#orderBtn').click(function(){
 	                	contentType: "application/json; charset=utf-8",
 	                	dataType : 'text',
 	                	success : function(data){
+	                		 // socket에 보내기
+	    	                if(socket) {
+	    	                	for(var i in meetingboard_list) {
+	    	                		// apply, 구매한사람, 멘토이메일, 모임 번호, 신청 번호
+	    	                		let socketMsg = "apply," + rsp.buyer_name + "," + mentor_list[i] + "," + meetingboard_list[i] + "," + participation_list[i];              		
+	    	                		console.log("socketMessage : " + socketMsg);
+	    	                		socket.send(socketMsg);
+	    	                	}
+	    	                }
 	                		console.log(data);
 	                	},
 	                	error : function(err){
