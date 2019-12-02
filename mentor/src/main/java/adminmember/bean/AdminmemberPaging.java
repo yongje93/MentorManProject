@@ -29,14 +29,17 @@ public class AdminmemberPaging {
 		int endPage = startPage+pageBlock-1; // 
 		if(endPage>totalP)
 			endPage = totalP;
-		pagingHTML.append("<a class='page-link' href='adminmemberList?pg="+(startPage-1)+"'>Previous</a>");
+		
+		if(startPage>pageBlock)
+			pagingHTML.append("<a class='page-link' href='adminmemberList?pg="+(startPage-1)+"'>Previous</a>");
 		for(int i=startPage; i<=endPage; i++) {
 			if(i==currentPage)
 				pagingHTML.append("<a class='page-link' href='adminmemberList?pg="+i+"'>"+i+"</a>");
 			else
 				pagingHTML.append("<a class='page-link' href='adminmemberList?pg="+i+"'>"+i+"</a>");
 		}
-		pagingHTML.append("<a class='page-link' href='adminmemberList?pg="+(endPage+1)+"'>Next</a>");
+		if(endPage<totalP)
+			pagingHTML.append("<a class='page-link' href='adminmemberList?pg="+(endPage+1)+"'>Next</a>");
 	}
 	
 	/* description : 회원서치리스트 페이징 */
@@ -49,14 +52,19 @@ public class AdminmemberPaging {
 		int endPage = startPage+pageBlock-1;
 		if(endPage > totalP) 
 			endPage = totalP;
-		pagingHTML.append("<span class='page-link' style='cursor: pointer;' onclick='adminmemberSearch("+(startPage-1)+")'>Previous</span>");
+		
+		if(startPage>pageBlock)
+			pagingHTML.append("<span class='page-link' style='cursor: pointer;' onclick='adminmemberSearch("+(startPage-1)+")'>Previous</span>");
+		
 		for (int i = startPage; i <= endPage; i++) {
 			if(i==currentPage)
 				pagingHTML.append("<span class='page-link' style='cursor: pointer;'onclick='adminmemberSearch("+i+")'>"+i+"</span>");
 			else
 				pagingHTML.append("<span class='page-link' style='cursor: pointer;' onclick='adminmemberSearch("+i+")'>"+i+"</span>");
 		}
-		pagingHTML.append("<span class='page-link' style='cursor: pointer;' onclick='adminmemberSearch("+(startPage-1)+")'>Next</span>");
+		
+		if(endPage<totalP)
+			pagingHTML.append("<span class='page-link' style='cursor: pointer;' onclick='adminmemberSearch("+(startPage-1)+")'>Next</span>");
 	}
 	
 	/* description : 멘토리스트 페이징*/
@@ -70,14 +78,17 @@ public class AdminmemberPaging {
 		if(endPage>totalP)
 			endPage = totalP;
 		
-		pagingHTML.append("<a class='page-link' href='adminmentorList?pg="+(startPage-1)+"'>Previous</a>");
+		if(startPage>pageBlock)
+			pagingHTML.append("<a class='page-link' href='adminmentorList?pg="+(startPage-1)+"'>Previous</a>");
+		
 		for(int i=startPage; i<=endPage; i++) {
 			if(i==currentPage)
 				pagingHTML.append("<a class='page-link' href='adminmentorList?pg="+i+"'>"+i+"</a>");
 			else
 				pagingHTML.append("<a class='page-link' href='adminmentorList?pg="+i+"'>"+i+"</a>");
 		}
-		pagingHTML.append("<a class='page-link' href='adminmentorList?pg="+(endPage+1)+"'>Next</a>");
+		if(endPage<totalP)
+			pagingHTML.append("<a class='page-link' href='adminmentorList?pg="+(endPage+1)+"'>Next</a>");
 	}
 	/* description : 멘토서치  페이징*/
 	public void mentorSearchPagingHTML() {
@@ -90,14 +101,17 @@ public class AdminmemberPaging {
 		if(endPage > totalP) 
 			endPage = totalP;
 		
-		pagingHTML.append("<span class='page-link' style='cursor: pointer;' onclick='adminmentorSearch("+(startPage-1)+")'>Previous</span>");
+		if(startPage>pageBlock)
+			pagingHTML.append("<span class='page-link' style='cursor: pointer;' onclick='adminmentorSearch("+(startPage-1)+")'>Previous</span>");
+		
 		for (int i = startPage; i <= endPage; i++) {
 			if(i==currentPage)
 				pagingHTML.append("<span class='page-link' style='cursor: pointer;'onclick='adminmentorSearch("+i+")'>"+i+"</span>");
 			else
 				pagingHTML.append("<span class='page-link' style='cursor: pointer;' onclick='adminmentorSearch("+i+")'>"+i+"</span>");
 		}
-		pagingHTML.append("<span class='page-link' style='cursor: pointer;' onclick='adminmentorSearch("+(startPage-1)+")'>Next</span>");
+		if(endPage<totalP)
+			pagingHTML.append("<span class='page-link' style='cursor: pointer;' onclick='adminmentorSearch("+(startPage-1)+")'>Next</span>");
 	}
 	
 	/* description : 멘토신청  페이징*/
@@ -110,15 +124,18 @@ public class AdminmemberPaging {
 		int endPage = startPage+pageBlock-1; // 
 		if(endPage>totalP)
 			endPage = totalP;
-
-		pagingHTML.append("<a class='page-link' href='adminmentorApplyList?pg="+(startPage-1)+"'>Previous</a>");
+		
+		if(startPage>pageBlock)
+			pagingHTML.append("<a class='page-link' href='adminmentorApplyList?pg="+(startPage-1)+"'>Previous</a>");
+		
 		for(int i=startPage; i<=endPage; i++) {
 			if(i==currentPage)
 				pagingHTML.append("<a class='page-link' href='adminmentorApplyList?pg="+i+"'>"+i+"</a>");
 			else
 				pagingHTML.append("<a class='page-link' href='adminmentorApplyList?pg="+i+"'>"+i+"</a>");
 		}
-		pagingHTML.append("<a class='page-link' href='adminmentorApplyList?pg="+(endPage+1)+"'>Next</a>");
+		if(endPage<totalP)
+			pagingHTML.append("<a class='page-link' href='adminmentorApplyList?pg="+(endPage+1)+"'>Next</a>");
 	}
 	/* description : 멘토신청서치  페이징*/
 	public void mentorApplySearchPagingHTML() {
@@ -155,14 +172,18 @@ public class AdminmemberPaging {
 		int endPage = startPage+pageBlock-1; // 
 		if(endPage>totalP)
 			endPage = totalP;
-		pagingHTML.append("<a class='page-link' href='adminmenteeList?pg="+(startPage-1)+"'>Previous</a>");
+		
+		if(startPage>pageBlock)
+			pagingHTML.append("<a class='page-link' href='adminmenteeList?pg="+(startPage-1)+"'>Previous</a>");
+		
 		for(int i=startPage; i<=endPage; i++) {
 			if(i==currentPage)
 				pagingHTML.append("<a class='page-link' href='adminmenteeList?pg="+i+"'>"+i+"</a>");
 			else
 				pagingHTML.append("<a class='page-link' href='adminmenteeList?pg="+i+"'>"+i+"</a>");
 		}
-		pagingHTML.append("<a class='page-link' href='adminmenteeList?pg="+(endPage+1)+"'>Next</a>");
+		if(endPage<totalP)
+			pagingHTML.append("<a class='page-link' href='adminmenteeList?pg="+(endPage+1)+"'>Next</a>");
 		
 	}
 	
@@ -177,14 +198,17 @@ public class AdminmemberPaging {
 		if(endPage > totalP) 
 			endPage = totalP;
 		
-		pagingHTML.append("<span class='page-link' style='cursor: pointer;' onclick='adminmenteeSearch("+(startPage-1)+")'>Previous</span>");
+		if(startPage>pageBlock)
+			pagingHTML.append("<span class='page-link' style='cursor: pointer;' onclick='adminmenteeSearch("+(startPage-1)+")'>Previous</span>");
+		
 		for (int i = startPage; i <= endPage; i++) {
 			if(i==currentPage)
 				pagingHTML.append("<span class='page-link' style='cursor: pointer;'onclick='adminmenteeSearch("+i+")'>"+i+"</span>");
 			else
 				pagingHTML.append("<span class='page-link' style='cursor: pointer;' onclick='adminmenteeSearch("+i+")'>"+i+"</span>");
 		}
-		pagingHTML.append("<span class='page-link' style='cursor: pointer;' onclick='adminmenteeSearch("+(startPage-1)+")'>Next</span>");
+		if(endPage<totalP)
+			pagingHTML.append("<span class='page-link' style='cursor: pointer;' onclick='adminmenteeSearch("+(startPage-1)+")'>Next</span>");
 	}
 
 	

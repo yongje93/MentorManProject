@@ -42,7 +42,7 @@
 										<td><img src="../image/${adminmemberDTO.member_profile }" width="30" height="30">${adminmemberDTO.member_name }</td>
 										<td>${adminmemberDTO.member_nickname }</td>
 										<td>${adminmemberDTO.member_email }</td>
-										<c:if test="${adminmemberDTO.member_flag eq '2'}">
+										<c:if test="${adminmemberDTO.member_flag eq '0'}">
 										<td>멘티</td>
 										</c:if>
 										<td>${adminmemberDTO.logtime }</td>

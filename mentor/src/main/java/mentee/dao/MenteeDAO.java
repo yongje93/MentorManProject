@@ -25,4 +25,6 @@ public interface MenteeDAO {
 
 	public MemberDTO getNickname(String member_nickname);
 
+	public void memberDeleteSuccess(int member_seq);
+
 }

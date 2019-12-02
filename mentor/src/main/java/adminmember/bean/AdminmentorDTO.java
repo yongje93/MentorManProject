@@ -10,6 +10,7 @@ public class AdminmentorDTO {
 	private int mentor_seq;
 	private String mentor_company;
 	private String mentor_department;
+	private int mentor_badge;
 	private int mentor_flag;
 	private String mentor_logtime;
 	//멤버 조인

@@ -10319,7 +10319,7 @@ footer.footer .logo img {
 
 @media all and (min-width: 1025px) {
     footer.footer .logo img {
-        width:85px
+        width: 108px
     }
 }
 
@@ -10618,8 +10618,8 @@ footer.footer .info {
 }
 
 .navbar .navbar-inner .logo img {
-    width: 80px;
-    margin-left: 15px
+    width: 95px;
+    margin-left: 10px
 }
 
 .navbar .navbar-inner .button {
@@ -11486,7 +11486,7 @@ th,td {
 
 @media all and (min-width: 1025px) {
     .intros .hello-content.default-content {
-        width:1200px;
+        width: 1200px;
         top: -70%;
         position: relative;
         margin: 0 auto;
@@ -12229,7 +12229,7 @@ th,td {
 
 @media all and (min-width: 1025px) {
     .mentee_participations {
-        width:580px;
+        width: 580px;
         margin: 0 auto
     }
 

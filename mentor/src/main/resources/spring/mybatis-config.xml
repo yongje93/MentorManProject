@@ -3,6 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
+		<typeAlias type="faq.bean.FaqDTO" alias="faq"/>
 		<typeAlias type="mentee.bean.MenteeDTO" alias="mentee"/>
 		<typeAlias type="mentor.bean.MentorDTO" alias="mentor"/>
 		<typeAlias type="mentor.bean.MentorFollowDTO" alias="mentorFollow"/>

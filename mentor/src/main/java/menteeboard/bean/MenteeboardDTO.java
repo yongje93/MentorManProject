@@ -12,14 +12,15 @@ import lombok.Data;
 @Data
 public class MenteeboardDTO {
 	private int menteeboard_seq;
-	private String menteeboard_profile;
-    private String menteeboard_nickname;
     private String menteeboard_email;
     private String menteeboard_title;
     private String menteeboard_content;
     private String job_code; //직무유형
     
-    private String job_type; //조인할때만 사용
+    //조인할때만 사용
+    private String member_profile;
+    private String member_nickname;
+    private String job_type; 
     
     private int menteeboard_good;
     private int menteeboard_ref; 

@@ -55,7 +55,7 @@
 			mt.mentor_company,
 			mt.mentor_department,
 			j.job_type,
-			mt.mentor_flag,
+			mt.mentor_badge,
 			mm.member_profile,
 			to_char(mt.mentor_logtime,'YYYY-MM-DD') mentor_logtime
 	 from mentors_member mm, 
@@ -66,6 +66,16 @@
 	 and mt.mentor_flag = 1
 	 order by mt.mentor_logtime desc)tt) 
 	 where rn >= #{startNum} and rn<=#{endNum}]]>
+	 <choose>
+ 			<when test="state == 1">
+ 				order by mentor_badge desc
+ 			</when>
+ 			<when test="state == 2">
+ 				order by mentor_badge
+ 			</when>
+ 			<otherwise>
+ 			</otherwise>
+ 		</choose>
  </select>
  
  <!-- 총멘토 -->
@@ -83,7 +93,7 @@
 			mt.mentor_company,
 			mt.mentor_department,
 			j.job_type,
-			mt.mentor_flag,
+			mt.mentor_badge,
 			mm.member_profile,
 			to_char(mt.mentor_logtime,'YYYY-MM-DD') mentor_logtime
 	 from mentors_member mm, 
@@ -182,6 +192,45 @@
 			#{mentor_seq}<!-- ${check[i]} 컬렉션만 $먹고 item인 seq는 #과$같이먹는다 -->
 		</foreach>
 </update>
+<!-- 명예멘토 -->
+<!-- 매출뽑아오기 -->
+<select id="getMentorSales" resultType="adminmember.bean.AdminmentorSalesListDTO">
+select aa.mentor_seq,aa.member_profile,aa.member_name member_name , sum(aa.order_price) sales
+from
+(select 
+distinct mo.order_id, mo.order_price order_price, mm.member_name member_name, mm.member_profile, mt.mentor_seq
+from meeting_order mo,
+     meetingboard mb,
+     mentor mt,
+     mentors_member mm
+where order_flag = 1
+and mo.meetingboard_seq = mb.meetingboard_seq
+and mb.mentor_email = mt.mentor_email
+and mt.mentor_email = mm.member_email
+and mt.mentor_badge = 0)aa
+group by aa.member_name,aa.member_profile,aa.mentor_seq
+order by aa.member_name
+</select>
+
+<!-- 멘티검색 총 멤버 수뽑아오기 -->
+<select id="getMentorBoard"  resultType="adminmember.bean.AdminmentorBoardListDTO">
+select mm.member_name,count(mm.member_name) cnt from
+meetingboard mb,
+mentor mt,
+mentors_member mm
+where mb.mentor_email = mt.mentor_email
+and mt.mentor_email = mm.member_email
+group by mm.member_name
+order by mm.member_name
+</select>
+<!-- 명예멘토승인 -->
+
+<update id="honorMentor" parameterType="java.util.Map">
+	update mentor set mentor_badge = 1  where mentor_seq in
+		<foreach collection="check" item="mentor_seq" index="i" open="(" close=")" separator=",">
+			#{mentor_seq}<!-- ${check[i]} 컬렉션만 $먹고 item인 seq는 #과$같이먹는다 -->
+		</foreach>
+</update>
 
 <!-- 멘티뽑아오깅 -->
  <select id="getAdminmenteeList" parameterType="java.util.Map" resultType="adminmember">
@@ -195,14 +244,14 @@
 			member_profile,
 			to_char(logtime,'YYYY-MM-DD') logtime
 	 from mentors_member
-	 where member_flag= 2
+	 where member_flag= 0
 	 order by logtime desc)tt) 
 	 where rn >= #{startNum} and rn<=#{endNum}]]>
  </select>
 
  <!-- 총멘티 -->
  <select id="getMenteeTotalA" resultType="Integer">
-		select count(*) cnt from mentors_member where member_flag= 2
+		select count(*) cnt from mentors_member where member_flag= 0
 </select>
 
 <!-- 멘티검색뽑아오기 -->
@@ -217,7 +266,7 @@
 			member_profile,
 			to_char(logtime,'YYYY-MM-DD') logtime
 	 from mentors_member
-	 where member_flag= 2 
+	 where member_flag= 0 
 	 and member_name like '%'||#{adminmenteeKeyword}||'%'
 	 order by logtime desc)tt) 
 	 where rn >= #{startNum} and rn<=#{endNum}]]>
@@ -225,7 +274,7 @@
 <!-- 멘티검색 총 멤버 수뽑아오기 -->
 <select id="getSearchmenteeTotalA" parameterType="java.util.Map" resultType="int">
 select count(*) from mentors_member 
-where  member_flag= 2
+where  member_flag= 0
 and	   member_name like '%'||#{adminmenteeKeyword}||'%'
 </select>
 </mapper>

@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import adminmember.bean.AdminmemberDTO;
+import adminmember.bean.AdminmentorBoardListDTO;
 import adminmember.bean.AdminmentorDTO;
+import adminmember.bean.AdminmentorSalesListDTO;
 import adminmember.dao.AdminmemberDAO;
 
 @Service
@@ -45,10 +47,7 @@ public class AdminmemberServiceImpl implements AdminmemberService{
 	
 	/* description : 멘토리스트*/
 	@Override
-	public List<AdminmentorDTO> getAdminmentorList(int startNum, int endNum) {
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("startNum", startNum); 
-		map.put("endNum", endNum); 
+	public List<AdminmentorDTO> getAdminmentorList(Map<String, Integer> map) {
 		return adminmemberDAO.getAdminmentorList(map);
 	}
 	/* description : 멘토회원 전체 수*/
@@ -98,6 +97,21 @@ public class AdminmemberServiceImpl implements AdminmemberService{
 	public void adminmentorReject(Map<String, String[]> map) {
 		adminmemberDAO.adminmentorReject(map);
 	}
+	
+	//명예멘토
+	@Override
+	public List<AdminmentorSalesListDTO> getMentorSales() {
+		return adminmemberDAO.getMentorSales();
+	}
+	@Override
+	public List<AdminmentorBoardListDTO> getMentorBoard() {
+		return adminmemberDAO.getMentorBoard();
+	}
+	@Override
+	public void honorMentor(Map<String, String[]> map) {
+		adminmemberDAO.honorMentor(map);
+	}
+	
 	//멘티리스트
 	@Override
 	public List<AdminmemberDTO> getAdminmenteeList(int startNum, int endNum) {

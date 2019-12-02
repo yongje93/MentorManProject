@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -48,64 +47,58 @@ public class EssayboardController {
 	private EssayboardScrapDTO essayboardScrapDTO;
 	@Autowired
 	private MentorService mentorService;
-	
+
 	/*
-	 * 
+	 *
 	 * @Title : (신규)에세이 리스트 출력
 	 * @Author : 김태형, @Date : 2019. 11. 15.
 	 */
 	@RequestMapping(value = "essayboardList", method = RequestMethod.GET)
 	public ModelAndView essayboardForm(@RequestParam(required = false, defaultValue = "1") String pg,
 									   @RequestParam(required = false, defaultValue = "0") String flag,
+									   @RequestParam(required = false) String essayFlag,
 									   HttpSession session,
 									   HttpServletResponse response) {
 		memberDTO = (MemberDTO)session.getAttribute("memDTO");
-		
+
 		Map<String, Object> map = new HashMap<String, Object>();
 		// 페이지 당 9개씩
 		int endNum = Integer.parseInt(pg) * 9;
 		int startNum = endNum - 8;
-		
+
 		map.put("endNum", endNum);
 		map.put("startNum", startNum);
-		
+
 		// 총 글 수
 		int totalA = essayboardService.getTotalA();
-		
+
 		map.put("totalA", totalA);
-		
+
 		ModelAndView modelAndView = new ModelAndView();
 		//  신규 에세이 리스트
-		List<EssayboardDTO>list = essayboardService.getNewEssay(map);	
-		
+		List<EssayboardDTO>list = essayboardService.getNewEssay(map);
+
 		//로그인 여부에 따라
 		if(memberDTO != null) {
 			String nickname = memberDTO.getMember_nickname();
 			modelAndView.addObject("memNickname" , nickname);
 			modelAndView.addObject("memFlag", memberDTO.getMember_flag());
-			
+
 			//양재우 scrap 기능 구현
 	         for (EssayboardDTO essayboardDTO : list) {
 	        	 int seq = essayboardDTO.getEssayboard_seq();
 	        	 Map<String, Object> scrapMap = new HashMap<String, Object>();
 	        	 scrapMap.put("seq", seq);
 	        	 scrapMap.put("memEmail" , memberDTO.getMember_email());
-	       	  
+
 	        	 int cnt = essayboardService.getEssayboardScrap(scrapMap);
 	        	 //스크랩을 눌렀다면
 	        	 if(cnt == 1) {
 	        		 //flag 1 저장
 	        		 essayboardDTO.setEssayboard_scrapFlag(cnt);
 	        	 }
-	        	 
+
 	         }
-			
-			//조회수(쿠키 생성) 
-			if(nickname != null) {
-				Cookie cookie = new Cookie("memHit","0");
-				cookie.setMaxAge(60*60*24);
-				response.addCookie(cookie);
-			}
 		}
 
 		essayboardPaging.setCurrentPage(Integer.parseInt(pg));
@@ -115,6 +108,9 @@ public class EssayboardController {
 		essayboardPaging.makePagingHTML();
 		modelAndView.addObject("pg", pg);
 		modelAndView.addObject("boardpaging", essayboardPaging);
+		if(essayFlag != null) {
+			modelAndView.addObject("essayFlag", essayFlag);
+		}
 		modelAndView.addObject("flag", flag);
 		modelAndView.addObject("map", map);
 		modelAndView.addObject("list", list);
@@ -123,10 +119,10 @@ public class EssayboardController {
 
 		return modelAndView;
 	}
-	
-	
+
+
 	/*
-	 * 
+	 *
 	 * @Title : 에세이 글쓰기
 	 * @Author : 김태형, @Date : 2019. 11. 6.
 	 */
@@ -135,9 +131,9 @@ public class EssayboardController {
 		model.addAttribute("display", "/essayboard/essayboardWriteForm.jsp");
 		return "/main/index";
 	}
-	 
+
 	/*
-	 * 
+	 *
 	 * @Title : 에세이 글쓰기 처리
 	 * @Author : 김태형, @Date : 2019. 11. 6.
 	 */
@@ -148,11 +144,11 @@ public class EssayboardController {
 		String email = memberDTO.getMember_email();
 		map.put("mentor_email", email);
 		essayboardService.essayboardWrite(map);
-		
+
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @Title : 에세이 글 쓰기 이미지 처리
 	 * @Author : 김태형, @Date : 2019. 11. 26.
 	 */
@@ -161,7 +157,6 @@ public class EssayboardController {
 	public String noticeboardImage(@RequestParam("file") MultipartFile file) {
 		String filePath = "C:\\Users\\TR\\Documents\\GitHub\\MentorMan\\mentor\\src\\main\\webapp\\storage";
 		String fileName = file.getOriginalFilename();
-		System.out.println(fileName);
 		File files = new File(filePath, fileName);
 		try {
 			FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(files));
@@ -170,9 +165,9 @@ public class EssayboardController {
 		}
 		return fileName;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @Title : 에세이 글 가져오기 (수정)
 	 * @Author : TR, @Date : 2019. 11. 7.
 	 */
@@ -180,33 +175,31 @@ public class EssayboardController {
 	public ModelAndView essayboardModifyForm(String seq, String pg) {
 		EssayboardDTO essayboardDTO = essayboardService.getEssayboard(Integer.parseInt(seq));
 		ModelAndView modelAndView = new ModelAndView();
-		
+
 		modelAndView.addObject("pg", pg);
 		modelAndView.addObject("seq", seq);
 		modelAndView.addObject("essayboardDTO", essayboardDTO);
 		modelAndView.addObject("display", "/essayboard/essayboardModifyForm.jsp");
 		modelAndView.setViewName("/main/index");
-		
+
 		return modelAndView;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @Title : 에세이 정보 수정 처리
 	 * @Author : TR, @Date : 2019. 11. 8.
 	 */
 	@RequestMapping(value = "essayboardModify", method = RequestMethod.POST)
 	@ResponseBody
 	public void essayboardModify(@RequestParam Map<String, Object> map) {
-		
-		essayboardService.essayboardModify(map);	
-		
+		essayboardService.essayboardModify(map);
 	}
-	
-	
-	
+
+
+
 	/**
-	 * 
+	 *
 	 * @Title : 에세이 직무 유형별 검색
 	 * @Author : 김태형, @Date : 2019. 11. 21.
 	 */
@@ -215,100 +208,87 @@ public class EssayboardController {
 	public ModelAndView essayjobType(@RequestBody Map<String, Object> jsonData ,
 										  HttpServletResponse response ,
 										  HttpSession session) {
+
 		List<EssayboardDTO> list = null;
-		
+
 		// job_code
 		ArrayList<String> joblist = (ArrayList<String>) jsonData.get("job_code");
 		// 현재 페이지
 		int pg = (Integer) jsonData.get("pg");
 		// 신규에세이, 추천에세이 플래그
 		int flag = (Integer) jsonData.get("flag");
-		
+
 		// job_code 유무 체크
 		String check = null;
-		
+
 		for (String jobs : joblist) {
-			System.out.println("list = " + jobs.toString());
 			if(!jobs.equals(null)) {
 				check = "success";
 			}
 		}
-		
-//		System.out.println("check = " + check);
-//		System.out.println("pg = " + pg);
-//		System.out.println("flag = " + flag);
-//		System.out.println("check = " + check);
+
 		memberDTO = (MemberDTO)session.getAttribute("memDTO");
 		Map<String, Object> map = new HashMap<String, Object>();
-		
+
 		// 페이지 당 9개씩
 		int endNum = pg * 9;
 		int startNum = endNum - 8;
-		
+
 		map.put("startNum", startNum);
 		map.put("endNum", endNum);
 		map.put("job_code", joblist);
 		map.put("flag", flag);
-		
+
 		// 직무유형 총 글 수
 		int essayDutyTotal = 0;
-		
-		// 직무 유형 찾기 
+
+		// 직무 유형 찾기
 		if(check == "success") {
 			// 직무유형에 대한  에세이 리스트
-			list = essayboardService.essayjobType(map);			
-			// 직무유형에 대한 에세이 개수 
+			list = essayboardService.essayjobType(map);
+			// 직무유형에 대한 에세이 개수
 			essayDutyTotal = essayboardService.getEssayDuty(map);
-		} 
-		
+		}
+
 		// job_code가 없을 경우 아래 코드를 실행한다.
 		if(check == null && flag == 0){
-			list = essayboardService.getNewEssay(map);	
+			list = essayboardService.getNewEssay(map);
 			essayDutyTotal = essayboardService.getTotalA();
 		} else if(check == null && flag == 1) {
 			list = essayboardService.getRecommendEssay(map);
 			essayDutyTotal = essayboardService.getRecommendTotal();
 		}
-		
-		ModelAndView modelAndView = new ModelAndView();	
+
+		ModelAndView modelAndView = new ModelAndView();
 
 		essayboardPaging.setCurrentPage(pg);
 		essayboardPaging.setPageBlock(3);
 		essayboardPaging.setPageSize(9);
 		essayboardPaging.setTotalA(essayDutyTotal);
 		essayboardPaging.makePagingHTML();
-		
+
 		//로그인 여부에 따라
 		if(memberDTO != null) {
 			String nickname = memberDTO.getMember_nickname();
 			modelAndView.addObject("memNickname" , nickname);
 			modelAndView.addObject("memFlag", memberDTO.getMember_flag());
-			
+
 			//양재우 scrap 기능 구현
 	         for (EssayboardDTO essayboardDTO : list) {
 	        	 int seq = essayboardDTO.getEssayboard_seq();
 	        	 Map<String, Object> scrapMap = new HashMap<String, Object>();
 	        	 scrapMap.put("seq", seq);
 	        	 scrapMap.put("memEmail" , memberDTO.getMember_email());
-	       	  
+
 	        	 int cnt = essayboardService.getEssayboardScrap(scrapMap);
 	        	 //스크랩을 눌렀다면
 	        	 if(cnt == 1) {
 	        		 //flag 1 저장
 	        		 essayboardDTO.setEssayboard_scrapFlag(cnt);
 	        	 }
-	        	 
+
 	         }
-			
-			//조회수(쿠키 생성) 
-			if(nickname != null) {
-				Cookie cookie = new Cookie("memHit","0");
-				cookie.setMaxAge(60*60*24);
-				response.addCookie(cookie);
-			}
 		}
-		System.out.println("listsize = " + list.size());
-		
 		modelAndView.addObject("pg", pg);
 		modelAndView.addObject("flag", flag);
 		modelAndView.addObject("pageSize", essayboardPaging.getPageSize());
@@ -316,12 +296,12 @@ public class EssayboardController {
 		modelAndView.addObject("essayDutyTotal", essayDutyTotal);
 		modelAndView.addObject("list", list);
 		modelAndView.setViewName("jsonView");
-		
+
 		return modelAndView;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @Title : 에세이 boardView
 	 * @Author : 김태형, @Date : 2019. 11. 6.
 	 */
@@ -332,26 +312,9 @@ public class EssayboardController {
 									  		HttpSession session,
 									  		HttpServletRequest request,
 									  		HttpServletResponse response) {
-		
+
 		memberDTO = (MemberDTO)session.getAttribute("memDTO");
-		
-		Cookie[] getCookie = request.getCookies();
-		if(getCookie != null) {
-			for(int i =0; i<getCookie.length; i++){
-				if(getCookie[i].getName().equals("memHit")){
-					//hit + 1
-					essayboardService.essayboardHit(Integer.parseInt(seq));
-					
-					getCookie[i].setMaxAge(0);
-					response.addCookie(getCookie[i]);
-				}
-			}
-		}
-		
-		// 에세이 보드 조회수 출력
-		int essayHit = essayboardService.getessayboardHit(Integer.parseInt(seq));
-		
-		System.out.println("ㄴeq " + seq);
+
 		// 해당 멘토 명함 출력
 		int mentor_seq = Integer.parseInt(mentors);
 		MentorDTO mentorDTO = mentorService.getMentorInfomation(mentor_seq);
@@ -360,52 +323,64 @@ public class EssayboardController {
 		map.put("mentoring_code", mentoringArray);
 		List<MentorDTO> mentoringList = mentorService.getMentoring_code(map);
 		
-		// 에세이 보드 
+		// 에세이 보드
 		essayboardDTO = essayboardService.getEssayboardView(Integer.parseInt(seq));
 
-		ModelAndView modelAndView = new ModelAndView();
-		
+		//scrap flag 업데이트
+		Map<String, Object> scrapMap = new HashMap<String, Object>();
+	   	scrapMap.put("seq", seq);
+	   	scrapMap.put("memEmail" , memberDTO.getMember_email());
+	   	int cnt = essayboardService.getEssayboardScrap(scrapMap);
+	   	 //스크랩을 눌렀다면
+	   	if(cnt == 1) {
+	   		 //flag 1 저장
+	   		essayboardDTO.setEssayboard_scrapFlag(cnt);
+	   	}
+
+	   	Map<String, String> followMap = new HashMap<String, String>();
+		followMap.put("memEmail" , memberDTO.getMember_email());
+		followMap.put("mentorEmail" , mentorDTO.getMentor_email());
+	   	//팔로우 찾기
+	  	int follow = mentorService.getFollowCheck(followMap);
+
+	   	ModelAndView modelAndView = new ModelAndView();
 		// 로그인 후 멘토 SEQ
 		//modelAndView.addObject("memSeq", memberDTO.getMember_seq());
 		// 게시물을 쓴 멘토의 SEQ
+		modelAndView.addObject("follow", follow);
 		modelAndView.addObject("mentorDTO", mentorDTO);
 		modelAndView.addObject("member_seq", mentors);
 		modelAndView.addObject("mentoringList", mentoringList);
-		modelAndView.addObject("essayHit", essayHit);
 		modelAndView.addObject("essayboardDTO", essayboardDTO);
 		modelAndView.addObject("seq", seq);
 		modelAndView.addObject("pg", pg);
 		modelAndView.addObject("display", "/essayboard/essayboardView.jsp");
 		modelAndView.setViewName("/main/index");
-		
+
 		return modelAndView;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @Title : 에세이 보드 삭제
 	 * @Author : TR, @Date : 2019. 11. 8.
 	 */
 	@RequestMapping(value = "essayboardDelete", method = RequestMethod.GET)
-	public String essayboardDelete(@RequestParam String seq, Model model) {
+	@ResponseBody
+	public void essayboardDelete(@RequestParam String seq) {
 		essayboardService.essayboardDelete(Integer.parseInt(seq));
-		
-		model.addAttribute("display", "/essayboard/essayboardList.jsp");
-		return "/main/index";
 	}
-	
+
 	   @RequestMapping(value = "essayboardScrap", method = RequestMethod.POST)
 	   @ResponseBody
 	   public String essayboardScrap(@RequestParam int essayboardScrap_es_seq ,
 			   					   @RequestParam int scrapFlag,
 			   					   HttpSession session) {
-	   
-		   System.out.println("essayScrap_es_seq : " + essayboardScrap_es_seq + " , scrapFlag : " + scrapFlag);
-		   
+
+
 		   memberDTO = (MemberDTO)session.getAttribute("memDTO");
 		   essayboardScrapDTO.setEssayboardScrap_es_seq(essayboardScrap_es_seq);
 		   essayboardScrapDTO.setEssayboardScrap_mem_email(memberDTO.getMember_email());
-		   System.out.println("essayboardScrapDTO ::: " + essayboardScrapDTO);
 		   //스크랩 선택
 		   if(scrapFlag == 1) {
 			   essayboardService.essayboardScrapInsert(essayboardScrapDTO);
@@ -416,33 +391,32 @@ public class EssayboardController {
 		   }
 		   //에세이의 총 스크랩수
 		   int totalScrap = essayboardService.getTotalScrap(essayboardScrap_es_seq);
-		   
+
 		   return totalScrap+"";
 	   }
-	   
-	   
-	   
+
+
+
 	   /**
-	    * 
-	    * @Title :  스크랩트한 관심 에세이 
+	    *
+	    * @Title :  스크랩트한 관심 에세이
 	    * @Author : yangjaewoo, @Date : 2019. 11. 15.
 	    */
-	   
+
 	   @RequestMapping(value = "essayboardAttention", method = RequestMethod.GET)
 	   public ModelAndView essayboardAttention(HttpSession session) {
 		   MemberDTO memberDTO = (MemberDTO)session.getAttribute("memDTO");
-		   
+
 		   String memEmail = memberDTO.getMember_email();
-		   
+
 		   List<EssayboardDTO> list = essayboardService.getEssayboardAttention(memEmail);
-		   
-		   System.out.println("email : "+memEmail+" , list :::::: " + list);
+
 		   for (EssayboardDTO essayboardDTO : list) {
 	      	 int seq = essayboardDTO.getEssayboard_seq();
 	      	 Map<String, Object> scrapMap = new HashMap<String, Object>();
 	      	 scrapMap.put("seq", seq);
 	      	 scrapMap.put("memEmail" , memberDTO.getMember_email());
-	     	  
+
 	      	 int cnt = essayboardService.getEssayboardScrap(scrapMap);
 	      	 //스크랩을 눌렀다면
 	      	 if(cnt == 1) {
@@ -450,14 +424,14 @@ public class EssayboardController {
 	      		 essayboardDTO.setEssayboard_scrapFlag(cnt);
 	     	  	 }
 	       }
-		   
+
 		   ModelAndView mav = new ModelAndView();
-		   
+
 		   mav.addObject("list", list);
 		   mav.addObject("display", "/essayboard/essayboardAttention.jsp");
 		   mav.setViewName("/main/index");
-		      
+
 		   return mav;
-		   
+
 	   }
 }

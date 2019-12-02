@@ -79,18 +79,6 @@ public class EssayboardDAOMybatis implements EssayboardDAO {
 		sqlSession.delete("essaySQL.essayboardDelete", seq);
 	}
 	
-	// 에세이 보드 조회수
-	@Override
-	public void essayboardHit(int seq) {
-		sqlSession.update("essaySQL.essayboardHit", seq);
-	}
-	
-	// 에세이 보드 조회수 출력
-	@Override
-	public int getessayboardHit(int seq) {
-		return sqlSession.selectOne("essaySQL.getessayboardHit", seq);
-	}
-	
 	@Override
 	public int getEssayboardScrap(Map<String, Object> scrapMap) {
 		return sqlSession.selectOne("essaySQL.getEssayboardScrap" , scrapMap);

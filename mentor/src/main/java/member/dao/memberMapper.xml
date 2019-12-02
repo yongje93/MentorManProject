@@ -219,4 +219,12 @@
   	<delete id="deleteAlarm" parameterType="Integer">
   		delete from myAlarm where myAlarm_seq = #{seq}
   	</delete>
+  	
+  	<select id="getCountAlarm" parameterType="String" resultType="Integer">
+  		select count(*) from myAlarm where myAlarm_subscribeFlag = 0 AND myAlarm_receiverEmail = #{member_email}
+  	</select>
+  	
+  	<select id="getTotalAlarm" parameterType="String" resultType="Integer">
+  		select count(*) from myAlarm where myAlarm_receiverEmail = #{memEmail}
+  	</select>
 </mapper>

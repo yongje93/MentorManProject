@@ -79,7 +79,6 @@ public class MentorController {
 	@RequestMapping(value = "mentorapplyWrite", method = RequestMethod.POST)
 	public String mentorapply(@RequestParam Map<String, String> map, @RequestParam("mentoring_code") String mentoring_code,@RequestParam("mentor_businesscard") MultipartFile mentor_businesscard, Model model) {
 		map.put("mentoring_code", mentoring_code);
-		System.out.println(map);
 		String filePath = "C:/github/MentorMan/mentor/src/main/webapp/storage/"+map.get("mentor_email");
 		String fileName = mentor_businesscard.getOriginalFilename();
 		File filemake = new File(filePath);
@@ -114,29 +113,23 @@ public class MentorController {
 		ArrayList<String> joblist = (ArrayList<String>) jsonData.get("job_code");
 		// 현재 페이지
 		int pg = (Integer) jsonData.get("pg");
-		// 신규에세이, 추천에세이 플래그
+		// 멘토, 명예멘토
 		int flag = (Integer) jsonData.get("flag");
-		
 		// job_code 유무 체크
 		String check = null;
 		
 		for (String jobs : joblist) {
-			System.out.println("list = " + jobs.toString());
 			if(!jobs.equals(null)) {
 				check = "success";
 			}
 		}
 		
-//		System.out.println("check = " + check);
-//		System.out.println("pg = " + pg);
-//		System.out.println("flag = " + flag);
-//		System.out.println("check = " + check);
 		memberDTO = (MemberDTO)session.getAttribute("memDTO");
 		Map<String, Object> map = new HashMap<String, Object>();
 //		
 		// 페이지 당 9개씩
-		int endNum = pg * 9;
-		int startNum = endNum - 8;
+		int endNum = pg * 12;
+		int startNum = endNum - 11;
 		
 		map.put("startNum", startNum);
 		map.put("endNum", endNum);
@@ -163,6 +156,7 @@ public class MentorController {
 			list = mentorService.getMentor(map);
 			jobCodeTotal = mentorService.getMemberCount(mentorFlag);
 		} else if(check == null && flag == 1) {
+			map.put("mentor_badge", 1);
 			list = mentorService.getHonorMentor(map);
 //			jobCodeTotal = mentorService.getRecommendTotal();
 		}
@@ -175,7 +169,6 @@ public class MentorController {
 		mentorfindPaging.setTotalA(jobCodeTotal);
 		mentorfindPaging.makePagingHTML();
 		
-		System.out.println("listsize = " + list.size());
 		if(memberDTO != null) {
 			modelAndView.addObject("memberDTO", memberDTO);
 		}
@@ -266,7 +259,6 @@ public class MentorController {
 		Map<String, String> followMap = new HashMap<String, String>();
 		followMap.put("memEmail" , memberDTO.getMember_email());
 		followMap.put("mentorEmail" , mentorDTO.getMentor_email());
-		
 		//팔로우 찾기
 		int follow = mentorService.getFollowCheck(followMap);
 		model.addAttribute("memNickname" , memberDTO.getMember_nickname());
@@ -299,6 +291,7 @@ public class MentorController {
 	 * @Author : yong
 	 * @Date : 2019. 11. 18.
 	 * @Method Name : mentorInfoView
+	 * 추가 : 양재우
 	 */
 	@RequestMapping(value = "mentorInfoView", method = RequestMethod.GET)
 	public String mentorInfoView(@RequestParam String mentors, @RequestParam(required = false, defaultValue = "1") String pg, Model model, HttpSession sesstion) {
@@ -306,11 +299,11 @@ public class MentorController {
 		MentorDTO mentorDTO = mentorService.getMentorInfomation(mentor_seq);
 		List<MentorDTO> essayList = mentorService.getMentorEssayList(mentor_seq);
 		List<ReviewDTO> reviewList = mentorService.getMentorReviewList(mentor_seq);
-		
+		System.out.println("mentor_seq :: " + mentor_seq);
 		int mentor_answer = mentorService.getAnswer(mentor_seq); // 답변수
 		int mentor_question = mentorService.getQuestion(mentor_seq);// 질문수
+		int mentor_follow = mentorService.getFollow(mentor_seq); //팔로워수
 		double questionPercent = (double)mentor_answer/(double)mentor_question;
-		//System.out.println(mentor_answer+"-----"+mentor_question);
 		String[] mentoringArray = mentorDTO.getMentoring_code().split(",");
 		Map<String, String[]> map = new HashMap<String, String[]>();
 		map.put("mentoring_code", mentoringArray);
@@ -318,6 +311,13 @@ public class MentorController {
 		
 		memberDTO = (MemberDTO) sesstion.getAttribute("memDTO");
 		
+		//follow - 재우
+		Map<String, String> followMap = new HashMap<String, String>();
+		followMap.put("memEmail" , memberDTO.getMember_email());
+		followMap.put("mentorEmail" , mentorDTO.getMentor_email());
+	  	int follow = mentorService.getFollowCheck(followMap);
+		
+	  	model.addAttribute("follow", follow);
 		model.addAttribute("pg", pg);
 		if(memberDTO!= null) {
 			model.addAttribute("email_check", memberDTO.getMember_email());
@@ -328,6 +328,7 @@ public class MentorController {
 			model.addAttribute("questionPercent", questionPercent);
 		}
 		model.addAttribute("mentor_answer",mentor_answer);
+		model.addAttribute("mentor_follow",mentor_follow);
 		model.addAttribute("mentor_seq", mentor_seq);
 		model.addAttribute("mentoringList", mentoringList);
 		model.addAttribute("mentorDTO", mentorDTO);
@@ -345,7 +346,6 @@ public class MentorController {
 	@RequestMapping(value = "questionModify", method = RequestMethod.POST)
 	@ResponseBody
 	public String questionModify(@RequestParam Map <String, String> map) {
-		System.out.println(map);
 		int success = mentorService.questionModify(map);
 		if(success == 0) {
 			return "error";
@@ -371,7 +371,6 @@ public class MentorController {
         mentorFollowDTO.setFollower_email(follower_email);
         mentorFollowDTO.setFollowed_email(followed_email);
        
-        System.out.println("mentorFollowDTO : " + mentorFollowDTO);
         if(follow >= 1) {
         	mentorService.mentorFollowDelete(mentorFollowDTO);
         	follow=0;
@@ -391,12 +390,51 @@ public class MentorController {
 		map.put("memEmail" , memberDTO.getMember_email());
 		map.put("mentor_flag", 1);
 		//승인된 멘토 이면서 나를 팔로우한 팔로워 list
-		System.out.println("map :::: " + map);
 		List<MentorDTO> list = mentorService.getMentorAttentionList(map);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("display", "/mentor/mentorAttention.jsp");
 		return "/main/index";
+	}
+	/**
+	 * @Title : 멘토 정보 수정
+	 * @Author : kujun95, @Date : 2019. 11. 27.
+	 */
+	@RequestMapping(value = "mentorInfoForm", method = RequestMethod.GET)
+	public String mentorInfoForm(Model model, HttpSession session) {
+		memberDTO = (MemberDTO) session.getAttribute("memDTO");
+		MentorDTO mentorDTO = mentorService.getEmail(memberDTO.getMember_email());
+		model.addAttribute("mentorDTO", mentorDTO);
+		model.addAttribute("display", "/mentee/menteeUserForm.jsp");
+		model.addAttribute("display2", "/mentor/mentorInfoForm.jsp");
+		return "/main/index";
+	}
+	
+	@RequestMapping(value = "mentorInfoModify", method = RequestMethod.POST)
+	public String mentorInfoModify(@RequestParam("mentoring_code") String mentoring_code,@RequestParam("mentor_businesscard") MultipartFile mentor_businesscard, @RequestParam Map<String, String> map , HttpSession session) {
+		map.put("mentoring_code", mentoring_code);
+		if(mentor_businesscard.getOriginalFilename()!="") {
+			String filePath = "C:/github/MentorMan/mentor/src/main/webapp/storage/"+map.get("mentor_email");
+			String fileName = mentor_businesscard.getOriginalFilename();
+			File filemake = new File(filePath);
+			if(!filemake.exists()) {
+				filemake.mkdirs();
+			}
+			if(fileName != "") {
+				File file = new File(filePath, fileName);
+				try {
+					FileCopyUtils.copy(mentor_businesscard.getInputStream(), new FileOutputStream(file));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			map.put("mentor_businesscard",fileName);
+		}else {
+			map.put("mentor_businesscard", null);
+		}
+		mentorService.mentorInfoModify(map);
+		session.invalidate();
+		return "redirect:/main/index";
 	}
 		
 	

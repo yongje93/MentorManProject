@@ -4,32 +4,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="menteeboardSQL">
-
+	<!-- 조인 수정 -->
 	<select id="getMenteeboardList" parameterType="java.util.Map" resultType="menteeboard">
 	select * from(
 	select rownum rn , tt.* from(
-	select menteeboard_seq,menteeboard_profile,menteeboard_nickname,menteeboard_email,menteeboard_title,menteeboard_content, j.job_type, menteeboard_good,menteeboard_ref,menteeboard_lev,menteeboard_step,menteeboard_pseq,menteeboard_reply,menteeboard_hit,menteeboard_logtime
-	from menteeboard a, job j
-	where a.job_code = j.job_code order by menteeboard_seq desc)tt)
+	select menteeboard_seq,menteeboard_email,m.member_profile,m.member_nickname,menteeboard_title,menteeboard_content, j.job_type, menteeboard_good,menteeboard_ref,menteeboard_lev,menteeboard_step,menteeboard_pseq,menteeboard_reply,menteeboard_hit,menteeboard_logtime
+	from menteeboard a, job j, mentors_member m
+	where a.job_code = j.job_code and a.menteeboard_email = m.member_email order by menteeboard_seq desc)tt)
 	where  rn <![CDATA[>=]]> #{startNum} and rn <![CDATA[<=]]> #{endNum}
 	</select>
 	
 	<select id="getTotalA" resultType="Integer">
 	select count(*) from menteeboard
 	</select>
-	
+	<!-- 닉네임/ 사진 수정 -->
 	<insert id="menteeboardWrite" parameterType="java.util.Map">
 	insert into menteeboard(menteeboard_seq
-						   ,menteeboard_profile
-						   ,menteeboard_nickname
 						   ,menteeboard_email
 						   ,menteeboard_title
 						   ,menteeboard_content
 						   ,job_code
 						   ,menteeboard_ref)
 	values(menteeboard_seq.nextval
-				  ,#{profile}
-				  ,#{nickname}
 				  ,#{email}
 				  ,#{menteeWriteFormSubject}
 				  ,#{summernote}
@@ -37,13 +33,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				  ,menteeboard_seq.currval)
 	</insert>
 	
-	
+	<!-- 조인 수정 완료 -->
 	<select id="getMenteeboardListJob" parameterType="java.util.Map" resultType="menteeboard">
 	select * from (
 	select rownum rn , tt.* from
-	(select menteeboard_seq,menteeboard_profile,menteeboard_nickname,menteeboard_email,menteeboard_title,menteeboard_content, j.job_type, menteeboard_good,menteeboard_ref,menteeboard_lev,menteeboard_step,menteeboard_pseq,menteeboard_reply,menteeboard_hit,menteeboard_logtime
-	from (select * from menteeboard order by menteeboard_seq desc)m, job j
-	where m.job_code = #{job_code,jdbcType=VARCHAR} AND m.job_code = j.job_code)tt)
+	(select menteeboard_seq,me.member_profile,me.member_nickname,menteeboard_email,menteeboard_title,menteeboard_content, j.job_type, menteeboard_good,menteeboard_ref,menteeboard_lev,menteeboard_step,menteeboard_pseq,menteeboard_reply,menteeboard_hit,menteeboard_logtime
+	from (select * from menteeboard order by menteeboard_seq desc)m, job j , mentors_member me
+	where m.job_code like '%'||#{job_code,jdbcType=VARCHAR}||'%' AND m.job_code = j.job_code AND m.menteeboard_email = me.member_email)tt)
 	where rn <![CDATA[>=]]> #{startNum,jdbcType=INTEGER} and rn <![CDATA[<=]]> #{endNum,jdbcType=INTEGER}
 	</select>
 	
@@ -52,7 +48,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="getMenteeboard" parameterType="Integer" resultType="menteeboard">
-	select * from menteeboard where menteeboard_seq = #{seq}
+	select menteeboard_seq,me.member_profile,me.member_nickname,menteeboard_email,menteeboard_title,menteeboard_content, menteeboard_good,menteeboard_ref,menteeboard_lev,menteeboard_step,menteeboard_pseq,menteeboard_reply,menteeboard_hit,menteeboard_logtime
+    from menteeboard m , mentors_member me
+	where m.menteeboard_email = me.member_email and menteeboard_seq = #{seq}
 	</select>
 	
 	<update id="menteeboardHit" parameterType="Integer">
@@ -82,13 +80,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="menteeboardSelect" parameterType="menteeboardLike" resultType="Integer">
 	select count(*) from menteeboardLike where menteeboardLike_mb_seq = #{menteeboardLike_mb_seq} AND menteeboardLike_mb_email = #{menteeboardLike_mb_email}
 	</select>
-	
+	<!-- 조인 수정 -->
 	<select id="menteeboardSearch" parameterType="java.util.Map" resultType="menteeboard">
 		select * from(
 		select rownum rn , tt.* from(
-		select menteeboard_seq,menteeboard_profile,menteeboard_nickname,menteeboard_email,menteeboard_title,menteeboard_content, j.job_type, menteeboard_good,menteeboard_ref,menteeboard_lev,menteeboard_step,menteeboard_pseq,menteeboard_reply,menteeboard_hit,menteeboard_logtime
-		from menteeboard a, job j
-		where a.job_code = j.job_code and menteeboard_title like '%'||#{search_text}||'%' 
+		select menteeboard_seq,m.member_profile,m.member_nickname,menteeboard_email,menteeboard_title,menteeboard_content, j.job_type, menteeboard_good,menteeboard_ref,menteeboard_lev,menteeboard_step,menteeboard_pseq,menteeboard_reply,menteeboard_hit,menteeboard_logtime
+		from menteeboard a, job j , mentors_member m
+		where a.job_code = j.job_code and a.menteeboard_email = m.member_email and menteeboard_title like '%'||#{search_text}||'%' 
 		order by menteeboard_seq desc)tt)
 		where  rn <![CDATA[>=]]> #{startNum} and rn <![CDATA[<=]]> #{endNum}
 	</select>

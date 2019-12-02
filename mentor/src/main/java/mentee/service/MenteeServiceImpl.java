@@ -58,5 +58,9 @@ public class MenteeServiceImpl implements MenteeService {
 	public MemberDTO getNickname(String member_nickname) {
 		return menteeDAO.getNickname(member_nickname);
 	}
-
+	
+	@Override
+	public void memberDeleteSuccess(int member_seq) {
+		menteeDAO.memberDeleteSuccess(member_seq);
+	}
 }

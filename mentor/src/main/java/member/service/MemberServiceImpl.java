@@ -233,6 +233,16 @@ public class MemberServiceImpl implements MemberService {
 		memberDAO.deleteAlarm(seq);
 	}
 
+	@Override
+	public int getCountAlarm(String member_email) {
+		return memberDAO.getCountAlarm(member_email);
+	}
+
+	@Override
+	public int getTotalAlarm(String memEmail) {
+		return memberDAO.getTotalAlarm(memEmail);
+	}
+
 
 }
 

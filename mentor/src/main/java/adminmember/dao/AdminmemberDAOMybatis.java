@@ -9,7 +9,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import adminmember.bean.AdminmemberDTO;
+import adminmember.bean.AdminmentorBoardListDTO;
 import adminmember.bean.AdminmentorDTO;
+import adminmember.bean.AdminmentorSalesListDTO;
 
 @Repository("adminmameberDAO")
 @Transactional
@@ -91,6 +93,21 @@ public class AdminmemberDAOMybatis implements AdminmemberDAO{
 		sqlSession.delete("adminmemberSQL.adminmentorReject", map);
 	}
 	
+	@Override
+	public List<AdminmentorSalesListDTO> getMentorSales() {
+		return sqlSession.selectList("adminmemberSQL.getMentorSales");
+	}
+
+	@Override
+	public List<AdminmentorBoardListDTO> getMentorBoard() {
+		return sqlSession.selectList("adminmemberSQL.getMentorBoard");
+	}
+	
+	@Override
+	public void honorMentor(Map<String, String[]> map) {
+		sqlSession.update("adminmemberSQL.honorMentor",map);
+	}
+
 	// 멘티
 	@Override
 	public List<AdminmemberDTO> getAdminmenteeList(Map<String, Integer> map) {
@@ -111,7 +128,6 @@ public class AdminmemberDAOMybatis implements AdminmemberDAO{
 	public int getSearchmenteeTotalA(Map<String, Object> map) {
 		return sqlSession.selectOne("adminmemberSQL.getSearchmenteeTotalA",map);
 	}
-	
 	
 }
 

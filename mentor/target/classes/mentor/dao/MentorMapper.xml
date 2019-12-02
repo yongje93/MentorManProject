@@ -40,25 +40,11 @@
 	
 	<select id="getMentorList" parameterType="Map" resultType="mentor">
 		select * from(select rownum rn, tt.* from
-                    (select mb.member_name
+                    (select mt.*
+                    		, mb.member_name
                             , mb.member_seq
                             , mb.member_profile
-                            , mt.mentor_company
-                            , mt.mentor_department
                             , j.job_type
-                            , mt.mentor_seq
-                            , mt.mentor_school
-                            , mt.mentor_career
-                            , mt.mentoring_code
-                            , mt.mentor_represent
-                            , mt.mentor_info
-                            , mt.mentor_etc
-                            , mt.mentor_email
-                            , mt.mentor_selectNaming
-                            , mt.mentor_businesscard
-                            , mt.mentor_badge
-                            , mt.mentor_flag
-                            , mt.mentor_logtime
             from mentor mt, job j, mentors_member mb where mt.mentor_email = mb.member_email and j.job_code = mt.job_code and mentor_flag = #{mentor_flag} order by mt.mentor_seq desc)tt) 
 		where rn between #{startNum} and #{endNum}
 	</select>
@@ -124,12 +110,15 @@
 		from mentor mt, mentors_member mm, job j
 		where mt.mentor_email = mm.member_email and j.job_code = mt.job_code and mm.member_seq = ${mentor_seq}
   	</select>
+
 	<select id="getQuestion_flag" parameterType="Map" resultType="mentor">
 		select question_flag, question_seq from question where mentor_seq = #{mentor_seq} and member_email = #{member_email}
 	</select>
+	
 	<select id="questionModifyForm" parameterType="int" resultType="mentor">
 		select * from question where question_seq = #{qsseq}
 	</select>
+	
 	<update id="questionModify" parameterType="Map">
 		update question set question_title = #{question_title}, question_content = #{question_content}, question_logtime = sysdate where question_seq = #{question_seq}
 	</update>
@@ -234,4 +223,29 @@
 		select count(*) from mentor mt, mentors_member mm, question qs where mt.mentor_email = mm.member_email and qs.mentor_seq = mt.mentor_seq and mm.member_seq = #{mentor_seq}
 	</select>
 	
+	<update id="mentorInfoModify" parameterType="Map">
+		update mentor set mentor_company = #{mentor_company}
+						, mentor_department = #{mentor_department}
+						, mentor_position = #{mentor_position}
+						, job_code = #{job_code}
+						, mentor_school = #{mentor_school}
+						, mentor_career = #{mentor_career}
+						, mentoring_code = #{mentoring_code}
+						, mentor_represent = #{mentor_represent}
+						, mentor_info = #{mentor_info}
+						, mentor_etc = #{mentor_etc}
+						, mentor_selectnaming = #{mentor_selectNaming}
+					<if test="mentor_businesscard != null">
+						, mentor_businesscard = #{mentor_businesscard}
+					</if>
+						where mentor_email = #{mentor_email}
+	</update>
+	
+	<select id="getFollow" parameterType="Integer" resultType="Integer" >
+		select count(*) 
+	    from mentorFollow mf ,mentors_member mm, mentor mt
+	    where mf.followed_email = mt.mentor_email
+	    and mt.mentor_email = mm.member_email
+	    and mm.member_seq = #{mentor_seq}
+	</select>
 </mapper>

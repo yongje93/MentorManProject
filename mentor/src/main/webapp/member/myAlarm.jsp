@@ -5,10 +5,11 @@
 <div class="page navbar-fixed bookmarks mentor_posts" data-name="bookmarks-mentor_posts">
 	<div class="page-content">
 		<div class="qa-thread-block">
-			<div class="block-title strong-title">나의 알림</div>
+			<div class="block-title strong-title">나의 알림 (${getTotalAlarm })</div>
 			<div class="block no-hairlines"></div>
 			<div class="mentor-post-block">
 				<div class="row no-gap" id="inputAlarmList">
+				
 				<c:forEach var="list" items="${list}">
 					<div class="col-100 tablet-100 desktop-100">
 						<div class="card mentor-post-card">
@@ -30,6 +31,11 @@
 					</div>
 				</c:forEach>
 				</div>
+				<c:if test="${getTotalAlarm > 7 }">
+				<div class="text-align-center load-more-container">
+					<button class="button load-more" id="loadMorePost">더 보기</button>
+				</div>
+				</c:if>
 			</div>
 		</div>
 		<div class="pagination-block">
@@ -38,3 +44,29 @@
 	</div>
 </div>
 <script type="text/javascript" src="../js/myAlarm.js"></script>
+<script>
+
+let currentPage = 1;
+const lastPage = 1;
+
+$(function() {
+	$('.mentor-post-card').prop('hidden', true).slice(0, 7).show();
+	$("#loadMorePost").on('click', function(e) {
+		e.preventDefault();
+		$(".mentor-post-card:hidden").slice(0, 7).slideDown();
+		if ($(".mentor-post-card:hidden").length == 0) {
+			$("#loadMorePost").fadeOut('slow');
+		}
+	});
+});
+
+function toggleThanksNotesText(e) {
+	e.preventDefault();
+	$(this).hide();
+	$(this).prev('span.elipsis').fadeToggle(500);
+}
+
+
+$('.thanks-note-body > a.elipsis').click(toggleThanksNotesText);
+
+</script>

@@ -29,7 +29,7 @@
 											 menteestudent_grade = #{menteeStudent_grade},
 											 menteestudent_spec	= #{menteeStudent_spec},
 											 menteestudent_etc = #{menteeStudent_etc} 
-											 where menteestudent_email = #{menteeStudent_email}
+											 where menteestudent_email = #{mentee_email}
 	</update>
 	
 	<insert id="menteeEmployeeInput" parameterType="Map">
@@ -42,7 +42,7 @@
 											 menteeemployee_school = #{menteeEmployee_school},
 											 menteeemployee_career = #{menteeEmployee_career},
 											 menteeemployee_etc	= #{menteeEmployee_etc}
-											 where menteeemployee_email = #{menteeEmployee_email}
+											 where menteeemployee_email = #{mentee_email}
 	</update>
 	
 	<select id="menteePasswordCheck" parameterType="String" resultType="member">
@@ -56,5 +56,8 @@
 	<select id="getNickname" parameterType="String" resultType="member">
 		select * from mentors_member where member_nickname = #{member_nickname}
 	</select>
-
+	
+	<delete id="memberDeleteSuccess" parameterType="int">
+	<!-- 보류 -->
+	</delete>
 </mapper>

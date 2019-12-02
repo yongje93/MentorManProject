@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import adminmember.bean.AdminmemberDTO;
+import adminmember.bean.AdminmentorBoardListDTO;
 import adminmember.bean.AdminmentorDTO;
+import adminmember.bean.AdminmentorSalesListDTO;
 
 public interface AdminmemberDAO {
 	//회원리스트
@@ -31,6 +33,13 @@ public interface AdminmemberDAO {
 	public List<AdminmentorDTO> getAdminmentorApplyList(Map<String, Integer> map);
 
 	public int getMentorApplyTotalA();
+	//명예멘토
+	public List<AdminmentorSalesListDTO> getMentorSales();
+
+	public List<AdminmentorBoardListDTO> getMentorBoard();
+	
+	public void honorMentor(Map<String, String[]> map);
+	
 	//멘티리스트
 	public List<AdminmemberDTO> getAdminmenteeList(Map<String, Integer> map);
 	
@@ -43,7 +52,6 @@ public interface AdminmemberDAO {
 	public List<AdminmentorDTO> getSearchadminmentorApplyList(Map<String, Object> map);
 
 	public int getSearchmentorApplyTotalA(Map<String, Object> map);
-
 
 }
 

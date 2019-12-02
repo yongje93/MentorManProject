@@ -33,7 +33,7 @@ public class MenteeDAOMybatis implements MenteeDAO {
 
 	@Override
 	public void menteeStudentInput(Map<String, String> map) {
-		if(map.get("member_email")!=null) {
+		if(map.get("mentee_email")==null) {
 			sqlSession.insert("menteeSQL.menteeStudentInput", map);
 		}else {
 			sqlSession.update("menteeSQL.menteeStudentSave", map);
@@ -47,7 +47,7 @@ public class MenteeDAOMybatis implements MenteeDAO {
 	
 	@Override
 	public void menteeEmployeeInput(Map<String, String> map) {
-		if(map.get("member_email")!=null) {
+		if(map.get("mentee_email")==null) {
 			sqlSession.insert("menteeSQL.menteeEmployeeInput", map);
 		}else {
 			sqlSession.update("menteeSQL.menteeEmployeeSave", map);
@@ -68,5 +68,9 @@ public class MenteeDAOMybatis implements MenteeDAO {
 	public MemberDTO getNickname(String member_nickname) {
 		return sqlSession.selectOne("menteeSQL.getNickname", member_nickname);
 	}
-
+	
+	@Override
+	public void memberDeleteSuccess(int member_seq) {
+		sqlSession.delete("menteeSQL.memberDeleteSuccess", member_seq);
+	}
 }

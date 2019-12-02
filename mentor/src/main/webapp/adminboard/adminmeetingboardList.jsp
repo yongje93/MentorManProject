@@ -57,7 +57,7 @@
 											</c:if>
 											${meetingboardDTO.member_name }
 										</td>
-										<td><a href="/mentor/adminboard/adminmeetingView?seq=${meetingboardDTO.meetingboard_seq }&pg=${pg}" style="text-decoration: none;">${meetingboardDTO.meetingboard_title }</a></td>
+										<td><a href="/mentor/adminboard/adminmeetingView?seq=${meetingboardDTO.meetingboard_seq }&pg=${pg}">${meetingboardDTO.meetingboard_title }</a></td>
 										<td>${meetingboardDTO.meetingboard_address }</td>
 										<td>${meetingday }</td>
 										<td>${meetingboardDTO.meetingboard_host }</td>

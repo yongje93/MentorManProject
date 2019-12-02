@@ -40,17 +40,14 @@
 								<tbody>
 								<c:forEach var="adminmemberDTO" items="${list }">
 									<tr>
-										<td><img src="../image/${adminmemberDTO.member_profile }" width="30" height="30">${adminmemberDTO.member_name }</td>
+										<td><img src="../image/${adminmemberDTO.member_profile }" width="30" height="30" style="border-radius: 50%;">${adminmemberDTO.member_name }</td>
 										<td>${adminmemberDTO.member_nickname }</td>
 										<td>${adminmemberDTO.member_email }</td>
 										<c:if test="${adminmemberDTO.member_flag eq '0'}">
-										<td>회원</td>
+										<td>멘티</td>
 										</c:if>
 										<c:if test="${adminmemberDTO.member_flag eq '1'}">
 										<td>멘토</td>
-										</c:if>
-										<c:if test="${adminmemberDTO.member_flag eq '2'}">
-										<td>멘티</td>
 										</c:if>
 										<c:if test="${adminmemberDTO.member_flag eq '3'}">
 										<td>관리자</td>
@@ -67,7 +64,6 @@
 							<nav aria-label="Page navigation example">
 								<ul class="pagination">
 									<li class="page-item">${adminmemberPaging.pagingHTML }</li>
-
 								</ul>
 							</nav>                                                           
 						</div>

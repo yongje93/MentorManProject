@@ -1,3 +1,16 @@
+// 메인 페이지 명예멘토 더보기 처리
+$(document).ready(function(){
+   var bestFlag = $('#bestFlag').val();
+   
+   if(bestFlag == 1){
+      $('.mentor_div').empty();
+      $('#honor_mentor').attr('class', 'button');
+      $('.mentor_div').text('명예 멘토');
+      essayjobType(1 , bestFlag);
+   }
+   
+});
+
 //멘토 지원하기
 $('#mentorapplyForm_btn').on('click',function(){
 	$('#mentor_company_error').empty();
@@ -86,10 +99,12 @@ $('#mentorapply_btn').on('click',function(){
 		$('#mentor_email_error').css('font-size','8pt');
 		$('#mentor_email').focus();
 	}else if($('#mentor_request_name_card').val()==''){
+		$('#mentorInfoForm').submit();
 		$('#mentor_businesscard_error').text('명함 이미지를 등록해주세요').css('color', 'red');
 		$('#mentor_businesscard_error').css('font-size','8pt');
 		$('#mentor_request_name_card').focus();
 	}else {
+		$('#mentorInfoForm').submit();
 		$('#mentorapplyWriteForm').submit();
 	}
 });
@@ -176,7 +191,7 @@ $('#modify_btn').on('click', function(){
 // 팔로우 기능- 재우
 $(function(){
 	var seq = $('#mentor_seq').val();
-
+	
 	//내가 팔로우한 멘토인지 확인
 	if($('#followVal').val() === '1'){
 		$('#followA').addClass('button-fill');
@@ -444,9 +459,9 @@ function essayjobType(pg , flag){
     });
 }
 
-$('#recommend_essay').on('click', function(event){
+$('#honor_mentor').on('click', function(event){
 	event.preventDefault();
-	$('.essayName').empty();
+	$('.mentor_div').empty();
 	var flag = null;
 	
 	if($(this).hasClass("button color-gray")){
@@ -458,9 +473,9 @@ $('#recommend_essay').on('click', function(event){
     }
 	
 	if(flag == 0){
-		$('.essayName').text('신규 에세이');
+		$('.mentor_div').text('멘토');
 	} else if (flag == 1) {
-		$('.essayName').text('추천 에세이');
+		$('.mentor_div').text('명예 멘토');
 	}
 	
 	essayjobType(1, flag);

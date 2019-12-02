@@ -17,7 +17,7 @@
 			</div>
 			<div class="block mentor-info mentor-info-box">
 				<div class="name">
-					<span class="mentor-name profile-name">
+					<span class="mentor-name profile-name" data-name="${mentorDTO.member_name}" data-nickname="${memDTO.member_nickname}">
 						${mentorDTO.member_name} <small>멘토</small>
 					</span>
 				</div>
@@ -37,7 +37,7 @@
 							</div>
 							<div class="chip chip-outline no-border-radius mentor-index">
 								<div class="chip-label">
-									<span>팔로워 <strong class="highlight">!!!수정</strong></span>
+									<span>팔로워 <strong class="highlight">${mentor_follow }</strong></span>
 								</div>
 							</div>
 						</div>
@@ -82,8 +82,8 @@
 					<c:if test="${email_check != null}">
 						<div class="btn-container">
 							<c:if test="${mentorDTO.mentor_email != email_check}">
-								<div class="profile-btn">
-									<a class="button col js-bookmark" type="external" data-remote="true" rel="nofollow" data-method="post" href=""> 팔로우 </a>  <%--주소 수정 --%>
+								<div class="profile-btn" id="menMail" data-email="${mentorDTO.mentor_email }">
+									<a class="button button-fill col js-bookmark mentor_${mentorDTO.mentor_seq}" id="followA" type="external" data-follow="${follow}" data-disable-with="..." type="external" data-remote="true" rel="nofollow" data-method="post" href="/relationships"> 팔로우 </a>  <%--주소 수정 --%>
 								</div>
 								<div class="profile-btn">
 									<a class="button button-fill" type="external" onclick="mentor_question_seq(${mentorDTO.mentor_seq},${pg})">질문하기</a>  <%--주소 수정 --%>
@@ -198,6 +198,7 @@
 		</c:if>
 	</div>
 </div>
+
 <script src="../js/mentor.js"></script>
 <script>
 	let currentPage = 1;
@@ -266,4 +267,107 @@
 		});	
 		toastWithCallback.open();
 	}
+	
+	//팔로우 버튼 체크
+	$(function(){
+		//var seq = $('#essayScrapDiv').data('seq');
+		
+		if($('#followA').data('follow') == '1'){
+			$('#followA').addClass('button-fill');
+		}else{
+			$('#followA').removeClass('button-fill');
+		}
+		
+		//$('.mentor_'+seq).on('click' , function(){
+		$('#followA').on('click' , function(){
+			
+			var followBtn = $(this);
+			followAjax(followBtn);
+			
+		});
+		
+	});
+	
+	
+	function followAjax(followBtn){
+		
+		var sendData = {
+				'followed_email' : $('#menMail').data('email'),
+				'follow' : $('#followA').data('follow')
+			};
+		$.ajax({
+			url : '/mentor/mentor/mentorFollow',
+			type : 'POST',
+			data : sendData,
+			success : function(data) {
+				if (data == 1) {
+					followBtn.addClass('button-fill');
+					var toastIcon = app.toast.create({
+						  text: '관심멘토에 등록 되었습니다',
+						  position: 'center',
+						  closeTimeout: 2000,
+						});
+					toastIcon.open(); 
+					
+					
+					let memNickname = $('.profile-name').data('nickname'); //팔로우를 누른사람
+					let nickname = $('.profile-name').data('name');	   //팔로우 당사자
+					let receiverEmail = $('#menMail').data('email');     //팔로우 당사자 이메일
+					let member_seq = '1'; // seq
+					//alert(memNickname+',' + nickname +',' + receiverEmail +',' + member_seq);
+					//socket에 보내자
+					if(socket) {
+						let socketMsg = "follow," + memNickname +","+nickname +","+ receiverEmail + "," +member_seq;
+						console.log("msgmsg :: " + socketMsg );
+						socket.send(socketMsg);
+					}
+					
+					var AlarmData = {
+							"myAlarm_receiverEmail" : receiverEmail,
+							"myAlarm_callerNickname" : memNickname,
+							"myAlarm_title" : "팔로우 알림",
+							"myAlarm_content" :  memNickname + "님이 팔로우를 시작 했습니다."
+					};
+					//팔로우 알림 DB저장
+					 $.ajax({
+						type : 'post',
+						url : '/mentor/member/saveAlarm',
+						data : JSON.stringify(AlarmData),
+						contentType: "application/json; charset=utf-8",
+						dataType : 'text',
+						success : function(data){
+							//alert(data);
+							
+						},
+						error : function(err){
+							console.log(err);
+						}
+					}); 
+					
+					 
+					
+					
+				}else{
+					followBtn.removeClass('button-fill');
+					var toastIcon = app.toast.create({
+						  text: '관심멘토에서 삭제 되었습니다',
+						  position: 'center',
+						  closeTimeout: 2000,
+						});
+					toastIcon.open();
+				}
+				
+				$('#followA').data('follow',data);
+				
+				
+				
+			},
+			error : function(){
+				console.log("err");
+			} 
+		}); 
+		
+	}	
+	
+	
 </script>

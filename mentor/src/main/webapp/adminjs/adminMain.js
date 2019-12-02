@@ -26,6 +26,7 @@ $(function(){
     $right_col = $('.right_col'), // 중앙 info
     $nav_menu = $('.nav_menu'), // 상단 메뉴
     $footer = $('footer'); // 맨 아래
+	
 	$('.x_panel').removeAttr('style');
 	
     //  this is same kind of easy fix, maybe we can improve this
@@ -102,7 +103,32 @@ $(function(){
     });
 
 }); // function
+//Panel toolbox
+$(function () {
+    $('.collapse-link').on('click', function() {
+        var $BOX_PANEL = $(this).closest('.x_panel'),
+            $ICON = $(this).find('i'),
+            $BOX_CONTENT = $BOX_PANEL.find('.x_content');
+        
+        // fix for some div with hardcoded fix class
+        if ($BOX_PANEL.attr('style')) {
+            $BOX_CONTENT.slideToggle(200, function(){
+                $BOX_PANEL.removeAttr('style');
+            });
+        } else {
+            $BOX_CONTENT.slideToggle(200); 
+            $BOX_PANEL.css('height', 'auto');  
+        }
 
+        $ICON.toggleClass('fa-chevron-up fa-chevron-down');
+    });
+
+    $('.close-link').click(function () {
+        var $BOX_PANEL = $(this).closest('.x_panel');
+
+        $BOX_PANEL.remove();
+    });
+});
 /**
  * Resize function without multiple trigger
  * 

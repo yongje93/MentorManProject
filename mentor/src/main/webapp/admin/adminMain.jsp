@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
 <!-- 관리자페이지 메인화면 입니다 -->
 <!DOCTYPE html>
 <html lang="ko" class="fa-events-icons-ready">
@@ -33,7 +32,7 @@
 			<div class="col-md-3 left_col">
 				<div class="left_col scroll-view">
 					<div class="navbar nav_title" style="border: 0;">
-						<a href="../admin/adminMain" class="site_title"> <i class="fa fa-paw"></i><span>관리자페이지</span></a>
+						<a href="../admin/adminMain" class="site_title"> <i class="fa fa-paw"></i><span>멘토맨 관리자</span></a>
 					</div>
 					<div class="clearfix"></div>
 					<!-- menu prile quick info -->
@@ -59,6 +58,7 @@
 										<li><a href="/mentor/adminmember/adminmemberList">모든회원 리스트</a></li>
 										<li><a href="/mentor/adminmember/adminmentorList">멘토 리스트</a></li>
 										<li><a href="/mentor/adminmember/adminmentorApplyList">멘토신청 리스트</a></li>
+										<li><a href="/mentor/adminmember/adminmentorSales">멘토 매출 리스트</a></li>
 										<li><a href="/mentor/adminmember/adminmenteeList">멘티 리스트</a></li>
 									</ul>
 								</li><!-- 회원관리 끝 -->
@@ -66,7 +66,7 @@
 									<ul class="nav child_menu" style="display: none;">
 										<li><a href="/mentor/adminboard/adminnoticeboardList">공지사항 게시판</a></li>
 										<li><a href="/mentor/adminboard/adminessayList">에세이</a></li>
-										<li><a href="/mentor/adminboard/admincommuList">멘티게시판</a></li>
+										<li><a href="/mentor/adminboard/adminmenteeList">멘티게시판</a></li>
 										<li><a href="/mentor/adminboard/adminmeetingboardList">모임</a></li>
 									</ul>
 								</li><!-- 게시판관리 끝 -->
@@ -89,9 +89,10 @@
 							<a id="menu_toggle"><i class="fa fa-bars"></i></a>
 						</div>
 						<ul class="nav navbar-nav navbar-right">
+							<li class=""><a href="/mentor/main/index"class="user-profile dropdown-toggle" ><span class=" fas fa-home"></span></a>
 							<li class=""><a href="javascript:;"class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class=" fa fa-angle-down"></span></a> 
 								<ul class="dropdown-menu dropdown-usermenu pull-right">
-									<li><a href=""><i class="fa fa-sign-out pull-right"></i>Log Out</a></li>
+									<li><a href="/mentor/member/logout"><i class="fa fa-sign-out pull-right"></i>Log Out</a></li>
 								</ul>
 							</li>
 						</ul>
@@ -125,5 +126,4 @@
 	</div>
 </body>
 <link rel="stylesheet" href="../admincss/adminListAll.css">
-<link rel="stylesheet" href="../admincss/adminnoticeboardView.css">
 </html>

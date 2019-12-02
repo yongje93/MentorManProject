@@ -25,7 +25,7 @@ public class MentorConfiguration {
 		basicDataSource.setUrl("jdbc:oracle:thin:@mentors.c75qsogzatg1.ap-northeast-2.rds.amazonaws.com:1521:orcl");
 		basicDataSource.setUsername("mentors");
 		basicDataSource.setPassword("bitcamp1234");
-		
+
 		basicDataSource.setMaxTotal(20);
 		basicDataSource.setMaxIdle(3);
 

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="faqSQL">
+	<select id="getFaqList" parameterType="String" resultType="faq">
+		select fc.catalog_type, f.* from faq f, faq_catalog fc where f.catalog_code = fc.catalog_code and f.catalog_code = #{catalog}
+	</select>
+	<select id="getCount_1" parameterType="String" resultType="int">
+		select count(*) from faq where catalog_code = #{faq_catalog_1}
+	</select>
+	<select id="getCount_2" parameterType="String" resultType="int">
+		select count(*) from faq where catalog_code = #{faq_catalog_2}
+	</select>
+	<select id="getCount_3" parameterType="String" resultType="int">
+		select count(*) from faq where catalog_code = #{faq_catalog_3}
+	</select>
+	<select id="getCount_4" parameterType="String" resultType="int">
+		select count(*) from faq where catalog_code = #{faq_catalog_4}
+	</select>
+	<select id="getCount_5" parameterType="String" resultType="int">
+		select count(*) from faq where catalog_code = #{faq_catalog_5}
+	</select>
+	<select id="getCount_6" parameterType="String" resultType="int">
+		select count(*) from faq where catalog_code = #{faq_catalog_6}
+	</select>
+	<select id="getCount_7" parameterType="String" resultType="int">
+		select count(*) from faq where catalog_code = #{faq_catalog_7}
+	</select>
+	
+	
+</mapper>

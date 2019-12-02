@@ -60,6 +60,10 @@ public interface MemberDAO {
 
 	public void deleteAlarm(int seq);
 
+	public int getCountAlarm(String member_email);
+
+	public int getTotalAlarm(String memEmail);
+
 
 
 

@@ -74,7 +74,7 @@ $(document).ready(function(){
 			}
 			});
 		}	
-		isNicknameValid=true;
+//		isNicknameValid=true;
 	});
 });
 

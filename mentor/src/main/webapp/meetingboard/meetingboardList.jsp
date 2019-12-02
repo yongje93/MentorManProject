@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <%-- 오늘 날짜 --%>
 <c:set var="now" value="<%=new java.util.Date()%>"/>
@@ -37,7 +38,16 @@
 							</div>
 							<div class="card-content card-content-padding">
 								<h3 class="title">${meetingboardDTO.meetingboard_title}</h3>
-								<div class="description">${meetingboardDTO.meetingboard_subtitle}</div>
+								<div class="description">
+								<c:choose>
+									<c:when test="${fn:length(meetingboardDTO.meetingboard_subtitle) gt 7}">
+										<c:out value="${fn:substring(meetingboardDTO.meetingboard_subtitle, 0, 69)}"/>...
+									</c:when>
+									<c:otherwise>
+										<c:out value="${meetingboardDTO.meetingboard_subtitle}"/>
+									</c:otherwise>
+								</c:choose>
+								</div>
 								<div class="list">
 									<ul>
 										<li>

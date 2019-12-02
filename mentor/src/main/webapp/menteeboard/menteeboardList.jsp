@@ -12,7 +12,7 @@
    <div class="item-inner">
     <div class="item-input-wrap input-dropdown-wrap">
    	<select class="select optional" id="job_code" name="job_code">
-        	<option value="job_code_n">공통 직무</option>
+        	<option value="job_code">공통 직무</option>
             <option value="job_code_0">인사/총무/노무</option>
             <option value="job_code_1">마케팅/MD</option>
             <option value="job_code_2">홍보/CSR</option>

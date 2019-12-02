@@ -14,6 +14,8 @@
 
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	<!-- FAQ -->
+	<context:component-scan base-package="faq.controller"/>
 	<!-- 상구 -->
 	<!-- 메인화면 -->
 	<context:component-scan base-package="adminmain.controller"/>

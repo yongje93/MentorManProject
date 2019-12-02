@@ -6,7 +6,7 @@
 	<div class="navbar-inner">
 		<div class="left">
 			<a class="logo" type="external" href="/mentor/main/index">
-				<img src="../image/mentorlogo.jpg" />
+				<img src="../image/logo.png" />
 			</a>
 		</div>
 		<form class="searchbar" id="searchbar-autocomplete" action="/searchs">
@@ -33,6 +33,13 @@
 			</c:if>
 
 			<c:if test="${memDTO.member_email != null}">
+
+
+			<a class="button button-big" type="external" href="/mentor/member/myAlarm" style="color : rgba(0,0,0,0.84);">
+			<i class="fa fa-bell myBell" id="my_bell" style="font-size:24px; width:36px;"></i>
+			<span id="alarmCountSpan" class=""></span>
+			</a>
+
 			<a type="internal" class="button button-big popover-open me-profile" data-popover=".js-me-popover" href="">
 				<c:if test="${memDTO.member_profile == 'profile.jpg'}">
 				<img src="../image/profile.jpg" width="28" height="28">
@@ -47,7 +54,13 @@
 					<div class="menu-list">
 						<div class="list links-list no-hairlines-between">
 							<ul>
+
+								<c:if test="${memDTO.member_nickname == 'admin'}">
+								<li><a type="external" href="/mentor/admin/adminMain">관리자 페이지</a></li>
+								</c:if>
+
 								<li><a type="external" href="/mentor/noticeboard/noticeboardList">공지사항</a></li>
+
 								<li><a type="external" href="/mentor/mentor/mentorfindForm?pg=1">멘토찾기</a></li>
 								<li><a type="external" href="/mentor/essayboard/essayboardList">에세이</a></li>
 								<li><a type="external" href="/mentor/meetingboard/meetingboardList">모임</a></li>
@@ -79,6 +92,28 @@
 				</div>
 			</div>
 			</c:if>
-		</div>
+	</div>
 	</div>
 </div>
+
+<style>
+.bell-badge{
+    padding: 3px 5px 2px;
+    position: absolute;
+    top: 22px;
+    right: 6px;
+    display: inline-block;
+    min-width: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #ffffff;
+    line-height: 1;
+    vertical-align: baseline;
+    white-space: nowrap;
+    text-align: center;
+    border-radius: 10px;
+}
+.bell-badge-danger {
+    background-color: #db5565;
+}
+</style>

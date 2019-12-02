@@ -71,6 +71,7 @@
       </div>
    </div>
 </div>
+<input type="hidden" id="modifyPg" value="${param.pg }">
 <script src="../js/essayboardModify.js"></script>
 <script>
 $(function(){

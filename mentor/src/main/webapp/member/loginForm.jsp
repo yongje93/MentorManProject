@@ -55,6 +55,7 @@
 			</div>
 		</div>
 	</div>
+
 </div>
 <script type="text/javascript">
 /* Email 저장을 눌렀을 JavaScript 쿠키 세팅*/
@@ -110,7 +111,6 @@ $(document).ready(function() {
       var jCont = '';
       var email = $('#member_email').val();
       var pwd = $('#member_pwd').val();
-
       if (email.length == 0) {
          jCont = '<div class="msg_error">이메일을 입력해주세요.</div>';
          $('.login-member-email-Div').css('color', 'tomato').css('font-size','9pt').html(jCont);
@@ -159,6 +159,7 @@ if('${ERRORMSG}' == '1') {
            text: '이미 로그인 중입니다.',
             position: 'top',
             closeButton: true
+
        });
        toastTop.open();
  	});
@@ -170,6 +171,6 @@ if('${ERRORMSG}' == '1') {
          	closeButton: true
        });
        toastTop.open();
- 	});
+    });
 }
 </script>

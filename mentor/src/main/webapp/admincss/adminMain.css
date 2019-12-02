@@ -869,7 +869,7 @@ h2 {
   float: left;
   clear: both;
   margin-top: 5px;
-  font-size: 13px;
+  font-size: 11px;
 }
 .x_content h4 {
   font-size: 16px;
@@ -4742,11 +4742,11 @@ a.hiddenanchor {
 a {
   text-decoration: none;
 }
-a:hover {
+/* a:hover {
   text-decoration: underline;
   color: black;
   font-weight: bold;
-}
+} */
 .left {
   float: left;
 }

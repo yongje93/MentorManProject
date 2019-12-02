@@ -127,13 +127,8 @@ public class MenteeboardController {
 	@ResponseBody
 	public void boardWrite(@RequestParam Map<String, String> map,
 							HttpSession session) {
-		
 		memberDTO = (MemberDTO)session.getAttribute("memDTO"); 
-		
-		map.put("nickname", memberDTO.getMember_nickname());
 		map.put("email", memberDTO.getMember_email());
-		map.put("profile" , "");
-		
 		menteeboardService.menteeboardWrite(map);
 	}
 	
@@ -215,7 +210,6 @@ public class MenteeboardController {
 			}
 		}
 		MenteeboardDTO menteeboardDTO= menteeboardService.getMenteeboard(Integer.parseInt(seq));
-		
 		memberDTO = (MemberDTO)session.getAttribute("memDTO");
 		
 		//좋아요테이블에 값이 있는지 조사

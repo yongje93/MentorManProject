@@ -90,6 +90,7 @@
 </div>
 </div>
 <input type="hidden" id="nickname" value="${memberDTO.member_nickname}"> 
+<script type="text/javascript" src="../js/mentee.js"></script>
 <script>
 
 $(document).ready(

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import member.bean.MemberDTO;
 import menteeboard.bean.MenteeboardPaging;
 import menteeboardReply.bean.MenteeboardReplyDTO;
 import menteeboardReply.service.MenteeboardReplyService;
@@ -36,22 +39,17 @@ public class MenteeboardReplyController {
 	 * @Author : yangjaewoo, @Date : 2019. 11. 7.
 	 */
 	@RequestMapping(value="menteeboardReplyWrite" , method=RequestMethod.POST)
-	public ModelAndView menteeboardReplyWrite(@RequestParam Map<String, String> map) {
-		
+	public ModelAndView menteeboardReplyWrite(@RequestParam Map<String, String> map, HttpSession session) {
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("memDTO");
 		int menteeboard_seq = Integer.parseInt(map.get("menteeboard_seq"));
 		String content = map.get("content");
-		String memEmail = map.get("memEmail"); //로그인 되어있는 이메일
-		String memNicname = map.get("memNicname");//로그인 되어있는 닉네임
-		System.out.println("댓글에 저장되는 map : " + map);
 		int pg = Integer.parseInt(map.get("pg"));
 		
 		Map<String, Object> map2 = new HashMap<String, Object>();
 		map2.put("menteeboard_seq" , menteeboard_seq);
-		map2.put("profile" , "");
-		map2.put("email" , memEmail );
-		map2.put("nickname" , memNicname);
+		map2.put("email" , map.get("memEmail") );
 		map2.put("content" , content);
-		System.out.println("map2 :: "+ map2 );
+		System.out.println(map2);
 		//DB 댓글 저장
 		menteeboardReplyService.replyWrite(map2);
 		

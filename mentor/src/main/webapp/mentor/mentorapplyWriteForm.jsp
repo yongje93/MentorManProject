@@ -330,10 +330,6 @@
       <h1>
         멘토링 정보
       </h1>
-
-      <p>
-      멘티 질문 도착 시 알림 받을 정보를 확인해주세요.
-      </p>
     </div>
 
     <div class="mentor-request-block block">

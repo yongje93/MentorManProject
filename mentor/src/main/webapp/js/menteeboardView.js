@@ -104,9 +104,15 @@ $(document).ready(function() {
 								'<div class="block mentee-detail-block thanks-note-card" hidden="" '+
 									'style="display: block;">'+
 									'<div class="mentee-info">'+
-										'<div class="mentee-image img-circle">'+
-											'<img src="https://www.itdaa.net/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBcmZCIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--f0d5c09d42f655ec75e2351b3a921a3266a435e5/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MY21WemFYcGxTU0lOTVRBd2VERXdNQ0VHT2daRlZEb1FZWFYwYjE5dmNtbGxiblJVIiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--80976855d44dd57bc27b6da84ad9dae42a7e7a2d/profile.jpg">' +
-										'</div>'+
+										'<div class="mentee-image img-circle">';
+										if(value.menteeboardRelpy_profile != 'profile.jpg'){
+											str += '<img width="150" height="150" src="../storage/'+ value.menteeboardReply_email +'/'+value.menteeboardReply_profile+'">';
+										}
+										
+										if(value.menteeboardRelpy_profile == 'profile.jpg'){
+											str +='<img width="150" height="150" src="../image/profile.jpg">';
+										}
+										str += '</div>'+
 										'<div class="mentee-name">'+ value.menteeboardReply_nickname +
 										'<div class="sent-date">'+value.menteeboardReply_logtime+'</div>'+
 									'</div>' +
@@ -167,10 +173,15 @@ $(document).ready(function() {
 						'<div class="block mentee-detail-block thanks-note-card" hidden="" '+
 							'style="display: block;">'+
 							'<div class="mentee-info">'+
-								'<div class="mentee-image img-circle">'+
-									'<img src="https://www.itdaa.net/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBcmZCIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--f0d5c09d42f655ec75e2351b3a921a3266a435e5/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MY21WemFYcGxTU0lOTVRBd2VERXdNQ0VHT2daRlZEb1FZWFYwYjE5dmNtbGxiblJVIiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--80976855d44dd57bc27b6da84ad9dae42a7e7a2d/profile.jpg">' +
-								'</div>'+
-								'<div class="mentee-name">'+ value.menteeboardReply_nickname +','+value.menteeboardReply_seq+'</div>' +
+							'<div class="mentee-image img-circle">';
+								if(value.menteeboardRelpy_profile != 'profile.jpg'){
+									str += '<img width="150" height="150" src="../storage/'+ value.menteeboardReply_email +'/'+value.menteeboardReply_profile+'">';
+								}
+								if(value.menteeboardRelpy_profile == 'profile.jpg'){
+									str +='<img width="150" height="150" src="../image/profile.jpg">';
+								}
+								str +='</div>'+
+								'<div class="mentee-name">'+ value.menteeboardReply_nickname +'</div>' +
 								'<div class="sent-date">'+value.menteeboardReply_logtime+'</div>'+
 							'</div>' +
 							'<div class="modifyReply_hide_'+value.menteeboardReply_seq +'">'+
@@ -210,7 +221,6 @@ $(document).ready(function() {
 				data : $('#menteeboardViewForm').serialize(),
 				dataType : 'json',
 				success : function(data){
-					alert($('#menteeboardViewForm').serialize());
 					$('#inputList').empty();
 					$('#content').val(''); 
 					let $frag = $(document.createDocumentFragment());
@@ -221,17 +231,22 @@ $(document).ready(function() {
 						'<div class="block mentee-detail-block thanks-note-card" hidden="" '+
 							'style="display: block;">'+
 							'<div class="mentee-info">'+
-								'<div class="mentee-image img-circle">'+
-									'<img src="https://www.itdaa.net/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBcmZCIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--f0d5c09d42f655ec75e2351b3a921a3266a435e5/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MY21WemFYcGxTU0lOTVRBd2VERXdNQ0VHT2daRlZEb1FZWFYwYjE5dmNtbGxiblJVIiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--80976855d44dd57bc27b6da84ad9dae42a7e7a2d/profile.jpg">' +
-								'</div>'+
-								'<div class="mentee-name">'+ value.menteeboardReply_nickname +','+value.menteeboardReply_seq+'</div>' +
+								'<div class="mentee-image img-circle">';
+								if(value.member_profile != 'profile.jpg'){
+									str += '<img width="150" height="150" src="../storage/'+ value.menteeboardReply_email +'/'+value.member_profile+'">';
+								}
+								if(value.member_profile == 'profile.jpg'){
+									str +='<img width="150" height="150" src="../image/profile.jpg">';
+								}
+								str +='</div>'+
+								'<div class="mentee-name">'+ value.member_nickname+'</div>' +
 								'<div class="sent-date">'+value.menteeboardReply_logtime+'</div>'+
 							'</div>' +
 							'<div class="modifyReply_hide_'+value.menteeboardReply_seq +'">'+
 							'<div class="thanks-note-body content_'+value.menteeboardReply_seq+'">'+value.menteeboardReply_content+'</div>'; 
 						if( $('#memEmail').val() === value.menteeboardReply_email){
 							str += '<div class="noticeboardFloat_right_div"><input type="button" id="modifyReply'+(key+1)+'" name="'+value.menteeboardReply_seq+'" class="button color-gray modifyReply" value="수정" ></div>'+
-	            			'<div class="noticeboardFloat_right_div"><input type="button" id="deleteReply'+(key+1)+'" name="'+value.menteeboardReply_seq+'" class="button color-gray deleteReply" value="삭제" ></div>';
+			    			'<div class="noticeboardFloat_right_div"><input type="button" id="deleteReply'+(key+1)+'" name="'+value.menteeboardReply_seq+'" class="button color-gray deleteReply" value="삭제" ></div>';
 						}
 						str += '</div>'+
 							'<div class="modifyReply'+(key+1)+'"></div>'+
@@ -240,6 +255,7 @@ $(document).ready(function() {
 						'</div>';
 						 $frag.append(str);
 					});
+					
 					$frag.append('<div class="block mentee-detail-block thanks-note-card" id="menteeboardPagingDiv">'+data.menteeboardPaging.pagingHTML+'</div><hr>');
 					$('#inputList').append($frag);
 					
@@ -248,12 +264,7 @@ $(document).ready(function() {
 					let nickname = $('#nickname').val();
 					let receiverEmail = $('#email').val();
 					let menteeboard_seq = $('#menteeboard_seq').val();
-					//socket에 보내자
-					if(socket) {
-						let socketMsg = "reply," + memNickname +","+ nickname +","+ receiverEmail +","+ menteeboard_seq;
-						console.log("msgmsg : " + socketMsg);
-						socket.send(socketMsg);
-					}
+					
 					
 					
 					var AlarmData = {
@@ -271,17 +282,62 @@ $(document).ready(function() {
 						dataType : 'text',
 						success : function(data){
 							//alert(data);
+							//socket에 보내자
+							if(socket) {
+								let socketMsg = "reply," + memNickname +","+ nickname +","+ receiverEmail +","+ menteeboard_seq;
+								console.log("msgmsg : " + socketMsg);
+								socket.send(socketMsg);
+							}
 							
 						},
 						error : function(err){
-							console.log(err);
+							alert('알림저장 실패')
 						}
 					});
 					
 				},
-				error : function(){
-					alert('실패');
+				error : function(err){
+					alert('실패2');
+					console.log(err);
 				}
 			}); 
 		}
 	});
+	
+	
+	function replySuccess(data){
+		$.each(data['list'], function(key, value){
+			var str = '<div class="row no-gap">'+
+			'<div id="thanks-notes">'+
+			'<div class="block mentee-detail-block thanks-note-card" hidden="" '+
+				'style="display: block;">'+
+				'<div class="mentee-info">'+
+					'<div class="mentee-image img-circle">';
+					if(value.member_profile != 'profile.jpg'){
+						str += '<img width="150" height="150" src="../storage/'+ value.menteeboardReply_email +'/'+value.member_profile+'">';
+					}
+					if(value.member_profile == 'profile.jpg'){
+						str +='<img width="150" height="150" src="../image/profile.jpg">';
+					}
+					str +='</div>'+
+					'<div class="mentee-name">'+ value.member_nickname+'</div>' +
+					'<div class="sent-date">'+value.menteeboardReply_logtime+'</div>'+
+				'</div>' +
+				'<div class="modifyReply_hide_'+value.menteeboardReply_seq +'">'+
+				'<div class="thanks-note-body content_'+value.menteeboardReply_seq+'">'+value.menteeboardReply_content+'</div>'; 
+			if( $('#memEmail').val() === value.menteeboardReply_email){
+				str += '<div class="noticeboardFloat_right_div"><input type="button" id="modifyReply'+(key+1)+'" name="'+value.menteeboardReply_seq+'" class="button color-gray modifyReply" value="수정" ></div>'+
+    			'<div class="noticeboardFloat_right_div"><input type="button" id="deleteReply'+(key+1)+'" name="'+value.menteeboardReply_seq+'" class="button color-gray deleteReply" value="삭제" ></div>';
+			}
+			str += '</div>'+
+				'<div class="modifyReply'+(key+1)+'"></div>'+
+			'</div>' +
+			'</div>' +
+			'</div>';
+			 $frag.append(str);
+		});
+		
+	}
+	
+	
+	

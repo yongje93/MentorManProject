@@ -25,5 +25,7 @@ public interface MenteeService {
 
 	public MemberDTO getNickname(String member_nickname);
 
+	public void memberDeleteSuccess(int member_seq);
+
 
 }

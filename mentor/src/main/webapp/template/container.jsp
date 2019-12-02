@@ -72,7 +72,16 @@
 						</div>
 						<div class="card-content card-content-padding">
 							<h3 class="title">${meetingboardDTO.meetingboard_title}</h3>
-							<div class="description" style="height: 80px;">${meetingboardDTO.meetingboard_subtitle}</div>
+							<div class="description" style="height: 80px;">
+							<c:choose>
+								<c:when test="${fn:length(meetingboardDTO.meetingboard_subtitle) gt 55}">
+									<c:out value="${fn:substring(meetingboardDTO.meetingboard_subtitle, 0, 54)}"/>...
+								</c:when>
+								<c:otherwise>
+									<c:out value="${meetingboardDTO.meetingboard_subtitle}"/>
+								</c:otherwise>
+							</c:choose>
+							</div>
 							<div class="list">
 								<ul>
 									<li>
@@ -207,7 +216,7 @@
 
 	<%-- 명예 멘토 영역 시작 --%>
 	<div class="mentor-block">
-		<div class="block-title strong-title">명예 멘토 <a type="external" href="">더 보기</a>
+		<div class="block-title strong-title">명예 멘토 <a type="external" href="/mentor/mentor/mentorfindForm?pg=1&bestFlag=1">더 보기</a>
 		</div>
 		<div class="row no-gap">
 			<c:forEach var="honorMentor" items="${honorMentorList}">
@@ -325,7 +334,7 @@
 										<c:out value='${fn:substring(list.essayboard_content.replaceAll("\\\<.*?\\\>|&nbsp;",""), 0, 190)}' />...
 									</c:when>
 									<c:otherwise>
-										<c:out value="${list.essayboard_content}"/>
+										<c:out value='${list.essayboard_content.replaceAll("\\\<.*?\\\>|&nbsp;","")}' />
 									</c:otherwise>
 								</c:choose>
 							</div>
@@ -401,7 +410,7 @@
 										<c:out value='${fn:substring(list.essayboard_content.replaceAll("\\\<.*?\\\>|&nbsp;",""), 0, 190)}' />...
 									</c:when>
 									<c:otherwise>
-										<c:out value="${list.essayboard_content}" />
+										<c:out value='${list.essayboard_content.replaceAll("\\\<.*?\\\>|&nbsp;","")}' />
 									</c:otherwise>
 								</c:choose>
 								</div>

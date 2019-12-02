@@ -13,11 +13,16 @@
 	<div class="page-content">
 		<div class="block mentor-info-block">
 			<div class="mentor-image-left img-circle">
-				<img width="100" height="100" src="https://www.itdaa.net/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBc2xNIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--3d86e135036be30719b1ed74fa221737817bea2b/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MY21WemFYcGxTU0lOTXpBd2VETXdNQ0VHT2daRlZEb1FZWFYwYjE5dmNtbGxiblJVIiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--335722d0477df6beb4db54fcbab426022c0d08ed/KakaoTalk_20181010_022006179.jpg">
+				<c:if test="${menteeboardDTO.member_profile != 'profile.jpg'}">
+					<img width="150" height="150" src="../storage/${menteeboardDTO.menteeboard_email}/${menteeboardDTO.member_profile}">
+				</c:if>
+				<c:if test="${menteeboardDTO.member_profile == 'profile.jpg'}">
+					<img width="150" height="150" src="../image/profile.jpg">
+				</c:if>
 			</div>
 			<div class="block mentor-info mentor-info-box">
 				<div class="name">
-					<span class="mentor-name profile-name">${menteeboardDTO.menteeboard_nickname} <small>멘티</small>
+					<span class="mentor-name profile-name">${menteeboardDTO.member_nickname} <small>멘티</small>
 					</span>
 				</div>
 				<div class="detail-block">
@@ -65,10 +70,14 @@
 						<div class="block mentee-detail-block thanks-note-card" hidden="" style="display: block;">
 							<div class="mentee-info">
 								<div class="mentee-image img-circle">
-									<img
-										src="https://www.itdaa.net/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBcmZCIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--f0d5c09d42f655ec75e2351b3a921a3266a435e5/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MY21WemFYcGxTU0lOTVRBd2VERXdNQ0VHT2daRlZEb1FZWFYwYjE5dmNtbGxiblJVIiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--80976855d44dd57bc27b6da84ad9dae42a7e7a2d/profile.jpg">
+									<c:if test="${list.member_profile != 'profile.jpg'}">
+										<img width="150" height="150" src="../storage/${list.menteeboardReply_email}/${list.member_profile}">
+									</c:if>
+									<c:if test="${list.member_profile == 'profile.jpg'}">
+										<img width="150" height="150" src="../image/profile.jpg">
+									</c:if> 
 								</div>
-								<div class="mentee-name">${list.menteeboardReply_nickname}</div>
+								<div class="mentee-name">${list.member_nickname}</div>
 								<div class="sent-date">${list.menteeboardReply_logtime}</div>
 							</div>
 							<div class="modifyReply_hide_${list.menteeboardReply_seq}">
@@ -77,7 +86,7 @@
 							<div class="noticeboardFloat_right_div"><input type="button" id="modifyReply${i.count}" name="${list.menteeboardReply_seq}" class="button color-gray modifyReply" value="수정" ></div>
 	            			<div class="noticeboardFloat_right_div"><input type="button" id="deleteReply${i.count}" name="${list.menteeboardReply_seq}" class="button color-gray deleteReply" value="삭제" ></div>
 							</c:if>
-							<div class="noticeboardFloat_right_div"><input type="button" id="dapgleReply${i.count}" name="${list.menteeboardReply_seq}" class="button color-gray dapgleReply" value="답글" ></div>
+							<%-- <div class="noticeboardFloat_right_div"><input type="button" id="dapgleReply${i.count}" name="${list.menteeboardReply_seq}" class="button color-gray dapgleReply" value="답글" ></div> --%>
 							</div>
 							<div class="modifyReply${i.count}"></div>
 						</div>
@@ -96,7 +105,7 @@
 							<div class="mentee-image img-circle">
 							</div>
 							<div class="">
-							<div class="mentee-name">${menteeboardDTO.menteeboard_nickname}</div>
+							<div class="mentee-name">${memNickname}</div>
 							</div>
 						</div>
 						<div class="thanks-note-body">
@@ -115,7 +124,7 @@
 <input type="hidden" id="menteeboard_seq" name="menteeboard_seq" value="${menteeboardDTO.menteeboard_seq}">
 
 <input type="hidden" id="email" name="email" value="${menteeboardDTO.menteeboard_email}">
-<input type="hidden" id="nickname" name="nickname" value="${menteeboardDTO.menteeboard_nickname}">
+<input type="hidden" id="nickname" name="nickname" value="${menteeboardDTO.member_nickname}">
 
 <input type="hidden" id="memEmail" name="memEmail" value="${memEmail}">
 <!-- 닉네임은 소켓에 담을때 사용한다 -->
@@ -127,3 +136,4 @@
 </form>
 
 <script type="text/javascript" src="../js/menteeboardView.js"></script>
+

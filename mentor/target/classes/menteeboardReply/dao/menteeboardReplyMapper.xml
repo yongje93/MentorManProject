@@ -4,23 +4,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="menteeboardReplySQL">
-
+<!-- 수정 완료 -->
 <insert id="replyWrite" parameterType="java.util.Map">
-	insert into menteeboardReply (menteeboardReply_seq,menteeboardReply_mb_seq,menteeboardReply_profile,menteeboardReply_nickname,menteeboardReply_email,menteeboardReply_content,menteeboardReply_ref) 
+	insert into menteeboardReply (menteeboardReply_seq,menteeboardReply_mb_seq,menteeboardReply_email,menteeboardReply_content,menteeboardReply_ref) 
 	values(menteeboardReply_seq.nextval,
 		   #{menteeboard_seq},
-		   #{profile},
-		   #{nickname},
 		   #{email},
 		   #{content},
 		   menteeboardReply_seq.currval)
 </insert>
-
+<!-- 조인 수정 -->
 <select id="getAllMenteeboardreply" parameterType="java.util.Map" resultType="menteeboardReply">
 	select * from 
 	(select rownum rn, tt.* from 
-	(select * 
-	from menteeboardReply where menteeboardReply_mb_seq =#{menteeboard_seq} order by menteeboardReply_ref desc, menteeboardReply_step asc)tt)
+	(select menteeboardReply_seq,menteeboardReply_mb_seq,m.member_profile,m.member_nickname,menteeboardReply_email,menteeboardReply_content,menteeboardReply_ref,menteeboardReply_lev,menteeboardReply_step,menteeboardReply_pseq,menteeboardReply_logtime
+	from menteeboardReply r, mentors_member m where menteeboardReply_mb_seq =#{menteeboard_seq} and r.menteeboardReply_email = m.member_email order by menteeboardReply_ref desc, menteeboardReply_step asc)tt)
 	where rn<![CDATA[>=]]> #{startNum} and rn <![CDATA[<=]]> #{endNum}
 </select>
 

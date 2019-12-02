@@ -5,14 +5,14 @@
 	<div class="footer-inner">
 		<div class="footer-item">
 			<div class="logo">
-				<img src="../image/mentorlogo.jpg" />
+				<img src="../image/logo.png" />
 			</div>
 			<ul>
 				<li>
 					<a type="external" href="">회사소개</a> <span>&middot;</span>
 					<a type="external" href="">이용약관</a> <span>&middot;</span>
 					<a type="external" href="">개인정보 처리방침</a> <span>&middot;</span>
-					<a target="_blank" type="external" href="">고객센터</a>
+					<a target="_blank" type="external" href="/mentor/faq/faqIndex">고객센터</a>
 				</li>
 			</ul>
 			<div class="info">

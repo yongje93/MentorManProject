@@ -48,12 +48,12 @@ div.dataTables_info {
 .a1{
     height: 80px;
 }
-.searchPage{
-    display: flex;
-    justify-content: flex-end;
-}
 .a1-left{
     height: 80px;
     display: flex;
     align-items: center;
+}
+.searchPage{
+    display: flex;
+    justify-content: flex-end;
 }

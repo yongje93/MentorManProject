@@ -95,8 +95,7 @@
 }
 
 #noticeboardList_pg{
-	text-align: center;
-	margin: 2px 118px;
+	float: right;
 }
 .noticeboardFloat_right_div{/* 공통 */
 	float: right;

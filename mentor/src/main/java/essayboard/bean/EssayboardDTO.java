@@ -15,7 +15,7 @@ public class EssayboardDTO {
 	private String mentor_email;
 	private String job_code;
 	private String essayboard_title;
-	private String essayboard_content;	
+	private String essayboard_content;
 	private int essayboard_hit;
 	private int essayboard_scrap;
 	private int essayboard_scrapFlag;

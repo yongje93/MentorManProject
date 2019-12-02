@@ -16,7 +16,7 @@
                </thead>
                <tbody>
                <tr>
-                  <th scope="cols"><input type="text" id="menteeWriteFormSubject" name="menteeWriteFormSubject" placeholder="제목을 입력하세요"><span id="noticeboardWriteNonTitle_error_span"></span></th>
+                  <th scope="cols"><input type="text" id="menteeWriteFormSubject" name="menteeWriteFormSubject" placeholder="제목을 입력하세요"  style="width:941px"></th>
                	  <th>
                	  	<select id="job_code_writeForm" name="job_code_writeForm">
 		        		<option value="">직무 선택</option>

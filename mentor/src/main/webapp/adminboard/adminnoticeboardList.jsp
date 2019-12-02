@@ -3,6 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- 공지사항 리스트 -->
+<link rel="stylesheet" href="../admincss/adminnoticeboard.css">
 <link rel="stylesheet" href="../admincss/adminListAll.css">
 <div class="row">
 	<div class="col-md-12 col-sm-12 col-xs-12">
@@ -15,7 +16,6 @@
 					</ul>
 				<div class="clearfix"></div>
 			</div> <!-- x_title 끝 -->
-			<c:if test="${list != null }">
 			<div class="x_content">
 				<div class="table-responsive" style="overflow:hidden;">
 					<div class="row">
@@ -42,7 +42,7 @@
 									<tr>
 										<td><input type="checkbox" class="check"value="${adminnoticeboardDTO.noticeboard_seq }"></td>
 										<td>${adminnoticeboardDTO.noticeboard_seq }</td>
-										<td><a href="/mentor/adminboard/adminnoticeboardView?seq=${adminnoticeboardDTO.noticeboard_seq }&pg=${pg}" style="text-decoration: none;">${adminnoticeboardDTO.noticeboard_title }</a></td>
+										<td><a href="/mentor/adminboard/adminnoticeboardView?seq=${adminnoticeboardDTO.noticeboard_seq }&pg=${pg}">${adminnoticeboardDTO.noticeboard_title }</a></td>
 										<td>관리자</td>
 										<td>${adminnoticeboardDTO.noticeboard_hit }</td>
 										<td>${adminnoticeboardDTO.noticeboard_logtime}</td>
@@ -74,7 +74,6 @@
 					</div>
 				</div>
 			</div><!-- xcontent -->
-			 </c:if> 
 		</div><!--x_panel-->
 	</div>
 </div><!-- row -->

@@ -4,7 +4,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-
 <div class="page navbar-fixed open_mentorings index" data-name="open_mentorings-index">
 	<div class="page-content">
 		<div class="block job-type-block">
@@ -91,13 +90,12 @@
 													<c:out value='${fn:substring(list.essayboard_content.replaceAll("\\\<.*?\\\>|&nbsp;",""), 0, 190)}' />...
 												</c:when>
 												<c:otherwise>
-													<c:out value="${list.essayboard_content}"/>
+													<c:out value='${list.essayboard_content.replaceAll("\\\<.*?\\\>|&nbsp;","")}' />
 												</c:otherwise>
 											</c:choose>
 										</div>
 									</a>
 								</div>
-
 								<div class="card-footer">
 									<a class="color-gray js-bookmark" id="scrap" type="externalScrap" data-remote="true" rel="nofollow"
 										data-method="post" href="" style="right: 0px; position: unset; margin: 0px 0px;">
@@ -111,7 +109,6 @@
 										<!-- 스크랩 끌고와야 함 -->
 										<input type="hidden" id="scrapFlag"	name="scrapFlag" value="${list.essayboard_scrapFlag}">
 									</a>
-
 									<div class="created-at">
 										<!-- <small> -->
 										<!--   읽음 -->
@@ -122,7 +119,6 @@
 							</div>
 						</div>
 						</c:forEach>
-
 						<!-- 멘토 리스트 생성 끝 -->
 						<input type="hidden" id="pg" name="pg" value="${pg}">
 						<!-- 스크랩버튼 클릭 방지에 사용 -->

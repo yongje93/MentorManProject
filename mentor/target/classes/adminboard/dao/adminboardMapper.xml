@@ -59,4 +59,63 @@
 			#{meetingboard_seq}${check[i]} 컬렉션만 $먹고 item인 seq는 #과$같이먹는다
 		</foreach>
   	</delete> -->
+  	
+  	<select id="getNewEssay" resultType="essay">
+		SELECT
+      		*
+  		FROM
+      	(
+          SELECT
+              ROWNUM rn, tt.*
+          FROM
+              (
+              	  SELECT
+              	      e.essayboard_seq,
+                   	  e.essayboard_title,
+                      e.essayboard_content,
+                      e.essayboard_scrap,
+                      e.essayboard_logtime,
+                      mm.member_name,
+                      mm.member_seq,
+                      mm.member_profile,
+                      mt.mentor_company,
+                      mt.mentor_department,
+                      mt.mentor_flag,
+                      mt.mentor_email
+                  FROM
+                      essayboard       e,
+                      mentor           mt,
+                      mentors_member   mm
+                   WHERE
+                          e.mentor_email = mt.mentor_email
+                      AND mt.mentor_email = mm.member_email
+                      ORDER BY
+                      essayboard_logtime DESC
+              ) tt)
+		WHERE
+			 <![CDATA[
+	         	rn >= #{startNum, jdbcType=INTEGER} and rn <= #{endNum, jdbcType=INTEGER}
+			 ]]>
+	</select>
+	<!-- 에세이 총글수 -->
+	<select id="getessayTotalA" resultType="Int">
+		SELECT
+			count(*)
+		FROM
+			essayboard
+	</select>
+	
+	<!-- 멘티게시판 List 가져오기-->
+	<select id="getMenteeboardList" parameterType="java.util.Map" resultType="menteeboard">
+	select * from(
+	select rownum rn , tt.* from(
+	select menteeboard_seq,menteeboard_email,m.member_profile,m.member_nickname,menteeboard_title,menteeboard_content, j.job_type, menteeboard_good,menteeboard_ref,menteeboard_lev,menteeboard_step,menteeboard_pseq,menteeboard_reply,menteeboard_hit,menteeboard_logtime
+	from menteeboard a, job j, mentors_member m
+	where a.job_code = j.job_code and a.menteeboard_email = m.member_email order by menteeboard_seq desc)tt)
+	where  rn <![CDATA[>=]]> #{startNum} and rn <![CDATA[<=]]> #{endNum}
+	</select>
+	<!-- 멘티게시판 총 글수 -->
+	<select id="getMenteeTotalA" resultType="Integer">
+	select count(*) from menteeboard
+	</select>
 </mapper>

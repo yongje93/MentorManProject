@@ -5,8 +5,7 @@ import java.util.Map;
 
 public interface AdminsalesDAO {
 
-	public List<Map<String, String>> getAdminsalesChart();
+	public List<Map<String, String>> getDaysalesChart();
 
-	
-
+	public List<Map<String, String>> getMonthsalesChart();
 }

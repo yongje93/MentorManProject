@@ -106,7 +106,6 @@ public class MemberController {
 		//회원 이메일 폴더가 자동생성으로 생성된게 아니라 회원이메일 폴더 만들어주고 넣어야 한다.
 		String filePath="C:/github/MentorMan/mentor/src/main/webapp/storage/"+map.get("member_email");
 		String fileName = member_profile.getOriginalFilename();
-		System.out.println("프로필 이미지 파일명: " + fileName);
 		// 폴더만들기
 		File filemake = new File(filePath);
 		if(!filemake.exists()) {
@@ -165,6 +164,7 @@ public class MemberController {
 		model.addAttribute("display", "/member/loginForm.jsp");
 		return "/main/index";
 	}
+
 
 
 //	/** @Title : 로그인 처리,세션 기간 설정(1일 유지).
@@ -266,7 +266,6 @@ public class MemberController {
 		followMap.put("mentorEmail" , mentorDTO.getMentor_email());
 
 		int follow = mentorService.getFollowCheck(followMap);
-		System.out.println(mentorDTO.getMentor_email());
 		model.addAttribute("follow" , follow);
 		model.addAttribute("memNicname" , memberDTO.getMember_nickname());
 		if(getEmail != mentorDTO.getMember_email()) {
@@ -323,9 +322,7 @@ public class MemberController {
 		memberDTO = memberService.setmemberpwd(map);
 		if (memberDTO != null) {
 			//인증 코드 생성
-			System.out.println("시작");
 			String auauthKey=mailService.mailSendWithUserKey(member_email, member_name);
-			System.out.println("auauthKey : " + auauthKey);
 
 			Cookie cookie = new Cookie("Cookie_Email", auauthKey);
 			cookie.setMaxAge(60 * 3);
@@ -409,7 +406,8 @@ public class MemberController {
 		memberService.checkSubscribe(memEmail);
 
 		List<AlarmDTO> list = memberService.getAlarm(memEmail);
-
+		int getTotalAlarm = memberService.getTotalAlarm(memEmail);
+		model.addAttribute("getTotalAlarm" , getTotalAlarm);
 		model.addAttribute("list" , list);
 		model.addAttribute("display","/member/myAlarm.jsp");
 		return "/main/index";
@@ -432,12 +430,21 @@ public class MemberController {
 
 		//삭제한 후 alarm list
 		List<AlarmDTO> list = memberService.getAlarm(memEmail);
-		System.out.println("list ::" + list);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list", list);
 		mav.setViewName("jsonView");
 		return mav;
 	}
+	
+	
+	@RequestMapping(value ="countAlarm", method = RequestMethod.POST)
+	@ResponseBody
+	public int  countAlarm(HttpSession session) {
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("memDTO");
+		int count = memberService.getCountAlarm(memberDTO.getMember_email());
+		return count;
+	}
+	
 
 
 }

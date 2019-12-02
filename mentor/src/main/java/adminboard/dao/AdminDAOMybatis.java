@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import adminboard.bean.AdminnoticeboardDTO;
+import essayboard.bean.EssayboardDTO;
 import meetingboard.bean.MeetingboardDTO;
+import menteeboard.bean.MenteeboardDTO;
 
 /**
  * 
@@ -65,6 +67,24 @@ public class AdminDAOMybatis implements AdminboardDAO{
 	@Override
 	public void adminmeetingboardDelete(Map<String, String[]> map) {
 		sqlsession.delete("adminboardSQL.adminmeetingboardDelete", map);
+	}
+	
+	//에세이
+	@Override
+	public List<EssayboardDTO> getNewEssay(Map<String, Object> map) {
+		return sqlsession.selectList("adminboardSQL.getNewEssay", map);
+	}
+	@Override
+	public int getessayTotalA() {
+		return sqlsession.selectOne("adminboardSQL.getessayTotalA");
+	}
+	@Override
+	public List<MenteeboardDTO> getMenteeboardList(Map<String, Integer> map) {
+		return sqlsession.selectList("adminboardSQL.getMenteeboardList", map);
+	}
+	@Override
+	public int getMenteeTotalA() {
+		return sqlsession.selectOne("adminboardSQL.getMenteeTotalA");
 	}
 	
 	

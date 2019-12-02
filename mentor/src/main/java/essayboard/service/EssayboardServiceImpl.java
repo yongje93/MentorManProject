@@ -77,18 +77,6 @@ public class EssayboardServiceImpl implements EssayboardService {
 		essayboardDAO.essayboardDelete(seq);
 	}
 	
-	// 에세이 보드 조회수
-	@Override
-	public void essayboardHit(int seq) {
-		essayboardDAO.essayboardHit(seq);
-	}
-	
-	// 에세이 보드 조회수 출력
-	@Override
-	public int getessayboardHit(int seq) {
-		return essayboardDAO.getessayboardHit(seq);
-	}
-	
 	@Override
 	public int getEssayboardScrap(Map<String, Object> scrapMap) {
 		return essayboardDAO.getEssayboardScrap(scrapMap);
@@ -103,7 +91,6 @@ public class EssayboardServiceImpl implements EssayboardService {
 	@Override
 	public void essayboardScrapDelete(EssayboardScrapDTO essayboardScrapDTO) {
 		essayboardDAO.essayboardScrapDelete(essayboardScrapDTO);
-		System.out.println("essayboardScrapDTO.getEssayScrap_es_seq() : " + essayboardScrapDTO.getEssayboardScrap_es_seq());
 		essayboardDAO.essayboardScrapUpdate(essayboardScrapDTO.getEssayboardScrap_es_seq());
 	}
 

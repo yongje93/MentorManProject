@@ -74,4 +74,4 @@
 		</div><!--x_panel-->
 	</div>
 </div><!-- row -->
-<script type="text/javascript" src="../adminjs/adminmentorApply.js"></script>
+<script type="text/javascript" src="../adminjs/mentorApply.js"></script>
