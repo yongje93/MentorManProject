@@ -69,8 +69,7 @@ $('#orderBtn').click(function(){
 		    amount: $('#total').val(),
 		    buyer_email: $('#mentee_email').val(),
 		    buyer_name: $('#mentee_name').val(),
-		    buyer_tel: $('#mentee_tel').val(),
-		    m_redirect_url:'https://www.iamport.kr/demo'	      
+		    buyer_tel: $('#mentee_tel').val()
 	    }, function(rsp) {
 	    	 if (rsp.success) {
 	                $.ajax({

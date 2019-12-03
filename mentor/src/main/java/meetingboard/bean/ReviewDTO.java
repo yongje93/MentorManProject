@@ -14,6 +14,7 @@ public class ReviewDTO {
 	private String mentee_email;
 	private String review_content;
 	private Date review_date;
+	private int review_flag;
 	// 조인
 	private String member_name;
 	private String mentor_name;

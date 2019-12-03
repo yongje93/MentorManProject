@@ -8,16 +8,13 @@
 <head>
 <meta charset="UTF-8">
 <title>멘토맨</title>
-
 <script src="../js/jquery-3.4.1.min.js"></script>
 <script src="../js/application_layout.js"></script>
-
 <!-- 아이콘 관련 -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 <link rel="shortcut icon" href="../image/logo.ico" type="image/x-icon"/>
 <link rel="stylesheet" href="../css/ly.css" type="text/css"/>
 <link rel="stylesheet" href="../css/footer.css" type="text/css"/>
-
 </head>
 
 <body class="color-theme-pink">
