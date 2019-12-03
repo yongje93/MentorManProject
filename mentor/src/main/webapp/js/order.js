@@ -90,42 +90,43 @@ $('#orderBtn').click(function(){
 	                		console.log(error);
 	                	}
 	                });
-	                              
-	                var AlarmData = {
-	                		"myAlarm_receiverEmail" : mentor_list[i],
-	                		"myAlarm_callerNickname" : rsp.buyer_name,
-	                		"myAlarm_title" : "모임 알림",
-	                		"myAlarm_content" :  rsp.buyer_name + "님이 모임을 신청했습니다. <a type='external' href='/mentor/participation/participationView?mseq="+ meetingboard_list[i] +"&pseq="+ participation_list[i] +"'>신청서 보기</a>"
-	                };
-	                
-	                //모임 결제 알림 DB저장
-	                $.ajax({
-	                	type : 'post',
-	                	url : '/mentor/member/saveAlarm',
-	                	data : JSON.stringify(AlarmData),
-	                	contentType: "application/json; charset=utf-8",
-	                	dataType : 'text',
-	                	success : function(data){
-	                		 // socket에 보내기
-	    	                if(socket) {
-	    	                	for(var i in meetingboard_list) {
-	    	                		// apply, 구매한사람, 멘토이메일, 모임 번호, 신청 번호
-	    	                		let socketMsg = "apply," + rsp.buyer_name + "," + mentor_list[i] + "," + meetingboard_list[i] + "," + participation_list[i];              		
-	    	                		console.log("socketMessage : " + socketMsg);
-	    	                		socket.send(socketMsg);
-	    	                	}
-	    	                }
-	                		console.log(data);
-	                	},
-	                	error : function(err){
-	                		console.log(err);
-	                	}
-	                });   
+
+                	for(var i in meetingboard_list) {          
+		                var AlarmData = {
+		                		"myAlarm_receiverEmail" : mentor_list[i],
+		                		"myAlarm_callerNickname" : rsp.buyer_name,
+		                		"myAlarm_title" : "모임 알림",
+		                		"myAlarm_content" :  rsp.buyer_name + "님이 모임을 신청했습니다. <a type='external' href='/mentor/participation/participationView?mseq="+ meetingboard_list[i] +"&pseq="+ participation_list[i] +"'>신청서 보기</a>"
+		                };
+                		                
+		                //모임 결제 알림 DB저장
+		                $.ajax({
+		                	type : 'post',
+		                	url : '/mentor/member/saveAlarm',
+		                	data : JSON.stringify(AlarmData),
+		                	contentType: "application/json; charset=utf-8",
+		                	dataType : 'text',
+		                	success : function(data){
+		                		console.log(data);
+		    	                // socket에 보내기
+		    	                if(socket) {
+		    	                		// apply, 구매한사람, 멘토이메일, 모임 번호, 신청 번호
+		    	                		let socketMsg = "apply," + rsp.buyer_name + "," + mentor_list[i] + "," + meetingboard_list[i] + "," + participation_list[i];              		
+		    	                		console.log("socketMessage : " + socketMsg);
+		    	                		socket.send(socketMsg);
+		    	                }
+		                	},
+		                	error : function(err){
+		                		console.log(err);
+		                	}
+		                }); 
+                	}
 	            } else {
 	                var msg = '결제에 실패하였습니다.' + '\n';
 	                msg += rsp.error_msg + '\n';
 	                alert(msg);
-	            }
+	    	 }
 	    });
+	    
 	}
 });

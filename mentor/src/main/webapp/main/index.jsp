@@ -66,7 +66,7 @@
 			success : function(data) {
 				alert('add하러옴' + data);//0이 나온다
 				if(data == '0'){
-				}else{
+				} else{
 					$('#alarmCountSpan').addClass('bell-badge-danger bell-badge')
 					$('#alarmCountSpan').text(data);
 				}
