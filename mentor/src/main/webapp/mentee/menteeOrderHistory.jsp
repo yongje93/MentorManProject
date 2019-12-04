@@ -17,39 +17,39 @@
 	<h1 class="title">결제 내역</h1>
 </div>
 <div class="block hero-title" style="width: 900px;">
-<div class="n-table-filter">
-	<div class="n-radio-tab">
-		<input type="radio" id="radioTabGuide0" name="radioTabGuide" onclick="setPeriod(this,'1week');">
-		<label for="radioTabGuide0">1주일</label>
-
-		<input type="radio" id="radioTabGuide1" name="radioTabGuide" onclick="setPeriod(this,'1month');">
-		<label for="radioTabGuide1">1개월</label>
-
-		<input type="radio" id="radioTabGuide2" name="radioTabGuide" onclick="setPeriod(this,'3month');">
-		<label for="radioTabGuide2">3개월</label>
-
-		<input type="radio" id="radioTabGuide3" name="radioTabGuide" onclick="setPeriod(this,'');" checked="">
-		<label for="radioTabGuide3">전체 시기</label>
+	<div class="n-table-filter">
+		<div class="n-radio-tab">
+			<input type="radio" id="radioTabGuide0" name="radioCheck" onclick="setPeriod(this,'1week');">
+			<label for="radioTabGuide0">1주일</label>
+	
+			<input type="radio" id="radioTabGuide1" name="radioCheck" onclick="setPeriod(this,'1month');">
+			<label for="radioTabGuide1">1개월</label>
+	
+			<input type="radio" id="radioTabGuide2" name="radioCheck" onclick="setPeriod(this,'3month');">
+			<label for="radioTabGuide2">3개월</label>
+	
+			<input type="radio" id="radioTabGuide3" name="radioCheck" onclick="setPeriod(this,'');" checked="">
+			<label for="radioTabGuide3">전체 시기</label>
+		</div>
+		<div class="n-datepicker sb" style="border: 1px solid #777777; padding-left: 5px;">
+			<input type="text" class="n-input hasDatepicker" name="startDate" id="startDate" placeholder="시작" value="">
+		</div>
+		<div class="n-datepicker" style="border: 1px solid #777777; padding-left: 5px;">
+			<input type="text" class="n-input hasDatepicker" name="endDate" id="endDate" placeholder="종료" value="">
+		</div>
+		<div class="n-select" style="position: absolute; top:-5px; right: 158px;">
+			<select id="condition" name="option">
+				<option value="all" selected="selected">전체상태</option>
+				<option value="complete">주문완료</option>
+				<option value="cancel">주문취소</option>
+			</select>
+		</div>
+		<input type="button" class="n-btn btn-sm btn-accent" id="orderSearchBtn" style="margin-left: 35px;" value="조회">
 	</div>
-	<div class="n-datepicker sb" style="border: 1px solid #777777; padding-left: 5px;">
-		<input type="text" class="n-input hasDatepicker" id="startDate" placeholder="시작" value="">
-	</div>
-	<div class="n-datepicker" style="border: 1px solid #777777; padding-left: 5px;">
-		<input type="text" class="n-input hasDatepicker" id="endDate" placeholder="종료" value="">
-	</div>
-	<div class="n-select" style="position: absolute; top:-5px; right: 158px;">
-		<select id="condition">
-			<option value="all" selected="selected">전체상태</option>
-			<option value="complete">주문완료</option>
-			<option value="cancel">주문취소</option>
-		</select>
-	</div>
-	<input type="button" class="n-btn btn-sm btn-accent" id="orderSearchBtn" style="margin-left: 35px;" value="조회">
-</div>
 </div>
 <div class="block" style="width: 890px;">
 <form id="menteeOrderForm">
-	<table class="n-table table-col" style="table-layout: fixed;">
+	<table id="historyTable" class="n-table table-col" style="table-layout: fixed;">
 		<thead>
 			<tr>
 				<th width="35%">모임정보</th>

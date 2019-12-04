@@ -303,11 +303,12 @@ public class MenteeController {
 		orderHistoryPaging.setPageBlock(3);
 		orderHistoryPaging.setPageSize(5);
 		orderHistoryPaging.setTotalA(totalSearchHistory);
-		orderHistoryPaging.makePagingHTML();
+		orderHistoryPaging.makeSearchPagingHTML();
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("totalSearchHistory", totalSearchHistory);
 		mav.addObject("orderHistorySearchList", orderHistorySearchList);
+		mav.addObject("orderHistoryPaging", orderHistoryPaging);
 		mav.setViewName("jsonView");
 		return mav;
 	}	

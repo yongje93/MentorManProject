@@ -213,15 +213,98 @@ $("#orderSearchBtn").click(function(){
 	       toastTop.open();
 	       $("#endDate").focus();
 	} else {
-		alert(startDate+'시작'+endDate+'끝'+option+'조건');
+		//alert(startDate+'시작'+endDate+'끝'+option+'조건');
+		
 		$.ajax({
 			type: 'post',
 			url: '/mentor/mentee/orderHistorySearch',
 			data: {'startDate' : startDateVal, 'endDate' : endDateVal, 'option' : option},
 			dataType: 'json',
 			success: function(data){
-				alert(data.orderHistorySearchList);
-				alert(data.totalSearchHistory);
+				//alert(data.orderHistorySearchList);
+				//alert(data.totalSearchHistory);
+				
+				$('#historyTable > tbody').empty();
+				
+				$.each(data.orderHistorySearchList, function(index, items){
+					var today = new Date();
+					
+					var parseDate = items.meetingboard_day;
+					var yyyy = parseDate.substr(0,4);
+					var mm = parseDate.substr(5,2);
+					var dd = parseDate.substr(8,2);
+					
+					var meetingday = new Date(yyyy, mm-1, dd);
+					var nowDays = today.getTime() / (1000*60*60*24);
+					var oldDays = meetingday.getTime() / (1000*60*60*24) + 1;
+					
+					var orderDate = items.order_date;
+					
+					var price = items.meetingboard_price.toLocaleString();
+					
+					let orderHistory = `
+						<tr>
+							<td>
+								<a type="external" href="/mentor/meetingboard/meetingboardView?seq=${items.meetingboard_seq}" target="_blank">
+									${items.meetingboard_title}
+								</a>
+							</td>
+							<td>
+								${orderDate}
+							</td>
+							<td>
+								<a type="external" href="/mentor/participation/paymentComplete?order_id=${items.order_id}" style="color: black;">
+									${items.order_id}
+								</a>
+							</td>
+							<td>
+								${price}원
+							</td>
+							<td>
+							<c:if test="${items.order_flag == 0}">
+								(주문취소)
+							</c:if>
+							<c:if test="${items.order_flag == 1}">
+								<c:if test="${today >= meetingday}">
+									<c:if test="${items.review_seq == null}">
+										<c:if test=""></c:if>
+										<div class="btn-set btn-parents">
+											<button type="button" class="button" onclick="location.href='/mentor/mentee/meetingReviewWriteForm?seq=${items.meetingboard_seq}'" style="font-size: 11px;">수강후기</button>
+										</div>
+									</c:if>
+									<c:if test="${items.review_seq != null}">
+										<div class="btn-set btn-parents">
+											<span>(작성완료)</span>
+										</div>
+									</c:if>						
+								</c:if>
+								<c:if test="${today < meetingday}">
+								<div class="btn-set btn-parents">
+									<span>(수강전)</span>
+								</div>
+								</c:if>
+							</c:if>
+							</td>
+							<td>
+							<c:if test="${items.order_flag == 1}">
+								<c:if test="${(oldDays - nowDays) >= 2}">
+									<div class="btn-set btn-parents">
+										<button type="button" class="button" onclick="paymentCancel('${items.meetingboard_seq}','${items.order_id}','${items.meetingboard_price}','${items.participation_seq}')" style="font-size: 11px;">수강취소</button>
+									</div>
+								</c:if>
+								<c:if test="${(oldDays - nowDays) < 2}">
+									<div class="btn-set btn-parents">
+										<span></span>
+									</div>
+								</c:if>
+							</c:if>
+							</td>
+						</tr>
+					`;
+					
+					$('#historyTable > tbody').append(orderHistory);
+					
+				});
 			},
 			error: function(err){
 				console.log(err);
