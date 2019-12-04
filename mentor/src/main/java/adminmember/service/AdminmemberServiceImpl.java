@@ -22,12 +22,15 @@ public class AdminmemberServiceImpl implements AdminmemberService{
 	
 	/* description : 회원전체 리스트*/
 	@Override
-	public List<AdminmemberDTO> getAdminmemberList(int startNum, int endNum) {
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("startNum", startNum); 
-		map.put("endNum", endNum); 
+	public List<AdminmemberDTO> getAdminmemberList(Map<String, Integer> map) {
 		return adminmemberDAO.getAdminmemberList(map);
 	}
+	
+	@Override
+	public List<AdminmemberDTO> memberClassfication(Map<String, Integer> map) {
+		return adminmemberDAO.memberClassfication(map);
+	}
+	
 	/* description : 회원전체  수*/
 	@Override
 	public int getMemeberTotalA() {
@@ -66,6 +69,10 @@ public class AdminmemberServiceImpl implements AdminmemberService{
 	}
 	
 	
+	@Override
+	public List<AdminmentorDTO> mentorClassfication(Map<String, Integer> map) {
+		return adminmemberDAO.mentorClassfication(map);
+	}
 	/* description : 멘토회원신청 리스트*/
 	@Override
 	public List<AdminmentorDTO> getAdminmentorApplyList(int startNum, int endNum) {

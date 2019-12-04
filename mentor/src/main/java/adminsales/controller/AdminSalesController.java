@@ -21,9 +21,20 @@ public class AdminSalesController {
 	@Autowired
 	AdminsalesService adminsalesService;
 	
-	@RequestMapping(value="adminsales",method=RequestMethod.GET)
-	public String adminsales(Model model) {
-		model.addAttribute("display", "/adminsales/adminsales.jsp");
+	@RequestMapping(value="daysSales",method=RequestMethod.GET)
+	public String daysSales(Model model) {
+		model.addAttribute("display", "/adminsales/daysSales.jsp");
+		return "/admin/adminMain";
+	}
+	@RequestMapping(value="monthSales",method=RequestMethod.GET)
+	public String monthSales(Model model) {
+		model.addAttribute("display", "/adminsales/monthSales.jsp");
+		return "/admin/adminMain";
+	}
+	
+	@RequestMapping(value="mentorSales",method=RequestMethod.GET)
+	public String mentorSales(Model model) {
+		model.addAttribute("display", "/adminsales/mentorSales.jsp");
 		return "/admin/adminMain";
 	}
 	
@@ -40,6 +51,14 @@ public class AdminSalesController {
 	@ResponseBody
 	public JSONArray monthSalesChart() {
 		List<Map<String, String>> list = adminsalesService.getMonthsalesChart();
+		JSONArray jsonArray = JSONArray.fromObject(list);
+		return jsonArray;
+	}
+	
+	@RequestMapping(value="mentorSalesChart",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONArray mentorSalesChart() {
+		List<Map<String, String>> list = adminsalesService.mentorSalesChart();
 		JSONArray jsonArray = JSONArray.fromObject(list);
 		return jsonArray;
 	}

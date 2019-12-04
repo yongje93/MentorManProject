@@ -228,12 +228,14 @@ public class MemberController {
 		if(member_flag == 1) {
 			int mentor_seq = memberService.getMentor_seq(memberDTO.getMember_email());
 			List<MentorDTO> list = memberService.getMemtee_question(mentor_seq);
+			memberService.mentor_headerCountModify(list);
 			model.addAttribute("mentor_questionList", list);
 		}
 		List<MentorDTO> list = memberService.getQandA(map);
 		if(list != null) {
 			model.addAttribute("all_questionList", list);
 		}
+		memberService.mentee_headerCountModify(list);
 		model.addAttribute("flag",member_flag);
 		model.addAttribute("pg", pg);
 		model.addAttribute("QandAPag", QandAPag);
@@ -261,6 +263,7 @@ public class MemberController {
 		map.put("question_seq", qsseq+"");
 		map.put("member_flag", member_flag+"");
 		MentorDTO mentorDTO = memberService.getMentor_info(map);
+		System.out.println("준혁이 dto : " + mentorDTO);
 		Map<String, String> followMap = new HashMap<String, String>();
 		followMap.put("memEmail" , memberDTO.getMember_email());
 		followMap.put("mentorEmail" , mentorDTO.getMentor_email());
@@ -402,13 +405,18 @@ public class MemberController {
 
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("memDTO");
 		String memEmail = memberDTO.getMember_email();
+		
+		int newSize = memberService.getCountAlarm(memEmail);
+		
 		//알림 읽음 표시
 		memberService.checkSubscribe(memEmail);
-
+		
 		List<AlarmDTO> list = memberService.getAlarm(memEmail);
+		
 		int getTotalAlarm = memberService.getTotalAlarm(memEmail);
 		model.addAttribute("getTotalAlarm" , getTotalAlarm);
 		model.addAttribute("list" , list);
+		model.addAttribute("newSize", newSize);
 		model.addAttribute("display","/member/myAlarm.jsp");
 		return "/main/index";
 	}
@@ -446,5 +454,16 @@ public class MemberController {
 	}
 	
 
-
+	@RequestMapping(value = "headerNotification", method = RequestMethod.POST)
+	@ResponseBody
+	public String headerNotification(Model model, HttpSession session) {
+		int check_count = 0;
+		memberDTO = (MemberDTO) session.getAttribute("memDTO");
+		if(memberDTO.getMember_flag() == 1) {
+			check_count = memberService.mentor_headerNotification(memberDTO.getMember_seq());
+		}else {
+			check_count = memberService.mentee_headerNotification(memberDTO.getMember_seq());
+		}
+		return check_count+"";
+	}
 }

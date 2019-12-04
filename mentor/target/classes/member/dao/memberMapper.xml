@@ -198,10 +198,10 @@
 	</update>
 
   	<select id="getAlarm" parameterType="String" resultType="alarm">
-  		select * from myAlarm where myAlarm_receiverEmail = #{memEmail}
+  		select * from myAlarm where myAlarm_receiverEmail = #{memEmail} 
   							  order by myAlarm_logtime desc
   	</select>
-
+	
   	<update id="checkSubscribe" parameterType="String">
   		update myAlarm set myAlarm_subscribeFlag = 1 where myAlarm_receiverEmail = #{memEmail}
   	</update>
@@ -227,4 +227,26 @@
   	<select id="getTotalAlarm" parameterType="String" resultType="Integer">
   		select count(*) from myAlarm where myAlarm_receiverEmail = #{memEmail}
   	</select>
+  	
+  	<select id="mentor_headerNotification" parameterType="int" resultType="int">
+  		select count(*) from mentors_member mm
+                    , mentor mt
+                    , question qs 
+		where mm.member_email = mt.mentor_email and mt.mentor_seq = qs.mentor_seq and mm.member_seq = #{member_seq} and qs.check_flag = 0
+  	</select>
+  	
+  	<select id="mentee_headerNotification" parameterType="int" resultType="int">
+		select count(*) from mentors_member mm
+		             , mentor mt
+		             , answer an 
+	    where mm.member_email = an.member_email and mt.mentor_seq = an.mentor_seq and mm.member_seq = #{member_seq} and an.check_flag = 0
+  	</select>
+  	
+  	<update id="mentor_headerCountModify" parameterType="int">
+  		update question set check_flag = 1 where question_seq = #{question_seq}
+  	</update>
+  	
+  	<update id="mentee_headerCountModify" parameterType="int">
+  		update answer set check_flag = 1 where question_seq = #{question_seq}
+  	</update>
 </mapper>

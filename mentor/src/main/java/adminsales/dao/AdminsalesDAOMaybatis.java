@@ -24,6 +24,11 @@ public class AdminsalesDAOMaybatis implements AdminsalesDAO{
 	public List<Map<String, String>> getMonthsalesChart() {
 		return sqlSession.selectList("adminsalesSQL.getMonthsalesChart");
 	}
+
+	@Override
+	public List<Map<String, String>> mentorSalesChart() {
+		return sqlSession.selectList("adminsalesSQL.mentorSalesChart");
+	}
 	
 	
 }

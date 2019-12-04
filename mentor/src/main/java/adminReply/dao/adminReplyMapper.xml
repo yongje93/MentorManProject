@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="adminreplySQL">
+ 	<!-- 고맙습니다 댓글 -->
+ 	<select id="getAdminThankyou" parameterType="java.util.Map" resultType="review">
+ 	<![CDATA[select *from
+	(select rownum rn, tt.*from
+	(select mm.member_nickname,mr.*
+	from 
+	meeting_review mr,
+	mentors_member mm
+	where mr.mentee_email = mm.member_email
+	order by mr.review_seq desc)tt)
+	where rn >= #{startNum} and rn<=#{endNum}]]>
+ 	</select>
+ 	
+ 	<select id="getThankyouTotalA" resultType="int">
+ 		select count(*) cnt from meeting_review
+ 	</select>
+ 	
+	<!--  고맙습니다 리뷰삭제  -->
+	<update id="meetingReviewDelete" parameterType="java.util.Map">
+		update meeting_review set review_flag=1 where review_seq in
+		<foreach collection="check" item="review_seq" index="i" open="("
+			close=")" separator=",">
+			#{review_seq}<!-- ${check[i]} 컬렉션만 $먹고 item인 seq는 #과$같이먹는다 -->
+		</foreach>
+	</update>
+	
+ 	<!-- 멘티게시판 댓글 -->
+ 	<select id="getAdminmenteeReply" parameterType="java.util.Map" resultType="menteeboardReply">
+ 	<![CDATA[select *from
+	(select rownum rn, tt.*from
+	(select mm.member_nickname, mm.member_profile, mr.*
+	from
+	menteeboardreply mr,
+	mentors_member mm
+	where mr.menteeboardreply_email = mm.member_email
+	order by mr.menteeboardreply_seq desc)tt)
+	where rn >= #{startNum} and rn<=#{endNum}]]>
+ 	</select>
+ 	
+ 	<select id="getMenteeReplyTotalA" resultType="int">
+ 		select count(*) cnt from menteeboardreply
+ 	</select>
+ 	
+ 	<!-- 멘티게시판 리뷰삭제  -->
+	<update id="menteeReplyDelete" parameterType="java.util.Map">
+		update menteeboardreply set menteeboardReply_flag=1 where menteeboardreply_seq in
+		<foreach collection="check" item="menteeboardreply_seq" index="i" open="("
+			close=")" separator=",">
+			#{menteeboardreply_seq}<!-- ${check[i]} 컬렉션만 $먹고 item인 seq는 #과$같이먹는다 -->
+		</foreach>
+	</update>
+</mapper>

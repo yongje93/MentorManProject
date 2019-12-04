@@ -25,6 +25,8 @@
 	<context:component-scan base-package="adminmember.controller"/>
 	<!-- 매출 -->
 	<context:component-scan base-package="adminsales.controller"/>
+	<!-- 댓글 -->
+	<context:component-scan base-package="adminReply.controller"/>
 
 	<!-- 메인 컨트롤 -->
 	<context:component-scan base-package="main.controller"/>

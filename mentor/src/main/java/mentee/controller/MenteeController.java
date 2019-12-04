@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import meetingboard.bean.ReviewDTO;
 import meetingboard.service.MeetingboardService;
@@ -282,6 +283,35 @@ public class MenteeController {
 		return "/main/index";
 	}
 	
+	@RequestMapping(value = "orderHistorySearch", method = RequestMethod.POST)
+	public ModelAndView orderHistorySearch(@RequestParam Map<String, Object> map, @RequestParam(required = false, defaultValue = "1") String pg, HttpSession session) {
+		// 1페이지당 5개
+		int endNum = Integer.parseInt(pg) * 5;
+		int startNum = endNum - 4;
+		
+		MemberDTO memDTO = (MemberDTO) session.getAttribute("memDTO");
+		String member_email = memDTO.getMember_email();
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		map.put("member_email", member_email);
+		
+		List<OrderDTO> orderHistorySearchList = participationService.getOrderHistorySearch(map);
+		
+		// 페이징 처리
+		int totalSearchHistory = participationService.getSearchHistory(map);
+		orderHistoryPaging.setCurrentPage(Integer.parseInt(pg));
+		orderHistoryPaging.setPageBlock(3);
+		orderHistoryPaging.setPageSize(5);
+		orderHistoryPaging.setTotalA(totalSearchHistory);
+		orderHistoryPaging.makePagingHTML();
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("totalSearchHistory", totalSearchHistory);
+		mav.addObject("orderHistorySearchList", orderHistorySearchList);
+		mav.setViewName("jsonView");
+		return mav;
+	}	
+	
 	/**
 	 * @Title : 모임 후기 작성 창
 	 * @Author : yong
@@ -379,4 +409,5 @@ public class MenteeController {
 		MemberDTO user_info = (MemberDTO) session.getAttribute("memDTO");
 		menteeService.memberDeleteSuccess(user_info.getMember_seq());
 	}
+
 }

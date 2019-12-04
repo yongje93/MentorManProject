@@ -3,6 +3,7 @@
  */
 
 $(function(){
+	
 	if($('#scrapFlag').val() == 1){
 		$('#scrapDiv').children().first().addClass('bookmarked fas');
 		$('#scrapDiv').children().first().removeClass('far');
@@ -16,7 +17,6 @@ $(function(){
 //스크랩 클릭
 $('#scrapDiv').on('click' , function(){
 	var scrapTag = $(this).children().first();
-	
 	if(scrapTag.hasClass('far')){
 		scrapTag.addClass('bookmarked fas');
 		scrapTag.removeClass('far');
@@ -32,7 +32,6 @@ $('#scrapDiv').on('click' , function(){
 		scrapAjax();
 		
 	}
-	
 });
 
 
@@ -58,12 +57,8 @@ function scrapAjax(){
 				let receiverEmail = $('.mentor-img').data('email');    //에세이 작성자 이메일
 				let scrapboard_seq = $('#essayScrapDiv').data('seq'); //에세이 seq 
 				
+				//alert(memNickname +','+nickname +',' +receiverEmail + ',' + scrapboard_seq);
 				
-				if(socket){
-					let socketMsg = "scrap," + memNickname +","+ nickname +","+ receiverEmail +","+ scrapboard_seq;
-					console.log("msgmsg : " + socketMsg);
-					socket.send(socketMsg);
-				}
 				var AlarmData = {
 						"myAlarm_receiverEmail" : receiverEmail,
 						"myAlarm_callerNickname" : memNickname,
@@ -78,7 +73,11 @@ function scrapAjax(){
 					contentType: "application/json; charset=utf-8",
 					dataType : 'text',
 					success : function(data){
-						
+						if(socket){
+							let socketMsg = "scrap," + memNickname +","+ nickname +","+ receiverEmail +","+ scrapboard_seq;
+							console.log("msgmsg : " + socketMsg);
+							socket.send(socketMsg);
+						}
 					},
 					error : function(err){
 						console.log(err);
@@ -93,6 +92,9 @@ function scrapAjax(){
 		}
 	});
 }
+
+
+
 //팔로우 버튼 체크
 $(function(){
 	var seq = $('#essayScrapDiv').data('seq');
@@ -103,7 +105,7 @@ $(function(){
 		$('#followA').removeClass('button-fill');
 	}
 	
-	$('.mentor_'+seq).on('click' , function(){
+	$('.mentor2').on('click' , function(){
 		var followBtn = $(this);
 		followAjax(followBtn);
 		
@@ -118,6 +120,7 @@ function followAjax(followBtn){
 			'followed_email' : $('.mentor-img').data('email'),
 			'follow' : $('#followVal').val()
 		};
+	
 	$.ajax({
 		url : '/mentor/mentor/mentorFollow',
 		type : 'POST',
@@ -139,12 +142,6 @@ function followAjax(followBtn){
 				let receiverEmail = $('.mentor-img').data('email');     //팔로우 당사자 이메일
 				let member_seq = $('#essayScrapDiv').data('seq'); // seq
 				//alert(memNickname+',' + nickname +',' + receiverEmail +',' + member_seq);
-				//socket에 보내자
-				if(socket) {
-					let socketMsg = "follow," + memNickname +","+nickname +","+ receiverEmail + "," +member_seq;
-					console.log("msgmsg :: " + socketMsg );
-					socket.send(socketMsg);
-				}
 				
 				var AlarmData = {
 						"myAlarm_receiverEmail" : receiverEmail,
@@ -152,7 +149,6 @@ function followAjax(followBtn){
 						"myAlarm_title" : "팔로우 알림",
 						"myAlarm_content" :  memNickname + "님이 팔로우를 시작 했습니다."
 				};
-				alert(JSON.stringify(AlarmData));
 				//팔로우 알림 DB저장
 				$.ajax({
 					type : 'post',
@@ -162,14 +158,17 @@ function followAjax(followBtn){
 					dataType : 'text',
 					success : function(data){
 						//alert(data);
-						
+						//socket에 보내자
+						if(socket) {
+							let socketMsg = "follow," + memNickname +","+nickname +","+ receiverEmail + "," +member_seq;
+							console.log("msgmsg :: " + socketMsg );
+							socket.send(socketMsg);
+						}
 					},
 					error : function(err){
 						console.log(err);
 					}
 				});
-				
-				
 				
 				
 			}else{

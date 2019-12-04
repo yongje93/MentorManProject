@@ -4,7 +4,7 @@
 	flex-wrap: wrap;
 }
 .card{
-	width: 350px;
+	/* width: 350px; */
 	height: 300px;
 	border: 1px solid rgba(0,0,0,0.2);
 	margin-top: 10px;

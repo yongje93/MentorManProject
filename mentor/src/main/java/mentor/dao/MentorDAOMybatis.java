@@ -148,4 +148,12 @@ public class MentorDAOMybatis implements MentorDAO {
 		return sqlSession.selectOne("mentorSQL.getFollow" , mentor_seq);
 	}
 
+	@Override
+	public int getMenteeInfo_count(String member_email) {
+		int student = sqlSession.selectOne("mentee_student",member_email);
+		int employee = sqlSession.selectOne("mentee_employee",member_email);
+		
+		return student+employee;
+	}
+
 }

@@ -171,6 +171,10 @@ public class MentorController {
 		
 		if(memberDTO != null) {
 			modelAndView.addObject("memberDTO", memberDTO);
+			//멘티 정보를 입력했는지 확인
+			int menteeInfo_count = mentorService.getMenteeInfo_count(memberDTO.getMember_email());
+			modelAndView.addObject("menteeInfo_count", menteeInfo_count);
+	
 		}
 		
 		modelAndView.addObject("pg", pg);
@@ -209,6 +213,11 @@ public class MentorController {
 		mentorfindPaging.setTotalA(totalA);
 		mentorfindPaging.makePagingHTML();
 		
+		//멘티 정보를 입력했는지 확인
+		if(memberDTO != null) {
+			int menteeInfo_count = mentorService.getMenteeInfo_count(memberDTO.getMember_email());
+			model.addAttribute("menteeInfo_count", menteeInfo_count);
+		}
 		model.addAttribute("flag", 0);
 		model.addAttribute("memberDTO", memberDTO);
 		model.addAttribute("pg", pg);
@@ -299,7 +308,7 @@ public class MentorController {
 		MentorDTO mentorDTO = mentorService.getMentorInfomation(mentor_seq);
 		List<MentorDTO> essayList = mentorService.getMentorEssayList(mentor_seq);
 		List<ReviewDTO> reviewList = mentorService.getMentorReviewList(mentor_seq);
-		System.out.println("mentor_seq :: " + mentor_seq);
+		
 		int mentor_answer = mentorService.getAnswer(mentor_seq); // 답변수
 		int mentor_question = mentorService.getQuestion(mentor_seq);// 질문수
 		int mentor_follow = mentorService.getFollow(mentor_seq); //팔로워수
@@ -313,13 +322,13 @@ public class MentorController {
 		
 		//follow - 재우
 		Map<String, String> followMap = new HashMap<String, String>();
-		followMap.put("memEmail" , memberDTO.getMember_email());
-		followMap.put("mentorEmail" , mentorDTO.getMentor_email());
-	  	int follow = mentorService.getFollowCheck(followMap);
-		
-	  	model.addAttribute("follow", follow);
-		model.addAttribute("pg", pg);
-		if(memberDTO!= null) {
+		if(memberDTO!=null) {
+			followMap.put("memEmail" , memberDTO.getMember_email());
+			followMap.put("mentorEmail" , mentorDTO.getMentor_email());
+			int follow = mentorService.getFollowCheck(followMap);
+			model.addAttribute("follow", follow);		
+			int menteeInfo_count = mentorService.getMenteeInfo_count(memberDTO.getMember_email());
+			model.addAttribute("menteeInfo_count", menteeInfo_count);
 			model.addAttribute("email_check", memberDTO.getMember_email());
 		}
 		if(Double.isNaN(questionPercent)) {
@@ -327,6 +336,7 @@ public class MentorController {
 		}else {
 			model.addAttribute("questionPercent", questionPercent);
 		}
+		model.addAttribute("pg", pg);
 		model.addAttribute("mentor_answer",mentor_answer);
 		model.addAttribute("mentor_follow",mentor_follow);
 		model.addAttribute("mentor_seq", mentor_seq);
@@ -437,5 +447,9 @@ public class MentorController {
 		return "redirect:/main/index";
 	}
 		
-	
+	@RequestMapping(value = "userInfoCheck", method = RequestMethod.GET)
+	public String userInfoCheck(Model model) {
+		model.addAttribute("display", "/mentor/userInfoCheck.jsp");
+		return "/main/index";
+	}
 }

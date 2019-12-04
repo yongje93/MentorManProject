@@ -10,6 +10,5 @@ public interface AdminsalesService {
 
 	public List<Map<String, String>> getMonthsalesChart();
 
-	
-
+	public List<Map<String, String>> mentorSalesChart();
 }

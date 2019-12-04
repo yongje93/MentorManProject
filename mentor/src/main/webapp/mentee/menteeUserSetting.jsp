@@ -7,7 +7,7 @@
 	<h1 class="title">내 정보</h1>
 </div>
 <div class="block inset">
-	<form class="simple_form edit_user" id="menteeUserSetting" name="menteeUserSetting" novalidate="novalidate" enctype="multipart/form-data" action="/mentor/mentee/mentorUserModify" accept-charset="UTF-8" method="post">
+	<form class="simple_form edit_user" id="menteeUserSetting" name="menteeUserSetting" novalidate="novalidate" enctype="multipart/form-data" accept-charset="UTF-8" method="post">
 		<div class="list form-list no-hairlines">
 			<ul>
 				<div class="label-title">
@@ -90,9 +90,7 @@
 </div>
 </div>
 <input type="hidden" id="nickname" value="${memberDTO.member_nickname}"> 
-<script type="text/javascript" src="../js/mentee.js"></script>
 <script>
-
 $(document).ready(
 	function() {
 		function readURL(input) {

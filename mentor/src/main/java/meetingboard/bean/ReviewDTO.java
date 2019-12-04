@@ -17,6 +17,7 @@ public class ReviewDTO {
 	private int review_flag;
 	// 조인
 	private String member_name;
+	private String member_nickname;
 	private String mentor_name;
 	private String mentee_name;
 	private String member_profile;

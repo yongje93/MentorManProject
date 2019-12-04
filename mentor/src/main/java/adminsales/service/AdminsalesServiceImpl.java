@@ -23,6 +23,11 @@ public class AdminsalesServiceImpl implements AdminsalesService{
 	public List<Map<String, String>> getMonthsalesChart() {
 		return adminsalesDAO.getMonthsalesChart();
 	}
+
+	@Override
+	public List<Map<String, String>> mentorSalesChart() {
+		return adminsalesDAO.mentorSalesChart();
+	}
 	
 	
 

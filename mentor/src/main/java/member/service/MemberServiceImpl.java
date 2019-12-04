@@ -244,5 +244,23 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 
-}
+	@Override
+	public int mentor_headerNotification(int member_seq) {
+		return memberDAO.mentor_headerNotification(member_seq);
+	}
 
+	@Override
+	public int mentee_headerNotification(int member_seq) {
+		return memberDAO.mentee_headerNotification(member_seq);
+	}
+
+	@Override
+	public void mentor_headerCountModify(List<MentorDTO> list) {
+		memberDAO.mentor_headerCountModify(list);
+	}
+
+	@Override
+	public void mentee_headerCountModify(List<MentorDTO> list) {
+		memberDAO.mentee_headerCountModify(list);
+	}
+}

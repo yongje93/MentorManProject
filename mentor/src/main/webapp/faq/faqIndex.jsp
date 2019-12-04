@@ -82,22 +82,18 @@
 			<div class="page navbar-fixed mentee_programs index">
 				<div class="page-content" >
 					<div class="block-title strong-title" id="faq_title">문의하기</div>
-					<div calss="block inset">
+					<div class="block inset">
 							<form method="post" id="faqToContactWriteForm" action="/mentor/faq/faqToCntactWrite" enctype="multipart/form-data" accept-charset="UTF-8" >
 								<table id="faqToContactWriteForm" class="faqToContactWriteForm">
 									<thead>
 									</thead>
 									<tbody>
-									<tr>
+									<!-- <tr>
 										<th scope="cols" style="float: left; text-align: left;"><input type="text" id="faqToContact_name" name="faqToContact_name" placeholder="이름">
-									</tr>
+									</tr> -->
 									<tr>
 										<th scope="cols" style="float: left; text-align: left;"><input type="text" id="faqToContact_email" name="faqToContact_email" placeholder="이메일">
 										<div id="faqToContact_email_error_div"></div></th>
-									</tr>
-									<tr>
-										<th scope="cols" style="float: left; text-align: left;"><input type="text" id="faqToContact_title" name="faqToContact_title" placeholder="제목입력" style="width: ">
-										<div id="faqToContact_title_error_div"></div></th>
 									</tr>
 								 	<tr>
 								 		<td colspan="2">
@@ -108,11 +104,7 @@
 								 		</td>
 								 	<tr>
 								 	</tbody>
-								 	<tr align="center">
-									 	<td colspan="2">
-									 			<div id="faqToContact_file_div" style="float: left;"><input type="file" id="faqToContact_file" name="faqToContact_file" accept=".jpg, .jpeg, .png"></div>
-									 	</td>
-									</tr>
+								 	
 								 	<tr align="center">
 								 		
 								 		<td colspan="2">
@@ -138,18 +130,12 @@ $(function(){
 	
 	$('#faqToContact_Btn').on('click', function(){
 		$('#faqToContact_email_error_div').empty();
-		$('#faqToContact_title_error_div').empty();
 		$('#faqToContact_content_div_div').empty();
 		
 		if($('#faqToContact_email').val() == ''){
 			$('#faqToContact_email_error_div').text('이메일을 입력해주세요').css('color', 'red');
 			$('#faqToContact_email_error_div').css('font-size','8pt');
 			$('#faqToContact_email').focus();
-			
-		}else if($('#faqToContact_title').val() == ''){
-			$('#faqToContact_title_error_div').text('제목을 입력해주세요').css('color', 'red');
-			$('#faqToContact_title_error_div').css('font-size','8pt');
-			$('#faqToContact_title').focus();
 			
 		}else if($('#faqToContact_content').val() == ''){
 			$('#faqToContact_content_div_error').text('내용을 입력해주세요').css('color', 'red');

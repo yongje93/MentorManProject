@@ -220,7 +220,6 @@ public class EssayboardController {
 
 		// job_code 유무 체크
 		String check = null;
-
 		for (String jobs : joblist) {
 			if(!jobs.equals(null)) {
 				check = "success";

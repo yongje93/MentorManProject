@@ -225,6 +225,7 @@ public class MenteeboardController {
 		map3.put("endNum", endNum);
 		map3.put("menteeboard_seq", Integer.parseInt(seq));
 		List<MenteeboardReplyDTO> list = menteeboardReplyService.getAllMenteeboardreply(map3);
+		System.out.println(list);
 		
 		//게시글에 댓글 갯수
 		int cnt = menteeboardReplyService.getTotalReplyA(Integer.parseInt(seq));

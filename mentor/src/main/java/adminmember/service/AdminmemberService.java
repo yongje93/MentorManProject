@@ -10,7 +10,9 @@ import adminmember.bean.AdminmentorSalesListDTO;
 
 public interface AdminmemberService {
 	//회원리스트
-	public List<AdminmemberDTO> getAdminmemberList(int startNum, int endNum);
+	public List<AdminmemberDTO> getAdminmemberList(Map<String, Integer> map);
+	
+	public List<AdminmemberDTO> memberClassfication(Map<String, Integer> map);
 
 	public int getMemeberTotalA();
 	
@@ -34,6 +36,9 @@ public interface AdminmemberService {
 	public void adminmentorSuccess(Map<String, String[]> map);
 
 	public void adminmentorReject(Map<String, String[]> map);
+	
+	public List<AdminmentorDTO> mentorClassfication(Map<String, Integer> map);
+	
 	//멘티리스트
 	public List<AdminmemberDTO> getAdminmenteeList(int startNum, int endNum);
 
@@ -52,5 +57,6 @@ public interface AdminmemberService {
 	public List<AdminmentorBoardListDTO> getMentorBoard();
 
 	public void honorMentor(Map<String, String[]> map);
+
 }
 

@@ -203,4 +203,30 @@ public class MemberDAOMybatis implements MemberDAO {
 	}
 
 
+	@Override
+	public int mentor_headerNotification(int member_seq) {
+		return sqlSession.selectOne("memberSQL.mentor_headerNotification", member_seq);
+	}
+
+	@Override
+	public int mentee_headerNotification(int member_seq) {
+		return sqlSession.selectOne("memberSQL.mentee_headerNotification", member_seq);
+	}
+
+	@Override
+	public void mentor_headerCountModify(List<MentorDTO> list) {
+		for (int i = 0; i < list.size(); i++) {
+			int question_seq = list.get(i).getQuestion_seq();
+			sqlSession.update("memberSQL.mentor_headerCountModify", question_seq);
+		}
+	}
+
+	@Override
+	public void mentee_headerCountModify(List<MentorDTO> list) {
+		for (int i = 0; i < list.size(); i++) {
+			int question_seq = list.get(i).getQuestion_seq();
+			sqlSession.update("memberSQL.mentee_headerCountModify", question_seq);
+		}
+	}
+
 }

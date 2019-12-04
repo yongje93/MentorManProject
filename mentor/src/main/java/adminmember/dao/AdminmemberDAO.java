@@ -11,6 +11,8 @@ import adminmember.bean.AdminmentorSalesListDTO;
 public interface AdminmemberDAO {
 	//회원리스트
 	public List<AdminmemberDTO> getAdminmemberList(Map<String, Integer> map);
+	
+	public List<AdminmemberDTO> memberClassfication(Map<String, Integer> map);
 
 	public int getMemeberTotalA();
 	//회원서치리스트
@@ -52,6 +54,8 @@ public interface AdminmemberDAO {
 	public List<AdminmentorDTO> getSearchadminmentorApplyList(Map<String, Object> map);
 
 	public int getSearchmentorApplyTotalA(Map<String, Object> map);
+
+	public List<AdminmentorDTO> mentorClassfication(Map<String, Integer> map);
 
 }
 

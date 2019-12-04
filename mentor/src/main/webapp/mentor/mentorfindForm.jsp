@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <div class="page navbar-fixed mentors index" data-name="mentors-index">
   <div class="page-content">
@@ -74,21 +75,38 @@
 				  </a>
 				<div class="primary-mentoring-info">
 				  	<div class="title">${mentor.job_type}</div>
-				   	<div class="info">${mentor.mentor_represent}</div>
+				  	<div class="info">
+				  	<c:choose>
+						<c:when test="${fn:length(mentor.mentor_represent) gt 50}">
+							<c:out value='${fn:substring(mentor.mentor_represent.replaceAll("\\\<.*?\\\>|&nbsp;",""), 0, 40)}' />...
+						</c:when>
+						<c:otherwise>
+							<c:out value='${mentor.mentor_represent.replaceAll("\\\<.*?\\\>|&nbsp;","")}' />
+						</c:otherwise>
+					</c:choose>
+				   	</div>
 				</div>
 				    <div class="ask-button">
 				   <c:if test="${memberDTO != null}">
-				    	<c:if test="${mentor.mentor_email != memberDTO.member_email}">
-					        <a class="question button button-small button-fill" id="mentorQuestions" type="external" onclick="mentor_question_seq(${mentor.mentor_seq},${pg})"><!-- pg seq 가져가라 -->
+					    <c:if test="${menteeInfo_count == 0}">
+					   		<a class="question button button-small button-fill" id="mentorQuestions" type="external" href="/mentor/mentor/userInfoCheck"><!-- pg seq 가져가라 -->
 						          질문하기
 							</a>
-						</c:if>
-					</c:if>	
+					    </c:if>
+					    <c:if test="${menteeInfo_count > 0}">
+					    	<c:if test="${mentor.mentor_email != memberDTO.member_email}">
+						        <a class="question button button-small button-fill" id="mentorQuestions" type="external" onclick="mentor_question_seq(${mentor.mentor_seq},${pg})"><!-- pg seq 가져가라 -->
+							          질문하기
+								</a>
+							</c:if>
+						 </c:if>
+					</c:if>
 					<c:if test="${memberDTO == null}">
 				        <a class="button button-small button-fill" type="external" href="/mentor/member/loginForm"><!-- pg seq 가져가라 -->
 					          질문하기
 						</a>
-					</c:if>	
+					</c:if>
+					
 					</div>
 				</div>
 			</div>

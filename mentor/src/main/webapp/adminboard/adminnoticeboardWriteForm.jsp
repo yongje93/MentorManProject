@@ -80,7 +80,7 @@ function sendFile(file, el) {
     $.ajax({
       data: form_data,
       type: 'post',
-      url: '/mentor/noticeboard/noticeboardImage',
+      url: '/mentor/adminboard/adminnoticeboardImage',
       cache: false,
       contentType: false,
       enctype: 'multipart/form-data',

@@ -65,4 +65,14 @@ public class ParticipationServiceImpl implements ParticipationService {
 	public ParticipationDTO getMenteeParticipation(Map<String, Integer> map) {
 		return participationDAO.getMenteeParticipation(map);
 	}
+
+	@Override
+	public List<OrderDTO> getOrderHistorySearch(Map<String, Object> map) {
+		return participationDAO.getOrderHistorySearch(map);
+	}
+	
+	@Override
+	public int getSearchHistory(Map<String, Object> map) {
+		return participationDAO.getSearchHistory(map);
+	}
 }

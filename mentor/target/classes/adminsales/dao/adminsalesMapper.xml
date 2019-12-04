@@ -21,4 +21,22 @@ select sum(tt.order_price)*0.1 as sales, to_char(order_date,'YYYY-MM') as order_
 group by  to_char(order_date,'YYYY-MM')
 order by order_date
 </select>
+
+<select id="mentorSalesChart" resultType="java.util.Map">
+select aa.member_name member_name , sum(aa.order_price) sales
+from
+(select 
+distinct mo.order_id, mo.order_price order_price, mm.member_name member_name, mm.member_profile, mt.mentor_seq
+from meeting_order mo,
+     meetingboard mb,
+     mentor mt,
+     mentors_member mm
+where order_flag = 1
+and mo.meetingboard_seq = mb.meetingboard_seq
+and mb.mentor_email = mt.mentor_email
+and mt.mentor_email = mm.member_email
+and mt.mentor_badge = 0)aa
+group by aa.member_name,aa.member_profile,aa.mentor_seq
+order by aa.member_name
+</select>
 </mapper>

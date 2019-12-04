@@ -65,7 +65,8 @@
 			<!-- 댓글이 달리는 부분 -->
 			<div id="inputList">
 			<c:forEach items="${list}" var="list" varStatus="i">
-				<div class="row no-gap">
+			<c:if test="${list.menteeboardReply_flag eq 0}">
+				<div class="no-gap">
 					 <div id="thanks-notes">
 						<div class="block mentee-detail-block thanks-note-card" hidden="" style="display: block;">
 							<div class="mentee-info">
@@ -92,6 +93,15 @@
 						</div>
 					</div> 
 				</div>
+				<br/>
+				</c:if>
+				<c:if test="${list.menteeboardReply_flag eq 1}">
+				<div class="no-gap">
+					<i class="fas fa-exclamation-circle" style="color:red;"></i> 관리자에의해 삭제된 댓글입니다.
+				</div>
+				<br/>
+				</c:if>
+				<hr>
 			</c:forEach>
 			<div class="block mentee-detail-block thanks-note-card" id="menteeboardPagingDiv">${menteeboardPaging.pagingHTML}</div>
 			<hr>

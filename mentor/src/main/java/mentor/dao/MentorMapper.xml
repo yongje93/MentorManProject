@@ -96,7 +96,7 @@
 	</select>
 	<!-- 고맙습니다 리스트 -->
 	<select id="getMentorReviewList" parameterType="int" resultType="review">
-		select rv.review_seq, rv.review_content, rv.review_date, mm1.member_name as mentor_name, mm2.member_name as mentee_name, mm2.member_profile, rv.mentee_email
+		select rv.review_seq, rv.review_content, rv.review_date, mm1.member_name as mentor_name, mm2.member_name as mentee_name, mm2.member_profile, rv.mentee_email, rv.review_flag
 		from meeting_review rv, mentors_member mm1, mentors_member mm2, meetingboard m
 		where rv.meetingboard_seq = m.meetingboard_seq
 			and rv.mentee_email = mm2.member_email
@@ -247,5 +247,13 @@
 	    where mf.followed_email = mt.mentor_email
 	    and mt.mentor_email = mm.member_email
 	    and mm.member_seq = #{mentor_seq}
+	</select>
+	
+	<select id="mentee_student" parameterType="String" resultType="int">
+		select count(*) from menteestudent_profile where menteestudent_email = #{member_email}
+	</select>
+	
+	<select id="mentee_employee" parameterType="String" resultType="int">
+		select count(*) from menteeemployee_profile where menteeemployee_email = #{member_email}
 	</select>
 </mapper>

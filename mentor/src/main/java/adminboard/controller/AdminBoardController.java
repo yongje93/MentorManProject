@@ -84,14 +84,20 @@ public class AdminBoardController {
 	
 	@RequestMapping(value = "adminnoticeboardImage", method = RequestMethod.POST)
 	@ResponseBody
-	public String adminnoticeboardImage(@RequestParam("file") MultipartFile file) {
-		String filePath = "C:/Users/dkstk/github/MentorMan/mentor/src/main/webapp/storage";
-		String fileName = file.getOriginalFilename();
-		File files = new File(filePath, fileName);
-		try {
-			FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(files));
-		} catch (IOException e) {
-			e.printStackTrace();
+	public String adminnoticeboardImage(@RequestParam("file") MultipartFile image) {
+		String filePath = "C:/Users/dkstk/github/MentorMan/mentor/src/main/webapp/storage/admin";
+		String fileName = image.getOriginalFilename();
+		File files = new File(filePath);
+		if(!files.exists()) {
+			files.mkdirs();
+		}
+		if(fileName != "") {
+			File file = new File(filePath, fileName);
+			try {
+				FileCopyUtils.copy(image.getInputStream(), new FileOutputStream(file));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		return fileName;
 	}
@@ -116,7 +122,26 @@ public class AdminBoardController {
 		model.addAttribute("adminnoticeboardDTO", adminnoticeboardDTO);
 		return "/admin/adminMain";
 	}
+	// 수정 폼
+	@RequestMapping(value = "adminnoticeboardmodifyForm", method = RequestMethod.GET)
+	public String adminnoticeboardmodifyForm(@RequestParam String seq ,@RequestParam String pg,
+											Model model) {
+		AdminnoticeboardDTO adminnoticeboardDTO = adminboardService.adminnoticeboardView(Integer.parseInt(seq));
+		
+		model.addAttribute("adminnoticeboardDTO",adminnoticeboardDTO);
+		model.addAttribute("pg", pg);
+		model.addAttribute("seq", seq);
+		model.addAttribute("display", "/adminboard/adminnoticeboardmodifyForm.jsp");
+		return "/admin/adminMain";
+	} 
 	
+	@RequestMapping(value = "noticeboardModify", method = RequestMethod.POST)
+	@ResponseBody
+	public void noticeboardModify(@RequestParam Map<String,String> map) {
+		adminboardService.noticeboardModify(map);
+	}
+	
+/*멘티 게시판---------------------------------------------------------------------------------------------*/
 	/* description : 멘티게시판 */
 	@RequestMapping(value="adminmenteeList",method = RequestMethod.GET)
 	public ModelAndView adminmenteeList(@RequestParam (required=false,defaultValue="1") String pg) {
@@ -146,7 +171,7 @@ public class AdminBoardController {
 		mav.setViewName("/admin/adminMain");
 		return mav;
 	}
-	
+/*에세이보드 리스트------------------------------------------------------------------------------------------*/
 	/* description : 에세이보드 리스트 */
 	@RequestMapping(value="adminessayList",method = RequestMethod.GET)
 	public ModelAndView adminessayList(@RequestParam(required = false, defaultValue = "1") String pg,
@@ -182,7 +207,7 @@ public class AdminBoardController {
 
 		return modelAndView;
 	}
-	
+/*모임 게시판---------------------------------------------------------------------------------------------*/	
 	/* description : 모임게시판 리스트 11.22수정 */
 	@RequestMapping(value="adminmeetingboardList",method = RequestMethod.GET)
 	public ModelAndView adminmeetingboardList(@RequestParam(required = false, defaultValue = "1") String pg) {
@@ -224,5 +249,5 @@ public class AdminBoardController {
 //		map.put("check", check);
 //		adminboardService.adminmeetingboardDelete(map);
 //	}
-	
+
 }

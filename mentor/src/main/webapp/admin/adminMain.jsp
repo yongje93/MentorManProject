@@ -19,7 +19,6 @@
 <title>mentorMan AdminPage</title>
 </head>
 <body class="nav-md pace-done">
-<div id="app" class="framework7-root">
 <div class="pace  pace-inactive">
 <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
   <div class="pace-progress-inner"></div>
@@ -55,26 +54,34 @@
 							<ul class="nav side-menu">
 								<li class=""><a><i class="fa fa-user"></i>회원관리<span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="display: none;">
-										<li><a href="/mentor/adminmember/adminmemberList">모든회원 리스트</a></li>
+										<!-- <li><a href="/mentor/adminmember/adminmemberList">모든 회원 리스트</a></li> -->
 										<li><a href="/mentor/adminmember/adminmentorList">멘토 리스트</a></li>
-										<li><a href="/mentor/adminmember/adminmentorApplyList">멘토신청 리스트</a></li>
-										<li><a href="/mentor/adminmember/adminmentorSales">멘토 매출 리스트</a></li>
 										<li><a href="/mentor/adminmember/adminmenteeList">멘티 리스트</a></li>
+										<li><a href="/mentor/adminmember/adminmentorApplyList">멘토 신청 리스트</a></li>
+										<li><a href="/mentor/adminmember/adminmentorSales">멘토 매출 리스트</a></li>
 									</ul>
 								</li><!-- 회원관리 끝 -->
-								<li class=""><a><i class="fas fa-clipboard-check"></i>게시판관리<span class="fa fa-chevron-down"></span></a>
+								<li class=""><a><i class="fas fa-clipboard-check"></i>게시판 관리<span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="display: none;">
 										<li><a href="/mentor/adminboard/adminnoticeboardList">공지사항 게시판</a></li>
 										<li><a href="/mentor/adminboard/adminessayList">에세이</a></li>
-										<li><a href="/mentor/adminboard/adminmenteeList">멘티게시판</a></li>
+										<li><a href="/mentor/adminboard/adminmenteeList">멘티 게시판</a></li>
 										<li><a href="/mentor/adminboard/adminmeetingboardList">모임</a></li>
 									</ul>
 								</li><!-- 게시판관리 끝 -->
-								<li class=""><a><i class="fas fa-barcode"></i>매출<span class="fa fa-chevron-down"></span></a>
+								<li class=""><a><i class="fas fa-barcode"></i>매출 관리<span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="display: none;">
-										<li><a href="/mentor/adminsales/adminsales">매출</a></li>
+										<li><a href="/mentor/adminsales/daysSales">일별 매출</a></li>
+										<li><a href="/mentor/adminsales/monthSales">월별 매출</a></li>
+										<li><a href="/mentor/adminsales/mentorSales">멘토별 매출</a></li>
 									</ul>
 								</li><!-- 매출 끝 -->
+								<li class=""><a><i class="fas fa-barcode"></i>댓글 관리<span class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu" style="display: none;">
+										<li><a href="/mentor/adminreply/adminThankyou">고맙습니다 댓글</a></li>
+										<li><a href="/mentor/adminreply/adminmenteeReply">멘티게시판 댓글</a></li>
+									</ul>
+								</li><!-- 댓글 끝 -->
 							</ul>
 						</div>
 					</div> <!-- sidebar menu 끝-->
@@ -123,7 +130,6 @@
 				<div class="clearfix"></div>
 			</footer>
 		</div>
-	</div>
 </body>
 <link rel="stylesheet" href="../admincss/adminListAll.css">
 </html>

@@ -86,4 +86,38 @@ public class ParticipationDAOMybatis implements ParticipationDAO {
 	public ParticipationDTO getMenteeParticipation(Map<String, Integer> map) {
 		return sqlSession.selectOne("participationSQL.getMenteeParticipation", map);
 	}
+
+	@Override
+	public List<OrderDTO> getOrderHistorySearch(Map<String, Object> map) {
+		if(!("").equals(map.get("startDate")) && ("all").equals(map.get("option"))) {	//모두 보여주기
+			return sqlSession.selectList("participationSQL.getOrderHistorySearchAllDate", map);
+		} else if(!("").equals(map.get("startDate")) && ("complete").equals(map.get("option"))) { //주문 내역만 보여주기
+			return sqlSession.selectList("participationSQL.getOrderHistorySearchCompleteDate", map);
+		} else if(!("").equals(map.get("startDate")) && ("cancel").equals(map.get("option"))) {// 취소 내역만 보여주기
+			return sqlSession.selectList("participationSQL.getOrderHistorySearchCancelDate", map);
+		} else if(("").equals(map.get("startDate")) && ("all").equals(map.get("option"))) { // 전체기간 모든 내역
+			return sqlSession.selectList("participationSQL.getOrderHistorySearchAll", map);
+		} else if(("").equals(map.get("startDate")) && ("complete").equals(map.get("option"))) { // 전체기간 주문내역
+			return sqlSession.selectList("participationSQL.getOrderHistorySearchComplete", map);
+		} else { //전체기간 취소내역
+			return sqlSession.selectList("participationSQL.getOrderHistorySearchCancel", map);
+		}
+	}
+	
+	@Override
+	public int getSearchHistory(Map<String, Object> map) {
+		if(!("").equals(map.get("startDate")) && ("all").equals(map.get("option"))) {	//모두 보여주기
+			return sqlSession.selectOne("participationSQL.getSearchHistoryAllDate", map);
+		} else if(!("").equals(map.get("startDate")) && ("complete").equals(map.get("option"))) { //주문 내역만 보여주기
+			return sqlSession.selectOne("participationSQL.getSearchHistoryCompleteDate", map);
+		} else if(!("").equals(map.get("startDate")) && ("cancel").equals(map.get("option"))) {// 취소 내역만 보여주기
+			return sqlSession.selectOne("participationSQL.getSearchHistoryCancelDate", map);
+		} else if(("").equals(map.get("startDate")) && ("all").equals(map.get("option"))) { // 전체기간 모든 내역
+			return sqlSession.selectOne("participationSQL.getSearchHistoryAll", map);
+		} else if(("").equals(map.get("startDate")) && ("complete").equals(map.get("option"))) { // 전체기간 주문내역
+			return sqlSession.selectOne("participationSQL.getSearchHistoryComplete", map);
+		} else { //전체기간 취소내역
+			return sqlSession.selectOne("participationSQL.getSearchHistoryCancel", map);
+		}
+	}
 }

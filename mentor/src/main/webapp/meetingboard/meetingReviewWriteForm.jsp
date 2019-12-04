@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <div class="col-100 tablet-80" style="margin: auto;">
-<div class="block block-strong no-hairlines question-block">
+<div class="block no-hairlines question-block">
 	<div class="block hero-title">
 		<h1 class="title">수강 후기 작성</h1>
 		<p class="description">

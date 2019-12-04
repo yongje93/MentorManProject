@@ -7,7 +7,7 @@
 		<div class="post-block-container">
 			<div class="mentor-post-detail-block">
 				<h1 class="mentor-post-title" style="display : flex">
-					${essayboardDTO.essayboard_title} 
+					${essayboardDTO.essayboard_title}
 				</h1>
 				<div class="trix-content">
 					${essayboardDTO.essayboard_content }
@@ -27,9 +27,10 @@
 				<div class="block button-wrap">
 					<div class="action-block text-align-center mentor_post_6618">
 						<a class="color-gray" type="external" data-remote="true" rel="nofollow" data-method="post" href="/mentor_posts/6618/bookmarks" >
-						<div class="block button button-big button-inline color-gray js-bookmark">
+						<div class="block button button-big button-inline color-gray js-bookmark" id="scrapDiv">
 							<i class="far fa-bookmark" aria-hidden="true"></i>
-							${essayboardDTO.essayboard_scrap }
+							<span id="essayScrapDiv" data-seq="${seq}">${essayboardDTO.essayboard_scrap }</span>
+							<input type="hidden" id="scrapFlag" name="scrapFlag" value="${essayboardDTO.essayboard_scrapFlag}">
 						</div>
 						</a>
 					</div>
@@ -37,7 +38,7 @@
 			</div>
 			<div class="mentor-block block block-strong">
 				<div class="block mentor-info-block">
-					<div class="mentor-image img-circle">
+					<div class="mentor-image img-circle mentor-img" data-email="${mentorDTO.mentor_email}">
 						<a type="external" href="/mentor/mentor/mentorInfoView?pg=${pg }&mentors=${member_seq }">
 						<!-- 멘토 이미지 -->
 						  <c:if test="${mentorDTO.member_profile != 'profile.jpg'}">
@@ -50,10 +51,10 @@
 					</div>
 					<div class="block mentor-info">
 						<div class="name">
-							<span class="mentor-name">
-								${mentorDTO.member_name } <small>멘토</small>
-							</span>
-							<a class="button col js-bookmark" data-disable-with="..." type="external" data-remote="true" rel="nofollow" data-method="post" href="#"><!-- 주소 수정 -->
+							<div class="mentor-name" data-name="${mentorDTO.member_name }">
+								${mentorDTO.member_name }<span id="menseq" data-menseq="${member_seq}"><small>멘토</small></span>
+							</div>
+							<a class="button col js-bookmark mentor2" id="followA" data-disable-with="..." type="external" data-remote="true" rel="nofollow" data-method="post" href="#"><!-- 주소 수정 -->
 							팔로우 </a>
 							<a class="button button-small button-fill" type="external" href="#"><!-- 주소 수정 -->
 							질문하기 </a>
@@ -99,4 +100,8 @@
 		</div>
 	</div>
 </div>
+<input type="hidden" name="memNickname" id="memNickname" value="${memDTO.member_nickname}" />
+<input type="hidden" id="followVal" name="followVal" value="${follow}">
+
 <script src="../js/deleteEssayboard.js"></script>
+<script src="../js/essayboardView.js"></script>

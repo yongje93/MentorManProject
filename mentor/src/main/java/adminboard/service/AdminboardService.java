@@ -22,15 +22,18 @@ public interface AdminboardService {
 
 	public void adminnoticeboardDelete(Map<String, String[]> map);
 
+	public void adminnoticeboardWrite(Map<String, String> map);
+	
 	public AdminnoticeboardDTO adminnoticeboardView(int seq);
-
+	
+	public void noticeboardModify(Map<String, String> map);
+	
+	//모임 게시판
 	public List<MeetingboardDTO> getMeetingboardList(Map<String, Integer> map);
 
 	public int getMeetingboardTotalA();
 
 	public void adminmeetingboardDelete(Map<String, String[]> map);
-
-	public void adminnoticeboardWrite(Map<String, String> map);
 	
 	//에세이
 	public List<EssayboardDTO> getNewEssay(Map<String, Object> map);

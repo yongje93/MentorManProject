@@ -18,5 +18,7 @@ public interface ParticipationService {
 	public int getTotalHistory(String member_email);
 	public void paymentCancel(Map<String, Object> map);
 	public ParticipationDTO getMenteeParticipation(Map<String, Integer> map);
+	public List<OrderDTO> getOrderHistorySearch(Map<String, Object> map);
+	public int getSearchHistory(Map<String, Object> map);
 
 }

@@ -48,6 +48,12 @@ public class AdminboardServiceImpl implements AdminboardService{
 	public void adminnoticeboardWrite(Map<String, String> map) {
 		adminboardDAO.adminnoticeboardWrite(map);
 	}
+	
+	
+	@Override
+	public void noticeboardModify(Map<String, String> map) {
+		adminboardDAO.noticeboardModify(map);
+	}
 
 	//모임
 	@Override
@@ -85,5 +91,4 @@ public class AdminboardServiceImpl implements AdminboardService{
 	public int getMenteeTotalA() {
 		return adminboardDAO.getMenteeTotalA();
 	}
-	
 }

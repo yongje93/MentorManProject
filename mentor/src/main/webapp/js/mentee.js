@@ -115,7 +115,6 @@ function menteeEmployee(){
 		$('#menteeEmployee_career_error').css('font-size','8pt');
 		$('#menteeEmployee_career').focus();
 	}else {
-		alert('직장인');
 		$.ajax({
 			type: 'post',
 			url: '/mentor/mentee/menteeEmployeeInput',

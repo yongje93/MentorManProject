@@ -55,6 +55,12 @@ public class AdminDAOMybatis implements AdminboardDAO{
 	public void adminnoticeboardWrite(Map<String, String> map) {
 		sqlsession.insert("adminboardSQL.adminnoticeboardWrite",map);
 	}
+	
+	
+	@Override
+	public void noticeboardModify(Map<String, String> map) {
+		sqlsession.update("adminboardSQL.noticeboardModify",map);
+	}
 	/* description : 모임게시판 리스트*/
 	@Override
 	public List<MeetingboardDTO> getMeetingboardList(Map<String, Integer> map) {
@@ -86,6 +92,4 @@ public class AdminDAOMybatis implements AdminboardDAO{
 	public int getMenteeTotalA() {
 		return sqlsession.selectOne("adminboardSQL.getMenteeTotalA");
 	}
-	
-	
 }

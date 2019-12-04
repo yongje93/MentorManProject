@@ -13210,9 +13210,10 @@ th,td {
     color: #6d6d72
 }
 
+/* 2019년 12월 02일 김태형 */
 .open_mentorings.show .open-mentoring-block-container .question-title {
     margin-top: 8px;
-    margin-bottom: 1.5em;
+    margin-bottom: 0.5em;
     width: 90%;
     font-size: 28px;
     line-height: 1.3

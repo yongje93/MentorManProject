@@ -69,16 +69,16 @@
 		<![CDATA[
 			select * from
 			(select rownum rn, tt.* from 
-			(select m.job_code, m.meetingboard_title, m.meetingboard_day, m.meetingboard_price, o.order_id, o.order_date, o.order_price, o.mentee_email, o.mentee_name, o.mentee_tel, m.mentor_email, o.meetingboard_seq, o.participation_seq, rv.review_seq
+			(select m.job_code, m.meetingboard_title, m.meetingboard_day, m.meetingboard_price, o.order_id, o.order_date, o.order_price, o.mentee_email, o.mentee_name, o.mentee_tel, o.order_flag, m.mentor_email, o.meetingboard_seq, o.participation_seq, rv.review_seq
 			from meetingboard m, meeting_order o, meeting_review rv
-			where rv.meetingboard_seq(+) = o.meetingboard_seq and rv.mentee_email(+)=o.mentee_email and m.meetingboard_seq = o.meetingboard_seq and o.mentee_email=#{member_email} and o.order_flag = 1
+			where rv.meetingboard_seq(+) = o.meetingboard_seq and rv.mentee_email(+)=o.mentee_email and m.meetingboard_seq = o.meetingboard_seq and o.mentee_email=#{member_email}
 			order by o.participation_seq desc)tt)
 			where rn >= #{startNum} and rn <= #{endNum}
 		 ]]>
 	</select>
 	<!-- 회원의 전체 결제 내역 수 가져오기 -->
 	<select id="getTotalHistory" parameterType="string" resultType="int">
-		  select count(*) from meeting_order where mentee_email=#{member_email} and order_flag = 1
+		  select count(*) from meeting_order where mentee_email=#{member_email}
 	</select>
 	<!-- 결제 취소 -->
 	<!-- 결제 취소후 주문 목록에서 해당 금액 만큼 빼기 -->
@@ -100,5 +100,106 @@
 		select m.meetingboard_title, p.mentee_name, p.mentee_email, p.participation_address, p.participation_question
 		from meeting_participation p, meetingboard m
 		where p.meetingboard_seq = m.meetingboard_seq and p.participation_seq=#{participation_seq} and p.meetingboard_seq = #{meetingboard_seq}
+	</select>
+	<!-- 결제 내역 조건+날짜 넣어서 검색 -->
+	<!-- 모두 검색 -->
+	<select id="getOrderHistorySearchAllDate" parameterType="java.util.Map" resultType="order">
+		<![CDATA[
+			select * from
+			(select rownum rn, tt.* from 
+			(select m.job_code, m.meetingboard_title, m.meetingboard_day, m.meetingboard_price, o.order_id, o.order_date, o.order_price, o.mentee_email, o.mentee_name, o.mentee_tel, o.order_flag, m.mentor_email, o.meetingboard_seq, o.participation_seq, rv.review_seq
+			from meetingboard m, meeting_order o, meeting_review rv
+			where rv.meetingboard_seq(+) = o.meetingboard_seq and rv.mentee_email(+)=o.mentee_email and m.meetingboard_seq = o.meetingboard_seq and o.mentee_email=#{member_email}
+			order by o.participation_seq desc)tt)
+			where rn >= #{startNum} and rn <= #{endNum} and order_date between to_date(#{startDate}) and to_date(#{endDate})+0.99999
+		 ]]>
+	</select>
+	<!-- 결제내역만 -->
+	<select id="getOrderHistorySearchCompleteDate" parameterType="java.util.Map" resultType="order">
+		<![CDATA[
+			select * from
+			(select rownum rn, tt.* from 
+			(select m.job_code, m.meetingboard_title, m.meetingboard_day, m.meetingboard_price, o.order_id, o.order_date, o.order_price, o.mentee_email, o.mentee_name, o.mentee_tel, o.order_flag, m.mentor_email, o.meetingboard_seq, o.participation_seq, rv.review_seq
+			from meetingboard m, meeting_order o, meeting_review rv
+			where rv.meetingboard_seq(+) = o.meetingboard_seq and rv.mentee_email(+)=o.mentee_email and m.meetingboard_seq = o.meetingboard_seq and o.mentee_email=#{member_email} and o.order_flag = 1
+			order by o.participation_seq desc)tt)
+			where rn >= #{startNum} and rn <= #{endNum} and order_date between to_date(#{startDate}) and to_date(#{endDate})+0.99999
+		 ]]>
+	</select>
+	<!-- 취소내역만 -->
+	<select id="getOrderHistorySearchCancelDate" parameterType="java.util.Map" resultType="order">
+		<![CDATA[
+			select * from
+			(select rownum rn, tt.* from 
+			(select m.job_code, m.meetingboard_title, m.meetingboard_day, m.meetingboard_price, o.order_id, o.order_date, o.order_price, o.mentee_email, o.mentee_name, o.mentee_tel, o.order_flag, m.mentor_email, o.meetingboard_seq, o.participation_seq, rv.review_seq
+			from meetingboard m, meeting_order o, meeting_review rv
+			where rv.meetingboard_seq(+) = o.meetingboard_seq and rv.mentee_email(+)=o.mentee_email and m.meetingboard_seq = o.meetingboard_seq and o.mentee_email=#{member_email} and o.order_flag = 0
+			order by o.participation_seq desc)tt)
+			where rn >= #{startNum} and rn <= #{endNum} and order_date between to_date(#{startDate}) and to_date(#{endDate})+0.99999
+		 ]]>
+	</select>
+	
+	<!-- 결제 내역 조건 날짜 X 넣어서 검색 -->
+	<!-- 모두 검색 -->
+	<select id="getOrderHistorySearchAll" parameterType="java.util.Map" resultType="order">
+		<![CDATA[
+			select * from
+			(select rownum rn, tt.* from 
+			(select m.job_code, m.meetingboard_title, m.meetingboard_day, m.meetingboard_price, o.order_id, o.order_date, o.order_price, o.mentee_email, o.mentee_name, o.mentee_tel, o.order_flag, m.mentor_email, o.meetingboard_seq, o.participation_seq, rv.review_seq
+			from meetingboard m, meeting_order o, meeting_review rv
+			where rv.meetingboard_seq(+) = o.meetingboard_seq and rv.mentee_email(+)=o.mentee_email and m.meetingboard_seq = o.meetingboard_seq and o.mentee_email=#{member_email}
+			order by o.participation_seq desc)tt)
+			where rn >= #{startNum} and rn <= #{endNum}
+		 ]]>
+	</select>
+	<!-- 결제내역만 -->
+	<select id="getOrderHistorySearchComplete" parameterType="java.util.Map" resultType="order">
+		<![CDATA[
+			select * from
+			(select rownum rn, tt.* from 
+			(select m.job_code, m.meetingboard_title, m.meetingboard_day, m.meetingboard_price, o.order_id, o.order_date, o.order_price, o.mentee_email, o.mentee_name, o.mentee_tel, o.order_flag, m.mentor_email, o.meetingboard_seq, o.participation_seq, rv.review_seq
+			from meetingboard m, meeting_order o, meeting_review rv
+			where rv.meetingboard_seq(+) = o.meetingboard_seq and rv.mentee_email(+)=o.mentee_email and m.meetingboard_seq = o.meetingboard_seq and o.mentee_email=#{member_email} and o.order_flag = 1
+			order by o.participation_seq desc)tt)
+			where rn >= #{startNum} and rn <= #{endNum}
+		 ]]>
+	</select>
+	<!-- 취소내역만 -->
+	<select id="getOrderHistorySearchCancel" parameterType="java.util.Map" resultType="order">
+		<![CDATA[
+			select * from
+			(select rownum rn, tt.* from 
+			(select m.job_code, m.meetingboard_title, m.meetingboard_day, m.meetingboard_price, o.order_id, o.order_date, o.order_price, o.mentee_email, o.mentee_name, o.mentee_tel, o.order_flag, m.mentor_email, o.meetingboard_seq, o.participation_seq, rv.review_seq
+			from meetingboard m, meeting_order o, meeting_review rv
+			where rv.meetingboard_seq(+) = o.meetingboard_seq and rv.mentee_email(+)=o.mentee_email and m.meetingboard_seq = o.meetingboard_seq and o.mentee_email=#{member_email} and o.order_flag = 0
+			order by o.participation_seq desc)tt)
+			where rn >= #{startNum} and rn <= #{endNum}
+		 ]]>
+	</select>
+	
+	<!-- 전체 결제내역 수 + 날짜 -->
+	<select id="getSearchHistoryAllDate" parameterType="java.util.Map" resultType="int">
+		select count(*) from meeting_order where mentee_email=#{member_email} and order_date between to_date(#{startDate}) and to_date(#{endDate})+0.99999
+	</select>
+	<!-- 주문내역 수 + 날짜 -->
+	<select id="getSearchHistoryCompleteDate" parameterType="java.util.Map" resultType="int">
+		select count(*) from meeting_order where mentee_email=#{member_email} and order_flag = 1 and order_date between to_date(#{startDate}) and to_date(#{endDate})+0.99999
+	</select>
+	<!-- 취소 결제내역 수 + 날짜 -->
+	<select id="getSearchHistoryCancelDate" parameterType="java.util.Map" resultType="int">
+		select count(*) from meeting_order where mentee_email=#{member_email} and order_flag = 0 and order_date between to_date(#{startDate}) and to_date(#{endDate})+0.99999
+	</select>
+	
+	<!-- 전체 결제내역 수 + 날짜 X -->
+	<select id="getSearchHistoryAll" parameterType="java.util.Map" resultType="int">
+		select count(*) from meeting_order where mentee_email=#{member_email}
+	</select>
+	<!-- 주문내역 수 + 날짜 -->
+	<select id="getSearchHistoryComplete" parameterType="java.util.Map" resultType="int">
+		select count(*) from meeting_order where mentee_email=#{member_email} and order_flag = 1
+	</select>
+	<!-- 취소 결제내역 수 + 날짜 -->
+	<select id="getSearchHistoryCancel" parameterType="java.util.Map" resultType="int">
+		select count(*) from meeting_order where mentee_email=#{member_email} and order_flag = 0
 	</select>
 </mapper>

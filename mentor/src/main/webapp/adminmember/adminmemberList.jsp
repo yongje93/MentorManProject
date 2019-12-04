@@ -33,7 +33,7 @@
 										<th scope="col">회원 이름</th>
 										<th scope="col">회원 닉네임</th>
 										<th scope="col">회원 메일</th>
-										<th scope="col">회원 구분</th>
+										<th scope="col">회원 구분&emsp;<span class="sort" style="cursor:pointer;"><i class="fas fa-sort"></i></span></th>
 										<th scope="col">회원가입 날짜 </th>
 									</tr>
 								</thead>
@@ -91,4 +91,29 @@ function adminmemberSearch(pg){
 	/* location.href="/mentor/adminmember/adminmemberSearch?pg="+pg
 				+"&adminmemberKeyword="+encodeURIComponent("${adminmemberKeyword}"); */
 }
+
+//내림차순 오름차순 view
+$(function(){
+	const state = ${state};
+	if(state==1)
+		$(".sort > i").attr('class','fas fa-sort-down');
+	else if(state==2)
+		$(".sort > i").attr('class','fas fa-sort-up');
+});
+//내림차순 오름차순 List
+$(".sort").click(function(){
+	const state = ${state};
+	if(state == 0){
+		location.href="/mentor/adminmember/adminmemberList?pg=${pg}&state="+1;
+		$(".sort > i").attr('class','fas fa-sort-down');
+	}
+	else if(state == 1){
+		$(".sort > i").attr('class','fas fa-sort-up');
+		location.href="/mentor/adminmember/adminmemberList?pg=${pg}&state="+2;
+	}
+	else if(state == 2){
+		$(".sort > i").attr('class','fas fa-sort-up');
+		location.href="/mentor/adminmember/adminmemberList?pg=${pg}&state="+1;
+	}
+});
 </script>

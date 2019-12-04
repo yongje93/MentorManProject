@@ -70,11 +70,11 @@
 					<c:if test="${email_check == null}">
 						<div class="btn-container">
 							<div class="profile-btn">
-								<a class="button col js-bookmark" type="external" data-remote="true" rel="nofollow" data-method="post" href="/mentor/member/loginForm"> 팔로우 </a>  <%--주소 수정 --%>
+								<a class="button col js-bookmark" type="external" data-remote="true" rel="nofollow" data-method="post" href="/mentor/member/loginForm"> 팔로우 </a>
 							</div>
 							<c:if test="${mentorDTO.mentor_email != email_check}">
 							<div class="profile-btn">
-								<a class="button button-fill" type="external" href="/mentor/member/loginForm">질문하기</a>  <%--주소 수정 --%>
+								<a class="button button-fill" type="external" href="/mentor/member/loginForm">질문하기</a>
 							</div>
 							</c:if>
 						</div>
@@ -83,10 +83,15 @@
 						<div class="btn-container">
 							<c:if test="${mentorDTO.mentor_email != email_check}">
 								<div class="profile-btn" id="menMail" data-email="${mentorDTO.mentor_email }">
-									<a class="button button-fill col js-bookmark mentor_${mentorDTO.mentor_seq}" id="followA" type="external" data-follow="${follow}" data-disable-with="..." type="external" data-remote="true" rel="nofollow" data-method="post" href="/relationships"> 팔로우 </a>  <%--주소 수정 --%>
+									<a class="button button-fill col js-bookmark mentor_${mentorDTO.mentor_seq}" id="followA" type="external" data-follow="${follow}" data-disable-with="..." type="external" data-remote="true" rel="nofollow" data-method="post" href="/relationships"> 팔로우 </a>
 								</div>
 								<div class="profile-btn">
-									<a class="button button-fill" type="external" onclick="mentor_question_seq(${mentorDTO.mentor_seq},${pg})">질문하기</a>  <%--주소 수정 --%>
+								 <c:if test="${menteeInfo_count == 0}">
+									<a class="button button-fill" type="external"  href="/mentor/mentor/userInfoCheck">질문하기</a>
+								 </c:if>
+								 <c:if test="${menteeInfo_count > 0}">
+									<a class="button button-fill" type="external" onclick="mentor_question_seq(${mentorDTO.mentor_seq},${pg})">질문하기</a>
+								 </c:if>
 								</div>
 							</c:if>
 						</div>
@@ -110,10 +115,11 @@
 				<div class="block-title strong-title">고맙습니다</div>
 				<div class="count">(${reviewTotal})</div>
 			</div>
-			<div class="row no-gap">
+			<div class="no-gap">
 				<div id='thanks-notes'>
 					<c:forEach var="review" items="${reviewList}">
 					<fmt:formatDate var="review_date" value="${review.review_date}" pattern="yyyy년 MM월 dd일"/>
+					<c:if test="${review.review_flag eq 0}">
 						<div class="block mentee-detail-block thanks-note-card">
 							<div class="mentee-info">
 								<div class="mentee-image img-circle">
@@ -136,6 +142,23 @@
 								</div>
 							</c:if>
 						</div>
+						</c:if>
+						<c:if test="${review.review_flag eq 1}">
+							<div class="no-gap">
+							 <div id="thanks-notes">
+								<div class="block mentee-detail-block thanks-note-card" hidden="" style="display: block;">
+									<div class="mentee-info">
+										<div class="mentee-image img-circle">
+											<img width="150" height="150" src="../image/profile.jpg">
+										</div>
+										<div class="mentee-name">관리자</div>
+										<div class="sent-date">${review_date}</div>
+									</div>
+									<div class="thanks-note-body"><i class="fas fa-exclamation-circle" style="color:red;"></i>&nbsp;관리자에 의해 삭제된 후기입니다.</div>
+								</div>
+							</div> 
+						</div>
+						</c:if>
 					</c:forEach>
 				</div>
 			</div>
@@ -278,7 +301,6 @@
 			$('#followA').removeClass('button-fill');
 		}
 		
-		//$('.mentor_'+seq).on('click' , function(){
 		$('#followA').on('click' , function(){
 			
 			var followBtn = $(this);
@@ -315,12 +337,6 @@
 					let receiverEmail = $('#menMail').data('email');     //팔로우 당사자 이메일
 					let member_seq = '1'; // seq
 					//alert(memNickname+',' + nickname +',' + receiverEmail +',' + member_seq);
-					//socket에 보내자
-					if(socket) {
-						let socketMsg = "follow," + memNickname +","+nickname +","+ receiverEmail + "," +member_seq;
-						console.log("msgmsg :: " + socketMsg );
-						socket.send(socketMsg);
-					}
 					
 					var AlarmData = {
 							"myAlarm_receiverEmail" : receiverEmail,
@@ -336,11 +352,16 @@
 						contentType: "application/json; charset=utf-8",
 						dataType : 'text',
 						success : function(data){
-							//alert(data);
-							
+							//socket에 보내자
+							if(socket) {
+								let socketMsg = "follow," + memNickname +","+nickname +","+ receiverEmail + "," +member_seq;
+								console.log("msgmsg :: " + socketMsg );
+								socket.send(socketMsg);
+							}
 						},
 						error : function(err){
 							console.log(err);
+							alert('err');
 						}
 					}); 
 					

@@ -393,4 +393,32 @@
 .n-table.table-row .check-block:first-child { margin-top: 0; }
 .n-table.table-row .n-info-txt { margin-bottom: -15px; }
 
+.n-table-filter { margin: 50px 0 16px 0; }
+.n-table-filter .n-radio-tab, .n-table-filter .n-datepicker, .n-table-filter .n-select { display: block; float: left; margin-right: 20px; }
+.n-table-filter .n-datepicker { width: 120px; }
+.n-table-filter .n-datepicker.sb { margin-right: 10px; }
+.n-table-filter .n-select { width: 110px; }
+.n-table-filter .n-btn { min-width: 90px; margin-left: 10px; }
+.n-table-filter .result { font-size: 16px; color: #aaaaaa; font-weight: bold; line-height: 32px; float: right; }
+.n-table-filter .result > em { color: #000000; }
 
+.n-hidden, .n-check, .n-radio, .n-radio-tab input { display: block; width: 0; height: 0; overflow: hidden; visibility: hidden; position: absolute; }
+.n-radio-tab { padding-right: 1px; }
+.n-radio-tab:after { content: ""; display: block; clear: both; }
+.n-radio-tab input + label { display: inline-block; min-width: 76px; border: 1px solid #f1f1f1; color: #777777; font-size: 14px; line-height: 30px; float: left; margin-right: -1px; text-align: center; vertical-align: top; position: relative; cursor: pointer; }
+.n-radio-tab input:checked + label { border-color: #000000; color: #000000; z-index: 1; }
+
+.n-datepicker { display: inline-block; position: relative; }
+.n-datepicker .n-input { width: 100%; padding-right: 30px; }
+.n-datepicker .ui-datepicker-trigger { position: absolute; right: 5px; top: 5px; }
+
+.n-input { height: 32px; padding: 5px 6px; border: 1px solid #e5e5e5; background-color: #ffffff; box-sizing: border-box; line-height: 20px; -webkit-transition: border 0.2s ease-in-out; -moz-transition: border 0.2s ease-in-out; -o-transition: border 0.2s ease-in-out; transition: border 0.2s ease-in-out; }
+
+select {border:1px solid #ddd; background: url("../image/arrow.jpg") no-repeat 97% 50%; width: 110px; padding: .44em .3em; border-radius: 0px; -webkit-appearance: none; -moz-appearance: none; appearance: none; font-size:16px; box-sizing:border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; -o-box-sizing: border-box; margin: 5px;}
+
+.n-btn { display: inline-block; min-width: 100px; height: 40px; line-height: 36px; color: #ffffff; box-sizing: border-box; padding: 2px 8px 0 8px; font-size: 14px; text-align: center; cursor: pointer; vertical-align: middle; -webkit-transition: border 0.2s, background 0.2s ease-in-out; -moz-transition: border 0.2s, background 0.2s ease-in-out; -o-transition: border 0.2s, background 0.2s ease-in-out; transition: border 0.2s, background 0.2s ease-in-out; }
+.n-btn:visited { color: #ffffff; }
+.n-btn.btn-sm { min-width: 70px; height: 32px; line-height: 30px; padding-top: 0; font-family: 'Gulim','Apple SD Gothic',Auto,sans-serif !important; }
+.n-btn.btn-accent { border: 1px solid #000000; background-color: #000000; }
+.n-btn.btn-accent:hover:not(.disabled) { border-color: #ff2d55; background-color: #ff2d55; }
+.n-btn.btn-accent.disabled { border-color: #ccc; background-color: #ccc; }

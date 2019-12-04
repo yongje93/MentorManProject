@@ -17,6 +17,7 @@ public class OrderDTO {
 	private int meetingboard_seq; // 모임seq
 	private int participation_seq;// 신청seq
 	private Date order_date;	// 주문일자
+	private int order_flag;		// 주문상태
 	
 	//조인관련
 	private String meetingboard_title;

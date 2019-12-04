@@ -20,6 +20,27 @@
 	 where rn >= #{startNum} and rn<=#{endNum}]]>
  </select>
  
+ <!-- 회원분류 -->
+ <select id="memberClassfication" parameterType="java.util.Map" resultType="adminmember">
+ 	select * from
+	(select rownum rn, tt.*from
+	(select 
+			member_name,
+			member_nickname,
+			member_email,
+			member_flag,
+			member_profile,
+			to_char(logtime,'YYYY-MM-DD') logtime
+	 from mentors_member
+	  <if test="state == 1">
+	 	order by member_flag desc)tt)
+	 </if>
+	 <if test="state == 2">
+	 	order by member_flag)tt)
+	 </if>
+	 <![CDATA[where rn >= #{startNum} and rn<=#{endNum}]]>
+ </select>
+ 
  <!-- 총회원 뽑아ㅋ오기 -->
  <select id="getMemeberTotalA" resultType="Integer">
 		select count(*) cnt from mentors_member
@@ -66,16 +87,33 @@
 	 and mt.mentor_flag = 1
 	 order by mt.mentor_logtime desc)tt) 
 	 where rn >= #{startNum} and rn<=#{endNum}]]>
-	 <choose>
- 			<when test="state == 1">
- 				order by mentor_badge desc
- 			</when>
- 			<when test="state == 2">
- 				order by mentor_badge
- 			</when>
- 			<otherwise>
- 			</otherwise>
- 		</choose>
+ </select>
+ <!-- 멘토분류 -->
+ <select id="mentorClassfication" parameterType="java.util.Map" resultType="adminmentor">
+ 	select * from
+	(select rownum rn, tt.*from
+	(select 
+			mt.mentor_seq,
+			mm.member_name,
+			mt.mentor_company,
+			mt.mentor_department,
+			j.job_type,
+			mt.mentor_badge,
+			mm.member_profile,
+			to_char(mt.mentor_logtime,'YYYY-MM-DD') mentor_logtime
+	 from mentors_member mm, 
+	 	  mentor mt,
+	 	  job j 
+	 where mm.member_email = mt.mentor_email
+	 and   mt.job_code = j.job_code
+	 and mt.mentor_flag = 1
+	 <if test="state == 1">
+	 	order by mt.mentor_badge desc)tt)
+	 </if>
+	 <if test="state == 2">
+	 	order by mt.mentor_badge)tt)
+	 </if>
+	<![CDATA[ where rn >= #{startNum} and rn<=#{endNum}]]>
  </select>
  
  <!-- 총멘토 -->

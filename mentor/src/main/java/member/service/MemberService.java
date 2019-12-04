@@ -51,6 +51,7 @@ public interface MemberService {
 	public void answerModify(Map<String, String> map);
 
 	public List<AlarmDTO> getAlarm(String memEmail);
+
 	public void checkSubscribe(String memEmail);
 
 	public void saveAlarm(Map<String, String> map);
@@ -60,6 +61,14 @@ public interface MemberService {
 	public int getCountAlarm(String member_email);
 
 	public int getTotalAlarm(String memEmail);
+
+	public int mentor_headerNotification(int member_seq);
+
+	public int mentee_headerNotification(int member_seq);
+
+	public void mentor_headerCountModify(List<MentorDTO> list);
+
+	public void mentee_headerCountModify(List<MentorDTO> list);
 
 
 

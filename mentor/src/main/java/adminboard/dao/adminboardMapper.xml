@@ -35,6 +35,9 @@
 		insert into noticeboard(noticeboard_seq,noticeboard_adminEmail,noticeboard_title,noticeboard_content,noticeboard_logtime) values(noticeboard_seq.nextval,'admin@naver.com',#{noticeboard_title},#{noticeboard_content},sysdate)
 	</insert>
 	
+	<update id="noticeboardModify" parameterType="Map">
+		update noticeboard set noticeboard_title=#{title}, noticeboard_content=#{content}, noticeboard_logtime=sysdate where noticeboard_seq=#{seq}
+	</update>
 	<!-- 모임 게시글 목록 -->
 	<select id="getMeetingboardList" parameterType="java.util.Map" resultType="meetingboard">
 		<![CDATA[
@@ -118,4 +121,5 @@
 	<select id="getMenteeTotalA" resultType="Integer">
 	select count(*) from menteeboard
 	</select>
+
 </mapper>

@@ -11,6 +11,7 @@ $(function(){
 function chartHandler(){
 	getSalesList().then(getData).catch();
 	getMonthSalesList().then(getMonthData).catch();
+	getMentorSalesList().then(getMentorData).catch();
 }
 
 function getSalesList(){
@@ -42,7 +43,7 @@ function makeChart(chartData){
 		},
 
 		title:{
-			text:'모임 매출'
+			text:'일별 매출'
 		},
 		yAxis: {
 		        labels : {
@@ -59,7 +60,7 @@ function makeChart(chartData){
 		}],
 	});
 }
-/*차트---------------------------------------------------------------------------------------------------*/
+/*월별 차트---------------------------------------------------------------------------------------------------*/
 function getMonthSalesList(){
 	return $.ajax({
 		type : 'post',
@@ -68,7 +69,6 @@ function getMonthSalesList(){
 	});
 }
 function getMonthData(data){
-	console.log(data);
 	var monthData = [];
 	var monthDate = [];
 	$.each(data,function(index,item){
@@ -112,5 +112,58 @@ function makeMonthChart(monthDate,monthData){
 		        name: '월별 매출',
 		        data: monthData
 		      }]
+	});
+}
+
+/*멘토별 차트-------------------------------------------------------------------------------*/
+function getMentorSalesList(){
+	return $.ajax({
+		type : 'post',
+		url : '/mentor/adminsales/mentorSalesChart',
+		datType : 'json'
+	});
+}
+function getMentorData(data){
+	var mentorData = [];
+	var salesData = [];
+	$.each(data,function(index,item){
+		mentorData.push(item.MEMBER_NAME);
+		salesData.push(item.SALES);
+	});
+	makeMonthChart(mentorData,salesData);
+}
+function makeMonthChart(mentorData,salesData){
+	Highcharts.chart('mentorChart', {
+	    chart: {
+	        type: 'pie'  
+	    },
+	    title: {
+	        text: '멘토별 판매율순위'
+	    }, 
+	    xAxis: {
+	    	categories: mentorData,
+	    },
+	    tooltip: {
+	        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+	    },
+	    plotOptions: {
+	        pie: {
+	            allowPointSelect: true,
+	            cursor: 'pointer',
+	            dataLabels: {
+	            	formatter: function() {
+	            		var sliceIndex = this.point.index;
+	                    var sliceName = this.series.chart.axes[0].categories[sliceIndex];
+	                    return sliceName
+	                  }
+	            },
+	            showInLegend:true
+	        }
+	    },
+	    legend: { enabled: false },
+	    series: [{
+	    	name : '판매율',
+	        data: salesData
+	    }] 
 	});
 }

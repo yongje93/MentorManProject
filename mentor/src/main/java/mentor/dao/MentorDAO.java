@@ -60,4 +60,6 @@ public interface MentorDAO {
 	public void mentorInfoModify(Map<String, String> map);
 
 	public int getFollow(int mentor_seq);
+
+	public int getMenteeInfo_count(String member_email);
 }

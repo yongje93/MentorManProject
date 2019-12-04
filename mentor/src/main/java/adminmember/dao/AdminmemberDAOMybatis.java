@@ -24,6 +24,13 @@ public class AdminmemberDAOMybatis implements AdminmemberDAO{
 	public List<AdminmemberDTO> getAdminmemberList(Map<String, Integer> map) {
 		return sqlSession.selectList("adminmemberSQL.getAdminmemberList", map);
 	}
+	
+	
+	@Override
+	public List<AdminmemberDTO> memberClassfication(Map<String, Integer> map) {
+		return sqlSession.selectList("adminmemberSQL.memberClassfication", map);
+	}
+
 
 	@Override
 	public int getMemeberTotalA() {
@@ -60,8 +67,13 @@ public class AdminmemberDAOMybatis implements AdminmemberDAO{
 	public int getSearchmentorTotalA(Map<String, Object> map) {
 		return sqlSession.selectOne("adminmemberSQL.getSearchmentorTotalA",map);
 	}
-
 	
+	
+	@Override
+	public List<AdminmentorDTO> mentorClassfication(Map<String, Integer> map) {
+		return sqlSession.selectList("adminmemberSQL.mentorClassfication",map);
+	}
+
 	//멘토신청
 	@Override
 	public List<AdminmentorDTO> getAdminmentorApplyList(Map<String, Integer> map) {

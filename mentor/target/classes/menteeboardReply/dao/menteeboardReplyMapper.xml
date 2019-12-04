@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="getAllMenteeboardreply" parameterType="java.util.Map" resultType="menteeboardReply">
 	select * from 
 	(select rownum rn, tt.* from 
-	(select menteeboardReply_seq,menteeboardReply_mb_seq,m.member_profile,m.member_nickname,menteeboardReply_email,menteeboardReply_content,menteeboardReply_ref,menteeboardReply_lev,menteeboardReply_step,menteeboardReply_pseq,menteeboardReply_logtime
+	(select menteeboardReply_seq,menteeboardReply_flag,menteeboardReply_mb_seq,m.member_profile,m.member_nickname,menteeboardReply_email,menteeboardReply_content,menteeboardReply_ref,menteeboardReply_lev,menteeboardReply_step,menteeboardReply_pseq,menteeboardReply_logtime
 	from menteeboardReply r, mentors_member m where menteeboardReply_mb_seq =#{menteeboard_seq} and r.menteeboardReply_email = m.member_email order by menteeboardReply_ref desc, menteeboardReply_step asc)tt)
 	where rn<![CDATA[>=]]> #{startNum} and rn <![CDATA[<=]]> #{endNum}
 </select>

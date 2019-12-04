@@ -76,7 +76,7 @@
 								</div>
 
 								<div class="card-content card-content-padding" style="overflow: hidden; text-overflow: ellipsis; height: 200px;">
-									<input type="hidden" id="seq" name="seq" value="${list.essayboard_seq }">
+								<input type="hidden" id="seq" name="seq" value="${list.essayboard_seq }">
 				   				<input type="hidden" id="essayNickname" name="essayNickname" value="${list.mentor_email }">
 				   				<input type="hidden" id="essayName" name="essayName" value="${list.member_name }">
 				   				<input type="hidden" id="memberSeq" name="memberSeq" value="${list.member_seq }">
@@ -123,10 +123,14 @@
 						<input type="hidden" id="pg" name="pg" value="${pg}">
 						<!-- 스크랩버튼 클릭 방지에 사용 -->
 						<input type="hidden" id="memNickname" name="memNickname" value="${memNickname}">
-
 						<div class="col-100 tablet-50 desktop-33"></div>
 						<div class="col-100 tablet-50 desktop-33"></div>
 					</div>
+					<!-- 멘토 리스트 생성 끝 -->
+					<input type="hidden" id="pg" name="pg" value="${pg}">
+					<!-- 스크랩버튼 클릭 방지에 사용 -->
+					<input type="hidden" id="memNickname" name="memNickname" value="${memNickname}">
+					
 					<input type="hidden" id="essayFlag" name="essayFlag" value="${flag}">
 					<input type="hidden" id="recommend_view_essay" value="${param.essayFlag}">
 					<div class="pagination-block">

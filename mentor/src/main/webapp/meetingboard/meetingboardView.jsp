@@ -109,7 +109,7 @@
 								</div>
 								<div class="chip chip-outline no-border-radius mentor-index">
 									<div class="chip-label">
-										<span>팔로워 <strong class="highlight">!!!!!수정</strong></span>
+										<span>팔로워 <strong class="highlight">${mentor_follow}</strong></span>
 									</div>
 								</div>
 							</div>

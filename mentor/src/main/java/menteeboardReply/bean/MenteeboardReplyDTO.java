@@ -26,5 +26,7 @@ public class MenteeboardReplyDTO {
     private int menteeboardReply_pseq; 
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy.MM.dd")
 	private Date menteeboardReply_logtime;
-
+    
+    //관리자 댓글 삭제관련 flag
+    private int menteeboardReply_flag;
 }

@@ -146,4 +146,9 @@ public class MentorServiceImpl implements MentorService {
 		return mentorDAO.getFollow(mentor_seq);
 	}
 
+	@Override
+	public int getMenteeInfo_count(String member_email) {
+		return mentorDAO.getMenteeInfo_count(member_email);
+	}
+
 }

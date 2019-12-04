@@ -40,7 +40,7 @@
 			<span id="alarmCountSpan" class=""></span>
 			</a>
 
-			<a type="internal" class="button button-big popover-open me-profile" data-popover=".js-me-popover" href="">
+			<a type="internal" class="button button-big popover-open me-profile" data-popover=".js-me-popover" onclick="clickHeader()">
 				<c:if test="${memDTO.member_profile == 'profile.jpg'}">
 				<img src="../image/profile.jpg" width="28" height="28">
 				</c:if>
@@ -64,7 +64,6 @@
 								<li><a type="external" href="/mentor/mentor/mentorfindForm?pg=1">멘토찾기</a></li>
 								<li><a type="external" href="/mentor/essayboard/essayboardList">에세이</a></li>
 								<li><a type="external" href="/mentor/meetingboard/meetingboardList">모임</a></li>
-								<li><a type="external" href="/mentor/mentor/mentorapplyForm">멘토지원하기</a></li>
 							</ul>
 						</div>
 						<hr style="background-color: #c8c7cc;">
@@ -75,7 +74,7 @@
 								</c:if>
 								<li><a type="external" href="/mentor/menteeboard/menteeboardList">멘티 게시판</a></li>
 								<li><a type="external" href="/mentor/intern/internMain">공채 정보</a></li>
-								<li><a type="external" href="/mentor/member/myQandA?pg=1">나의 질문/답변 <span class="badge color-red alim">15</span></a></li>
+								<li><a type="external" href="/mentor/member/myQandA?pg=1">나의 질문/답변 <span class="badge color-red alim" id="myQandA_count" style="margin: auto;"></span></a></li>
 								<li><a type="external" href="/mentor/essayboard/essayboardAttention">관심에세이</a></li>
 								<li><a type="external" href="/mentor/mentor/mentorAttention">관심멘토</a></li>
 							</ul>
@@ -117,3 +116,23 @@
     background-color: #db5565;
 }
 </style>
+
+<script>
+function clickHeader(){
+	$.ajax({
+		type: 'post',
+		url: '/mentor/member/headerNotification',
+		dataType: 'text',
+		success: function(data){
+			if(data == 0){
+				$('#myQandA_count').removeClass('badge color-red alim');
+			}else{
+				$('#myQandA_count').text(data);				
+			}
+		},
+		error: function(data){
+			
+		}
+	});
+}
+</script>

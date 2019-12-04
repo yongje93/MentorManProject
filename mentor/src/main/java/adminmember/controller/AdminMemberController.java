@@ -42,10 +42,25 @@ public class AdminMemberController {
 	/* description : 회원리스트 화면페이지 & 리스트 뿌리기 & 페이지 처리 */
 	@RequestMapping(value="adminmemberList",method = RequestMethod.GET)
 	public ModelAndView adminmemberList(ModelAndView mav,
-										@RequestParam (required=false,defaultValue="1") String pg ) {
+										@RequestParam (required=false,defaultValue="1") String pg,
+										@RequestParam (required=false,defaultValue="0")int state) {
 		int endNum = Integer.parseInt(pg)*10;
 		int startNum = endNum-9;
-		List<AdminmemberDTO> list = adminmemberService.getAdminmemberList(startNum,endNum);
+		List<AdminmemberDTO> list = null;
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		map.put("state", state);
+		if(state == 0)
+			list = adminmemberService.getAdminmemberList(map);
+		else if(state == 1) {
+			System.out.println(state);
+			list = adminmemberService.memberClassfication(map);
+		}
+		else if(state == 2) {
+			list = adminmemberService.memberClassfication(map);
+			state=2;
+		}
 		//페이징 처리
 		int totalA = adminmemberService.getMemeberTotalA();
 		adminmemberPaging.setCurrentPage(Integer.parseInt(pg));
@@ -54,6 +69,7 @@ public class AdminMemberController {
 		adminmemberPaging.setTotalA(totalA);
 		adminmemberPaging.memberPagingHTML();
 		
+		mav.addObject("state",state);
 		mav.addObject("list", list);
 		mav.addObject("pg", pg);
 		mav.addObject("adminmemberPaging", adminmemberPaging);
@@ -105,13 +121,14 @@ public class AdminMemberController {
 		map.put("state", state);
 		if(state == 0)
 			list = adminmemberService.getAdminmentorList(map);
-		else if(state == 1)
-			list = adminmemberService.getAdminmentorList(map);
+		else if(state == 1) {
+			System.out.println(state);
+			list = adminmemberService.mentorClassfication(map);
+		}
 		else if(state == 2) {
-			list = adminmemberService.getAdminmentorList(map);
+			list = adminmemberService.mentorClassfication(map);
 			state=2;
 		}
-
 		//페이징 처리
 		int totalA = adminmemberService.getMentorTotalA();
 		adminmemberPaging.setCurrentPage(Integer.parseInt(pg));

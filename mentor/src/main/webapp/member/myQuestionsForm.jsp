@@ -28,7 +28,7 @@
 		    <div class="name">
 		    <c:if test="${mentorDTO.member_flag==1}">
 		      <span class="mentor-name">${mentorDTO.member_name}<small>멘토</small></span>
-		        <a class="button col js-bookmark user_43427" data-params="followed_id=43427" data-disable-with="..." type="external" data-remote="true" rel="nofollow" data-method="post" href="/relationships">팔로우</a>
+		        <a class="button col js-bookmark mentor_${seq}" id="followA" data-disable-with="..." type="external" data-remote="true" rel="nofollow" data-method="post">팔로우</a>
 			</c:if>
 			 <c:if test="${mentorDTO.member_flag==0}">
 		      <span class="mentor-name">${mentorDTO.member_name}<small>멘티</small></span>
@@ -190,4 +190,7 @@ $("#answer_slide").on('click',function(){
         submenu.slideDown();
     }
 });
+
+
+
 </script>

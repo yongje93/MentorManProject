@@ -15,8 +15,7 @@ $(document).ready(function(){
 
 // 에세이 직무유형 버튼
 $(".row > a").on("click",function(event, data){// a태그 클릭시 작동
-	// 클릭된 태그의 본래의 기능을 막음 즉, a태그 본래 기능을 막음
-	event.preventDefault();
+	event.preventDefault(); // 클릭된 태그의 본래의 기능을 막음 즉, a태그 본래 기능을 막음
 	if($('#memNick').val() == ""){
 		location.href="/mentor/member/loginForm";
 	} else {
@@ -50,6 +49,8 @@ $(".row > a").on("click",function(event, data){// a태그 클릭시 작동
         var txt = $(this).attr("href");// href에 입력된 값을 가져옴 즉 클릭된 a의 job_code를 가져옴
         var dateIndex = jobs.indexOf(txt);
         
+        // 버튼 클릭시 배열에 같은 job_code가 있으면 삭제
+        // 없으면 job_code를 넣는다.
         if (dateIndex==-1){ 
             jobs.push(txt);
         }else{ 
@@ -83,10 +84,8 @@ function essayjobType(pg , flag){
     	success : function(data){
     		let flag = $(document.createDocumentFragment());
     		
-    		// 새로고침 값 유지 job_code 배열 쿠키에 저장 
-//    		$.cookie('job_code', jobs);
-//    		$.cookie('flag', data.flag);
     		$.each(data.list, function(index, items) {
+    			
     			// 에세이 보드 (신규, 추천) 플래그
     			if(items.essayboard_scrapFlag == 1){
 	    			var scrapFlag = "<img id="+ items.essayboard_seq +" src='../image/scrapOkImg.png' width='13'>"
@@ -108,8 +107,9 @@ function essayjobType(pg , flag){
     			} else {
     				var subFlag = items.essayboard_content
     			}
+    			
     			let essayboard = `
-				<input type="hidden" id="job_code" value="${items.job_code }">
+    			<input type="hidden" id="job_code" value="${items.job_code }">
 				<div class="col-100 tablet-50 desktop-33">
 				    <div class="card mentor-post-card mentor_post_6589">
 				        <div class="card-header">
@@ -137,7 +137,10 @@ function essayjobType(pg , flag){
 				        </div>
 				        <div class="card-content card-content-padding"style="overflow: hidden; text-overflow: ellipsis; height: 200px; ">
 				        <input type="hidden" id="seq" name="seq" value="${items.essayboard_seq }">		
-				            <a class="content-body" type="external" href="/mentor/essayboard/essayboardView?pg=${data.pg }&seq=${items.essayboard_seq}&mentors=${items.member_seq }" >
+				        <input type="hidden" id="essayNickname" name="essayNickname" value="${items.mentor_email }">
+		   				<input type="hidden" id="essayName" name="essayName" value="${items.member_name }">
+		   				<input type="hidden" id="memberSeq" name="memberSeq" value="${items.member_seq }">
+				        	<a class="content-body" type="external" href="/mentor/essayboard/essayboardView?pg=${data.pg }&seq=${items.essayboard_seq}&mentors=${items.member_seq }" >
 				                <div class="mentor-post-title">
 				                    ${items.essayboard_title }
 				                </div>
@@ -208,6 +211,7 @@ function essayjobType(pg , flag){
     		}).append(atag));
     		
     		//잡코드 버튼 클릭후 스크랩 버튼 이벤트 
+    		
     		$('a[type="externalScrap"]').on('click' , function(){
     			if($('#memNickname').val()== ''){
     				 var toastTop = app.toast.create({
@@ -218,12 +222,21 @@ function essayjobType(pg , flag){
     			          toastTop.open();
     			}else{
     				var seq = $(this).closest('div').prev().children().first().val();
-    				
+    				var essayboardEmail = $(this).closest('div').prev().children().first().next().val();
+    				var essayName = $(this).closest('div').prev().children().first().next().next().val();
+    				var memberSeq = $(this).closest('div').prev().children().first().next().next().next().val();
     				
     				if($(this).children().last().val() == 0){
     					$("#"+seq).prop("src", "../image/scrapOkImg.png");
     					$(this).children().last().val(1);
     					
+    					var toastIcon = app.toast.create({
+    						  icon: app.theme === 'ios' ? '<i class="fas fa-bookmark fa-3x"></i>' : '<i class="fas fa-bookmark" style="width: 30px; height: 30px;"></i>',
+    						  text: '',
+    						  position: 'center',
+    						  closeTimeout: 2000,
+    						});
+    					toastIcon.open();
     				}else{
     					$("#"+seq).prop("src", "../image/scrapNoImg.png");
     					$(this).children().last().val(0);
@@ -244,6 +257,42 @@ function essayjobType(pg , flag){
     					success : function(data) {
     						$('#ScrapDiv_'+seq).empty();
     						$('#ScrapDiv_'+seq).html(data);
+    						if(scrapFlag == 1){
+    							let memNickname = $('#memNickname').val(); //스크랩을 누른사람
+    							let nickname = essayName;	   //에세이 작성자
+    							let receiverEmail = essayboardEmail;     //에세이 작성자 이메일
+    							let essayboard_seq = seq; //에세이 seq
+    							//alert(memNickname+'~' + nickname +'~' + receiverEmail +'~' + seq);
+    							
+    							var AlarmData = {
+    									"myAlarm_receiverEmail" : receiverEmail,
+    									"myAlarm_callerNickname" : memNickname,
+    									"myAlarm_title" : "스크랩 알림",
+    									"myAlarm_content" :  memNickname + "님이 <a type='external' href='/mentor/essayboard/essayboardView?pg=1&seq="+essayboard_seq+"&mentors="+ memberSeq +"'>" + essayboard_seq + "</a>번 에세이를 스크랩 했습니다."
+    							};
+    							//스크랩 알림 DB저장
+    							$.ajax({
+    								type : 'post',
+    								url : '/mentor/member/saveAlarm',
+    								data : JSON.stringify(AlarmData),
+    								contentType: "application/json; charset=utf-8",
+    								dataType : 'text',
+    								success : function(data){
+    									if(socket){
+    										let socketMsg = "scrap," + memNickname +","+ memberSeq +","+ receiverEmail +","+ essayboard_seq;
+    										console.log("msgmsg : " + socketMsg);
+    										socket.send(socketMsg);
+    									}
+    									
+    								},
+    								error : function(err){
+    									alert('err');
+    									console.log(err);
+    								}
+    							});
+    							
+    						}
+    						
     					},
     					error : function(err){
     						console.log('에러');
@@ -297,6 +346,7 @@ $('#essayWriteBtn').on('click', function(){
 //스크랩 버튼을 누를시
 $(document).ready(function() {
 	$('a[type="externalScrap"]').on('click' , function(){
+	//$(document).on('click' , '#scrap' ,function(){
 		if($('#memNickname').val()== ''){
 			 var toastTop = app.toast.create({
 		            text: '로그인 후 이용 가능 합니다.',
@@ -350,11 +400,6 @@ $(document).ready(function() {
 						let essayboard_seq = seq; //에세이 seq
 						//alert(memNickname+',' + nickname +',' + receiverEmail +',' + seq);
 						
-						if(socket){
-							let socketMsg = "scrap," + memNickname +","+ memberSeq +","+ receiverEmail +","+ essayboard_seq;
-							console.log("msgmsg : " + socketMsg);
-							socket.send(socketMsg);
-						}
 						var AlarmData = {
 								"myAlarm_receiverEmail" : receiverEmail,
 								"myAlarm_callerNickname" : memNickname,
@@ -369,7 +414,11 @@ $(document).ready(function() {
 							contentType: "application/json; charset=utf-8",
 							dataType : 'text',
 							success : function(data){
-								//alert(data);
+								if(socket){
+									let socketMsg = "scrap," + memNickname +","+ memberSeq +","+ receiverEmail +","+ essayboard_seq;
+									console.log("msgmsg : " + socketMsg);
+									socket.send(socketMsg);
+								}
 								
 							},
 							error : function(err){

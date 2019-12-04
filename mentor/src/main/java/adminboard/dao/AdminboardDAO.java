@@ -24,6 +24,8 @@ public interface AdminboardDAO {
 	public void adminnoticeboardDelete(Map<String, String[]> map);
 
 	public AdminnoticeboardDTO adminnoticeboardView(int seq);
+	
+	public void noticeboardModify(Map<String, String> map);
 
 	public List<MeetingboardDTO> getMeetingboardList(Map<String, Integer> map);
 

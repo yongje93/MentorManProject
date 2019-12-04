@@ -73,37 +73,22 @@ public class FAQController {
 	}
 	
 	@RequestMapping(value = "faqToCntactWrite", method = RequestMethod.POST)
-	public String faqToCntactWrite(@RequestParam Map<String, String> map, Model model) {//, @RequestParam("faqToContact_file") MultipartFile faqToContact_file
-		
-//		String filePath = "C:/github/MentorMan/mentor/src/main/webapp/storage/faq";
-//		String fileName = faqToContact_file.getOriginalFilename();
-//		File filemake = new File(filePath);
-//		if(!filemake.exists()) {
-//			filemake.mkdirs();
-//		}
-//		File file = new File(filePath, fileName);
-//		try {
-//				FileCopyUtils.copy(faqToContact_file.getInputStream(), new FileOutputStream(file));				
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-		
+	public String faqToCntactWrite(@RequestParam Map<String, String> map, Model model) {
+
 		MimeMessagePreparator preparator = new MimeMessagePreparator() {
 			
 			@Override
 			public void prepare(MimeMessage mimeMessage) throws Exception {
+				System.out.println(map);
 				MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true,"UTF-8");
-				helper.setTo("kujun95@gmail.com");// 받는 사람
+				helper.setTo("didwodn8822@gmail.com");// 받는 사람
 				helper.setFrom(map.get("faqToContact_email"));// 보내는 사람
-				helper.setSubject(map.get("faqToContact_title"));
+				helper.setSubject("<"+map.get("faqToContact_email")+"> 문의");
 				helper.setText(map.get("faqToContact_content"), true);
-				
-//				FileSystemResource res = new FileSystemResource(new File("C:/"+fileName));
-//				helper.addInline("image", res);
 			};
 		};
 		
-//		mailSender.send(preparator);
+		mailSender.send(preparator);
 		
 		
 		model.addAttribute("display", "/faq/faqMain.jsp");

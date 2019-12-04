@@ -18,7 +18,7 @@
 //	const $footer = $('footer'); // 맨 아래
 $(function(){
 	var URL = window.location,  	
-	 $body = $('body'), // 바디
+	$body = $('body'), // 바디
     $menu_toggle = $('#menu_toggle'), // 상단 삼지창 bar
     $sidebar_menu = $('#sidebar-menu'), // 왼쪽 메뉴 토글전체
     $sidebar_footer = $('.sidebar-footer'), // 왼쪽 메뉴 아래 숨기기 기능

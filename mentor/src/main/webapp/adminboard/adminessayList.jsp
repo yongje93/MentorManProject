@@ -17,10 +17,10 @@
 			</div> <!-- x_title 끝 -->
 			<div class="x_content">
 			<div class="row">
-				<div class="col-sm-12">
-					<div class="cardWrap" style="overflow:hidden; width: 100%">
+<!-- 				<div class="col-sm-12"> -->
+					<div class="cardWrap" style="overflow:hidden;">
 					<c:forEach var="list" items="${list }">
-						<div class="card">
+						<div class="card col-md-4">
 							<div class="card_head">
 							<div>
 								<div class="mentor-image img-circle">
@@ -51,12 +51,19 @@
 				   				<input type="hidden" id="seq" name="seq" value="${list.essayboard_seq }">
 				    			<a class="content-body" type="external" href="/mentor/essayboard/essayboardView?pg=${pg }&seq=${list.essayboard_seq}&mentors=${list.member_seq }" >
 						        <div class="mentor-post-title">
-						        	${list.essayboard_title }
+						        	<c:choose>
+										<c:when test="${fn:length(list.essayboard_title) gt 40}">
+											<c:out value='${fn:substring(list.essayboard_title.replaceAll("\\\<.*?\\\>|&nbsp;",""), 0, 30)}'/>...
+										</c:when>
+										<c:otherwise>
+											<c:out value="${list.essayboard_title}"/>
+										</c:otherwise>
+									</c:choose>
 						        </div>
 						        <div class="mentor-post-detail">
 						        	<c:choose>
-										<c:when test="${fn:length(list.essayboard_content) gt 200}">
-											<c:out value='${fn:substring(list.essayboard_content.replaceAll("\\\<.*?\\\>|&nbsp;",""), 0, 190)}'/>...
+										<c:when test="${fn:length(list.essayboard_content) gt 160}">
+											<c:out value='${fn:substring(list.essayboard_content.replaceAll("\\\<.*?\\\>|&nbsp;",""), 0, 150)}'/>...
 										</c:when>
 										<c:otherwise>
 											<c:out value="${list.essayboard_content}"/>
@@ -83,7 +90,7 @@
 						</div><!-- card끝 -->
 						</c:forEach>
 					</div><!-- 카드전체 -->
-				</div>
+				<!-- </div> -->
 				</div><!-- 카드 row 끝 -->
 				<div class="row a1">
 						<div class="col-sm-12 searchPage">

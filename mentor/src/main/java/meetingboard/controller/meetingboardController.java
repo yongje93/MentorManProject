@@ -141,6 +141,7 @@ public class MeetingboardController {
 		
 		int mentor_answer = mentorService.getAnswer(mentor_seq); // 답변수
 		int mentor_question = mentorService.getQuestion(mentor_seq);// 질문수
+		int mentor_follow = mentorService.getFollow(mentor_seq); //팔로워수
 		double questionPercent = (double)mentor_answer/(double)mentor_question;
 		
 		// 안내사항
@@ -153,6 +154,7 @@ public class MeetingboardController {
 		}
 		mav.addObject("mentor_answer",mentor_answer);
 		mav.addObject("guideList", guideList);
+		mav.addObject("mentor_follow", mentor_follow);
 		mav.addObject("meetingboardDTO", meetingboardDTO);
 		mav.addObject("pg", pg);
 		mav.addObject("display", "/meetingboard/meetingboardView.jsp");

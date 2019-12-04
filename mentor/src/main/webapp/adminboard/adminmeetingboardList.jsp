@@ -29,7 +29,6 @@
 							<table class="table">
 								<thead>
 									<tr>
-										<th><input type="checkbox" id="all"></th>
 										<th scope="col">글 번호</th>
 										<th scope="col">멘토</th>
 										<th scope="col">제목</th>
@@ -46,7 +45,6 @@
 								<fmt:formatDate var="meetingday" value="${parseDate}" pattern="MM월 dd일 (E)"/>
 								<fmt:formatDate var="meetingdayCompare" value="${parseDate}" pattern="yyyy/MM/dd"/>	
 									<tr>
-										<td><input type="checkbox" class="check"value="${meetingboardDTO.meetingboard_seq }"></td>
 										<td>${meetingboardDTO.meetingboard_seq }</td>
 										<td>
 											<c:if test="${meetingboardDTO.member_profile == 'profile.jpg'}">
@@ -57,7 +55,7 @@
 											</c:if>
 											${meetingboardDTO.member_name }
 										</td>
-										<td><a href="/mentor/adminboard/adminmeetingView?seq=${meetingboardDTO.meetingboard_seq }&pg=${pg}">${meetingboardDTO.meetingboard_title }</a></td>
+										<td><a href="/mentor/meetingboard/meetingboardView?pg=${pg}&seq=${meetingboardDTO.meetingboard_seq}">${meetingboardDTO.meetingboard_title }</a></td>
 										<td>${meetingboardDTO.meetingboard_address }</td>
 										<td>${meetingday }</td>
 										<td>${meetingboardDTO.meetingboard_host }</td>
@@ -92,11 +90,6 @@
 					</div> <!-- 버튼 row끝 -->
 				</div> <!-- table 감싸는 div-->
 				<div class="ln_solid"></div>
-				<div class="form-group">
-					<div class="col-md-6 col-sm-6 col-xs-12">
-						<button type="button" class="btn btn-danger btn-sm meetingListBtn" ><i class="fa fa-trash-o"></i>선택삭제</button>
-					</div>
-				</div>
 			</div><!-- xcontent -->
 		</div><!--x_panel-->
 	</div>
