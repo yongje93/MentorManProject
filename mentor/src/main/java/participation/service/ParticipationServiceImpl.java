@@ -50,12 +50,12 @@ public class ParticipationServiceImpl implements ParticipationService {
 	public List<OrderDTO> getOrderHistoryUsingMemEmail(Map<String, Object> map) {
 		return participationDAO.getOrderHistoryUsingMemEmail(map);
 	}
-	
+
 	@Override
 	public int getTotalHistory(String member_email) {
 		return participationDAO.getTotalHistory(member_email);
 	}
-	
+
 	@Override
 	public void paymentCancel(Map<String, Object> map) {
 		participationDAO.paymentCancel(map);
@@ -70,7 +70,7 @@ public class ParticipationServiceImpl implements ParticipationService {
 	public List<OrderDTO> getOrderHistorySearch(Map<String, Object> map) {
 		return participationDAO.getOrderHistorySearch(map);
 	}
-	
+
 	@Override
 	public int getSearchHistory(Map<String, Object> map) {
 		return participationDAO.getSearchHistory(map);

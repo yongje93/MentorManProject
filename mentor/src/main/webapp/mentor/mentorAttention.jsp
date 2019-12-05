@@ -2,8 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<div class="page navbar-fixed me-relationships index"
-	data-name="relationships-index">
+<div class="page navbar-fixed me-relationships index" data-name="relationships-index">
 	<div class="page-content">
 		<div class="block top-block">
 			<h1 class="title">나의 관심 멘토</h1>

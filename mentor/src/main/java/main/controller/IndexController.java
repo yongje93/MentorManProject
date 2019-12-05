@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,7 +23,6 @@ import mentor.service.MentorService;
 @Controller
 @RequestMapping("/main")
 public class IndexController {
-
 	@Autowired
 	private MeetingboardService meetingboardService;
 	@Autowired
@@ -92,7 +90,6 @@ public class IndexController {
 	        	 }
 	         }
 		}
-
 
 		mav.addObject("meetingboardList", meetingboardList);
 		mav.addObject("mentorList", mentorList);

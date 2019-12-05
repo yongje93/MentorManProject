@@ -15,7 +15,7 @@ import meetingboard.dao.MeetingboardDAO;
 public class MeetingboardServiceImpl implements MeetingboardService {
 	@Autowired
 	private MeetingboardDAO meetingboardDAO;
-	
+
 	@Override
 	public void meetingboardWrite(MeetingboardDTO meetingboardDTO) {
 		meetingboardDAO.meetingboardWrite(meetingboardDTO);
@@ -45,7 +45,7 @@ public class MeetingboardServiceImpl implements MeetingboardService {
 	public void meetingboardDelete(int meetingboard_seq) {
 		meetingboardDAO.meetingboardDelete(meetingboard_seq);
 	}
-	
+
 	@Override
 	public List<GuideDTO> getGuideList() {
 		return meetingboardDAO.getGuideList();
@@ -55,17 +55,17 @@ public class MeetingboardServiceImpl implements MeetingboardService {
 	public void meetingReviewWrite(ReviewDTO reviewDTO) {
 		meetingboardDAO.meetingReviewWrite(reviewDTO);
 	}
-	
+
 	@Override
 	public ReviewDTO getMeetingReview(int review_seq) {
 		return meetingboardDAO.getMeetingReview(review_seq);
 	}
-	
+
 	@Override
 	public void meetingReviewModify(ReviewDTO reviewDTO) {
 		meetingboardDAO.meetingReviewModify(reviewDTO);
 	}
-	
+
 	@Override
 	public void meetingReviewDelete(int review_seq) {
 		meetingboardDAO.meetingReviewDelete(review_seq);

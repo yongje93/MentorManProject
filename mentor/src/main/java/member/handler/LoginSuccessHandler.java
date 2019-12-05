@@ -50,7 +50,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		} else {
 			resultRedirectStrategy(request, response, authentication);
 		}
-
 	}
 
 	protected void resultRedirectStrategy(HttpServletRequest request, HttpServletResponse response,

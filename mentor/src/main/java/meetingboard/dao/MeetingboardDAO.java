@@ -19,5 +19,4 @@ public interface MeetingboardDAO {
 	public ReviewDTO getMeetingReview(int review_seq);
 	public void meetingReviewModify(ReviewDTO reviewDTO);
 	public void meetingReviewDelete(int review_seq);
-
 }

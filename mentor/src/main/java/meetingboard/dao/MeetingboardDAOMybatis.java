@@ -17,7 +17,7 @@ import meetingboard.bean.ReviewDTO;
 public class MeetingboardDAOMybatis implements MeetingboardDAO {
 	@Autowired
 	private SqlSession sqlSession;
-	
+
 	@Override
 	public void meetingboardWrite(MeetingboardDTO meetingboardDTO) {
 		sqlSession.insert("meetingboardSQL.meetingboardWrite", meetingboardDTO);
@@ -47,7 +47,7 @@ public class MeetingboardDAOMybatis implements MeetingboardDAO {
 	public void meetingboardDelete(int meetingboard_seq) {
 		sqlSession.delete("meetingboardSQL.meetingboardDelete", meetingboard_seq);
 	}
-	
+
 	@Override
 	public List<GuideDTO> getGuideList() {
 		return sqlSession.selectList("meetingboardSQL.getGuideList");
@@ -62,12 +62,12 @@ public class MeetingboardDAOMybatis implements MeetingboardDAO {
 	public ReviewDTO getMeetingReview(int review_seq) {
 		return sqlSession.selectOne("meetingboardSQL.getMeetingReview", review_seq);
 	}
-	
+
 	@Override
 	public void meetingReviewModify(ReviewDTO reviewDTO) {
 		sqlSession.update("meetingboardSQL.meetingReviewModify", reviewDTO);
 	}
-	
+
 	@Override
 	public void meetingReviewDelete(int review_seq) {
 		sqlSession.delete("meetingboardSQL.meetingReviewDelete", review_seq);

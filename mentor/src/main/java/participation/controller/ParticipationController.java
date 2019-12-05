@@ -26,6 +26,7 @@ import participation.service.ParticipationService;
 
 /**
  * 모임 신청 관련 controller
+ * 
  * @author : yong
  * @date : 2019. 11. 8.
  */
@@ -54,7 +55,7 @@ public class ParticipationController {
 		model.addAttribute("display", "/participation/participationWriteForm.jsp");
 		return "/main/index";
 	}
-	
+
 	/**
 	 * @Title : 모임 신청하기
 	 * @Author : yong
@@ -66,24 +67,24 @@ public class ParticipationController {
 	public void participationWrite(@ModelAttribute ParticipationDTO participationDTO) {
 		participationService.participationWrite(participationDTO);
 	}
-	
+
 	@RequestMapping(value = "participationView", method = RequestMethod.GET)
 	public String participationView(Model model, @RequestParam String mseq, @RequestParam String pseq) {
 		int meetingboard_seq = Integer.parseInt(mseq);
 		int participation_seq = Integer.parseInt(pseq);
 		System.out.println();
-		
+
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("meetingboard_seq", meetingboard_seq);
 		map.put("participation_seq", participation_seq);
-		
+
 		ParticipationDTO participationDTO = participationService.getMenteeParticipation(map);
-		
+
 		model.addAttribute("participationDTO", participationDTO);
 		model.addAttribute("display", "/participation/participationView.jsp");
 		return "/main/index";
 	}
-	
+
 	/**
 	 * @Title : 모임 바구니 화면
 	 * @Author : yong
@@ -95,13 +96,13 @@ public class ParticipationController {
 		MemberDTO memDTO = (MemberDTO) session.getAttribute("memDTO");
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("mentee_email", memDTO.getMember_email());
-		
+
 		List<ParticipationDTO> participationList = participationService.getParticipation(map);
 		model.addAttribute("participationList", participationList);
 		model.addAttribute("display", "/participation/participationOrder.jsp");
 		return "/main/index";
 	}
-	
+
 	/**
 	 * @Title : 모임 신청 삭제
 	 * @Author : yong
@@ -114,7 +115,7 @@ public class ParticipationController {
 		int participation_seq = Integer.parseInt(seq);
 		participationService.orderDelete(participation_seq);
 	}
-	
+
 	/**
 	 * @Title : 모임 결제
 	 * @Author : yong
@@ -124,17 +125,17 @@ public class ParticipationController {
 	@RequestMapping(value = "orderComplete", method = RequestMethod.POST)
 	@ResponseBody
 	public void orderComplete(@RequestBody Map<String, Object> order) {
-		//System.out.println(order);
+		// System.out.println(order);
 		ArrayList<Integer> meeting_seq = (ArrayList<Integer>) order.get("meetingboard_list");
 		ArrayList<Integer> participation_seq = (ArrayList<Integer>) order.get("participation_list");
-		
-		for(int i = 0; i < meeting_seq.size(); i++) {
+
+		for (int i = 0; i < meeting_seq.size(); i++) {
 			order.put("meetingboard_seq", meeting_seq.get(i));
 			order.put("participation_seq", participation_seq.get(i));
 			participationService.orderComplete(order);
 		}
 	}
-	
+
 	/**
 	 * @Title : 결제 완료 페이지
 	 * @Author : yong
@@ -149,7 +150,7 @@ public class ParticipationController {
 		model.addAttribute("display", "/participation/participationPaymentComplete.jsp");
 		return "/main/index";
 	}
-	
+
 	/**
 	 * @Title : 결제 취소
 	 * @Author : yong
@@ -157,7 +158,8 @@ public class ParticipationController {
 	 * @Method Name : paymentCancel
 	 */
 	@RequestMapping(value = "paymentCancel", method = RequestMethod.GET)
-	public String paymentCancel(@RequestParam String seq, @RequestParam String order_id, @RequestParam String price, @RequestParam String pseq) {
+	public String paymentCancel(@RequestParam String seq, @RequestParam String order_id, @RequestParam String price,
+			@RequestParam String pseq) {
 		int meetingboard_seq = Integer.parseInt(seq);
 		int meetingboard_price = Integer.parseInt(price);
 		int participation_seq = Integer.parseInt(pseq);
@@ -169,5 +171,5 @@ public class ParticipationController {
 		participationService.paymentCancel(map);
 		return "redirect:/mentee/menteeOrderHistory";
 	}
-	
+
 }

@@ -119,6 +119,7 @@
 		</div>
 	</div>
 </div>
+</div>
 <input type="hidden" id="memNick" value="${memberDTO.member_nickname}">
 <input type="hidden" id="mentorFlag" name="mentorFlag" value="${flag}">
 <input type="hidden" id="bestFlag" value="${param.bestFlag}">

@@ -1,7 +1,6 @@
 package faq.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import faq.bean.FaqDTO;
 

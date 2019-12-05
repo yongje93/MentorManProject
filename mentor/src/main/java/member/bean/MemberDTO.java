@@ -12,12 +12,6 @@ import org.springframework.stereotype.Component;
 
 import lombok.Data;
 
-/**
- * @Title : MemberDTO.
- * @author : ginkgo1928
- * @date : 2019. 11. 5.
- */
-
 @SuppressWarnings("serial")
 @Data
 @Component
@@ -43,6 +37,7 @@ public class MemberDTO implements UserDetails {
 		} else {
 			auth.add(new SimpleGrantedAuthority("ROLE_USER"));
 		}
+		
 		return auth;
 	}
 

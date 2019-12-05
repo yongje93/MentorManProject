@@ -14,11 +14,6 @@ import mentor.bean.MentorDTO;
 
 @Repository("memberDAO")
 @Transactional
-/**
- * @Title : MemberDAO클래스
- * @author : ginkgo1928
- * @date : 2019. 11. 5.
- */
 public class MemberDAOMybatis implements MemberDAO {
 	@Autowired
 	private MemberDTO memberDTO;
@@ -26,51 +21,35 @@ public class MemberDAOMybatis implements MemberDAO {
 	@Autowired
 	private SqlSession sqlSession;
 
-	/** @Title : 닉네임 중복확인
- 	   @author : ginkgo1928  @date : 2019. 11. 5.*/
 	@Override
 	public MemberDTO writeNicknamecheck(String member_nickname) {
 		return sqlSession.selectOne("memberSQL.writeNicknamecheck", member_nickname);
 	}
 
-	/** @Title : 이름 중복확인
-	 * @author : ginkgo1928  @date : 2019. 11. 5.*/
 	@Override
 	public MemberDTO writeEmailCheck(String member_email) {
 		return sqlSession.selectOne("memberSQL.writeEmailCheck", member_email);
 	}
 
-	/** @Title : 회원가입 처리
-	 * @author : ginkgo1928 @date : 2019. 11. 5.*/
 	@Override
 	public void write(Map<String, String> map) {
-		sqlSession.insert("memberSQL.write",map);
+		sqlSession.insert("memberSQL.write", map);
 	}
 
-	/** @Title : 로그인 처리
-	 * @author : ginkgo1928  @date : 2019. 11. 5.*/
-	@Override
-	public MemberDTO login(Map<String, String> map) {
-		memberDTO=sqlSession.selectOne("memberSQL.login",map);
-		return  memberDTO;
-	}
 	/**
-	 *  질문 리스트
+	 * 질문 리스트
 	 */
 	@Override
 	public List<MentorDTO> getQandA(Map<String, String> map) {
 		return sqlSession.selectList("memberSQL.getQandA", map);
 	}
 
-	/** @Title : 비밀번호 설정
-	 * @author : ginkgo1928  @date : 2019. 11. 12.*/
 	@Override
 	public MemberDTO setsetmemberpwd(Map<String, String> map) {
-		memberDTO=sqlSession.selectOne("memberSQL.setsetmemberpwd",map);
+		memberDTO = sqlSession.selectOne("memberSQL.setsetmemberpwd", map);
 		return memberDTO;
 	}
-	/** @Title : 비밀번호 변경
-	 * @author : ginkgo1928  @date : 2019. 11. 12.*/
+
 	@Override
 	public MemberDTO newPwdCommit(Map<String, String> map) {
 		sqlSession.update("memberSQL.newPwdCommit", map);
@@ -84,6 +63,7 @@ public class MemberDAOMybatis implements MemberDAO {
 	public int getTotalA(String member_email) {
 		return sqlSession.selectOne("memberSQL.getTotalA", member_email);
 	}
+
 	/**
 	 * 멘토 정보
 	 */
@@ -99,6 +79,7 @@ public class MemberDAOMybatis implements MemberDAO {
 	public List<MentorDTO> getMentoring_type(Map<String, String[]> arrayMap) {
 		return sqlSession.selectList("memberSQL.getMentoring_type", arrayMap);
 	}
+
 	/**
 	 * 질문 삭제
 	 */
@@ -175,33 +156,33 @@ public class MemberDAOMybatis implements MemberDAO {
 
 	@Override
 	public List<AlarmDTO> getAlarm(String memEmail) {
-		return sqlSession.selectList("memberSQL.getAlarm" , memEmail);
+		return sqlSession.selectList("memberSQL.getAlarm", memEmail);
 	}
+
 	@Override
 	public void checkSubscribe(String memEmail) {
-		sqlSession.update("memberSQL.checkSubscribe" , memEmail);
+		sqlSession.update("memberSQL.checkSubscribe", memEmail);
 	}
 
 	@Override
 	public void saveAlarm(Map<String, String> map) {
-		sqlSession.insert("memberSQL.saveAlarm" , map);
+		sqlSession.insert("memberSQL.saveAlarm", map);
 	}
 
 	@Override
 	public void deleteAlarm(int seq) {
-		sqlSession.delete("memberSQL.deleteAlarm" , seq);
+		sqlSession.delete("memberSQL.deleteAlarm", seq);
 	}
 
 	@Override
 	public int getCountAlarm(String member_email) {
-		return sqlSession.selectOne("memberSQL.getCountAlarm" , member_email);
+		return sqlSession.selectOne("memberSQL.getCountAlarm", member_email);
 	}
 
 	@Override
 	public int getTotalAlarm(String memEmail) {
-		return sqlSession.selectOne("memberSQL.getTotalAlarm" , memEmail );
+		return sqlSession.selectOne("memberSQL.getTotalAlarm", memEmail);
 	}
-
 
 	@Override
 	public int mentor_headerNotification(int member_seq) {

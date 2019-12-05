@@ -30,6 +30,7 @@ import mentor.service.MentorService;
 
 /**
  * 모임 게시판 관련 컨트롤러
+ * 
  * @author : yong
  * @date : 2019. 11. 2.
  */
@@ -40,9 +41,9 @@ public class MeetingboardController {
 	private MeetingboardService meetingboardService;
 	@Autowired
 	private MeetingboardPaging meetingboardPaging;
-	@Autowired 
+	@Autowired
 	private MentorService mentorService;
-	
+
 	/**
 	 * @Title : 모임 게시판 리스트. head 영역의 모임 버튼 눌렀을때 화면
 	 * @Author : yong
@@ -50,7 +51,8 @@ public class MeetingboardController {
 	 * @Method Name : meetingboardList 11. 6 페이징처리 추가
 	 */
 	@RequestMapping(value = "meetingboardList", method = RequestMethod.GET)
-	public ModelAndView meetingboardList(@RequestParam(required = false, defaultValue = "1") String pg, HttpSession session) {	
+	public ModelAndView meetingboardList(@RequestParam(required = false, defaultValue = "1") String pg,
+			HttpSession session) {
 		// 1페이지당 9개
 		int endNum = Integer.parseInt(pg) * 9;
 		int startNum = endNum - 8;
@@ -134,25 +136,26 @@ public class MeetingboardController {
 	 * @Method Name : meetingboardView
 	 */
 	@RequestMapping(value = "meetingboardView", method = RequestMethod.GET)
-	public ModelAndView meetingboardView(@RequestParam(required = false, defaultValue = "1") String pg, @RequestParam String seq) {
+	public ModelAndView meetingboardView(@RequestParam(required = false, defaultValue = "1") String pg,
+			@RequestParam String seq) {
 		int meetingboard_seq = Integer.parseInt(seq);
 		MeetingboardDTO meetingboardDTO = meetingboardService.getMeetingboard(meetingboard_seq);
 		int mentor_seq = meetingboardDTO.getMember_seq();
-		
+
 		int mentor_answer = mentorService.getAnswer(mentor_seq); // 답변수
 		int mentor_question = mentorService.getQuestion(mentor_seq);// 질문수
-		int mentor_follow = mentorService.getFollow(mentor_seq); //팔로워수
-		double questionPercent = (double)mentor_answer/(double)mentor_question;
-		
+		int mentor_follow = mentorService.getFollow(mentor_seq); // 팔로워수
+		double questionPercent = (double) mentor_answer / (double) mentor_question;
+
 		// 안내사항
 		List<GuideDTO> guideList = meetingboardService.getGuideList();
 		ModelAndView mav = new ModelAndView();
 		if (Double.isNaN(questionPercent)) {
-			mav.addObject("questionPercent", 0);			
+			mav.addObject("questionPercent", 0);
 		} else {
 			mav.addObject("questionPercent", questionPercent);
 		}
-		mav.addObject("mentor_answer",mentor_answer);
+		mav.addObject("mentor_answer", mentor_answer);
 		mav.addObject("guideList", guideList);
 		mav.addObject("mentor_follow", mentor_follow);
 		mav.addObject("meetingboardDTO", meetingboardDTO);
@@ -205,5 +208,5 @@ public class MeetingboardController {
 		int meetingboard_seq = Integer.parseInt(seq);
 		meetingboardService.meetingboardDelete(meetingboard_seq);
 	}
-	
+
 }

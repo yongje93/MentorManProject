@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <div class="col-100 tablet-80" style="margin: auto;">
 	<div class="page navbar-fixed mentor_request-steps show">
-  		<div class="page-content">
-
+  		<div class="page">
     	<div class="block no-hairlines text-align-center hero-title">
 	      <h1>멘토 정보</h1>
 	    </div>
 		    <div class="mentor-request-block block">
-		     
 		        <form id="mentorInfoForm" name="mentorInfoForm" method="post" enctype="multipart/form-data" action="/mentor/mentor/mentorInfoModify">
 		          <div class="block-title">
 		            <label class="string required" for="mentor_request_user_attributes_name">이름 <abbr title="required">*</abbr></label>

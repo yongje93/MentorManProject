@@ -29,7 +29,6 @@ public class MentorDTO {
 	private int mentor_badge;
 	private int mentor_flag;
 	
-	
 	//---join 멘토 찾기-------------------------
 	private String member_nickname;
 	private String mentoring_type;
@@ -42,7 +41,6 @@ public class MentorDTO {
 	private String question_content;
 	private int question_flag;
 
-	
 	//--join 에세이
 	private String essayboard_title; // 에세이 보드 제목
 	private String essayboard_content; // 에세이 보드 내용
@@ -54,8 +52,6 @@ public class MentorDTO {
 	private String review_content;	// 고맙습니다 내용
 	private Date review_date;	// 고맙습니다 쓴날
 	private String mentee_email; // 고맙습니다 쓴 사람 email
-
-
 	private int question_seq;
 	
 	//---join 질문한 사람 데이터------------------

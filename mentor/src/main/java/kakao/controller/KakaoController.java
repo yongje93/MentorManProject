@@ -38,17 +38,19 @@ public class KakaoController {
 		nickName = properties.path("nickname").asText();
 		image = properties.path("profile_image").asText();
 		
-		System.out.println("id : " + id);
-		System.out.println("email : " + email);
-        System.out.println("name : " + nickName);
-        System.out.println("image : " + image);
+		//System.out.println("id : " + id);
+		//System.out.println("email : " + email);
+        //System.out.println("name : " + nickName);
+        //System.out.println("image : " + image);
         
         MemberDTO memDTO = new MemberDTO();
         memDTO.setMember_email(email);
         memDTO.setMember_nickname(nickName);
-        memDTO.setMember_profile("profile.jpg");
-        memDTO.setMember_flag(0);
-        
+        if(image == null) {
+        	memDTO.setMember_profile("profile.jpg");
+        } else {
+        	memDTO.setMember_profile(image);
+        }
         session.setAttribute("memDTO", memDTO);
         session.setAttribute("access_token", accessToken);
 		session.setMaxInactiveInterval(60*60*24); // 세션 1일 유지

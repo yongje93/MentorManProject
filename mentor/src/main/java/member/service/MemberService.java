@@ -18,8 +18,6 @@ public interface MemberService {
 
 	public void write(Map<String, String> map) throws MessagingException, UnsupportedEncodingException;
 
-	public MemberDTO login(Map<String, String> map);
-
 	public MemberDTO setmemberpwd(Map<String, String> map);
 
 	public MemberDTO newPwdCommit(Map<String, String> map);
@@ -69,8 +67,5 @@ public interface MemberService {
 	public void mentor_headerCountModify(List<MentorDTO> list);
 
 	public void mentee_headerCountModify(List<MentorDTO> list);
-
-
-
 
 }

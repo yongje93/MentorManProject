@@ -144,7 +144,6 @@ public class MemberController {
 		}
 	}
 
-	// LoginForm
 	/**
 	 * @Title : 카카오 로그인 + 네이버 로그인  url 추가
 	 * @Author : yong
@@ -164,44 +163,6 @@ public class MemberController {
 		model.addAttribute("display", "/member/loginForm.jsp");
 		return "/main/index";
 	}
-
-
-
-//	/** @Title : 로그인 처리,세션 기간 설정(1일 유지).
-//	 * @author : ginkgo1928 @date : 2019. 11. 09.
-//	 * 2019. 11. 13 용제 수정
-//	 * 2019. 11. 19 상구 수정 관리자페이지로 넘어갈수있게 수정함
-//   */
-//
-//	@RequestMapping(value = "login", method = RequestMethod.POST)
-//	@ResponseBody
-//	public String login(@RequestParam String member_email, @RequestParam String member_pwd, HttpSession session) {
-//		Map<String, String> map = new HashMap<String, String>();
-//		map.put("member_email", member_email);
-//		map.put("member_pwd", member_pwd);
-//
-//		memberDTO = memberService.login(map);
-//
-//		if (memberDTO != null) {
-//			memberDTO.setMember_pwd("");
-//			session.setAttribute("memDTO", memberDTO);
-//			session.setMaxInactiveInterval(60*60*24); // 세션 1일 유지
-//			if(memberDTO.getMember_name().equals("관리자"))
-//				return "admin_ok";
-//			else
-//				return "login_ok";
-//		} else {
-//			return "login_fail";
-//		}
-//	}
-//	// 로그아웃 처리
-//	// 카카오 로그아웃 추가
-//	@RequestMapping(value = "logout", method = RequestMethod.GET, produces="application/json")
-//	public ModelAndView logout(HttpSession session) {
-//		KakaoApi.kakaoLogout((JsonNode) session.getAttribute("access_token"));
-//	  	session.invalidate();
-//		return new ModelAndView("redirect:/main/index");
-//	}
 
 	/**
 	 * @Title : 질문 답변

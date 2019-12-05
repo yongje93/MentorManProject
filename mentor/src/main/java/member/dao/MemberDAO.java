@@ -15,8 +15,6 @@ public interface MemberDAO {
 
 	public void write(Map<String, String> map);
 
-	public MemberDTO login(Map<String, String> map);
-
 	public MemberDTO setsetmemberpwd(Map<String, String> map);
 
 	public MemberDTO newPwdCommit(Map<String, String> map);
@@ -71,10 +69,5 @@ public interface MemberDAO {
 	public void mentor_headerCountModify(List<MentorDTO> list);
 
 	public void mentee_headerCountModify(List<MentorDTO> list);
-
-
-
-
-
 
 }

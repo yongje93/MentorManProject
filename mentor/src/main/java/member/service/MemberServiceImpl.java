@@ -17,12 +17,9 @@ import member.bean.MemberDTO;
 import member.dao.MemberDAO;
 import member.handler.MailHandler;
 import mentor.bean.MentorDTO;
-/**
- * @Title : 회원가입 Service.
- * @author : ginkgo1928
- * @date : 2019. 11. 5.
- */
-@Service(value="memberService")
+
+
+@Service(value = "memberService")
 public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberDAO memberDAO;
@@ -31,16 +28,19 @@ public class MemberServiceImpl implements MemberService {
 	@Inject
 	private PasswordEncoder passwordEncoder;
 
-
-	/** @Title : 닉네임 중복확인.
-	 * @author : ginkgo1928 @date : 2019. 11. 5.*/
+	/**
+	 * @Title : 닉네임 중복확인.
+	 * @author : ginkgo1928 @date : 2019. 11. 5.
+	 */
 	@Override
 	public MemberDTO writeNicknamecheck(String member_nickname) {
 		return memberDAO.writeNicknamecheck(member_nickname);
 	}
 
-	/** @Title : 이메일 중복확인
-	 * @author : ginkgo1928  @date : 2019. 11. 5.*/
+	/**
+	 * @Title : 이메일 중복확인
+	 * @author : ginkgo1928 @date : 2019. 11. 5.
+	 */
 	@Override
 	public MemberDTO writeEmailCheck(String member_email) {
 		return memberDAO.writeEmailCheck(member_email);
@@ -49,9 +49,9 @@ public class MemberServiceImpl implements MemberService {
 	/* 회원가입 완료 */
 	@Override
 	public void write(Map<String, String> map) throws MessagingException, UnsupportedEncodingException {
-		//System.out.println("암호화 전 : " + map.get("member_pwd"));
+		// System.out.println("암호화 전 : " + map.get("member_pwd"));
 		String encPassword = passwordEncoder.encode(map.get("member_pwd"));
-		//System.out.println("암호화 후 : " + encPassword);
+		// System.out.println("암호화 후 : " + encPassword);
 		map.replace("member_pwd", encPassword);
 		// 암호화 후 디비에 저장
 		memberDAO.write(map);
@@ -63,45 +63,38 @@ public class MemberServiceImpl implements MemberService {
 		// 메일 전송
 		MailHandler sendMail = new MailHandler(mailSender);
 		String mailContent = "<table class='body' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; height: 100%; width: 100%; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0; padding: 0;' bgcolor='#fafafa'>"
-			     + "<tbody><tr align='left' style='vertical-align: top; padding: 0;'><td align='center' valign='top' style='word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; float: none; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0 auto; padding: 0;'>"
-			     + "<center style='width: 100%; min-width: 580px;'>"
-			     + "<table align='center' class='spacer float-center' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: center; width: 100%; float: none; margin: 0 auto; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><td align='left' valign='top' height='16px' style='font-size: 16px; line-height: 16px; word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; mso-line-height-rule: exactly; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; margin: 0; padding: 0;'>&nbsp;</td></tr></tbody></table>"
-			     + "<table align='center' class='top-header wrapper float-center' style='width: 100%; border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: center; float: none; margin: 0 auto; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><td align='left' valign='top' style='word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0; padding: 16px;'>"
-			     + "<table align='center' class='container' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: inherit; width: 580px; margin: 0 auto; padding: 0;' bgcolor='#fafafa'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><td align='left' valign='top' style='word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0; padding: 0;'>"
-			     + "<table class='collapse row' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: table; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><th align='left' colspan='1' rowspan='1' style='width: 298px; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0 auto; padding: 0;'><table style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><th align='left' colspan='1' rowspan='1' style='color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0; padding: 0;'>"
-			     + "<a href='#' style='color: #ff2d55; font-family: -apple-system, blinkmacsystemfont, segoe ui, roboto, helvetica neue, arial, sans-serif, apple color emoji, segoe ui emoji, segoe ui symbol !important; font-weight: normal; text-align: left; line-: 1.4; text-decoration: none; margin: 0; padding: 0;' rel='noreferrer noopener'>"
-			     + "<h1>멘토맨</h1>"
-			     + "</a></th></tr></tbody></table></th><th align='left' colspan='1' rowspan='1' style='width: 298px; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0 auto; padding: 0;'><table style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><th align='left' colspan='1' rowspan='1' style='color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0; padding: 0;'>"
-			     + "<p align='right' style='color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0; padding: 0;'></p>"
-			     + "</th></tr></tbody></table></th></tr></tbody></table>"
-			     + "</td></tr></tbody></table>"
-			     + "</td></tr></tbody></table>"
-			     + "<table align='center' class='container float-center' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: center; width: 580px; float: none; margin: 0 auto; padding: 0;' bgcolor='#fefefe'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><td align='left' valign='top' style='word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0; padding: 0;'>"
-			     + "<table class='row' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: table; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><th align='left' colspan='1' rowspan='1' style='width: 564px; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0 auto; padding: 0 16px 16px;'><table style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><th align='left' colspan='1' rowspan='1' style='color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0; padding: 0;'>"
-			     + "<table class='spacer' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><td align='left' valign='top' height='16px' style='font-size: 16px; line-height: 16px; word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; mso-line-height-rule: exactly; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; margin: 0; padding: 0;'>&nbsp;</td></tr></tbody></table>"
-				 + "<h3 align='left' style='color: inherit; font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: 600; line-height: 1.4; word-wrap: normal; font-size: 28px; margin: 0 0 10px; padding: 0;'>이메일 인증하기</h3>"
-				 + "<table class='spacer' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><td align='left' valign='top' height='16px' style='font-size: 16px; line-height: 16px; word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; mso-line-height-rule: exactly; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; margin: 0; padding: 0;'>&nbsp;</td></tr></tbody></table>"
-				 + "<p align='left' style='color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0 0 10px; padding: 0;'>"
-				 + "아래 링크를 클릭하여 이메일 인증을 완료하세요."
-				 + "</p>"
-				 + "<table class='spacer' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><td align='left' valign='top' height='16px' style='font-size: 16px; line-height: 16px; word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; mso-line-height-rule: exactly; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; margin: 0; padding: 0;'>&nbsp;</td></tr></tbody></table>"
-				 + "<table class='large expand button' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; margin: 0 0 16px; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><td align='left' valign='top' style='word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0; padding: 0;'><table style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><td align='left' valign='top' style='word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; color: #fefefe; font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0; padding: 0; border: 2px solid #ff2d55;' bgcolor='#ff2d55'><center style='width: 100%; min-width: 0;'>"
-				 + "<a class='float-center' href='http://localhost:8080/mentor/member/emailConfirm?member_email="
-				 + map.get("member_email")+"&memberAuthKey="
-				 + authKey + "' align='center' style='color: #fefefe; font-family: -apple-system, blinkmacsystemfont, segoe ui, roboto, helvetica neue, arial, sans-serif, apple color emoji, segoe ui emoji, segoe ui symbol !important; font-weight: bold; text-align: center; line-: 1.4; text-decoration: none; font-size: 20px; display: inline-block; border-radius: 3px; : 100%; margin: 0; padding: 10px 0; border: 0 solid #ff2d55;' rel='noreferrer noopener' target='_blank'>"
-			 	 + "이메일 인증"
-			 	 + "</a></center></td></tr></tbody></table></td><td align='left' valign='top' style='word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; visibility: hidden; width: 0; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0; padding: 0;'></td></tr></tbody></table>"
-			 	 + "<table class='spacer' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><td align='left' valign='top' height='16px' style='font-size: 16px; line-height: 16px; word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; mso-line-height-rule: exactly; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; margin: 0; padding: 0;'>&nbsp;</td></tr></tbody></table>"
-				 + "<p align='left' style='color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0 0 10px; padding: 0;'>"
-		 	 	 + "요청하지 않은 경우 이 이메일을 무시하십시오."
-				 + "</p>"
-		 		 + "<hr>"
-				 + "<small style='font-size: 80%; color: #cacaca;'>본 이메일은 발신 전용으로 회신되지 않습니다. 궁금한 사항은 고객센터로 문의해 주세요.<br> <strong>멘토맨</strong></small>"
-			     + "</th><th align='left' colspan='1' rowspan='1' style='visibility: hidden; width: 0; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0; padding: 0;'></th></tr></tbody></table></th></tr></tbody></table>"
-			     + "</td></tr></tbody></table>"
-			     + "</center>"
-			     + "</td></tr>"
-			     + "</tbody></table>";
+				+ "<tbody><tr align='left' style='vertical-align: top; padding: 0;'><td align='center' valign='top' style='word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; float: none; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0 auto; padding: 0;'>"
+				+ "<center style='width: 100%; min-width: 580px;'>"
+				+ "<table align='center' class='spacer float-center' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: center; width: 100%; float: none; margin: 0 auto; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><td align='left' valign='top' height='16px' style='font-size: 16px; line-height: 16px; word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; mso-line-height-rule: exactly; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; margin: 0; padding: 0;'>&nbsp;</td></tr></tbody></table>"
+				+ "<table align='center' class='top-header wrapper float-center' style='width: 100%; border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: center; float: none; margin: 0 auto; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><td align='left' valign='top' style='word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0; padding: 16px;'>"
+				+ "<table align='center' class='container' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: inherit; width: 580px; margin: 0 auto; padding: 0;' bgcolor='#fafafa'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><td align='left' valign='top' style='word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0; padding: 0;'>"
+				+ "<table class='collapse row' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: table; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><th align='left' colspan='1' rowspan='1' style='width: 298px; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0 auto; padding: 0;'><table style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><th align='left' colspan='1' rowspan='1' style='color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0; padding: 0;'>"
+				+ "<a href='#' style='color: #ff2d55; font-family: -apple-system, blinkmacsystemfont, segoe ui, roboto, helvetica neue, arial, sans-serif, apple color emoji, segoe ui emoji, segoe ui symbol !important; font-weight: normal; text-align: left; line-: 1.4; text-decoration: none; margin: 0; padding: 0;' rel='noreferrer noopener'>"
+				+ "<h1>멘토맨</h1>"
+				+ "</a></th></tr></tbody></table></th><th align='left' colspan='1' rowspan='1' style='width: 298px; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0 auto; padding: 0;'><table style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><th align='left' colspan='1' rowspan='1' style='color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0; padding: 0;'>"
+				+ "<p align='right' style='color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0; padding: 0;'></p>"
+				+ "</th></tr></tbody></table></th></tr></tbody></table>" + "</td></tr></tbody></table>"
+				+ "</td></tr></tbody></table>"
+				+ "<table align='center' class='container float-center' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: center; width: 580px; float: none; margin: 0 auto; padding: 0;' bgcolor='#fefefe'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><td align='left' valign='top' style='word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0; padding: 0;'>"
+				+ "<table class='row' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: table; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><th align='left' colspan='1' rowspan='1' style='width: 564px; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0 auto; padding: 0 16px 16px;'><table style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><th align='left' colspan='1' rowspan='1' style='color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0; padding: 0;'>"
+				+ "<table class='spacer' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><td align='left' valign='top' height='16px' style='font-size: 16px; line-height: 16px; word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; mso-line-height-rule: exactly; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; margin: 0; padding: 0;'>&nbsp;</td></tr></tbody></table>"
+				+ "<h3 align='left' style='color: inherit; font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: 600; line-height: 1.4; word-wrap: normal; font-size: 28px; margin: 0 0 10px; padding: 0;'>이메일 인증하기</h3>"
+				+ "<table class='spacer' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><td align='left' valign='top' height='16px' style='font-size: 16px; line-height: 16px; word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; mso-line-height-rule: exactly; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; margin: 0; padding: 0;'>&nbsp;</td></tr></tbody></table>"
+				+ "<p align='left' style='color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0 0 10px; padding: 0;'>"
+				+ "아래 링크를 클릭하여 이메일 인증을 완료하세요." + "</p>"
+				+ "<table class='spacer' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><td align='left' valign='top' height='16px' style='font-size: 16px; line-height: 16px; word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; mso-line-height-rule: exactly; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; margin: 0; padding: 0;'>&nbsp;</td></tr></tbody></table>"
+				+ "<table class='large expand button' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; margin: 0 0 16px; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><td align='left' valign='top' style='word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0; padding: 0;'><table style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><td align='left' valign='top' style='word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; color: #fefefe; font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0; padding: 0; border: 2px solid #ff2d55;' bgcolor='#ff2d55'><center style='width: 100%; min-width: 0;'>"
+				+ "<a class='float-center' href='http://localhost:8080/mentor/member/emailConfirm?member_email="
+				+ map.get("member_email") + "&memberAuthKey=" + authKey
+				+ "' align='center' style='color: #fefefe; font-family: -apple-system, blinkmacsystemfont, segoe ui, roboto, helvetica neue, arial, sans-serif, apple color emoji, segoe ui emoji, segoe ui symbol !important; font-weight: bold; text-align: center; line-: 1.4; text-decoration: none; font-size: 20px; display: inline-block; border-radius: 3px; : 100%; margin: 0; padding: 10px 0; border: 0 solid #ff2d55;' rel='noreferrer noopener' target='_blank'>"
+				+ "이메일 인증"
+				+ "</a></center></td></tr></tbody></table></td><td align='left' valign='top' style='word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; visibility: hidden; width: 0; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0; padding: 0;'></td></tr></tbody></table>"
+				+ "<table class='spacer' style='border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; padding: 0;'><tbody><tr align='left' style='vertical-align: top; padding: 0;'><td align='left' valign='top' height='16px' style='font-size: 16px; line-height: 16px; word-wrap: break-word; -webkit-hyphens: auto; -ms-hyphens: auto; hyphens: auto; border-collapse: collapse !important; mso-line-height-rule: exactly; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; margin: 0; padding: 0;'>&nbsp;</td></tr></tbody></table>"
+				+ "<p align='left' style='color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0 0 10px; padding: 0;'>"
+				+ "요청하지 않은 경우 이 이메일을 무시하십시오." + "</p>" + "<hr>"
+				+ "<small style='font-size: 80%; color: #cacaca;'>본 이메일은 발신 전용으로 회신되지 않습니다. 궁금한 사항은 고객센터로 문의해 주세요.<br> <strong>멘토맨</strong></small>"
+				+ "</th><th align='left' colspan='1' rowspan='1' style='visibility: hidden; width: 0; color: rgba(0,0,0,0.84); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important; font-weight: normal; line-height: 1.4; font-size: 15px; margin: 0; padding: 0;'></th></tr></tbody></table></th></tr></tbody></table>"
+				+ "</td></tr></tbody></table>" + "</center>" + "</td></tr>" + "</tbody></table>";
 
 		sendMail.setSubject("[멘토맨 서비스 이메일 인증]");
 		sendMail.setText(mailContent);
@@ -116,18 +109,13 @@ public class MemberServiceImpl implements MemberService {
 		MemberDTO chkMember = new MemberDTO();
 		chkMember = memberDAO.checkAuthKey(memberDTO);
 
-		if(chkMember != null) {
+		if (chkMember != null) {
 			memberDTO.setMemberAuthStatus(1);
 			memberDAO.updateMemberAuthState(memberDTO);
 		}
 		return chkMember;
 	}
 
-	/* 로그인 */
-	@Override
-	public MemberDTO login(Map<String, String> map) {
-		return memberDAO.login(map);
-	}
 	/* 나의 질문 답변 */
 	@Override
 	public List<MentorDTO> getQandA(Map<String, String> map) {
@@ -140,9 +128,11 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.setsetmemberpwd(map);
 	}
 
-	/** @Title : 이메일 인증을 하고 새로운 비밀번호로 변경
+	/**
+	 * @Title : 이메일 인증을 하고 새로운 비밀번호로 변경
 	 * @author : ginkgo1928
-	 * @date : 2019. 11. 13. */
+	 * @date : 2019. 11. 13.
+	 */
 	@Override
 	public MemberDTO newPwdCommit(Map<String, String> map) {
 		return memberDAO.newPwdCommit(map);
@@ -171,39 +161,44 @@ public class MemberServiceImpl implements MemberService {
 	public List<MentorDTO> getMentoring_type(Map<String, String[]> arrayMap) {
 		return memberDAO.getMentoring_type(arrayMap);
 	}
-	//질문 지우기
+
+	// 질문 지우기
 	@Override
 	public void questionDelete(int question_seq) {
 		memberDAO.questionDelete(question_seq);
 	}
 
-	//멘토의 seq
+	// 멘토의 seq
 	@Override
 	public int getMentor_seq(String member_email) {
 		return memberDAO.getMentor_seq(member_email);
 	}
-	//로그인 한 사람이 멘토인지 확인
+
+	// 로그인 한 사람이 멘토인지 확인
 	@Override
 	public int getMember_flag(String member_email) {
 		return memberDAO.getMember_flag(member_email);
 	}
 
-	//로그인 한 사람의 글이 맞는지 확인
+	// 로그인 한 사람의 글이 맞는지 확인
 	@Override
 	public List<MentorDTO> getMemtee_question(int mentor_seq) {
 		return memberDAO.getMemtee_question(mentor_seq);
 	}
-	//질문을 한 사람의 이메일 가져옴
+
+	// 질문을 한 사람의 이메일 가져옴
 	@Override
 	public String getMember_email(int qsseq) {
 		return memberDAO.getMember_email(qsseq);
 	}
-	//답변 저장
+
+	// 답변 저장
 	@Override
 	public void answerSave(Map<String, String> map) {
 		memberDAO.answerSave(map);
 	}
-	//답변 가져오기
+
+	// 답변 가져오기
 	@Override
 	public MentorDTO getMentor_auswer(int qsseq) {
 		return memberDAO.getMentor_auswer(qsseq);
@@ -218,6 +213,7 @@ public class MemberServiceImpl implements MemberService {
 	public List<AlarmDTO> getAlarm(String memEmail) {
 		return memberDAO.getAlarm(memEmail);
 	}
+
 	@Override
 	public void checkSubscribe(String memEmail) {
 		memberDAO.checkSubscribe(memEmail);
@@ -242,7 +238,6 @@ public class MemberServiceImpl implements MemberService {
 	public int getTotalAlarm(String memEmail) {
 		return memberDAO.getTotalAlarm(memEmail);
 	}
-
 
 	@Override
 	public int mentor_headerNotification(int member_seq) {

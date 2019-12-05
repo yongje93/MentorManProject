@@ -20,5 +20,4 @@ public interface ParticipationService {
 	public ParticipationDTO getMenteeParticipation(Map<String, Integer> map);
 	public List<OrderDTO> getOrderHistorySearch(Map<String, Object> map);
 	public int getSearchHistory(Map<String, Object> map);
-
 }
