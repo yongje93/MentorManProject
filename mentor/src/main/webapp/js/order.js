@@ -184,8 +184,8 @@ $("#orderSearchBtn").click(function(){
 	var endDate = $("#endDate").val();
 	var option = $("#condition option:selected").val();
 	
-	var startDateVal = startDate.replace("/", "");
-	var endDateVal = endDate.replace("/", "");
+	var startDateVal = startDate.replace(/\//gi, "");
+	var endDateVal = endDate.replace(/\//gi, "");
 	
 	if(startDate == '' && endDate != '') {
 		var toastTop = app.toast.create({
@@ -213,18 +213,19 @@ $("#orderSearchBtn").click(function(){
 	       toastTop.open();
 	       $("#endDate").focus();
 	} else {
-		//alert(startDate+'시작'+endDate+'끝'+option+'조건');
+		//alert(startDateVal+'시작'+endDateVal+'끝'+option+'조건');
 		
 		$.ajax({
 			type: 'post',
 			url: '/mentor/mentee/orderHistorySearch',
-			data: {'startDate' : startDateVal, 'endDate' : endDateVal, 'option' : option},
+			data: {'startDate' : startDateVal, 'endDate' : endDateVal, 'option' : option, 'pg' : '1'},
 			dataType: 'json',
 			success: function(data){
 				//alert(data.orderHistorySearchList);
 				//alert(data.totalSearchHistory);
 				
 				$('#historyTable > tbody').empty();
+				$('.pagination-block').empty();
 				
 				$.each(data.orderHistorySearchList, function(index, items){
 					var today = new Date();
@@ -241,6 +242,42 @@ $("#orderSearchBtn").click(function(){
 					var orderDate = items.order_date;
 					
 					var price = items.meetingboard_price.toLocaleString();
+					
+					var order_state = '';
+					
+					if(items.order_flag == 0) {
+						order_state = '(주문취소)';
+					} else if(items.order_flag == 1) {
+						if(today >= meetingday) {
+							if(items.review_seq == null) {
+								order_state = `<div class="btn-set btn-parents">
+													<button type="button" class="button" onclick="location.href='/mentor/mentee/meetingReviewWriteForm?seq=${items.meetingboard_seq}'" style="font-size: 11px;">수강후기</button>
+												</div>`;
+							} else {
+								order_state = `<div class="btn-set btn-parents">
+													<span>(작성완료)</span>
+												</div>`;
+							}
+						} else {
+							order_state = `<div class="btn-set btn-parents">
+												<span>(수강전)</span>
+											</div>`;
+						}
+					}
+					
+					var order_cancel = '';
+					
+					if(items.order_flag == 1) {
+						if((oldDays - nowDays) >= 2) {
+							order_cancel = `<div class="btn-set btn-parents">
+												<button type="button" class="button" onclick="paymentCancel('${items.meetingboard_seq}','${items.order_id}','${items.meetingboard_price}','${items.participation_seq}')" style="font-size: 11px;">수강취소</button>
+											</div>`;
+						} else if((oldDays - nowDays) < 2) {
+							order_cancel = `<div class="btn-set btn-parents">
+												<span></span>
+											</div>`;
+						}
+					}
 					
 					let orderHistory = `
 						<tr>
@@ -261,50 +298,18 @@ $("#orderSearchBtn").click(function(){
 								${price}원
 							</td>
 							<td>
-							<c:if test="${items.order_flag == 0}">
-								(주문취소)
-							</c:if>
-							<c:if test="${items.order_flag == 1}">
-								<c:if test="${today >= meetingday}">
-									<c:if test="${items.review_seq == null}">
-										<c:if test=""></c:if>
-										<div class="btn-set btn-parents">
-											<button type="button" class="button" onclick="location.href='/mentor/mentee/meetingReviewWriteForm?seq=${items.meetingboard_seq}'" style="font-size: 11px;">수강후기</button>
-										</div>
-									</c:if>
-									<c:if test="${items.review_seq != null}">
-										<div class="btn-set btn-parents">
-											<span>(작성완료)</span>
-										</div>
-									</c:if>						
-								</c:if>
-								<c:if test="${today < meetingday}">
-								<div class="btn-set btn-parents">
-									<span>(수강전)</span>
-								</div>
-								</c:if>
-							</c:if>
+								${order_state}
 							</td>
 							<td>
-							<c:if test="${items.order_flag == 1}">
-								<c:if test="${(oldDays - nowDays) >= 2}">
-									<div class="btn-set btn-parents">
-										<button type="button" class="button" onclick="paymentCancel('${items.meetingboard_seq}','${items.order_id}','${items.meetingboard_price}','${items.participation_seq}')" style="font-size: 11px;">수강취소</button>
-									</div>
-								</c:if>
-								<c:if test="${(oldDays - nowDays) < 2}">
-									<div class="btn-set btn-parents">
-										<span></span>
-									</div>
-								</c:if>
-							</c:if>
+								${order_cancel}
 							</td>
 						</tr>
 					`;
 					
 					$('#historyTable > tbody').append(orderHistory);
-					
 				});
+				
+				$('.pagination-block').append(data.orderHistoryPaging.pagingHTML);
 			},
 			error: function(err){
 				console.log(err);
@@ -314,3 +319,115 @@ $("#orderSearchBtn").click(function(){
 	
 	
 });
+
+// 주문내역 페이징
+function orderHistoryPaging(page){
+	var pg = page;
+	var startDate = $("#startDate").val();
+	var endDate = $("#endDate").val();
+	var option = $("#condition option:selected").val();
+	
+	var startDateVal = startDate.replace("/", "");
+	var endDateVal = endDate.replace("/", "");
+	
+	$.ajax({
+		type: 'post',
+		url: '/mentor/mentee/orderHistorySearch',
+		data: {'startDate' : startDateVal, 'endDate' : endDateVal, 'option' : option, 'pg' : pg},
+		dataType: 'json',
+		success: function(data){
+			//alert(data.orderHistorySearchList);
+			//alert(data.totalSearchHistory);
+			
+			$('#historyTable > tbody').empty();
+			$('.pagination-block').empty();
+			
+			$.each(data.orderHistorySearchList, function(index, items){
+				var today = new Date();
+				
+				var parseDate = items.meetingboard_day;
+				var yyyy = parseDate.substr(0,4);
+				var mm = parseDate.substr(5,2);
+				var dd = parseDate.substr(8,2);
+				
+				var meetingday = new Date(yyyy, mm-1, dd);
+				var nowDays = today.getTime() / (1000*60*60*24);
+				var oldDays = meetingday.getTime() / (1000*60*60*24) + 1;
+				
+				var orderDate = items.order_date;
+				
+				var price = items.meetingboard_price.toLocaleString();
+				
+				var order_state = '';
+				
+				if(items.order_flag == 0) {
+					order_state = '(주문취소)';
+				} else if(items.order_flag == 1) {
+					if(today >= meetingday) {
+						if(items.review_seq == null) {
+							order_state = `<div class="btn-set btn-parents">
+												<button type="button" class="button" onclick="location.href='/mentor/mentee/meetingReviewWriteForm?seq=${items.meetingboard_seq}'" style="font-size: 11px;">수강후기</button>
+											</div>`;
+						} else {
+							order_state = `<div class="btn-set btn-parents">
+												<span>(작성완료)</span>
+											</div>`;
+						}
+					} else {
+						order_state = `<div class="btn-set btn-parents">
+											<span>(수강전)</span>
+										</div>`;
+					}
+				}
+				
+				var order_cancel = '';
+				
+				if(items.order_flag == 1) {
+					if((oldDays - nowDays) >= 2) {
+						order_cancel = `<div class="btn-set btn-parents">
+											<button type="button" class="button" onclick="paymentCancel('${items.meetingboard_seq}','${items.order_id}','${items.meetingboard_price}','${items.participation_seq}')" style="font-size: 11px;">수강취소</button>
+										</div>`;
+					} else if((oldDays - nowDays) < 2) {
+						order_cancel = `<div class="btn-set btn-parents">
+											<span></span>
+										</div>`;
+					}
+				}
+				
+				let orderHistory = `
+					<tr>
+						<td>
+							<a type="external" href="/mentor/meetingboard/meetingboardView?seq=${items.meetingboard_seq}" target="_blank">
+								${items.meetingboard_title}
+							</a>
+						</td>
+						<td>
+							${orderDate}
+						</td>
+						<td>
+							<a type="external" href="/mentor/participation/paymentComplete?order_id=${items.order_id}" style="color: black;">
+								${items.order_id}
+							</a>
+						</td>
+						<td>
+							${price}원
+						</td>
+						<td>
+							${order_state}
+						</td>
+						<td>
+							${order_cancel}
+						</td>
+					</tr>
+				`;
+				
+				$('#historyTable > tbody').append(orderHistory);
+			});
+			
+			$('.pagination-block').append(data.orderHistoryPaging.pagingHTML);
+		},
+		error: function(err){
+			console.log(err);
+		}
+	});
+}

@@ -60,17 +60,17 @@ public class OrderHistoryPaging {
 		
 		// [이전]
 		if (startPage > pageBlock) {
-			pagingHTML.append("<li><a rel='prev' data-reload='true' type='external' href='/mentor/mentee/menteeOrderHistory?pg=" + (startPage - 1) + "'>이전</a></li>");
+			pagingHTML.append("<li><a rel='prev' data-reload='true' type='external' href='javascript:void(0)' onclick='orderHistoryPaging("+(startPage - 1)+")'>이전</a></li>");
 		}
 		for (int i = startPage; i <= endPage; i++) {
 			if (i == currentPage)
-				pagingHTML.append("<li class='active'><a remote='false' href='/mentor/mentee/menteeOrderHistory?pg=" + i + "'>" + i + "</a></li>");
+				pagingHTML.append("<li class='active'><a remote='false' href='javascript:void(0)' onclick='orderHistoryPaging("+i+")'>" + i + "</a></li>");
 			else
-				pagingHTML.append("<li><a rel='prev' data-reload='true' type='external' href='/mentor/mentee/menteeOrderHistory?pg=" + i + "'>" + i + "</a></li>");
+				pagingHTML.append("<li><a rel='prev' data-reload='true' type='external' href='javascript:void(0)' onclick='orderHistoryPaging("+i+")'>" + i + "</a></li>");
 		}
 		// [다음]
 		if (endPage < totalP) {
-			pagingHTML.append("<li class='next'><a rel='next' data-reload='true' type='external' href='/mentor/mentee/menteeOrderHistory?pg=" + (endPage + 1) + "'>다음</a></li>");
+			pagingHTML.append("<li class='next'><a rel='next' data-reload='true' type='external' href='javascript:void(0)' onclick='orderHistoryPaging(" + (endPage + 1) + ")'>다음</a></li>");
 		}
 		pagingHTML.append("</ul>");
 	}

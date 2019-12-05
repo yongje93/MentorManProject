@@ -284,9 +284,10 @@ public class MenteeController {
 	}
 	
 	@RequestMapping(value = "orderHistorySearch", method = RequestMethod.POST)
-	public ModelAndView orderHistorySearch(@RequestParam Map<String, Object> map, @RequestParam(required = false, defaultValue = "1") String pg, HttpSession session) {
+	public ModelAndView orderHistorySearch(@RequestParam Map<String, Object> map, HttpSession session) {
 		// 1페이지당 5개
-		int endNum = Integer.parseInt(pg) * 5;
+		int pg =  Integer.parseInt((String) map.get("pg"));
+		int endNum = pg * 5;
 		int startNum = endNum - 4;
 		
 		MemberDTO memDTO = (MemberDTO) session.getAttribute("memDTO");
@@ -299,7 +300,7 @@ public class MenteeController {
 		
 		// 페이징 처리
 		int totalSearchHistory = participationService.getSearchHistory(map);
-		orderHistoryPaging.setCurrentPage(Integer.parseInt(pg));
+		orderHistoryPaging.setCurrentPage(pg);
 		orderHistoryPaging.setPageBlock(3);
 		orderHistoryPaging.setPageSize(5);
 		orderHistoryPaging.setTotalA(totalSearchHistory);

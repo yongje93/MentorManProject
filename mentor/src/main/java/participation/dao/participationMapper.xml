@@ -109,9 +109,9 @@
 			(select rownum rn, tt.* from 
 			(select m.job_code, m.meetingboard_title, m.meetingboard_day, m.meetingboard_price, o.order_id, o.order_date, o.order_price, o.mentee_email, o.mentee_name, o.mentee_tel, o.order_flag, m.mentor_email, o.meetingboard_seq, o.participation_seq, rv.review_seq
 			from meetingboard m, meeting_order o, meeting_review rv
-			where rv.meetingboard_seq(+) = o.meetingboard_seq and rv.mentee_email(+)=o.mentee_email and m.meetingboard_seq = o.meetingboard_seq and o.mentee_email=#{member_email}
+			where rv.meetingboard_seq(+) = o.meetingboard_seq and rv.mentee_email(+)=o.mentee_email and m.meetingboard_seq = o.meetingboard_seq and o.mentee_email=#{member_email} and o.order_date between to_date(#{startDate}) and to_date(#{endDate})+0.99999
 			order by o.participation_seq desc)tt)
-			where rn >= #{startNum} and rn <= #{endNum} and order_date between to_date(#{startDate}) and to_date(#{endDate})+0.99999
+			where rn >= #{startNum} and rn <= #{endNum}
 		 ]]>
 	</select>
 	<!-- 결제내역만 -->
@@ -121,9 +121,9 @@
 			(select rownum rn, tt.* from 
 			(select m.job_code, m.meetingboard_title, m.meetingboard_day, m.meetingboard_price, o.order_id, o.order_date, o.order_price, o.mentee_email, o.mentee_name, o.mentee_tel, o.order_flag, m.mentor_email, o.meetingboard_seq, o.participation_seq, rv.review_seq
 			from meetingboard m, meeting_order o, meeting_review rv
-			where rv.meetingboard_seq(+) = o.meetingboard_seq and rv.mentee_email(+)=o.mentee_email and m.meetingboard_seq = o.meetingboard_seq and o.mentee_email=#{member_email} and o.order_flag = 1
+			where rv.meetingboard_seq(+) = o.meetingboard_seq and rv.mentee_email(+)=o.mentee_email and m.meetingboard_seq = o.meetingboard_seq and o.mentee_email=#{member_email} and o.order_flag = 1 and o.order_date between to_date(#{startDate}) and to_date(#{endDate})+0.99999
 			order by o.participation_seq desc)tt)
-			where rn >= #{startNum} and rn <= #{endNum} and order_date between to_date(#{startDate}) and to_date(#{endDate})+0.99999
+			where rn >= #{startNum} and rn <= #{endNum}
 		 ]]>
 	</select>
 	<!-- 취소내역만 -->
@@ -133,9 +133,9 @@
 			(select rownum rn, tt.* from 
 			(select m.job_code, m.meetingboard_title, m.meetingboard_day, m.meetingboard_price, o.order_id, o.order_date, o.order_price, o.mentee_email, o.mentee_name, o.mentee_tel, o.order_flag, m.mentor_email, o.meetingboard_seq, o.participation_seq, rv.review_seq
 			from meetingboard m, meeting_order o, meeting_review rv
-			where rv.meetingboard_seq(+) = o.meetingboard_seq and rv.mentee_email(+)=o.mentee_email and m.meetingboard_seq = o.meetingboard_seq and o.mentee_email=#{member_email} and o.order_flag = 0
+			where rv.meetingboard_seq(+) = o.meetingboard_seq and rv.mentee_email(+)=o.mentee_email and m.meetingboard_seq = o.meetingboard_seq and o.mentee_email=#{member_email} and o.order_flag = 0 and o.order_date between to_date(#{startDate}) and to_date(#{endDate})+0.99999
 			order by o.participation_seq desc)tt)
-			where rn >= #{startNum} and rn <= #{endNum} and order_date between to_date(#{startDate}) and to_date(#{endDate})+0.99999
+			where rn >= #{startNum} and rn <= #{endNum}
 		 ]]>
 	</select>
 	
