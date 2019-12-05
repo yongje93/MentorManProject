@@ -359,6 +359,7 @@ $(document).ready(function() {
 			var essayboardEmail = $(this).closest('div').prev().children().first().next().val();
 			var essayName = $(this).closest('div').prev().children().first().next().next().val();
 			var memberSeq = $(this).closest('div').prev().children().first().next().next().next().val();
+			alert(seq + " , "+ essayboardEmail+","+ essayName +","+memberSeq)
 			
 			if($(this).children().last().val() == 0){
 				$("#"+seq).prop("src", "../image/scrapOkImg.png");

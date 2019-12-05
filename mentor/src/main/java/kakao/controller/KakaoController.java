@@ -28,7 +28,7 @@ public class KakaoController {
 		String id = null;
 		String email = null;
 		String nickName = null;
-		//String image = null;
+		String image = null;
 		// 유저정보 카카오에서 가져오기 Get properties
 		JsonNode properties = userInfo.path("properties");
 		JsonNode kakao_account = userInfo.path("kakao_account");
@@ -36,11 +36,12 @@ public class KakaoController {
 		id = userInfo.path("id").asText();
 		email = kakao_account.path("email").asText();
 		nickName = properties.path("nickname").asText();
-		//image = properties.path("profile_image").asText();
+		image = properties.path("profile_image").asText();
 		
 		System.out.println("id : " + id);
 		System.out.println("email : " + email);
         System.out.println("name : " + nickName);
+        System.out.println("image : " + image);
         
         MemberDTO memDTO = new MemberDTO();
         memDTO.setMember_email(email);
@@ -59,7 +60,7 @@ public class KakaoController {
 	@RequestMapping(value="/logout", produces="application/json")
 	public String logout(HttpSession session) {
 	    JsonNode node =  KakaoApi.kakaoLogout((JsonNode) session.getAttribute("access_token"));
-	    System.out.println("로그아웃 후 반환되는 아이디 : " + node.get("id"));
+	    //System.out.println("로그아웃 후 반환되는 아이디 : " + node.get("id"));
 	    session.invalidate();
 	    return "redirect:/main/index";
 	}

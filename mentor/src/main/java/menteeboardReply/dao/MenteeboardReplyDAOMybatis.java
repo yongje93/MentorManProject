@@ -39,7 +39,7 @@ public class MenteeboardReplyDAOMybatis implements MenteeboardReplyDAO {
 
 	@Override
 	public void menteeboardReplyDown(int menteeboard_seq) {
-		sqlSession.update("menteeboardReplySQL.menteeboardReplyUp" ,menteeboard_seq);
+		sqlSession.update("menteeboardReplySQL.menteeboardReplyDown" ,menteeboard_seq);
 	}
 
 	@Override

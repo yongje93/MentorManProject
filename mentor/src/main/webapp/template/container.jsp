@@ -191,24 +191,24 @@
 							</div>
 							<div class="ask-button">
 								<c:if test="${memDTO != null}">
-									<c:if test="${menteeInfo_count == 0}">
-								   		<a class="question button button-small button-fill" id="mentorQuestions" type="external" href="/mentor/mentor/userInfoCheck"><!-- pg seq 가져가라 -->
-									          질문하기
-										</a>
-								    </c:if>
-								    <c:if test="${menteeInfo_count > 0}">
-								    	<c:if test="${mentor.mentor_email != memberDTO.member_email}">
-									        <a class="question button button-small button-fill" id="mentorQuestions" type="external" onclick="mentor_question_seq(${mentor.mentor_seq},${pg})"><!-- pg seq 가져가라 -->
+									<c:if test="${mentor.mentor_email != memDTO.member_email}">
+										<c:if test="${memDTO.member_flag == 0}">
+									   		<a class="question button button-small button-fill" id="mentorQuestions" type="external" href="/mentor/mentor/userInfoCheck">
 										          질문하기
 											</a>
 										</c:if>
-								 	</c:if>
-								</c:if>	
+										<c:if test="${memDTO.member_flag == 1 or memDTO.member_flag == 2}">
+									   		<a class="question button button-small button-fill" id="mentorQuestions" type="external" onclick="mentor_question_seq(${mentor.mentor_seq},${pg})"><!-- pg seq 가져가라 -->
+										          질문하기
+											</a>
+										</c:if>
+									</c:if>
+								</c:if>
 								<c:if test="${memDTO == null}">
 							        <a class="button button-small button-fill" type="external" href="/mentor/member/loginForm">
 								         질문하기
 									</a>
-								</c:if>	
+								</c:if>
 							</div>
 						</div>
 					</div>
@@ -256,18 +256,16 @@
 					</div>
 					<div class="ask-button">
 				   	<c:if test="${memDTO != null}">
-				    	<c:if test="${honorMentor.mentor_email != memberDTO.member_email}">
-					        <c:if test="${menteeInfo_count == 0}">
-								 <a class="question button button-small button-fill" id="mentorQuestions" type="external" href="/mentor/mentor/userInfoCheck"><!-- pg seq 가져가라 -->
-								  질문하기
-							 	 </a>
-						    </c:if>
-							<c:if test="${menteeInfo_count > 0}">
-							   <c:if test="${mentor.mentor_email != memberDTO.member_email}">
-								   <a class="question button button-small button-fill" id="mentorQuestions" type="external" onclick="mentor_question_seq(${mentor.mentor_seq},${pg})"><!-- pg seq 가져가라 -->
-								     질문하기
-								   </a>
-							   </c:if>
+				    	<c:if test="${honorMentor.mentor_email != memDTO.member_email}">
+					        <c:if test="${memDTO.member_flag == 0}">
+						   		<a class="question button button-small button-fill" id="mentorQuestions" type="external" href="/mentor/mentor/userInfoCheck">
+							          질문하기
+								</a>
+							</c:if>
+							<c:if test="${memDTO.member_flag == 1 or memDTO.member_flag == 2}">
+						   		 <a class="question button button-small button-fill" id="mentorQuestions" type="external" onclick="mentor_question_seq(${mentor.mentor_seq},${pg})"><!-- pg seq 가져가라 -->
+							          질문하기
+								</a>
 							</c:if>
 						</c:if>
 					</c:if>	
@@ -341,6 +339,10 @@
 					</div>
 					<div class="card-content card-content-padding" style="overflow: hidden; text-overflow: ellipsis; height: 200px;">
 						<input type="hidden" id="seq" name="seq" value="${list.essayboard_seq }">
+						<input type="hidden" id="essayNickname" name="essayNickname" value="${list.mentor_email }">
+				   		<input type="hidden" id="essayName" name="essayName" value="${list.member_name }">
+				   		<input type="hidden" id="memberSeq" name="memberSeq" value="${list.member_seq }">
+						
 						<a class="content-body" type="external" href="/mentor/essayboard/essayboardView?pg=${pg }&seq=${list.essayboard_seq}&mentors=${list.member_seq }">
 							<div class="mentor-post-title">${list.essayboard_title}
 							</div>
@@ -362,7 +364,8 @@
 							<!-- <i class="far fa-bookmark" aria-hidden="false"></i> -->
 							<c:if test="${list.essayboard_scrapFlag == 1}">
 								<img id="${list.essayboard_seq}" src="../image/scrapOkImg.png" width="13">
-							</c:if> <c:if test="${list.essayboard_scrapFlag == 0}">
+							</c:if> 
+							<c:if test="${list.essayboard_scrapFlag == 0}">
 								<img id="${list.essayboard_seq}" src="../image/scrapNoImg.png" width="13">
 							</c:if> 
 							<span id="ScrapDiv_${list.essayboard_seq}">${list.essayboard_scrap}</span>
@@ -402,12 +405,8 @@
 										</c:if>
 									</div>
 									<div class="mentor-info">
-										<div>
-											<strong class="mentor-name">${list.member_name }</strong> <small>멘토</small>
-										</div>
-										<div class="job">
-											<small> ${list.mentor_company } · ${list.mentor_department } </small>
-										</div>
+										<div><strong class="mentor-name">${list.member_name }</strong><small>멘토</small></div>
+										<div class="job"><small> ${list.mentor_company } · ${list.mentor_department }</small></div>
 									</div>
 								</div>
 							</a>
@@ -417,7 +416,11 @@
 						</div>
 
 						<div class="card-content card-content-padding" style="overflow: hidden; text-overflow: ellipsis; height: 200px;">
-							<input type="hidden" id="seq" name="seq" value="${list.essayboard_seq }">
+						<input type="hidden" id="seq" name="seq" value="${list.essayboard_seq }">
+						<input type="hidden" id="essayNickname" name="essayNickname" value="${list.mentor_email }">
+				   		<input type="hidden" id="essayName" name="essayName" value="${list.member_name }">
+				   		<input type="hidden" id="memberSeq" name="memberSeq" value="${list.member_seq }">
+							
 							<a class="content-body" type="external" href="/mentor/essayboard/essayboardView?pg=${pg }&seq=${list.essayboard_seq}&mentors=${list.member_seq }">
 								<div class="mentor-post-title">${list.essayboard_title }</div>
 								<div class="mentor-post-detail">
@@ -454,6 +457,8 @@
 		</div>
 	</div>
 	<%-- 신규 에세이 끝 --%>
+	<input type="hidden" id="essayFlag" name="essayFlag" value="${flag}">
+	<input type="hidden" id="memNickname" name="memNickname" value="${memDTO.member_name}">
 	</div>
 </div>
 <script src="../js/mentor.js"></script>

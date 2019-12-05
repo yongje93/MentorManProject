@@ -7,7 +7,7 @@
         질문이 등록되었습니다.<br>멘토의 답변을 기다려주세요.
       </h1>
 		<br>
-      <div class="block" style="margin: 35px 250px;">
+      <div class="block" style="margin: auto; width: 300px;">
 		<input type="button" name="mentorapply_btn" id="mentorapply_btn" value="이전 페이지로 돌아가기" class="btn button button-big button-fill" 
 			onclick="location.href='/mentor/mentor/mentorfindForm?pg=${pg}'">
 	   </div>

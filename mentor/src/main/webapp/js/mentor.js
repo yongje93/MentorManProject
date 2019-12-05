@@ -358,11 +358,11 @@ function essayjobType(pg , flag){
     			}
     			
     			if(data.memberDTO != null){
-    				if(data.menteeInfo_count == 0){
-    					var questionFlag = '<a class="question button button-small button-fill" id="mentorQuestions" type="external" href="/mentor/mentor/userInfoCheck">질문하기</a>'
-    				}else {
-    					var questionFlag = '<a class="question button button-small button-fill" id="mentorQuestions" type="external" onclick="mentor_question_seq(' + items.mentor_seq +',' + data.pg + ')">질문하기</a>'
-    				}
+    				if(data.memberDTO.member_flag == 0){
+						var questionFlag = '<a class="question button button-small button-fill" id="mentorQuestions" type="external" href="/mentor/mentor/userInfoCheck">질문하기</a>'    						
+					}else{
+						var questionFlag = '<a class="question button button-small button-fill" id="mentorQuestions" type="external" onclick="mentor_question_seq(' + items.mentor_seq +',' + data.pg + ')">질문하기</a>'
+					}
     			} else {
     				var questionFlag = '<a class="button button-small button-fill" type="external" href="/mentor/member/loginForm">질문하기</a>'
     			}
@@ -459,7 +459,7 @@ function essayjobType(pg , flag){
     		  }
     		}
     		if(endPage < totalP) {
-    		  atag += '<li class="next"><a id="paging" href="#" onclick="mentorFindPaging('+(endPage+1)+'); return false;">다음</a></li>';
+    		  atag += '<li class="next"><a id="paging" href="#" onclick="mentorFindPaging('+(endPage+1)+', '+ data.flag +'); return false;">다음</a></li>';
     		}
     		
     		$('.paging').append($('<ul/>', {

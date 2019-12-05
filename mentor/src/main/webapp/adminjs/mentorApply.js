@@ -1,4 +1,4 @@
-/** 
+/**
  * @Title : 멘토신청 게시판 js파일입니다
  * @author : 안상구
  * @date : 2019. 11. 20.
@@ -57,7 +57,7 @@ $('.btn_apply_success').click(function(){
 		toastr_wran();
 	else
 		mentorSuccess(check);
-		
+
 });
 
 function mentorSuccess(check){
@@ -71,7 +71,7 @@ function mentorSuccess(check){
 		success : function(){
 			location.href="/mentor/adminmember/adminmentorApplyList";
 		}
-	});	
+	});
 	});
 }
 
@@ -101,6 +101,6 @@ function mentorReject(check){
 			success : function(){
 				location.href="/mentor/adminmember/adminmentorApplyList";
 			}
-		});		
+		});
 	});
 }

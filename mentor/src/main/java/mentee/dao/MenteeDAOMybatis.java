@@ -35,6 +35,7 @@ public class MenteeDAOMybatis implements MenteeDAO {
 	public void menteeStudentInput(Map<String, String> map) {
 		if(map.get("mentee_email")==null) {
 			sqlSession.insert("menteeSQL.menteeStudentInput", map);
+			sqlSession.update("menteeSQL.member_flagUpdate1", map);
 		}else {
 			sqlSession.update("menteeSQL.menteeStudentSave", map);
 		}
@@ -49,6 +50,7 @@ public class MenteeDAOMybatis implements MenteeDAO {
 	public void menteeEmployeeInput(Map<String, String> map) {
 		if(map.get("mentee_email")==null) {
 			sqlSession.insert("menteeSQL.menteeEmployeeInput", map);
+			sqlSession.update("menteeSQL.member_flagUpdate2", map);
 		}else {
 			sqlSession.update("menteeSQL.menteeEmployeeSave", map);
 		}

@@ -77,7 +77,6 @@ public class EssayboardController {
 		ModelAndView modelAndView = new ModelAndView();
 		//  신규 에세이 리스트
 		List<EssayboardDTO>list = essayboardService.getNewEssay(map);
-
 		//로그인 여부에 따라
 		if(memberDTO != null) {
 			String nickname = memberDTO.getMember_nickname();

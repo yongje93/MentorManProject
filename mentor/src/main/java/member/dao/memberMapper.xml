@@ -179,12 +179,18 @@
 	</select>
 	<insert id="answerSave" parameterType="Map">
 	begin
-		insert into answer values(answer_seq.nextval,
-								 #{question_seq},
-								 #{mentor_seq},
-								 #{member_email},
-								 #{answer_content},
-								 sysdate);
+		insert into answer( answer_seq,
+							question_seq,
+							mentor_seq,
+							member_email,
+							answer_content,
+							answer_logtime) 
+		values(answer_seq.nextval,
+				 #{question_seq},
+				 #{mentor_seq},
+				#{member_email},
+				#{answer_content},
+				 sysdate);
 
 		update question set question_flag = 1 where question_seq = #{question_seq};
 	end;

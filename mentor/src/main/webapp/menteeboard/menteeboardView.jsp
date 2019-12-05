@@ -97,11 +97,21 @@
 				</c:if>
 				<c:if test="${list.menteeboardReply_flag eq 1}">
 				<div class="no-gap">
-					<i class="fas fa-exclamation-circle" style="color:red;"></i> 관리자에의해 삭제된 댓글입니다.
+					 <div id="thanks-notes">
+						<div class="block mentee-detail-block thanks-note-card" hidden="" style="display: block;">
+							<div class="mentee-info">
+								<div class="mentee-image img-circle">
+									<img width="150" height="150" src="../image/profile.jpg">
+								</div>
+								<div class="mentee-name">관리자</div>
+								<div class="sent-date">${list.menteeboardReply_logtime}</div>
+							</div>
+							<div class="thanks-note-body"><i class="fas fa-exclamation-circle" style="color:red;"></i>관리자에의해 삭제된 댓글입니다.</div>
+						</div>
+					</div> 
 				</div>
 				<br/>
 				</c:if>
-				<hr>
 			</c:forEach>
 			<div class="block mentee-detail-block thanks-note-card" id="menteeboardPagingDiv">${menteeboardPaging.pagingHTML}</div>
 			<hr>

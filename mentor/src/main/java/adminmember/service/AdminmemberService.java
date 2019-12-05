@@ -11,15 +11,15 @@ import adminmember.bean.AdminmentorSalesListDTO;
 public interface AdminmemberService {
 	//회원리스트
 	public List<AdminmemberDTO> getAdminmemberList(Map<String, Integer> map);
-	
+
 	public List<AdminmemberDTO> memberClassfication(Map<String, Integer> map);
 
 	public int getMemeberTotalA();
-	
+
 	public List<AdminmemberDTO> getSearchadminmemberList(Map<String, Object> map);
 
 	public int getSearchmemeberTotalA(Map<String, Object> map);
-	
+
 	//멘토리스트
 	public List<AdminmentorDTO> getAdminmentorList(Map<String, Integer> map);
 
@@ -32,18 +32,18 @@ public interface AdminmemberService {
 	public List<AdminmentorDTO> getAdminmentorApplyList(int startNum, int endNum);
 
 	public int getMentorApplyTotalA();
-	
+
 	public void adminmentorSuccess(Map<String, String[]> map);
 
 	public void adminmentorReject(Map<String, String[]> map);
-	
+
 	public List<AdminmentorDTO> mentorClassfication(Map<String, Integer> map);
-	
+
 	//멘티리스트
 	public List<AdminmemberDTO> getAdminmenteeList(int startNum, int endNum);
 
 	public int getMenteeTotalA();
-	
+
 	public List<AdminmemberDTO> getSearchadminmenteeList(Map<String, Object> map);
 
 	public int getSearchmenteeTotalA(Map<String, Object> map);
@@ -58,5 +58,8 @@ public interface AdminmemberService {
 
 	public void honorMentor(Map<String, String[]> map);
 
-}
+	public void setMentorUpdateAlarm(int check);
 
+	public void setMenteeUpdateAlarm(int check);
+
+}

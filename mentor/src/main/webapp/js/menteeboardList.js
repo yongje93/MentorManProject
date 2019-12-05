@@ -10,42 +10,8 @@ $(document).ready(function(){
 		data : 'pg='+$('#pgInput').val(),
 		dataType : 'json',
 		success : function(data){
-			$.each(data['list'], function(key, value){
-				var str = '';
-				if(value.menteeboard_reply != 0 ){
-					str = '<strong class="highlight">('+ value.menteeboard_reply +')</strong>' ;
-				}
-				
-				$('<tr/>').append($('<td/>',{
-					align: 'center',
-					text : value.menteeboard_seq
-				})).append($('<td/>',{
-					align: 'center',
-					text : value.job_type,
-					style: 'line-height: 40px;'
-				})).append($('<td/>',{
-					style: 'width: 500px;'
-					}).append($('<a/>',{
-							href : 'javascript:void(0)',
-							id : 'subjectA',
-							html : value.menteeboard_title + ' ' +str ,
-							class : value.seq+"",
-							style :'color : black;'
-				}))).append($('<td/>',{
-					align: 'center',
-					text : value.member_nickname
-				})).append($('<td/>',{
-					align: 'center',
-					text : value.menteeboard_logtime
-				})).append($('<td/>',{
-					align: 'center',
-					text : value.menteeboard_hit
-				})).append($('<td/>',{
-					align: 'center',
-					text : value.menteeboard_good
-				})).appendTo($('#inputBody2'));
-			});
 			
+			loadMenteeboardList(data);
 			
 			//paging 처리
 			$('#menteeboardPagingDiv').append($('<ul/>', {
@@ -54,20 +20,10 @@ $(document).ready(function(){
 			
 			//클릭시 뷰로 이동
 			$('#boardTable').on('click' ,'#subjectA' , function(){
-				if(data.memNickname == null){
-					
-					var toastTop = app.toast.create({
-			            text: '로그인 후 이용 가능합니다.',
-			            position: 'top',
-			            closeButton: true,
-			          });
-			          toastTop.open();
-					
-					
-				}else{
-					var seq = $(this).parent().prev().prev().text();
-					$(location).attr("href", "/mentor/menteeboard/menteeboardView?seq="+seq+"&pg="+$('#pgInput').val());
-				}
+				
+				var seq = $(this).parent().prev().prev().text();
+				$(location).attr("href", "/mentor/menteeboard/menteeboardView?seq="+seq+"&pg="+$('#pgInput').val());
+				
 			});	
 			
 			//글쓰기 버튼 클릭 이벤트
@@ -104,35 +60,8 @@ $("#job_code").on("change", function(){
 			$('#inputBody2').empty();
 			$('#menteeboardPagingDiv').empty();
 			
-			$.each(data['list'], function(key, value){
-				$('<tr/>').append($('<td/>',{
-					align: 'center',
-					text : value.menteeboard_seq
-				})).append($('<td/>',{
-					align: 'center',
-					text : value.job_type,
-					style: 'line-height: 40px;'
-				})).append($('<td/>',{
-					style: 'width: 500px;'
-					}).append($('<a/>',{
-							href : 'javascript:void(0)',
-							id : 'subjectA',
-							text : value.menteeboard_title,
-							class : value.seq+""
-				}))).append($('<td/>',{
-					align: 'center',
-					text : value.member_nickname
-				})).append($('<td/>',{
-					align: 'center',
-					text : value.menteeboard_logtime
-				})).append($('<td/>',{
-					align: 'center',
-					text : value.menteeboard_hit
-				})).append($('<td/>',{
-					align: 'center',
-					text : value.menteeboard_good
-				})).appendTo($('#inputBody2'));
-			});
+			loadMenteeboardList(data)
+			
 			//paging 처리
 			$('#menteeboardPagingDiv').append($('<ul/>', {
     			class : 'pagination'
@@ -175,33 +104,7 @@ $('#search_image').on('click' , function(){
 				$('#inputBody2').empty();
 				$('#menteeboardPagingDiv').empty();
 				
-				$.each(data['list'], function(key, value){
-					$('<tr/>').append($('<td/>',{
-						align: 'center',
-						text : value.menteeboard_seq
-					})).append($('<td/>',{
-						align: 'center',
-						text : value.job_type
-					})).append($('<td/>',{
-						}).append($('<a/>',{
-								href : 'javascript:void(0)',
-								id : 'subjectA',
-								text : value.menteeboard_title,
-								class : value.seq+""
-					}))).append($('<td/>',{
-						align: 'center',
-						text : value.member_nickname
-					})).append($('<td/>',{
-						align: 'center',
-						text : value.menteeboard_logtime
-					})).append($('<td/>',{
-						align: 'center',
-						text : value.menteeboard_hit
-					})).append($('<td/>',{
-						align: 'center',
-						text : value.menteeboard_good
-					})).appendTo($('#inputBody2'));
-				});
+				loadMenteeboardList(data);
 				
 				//paging 처리
 				$('#menteeboardPagingDiv').append($('<ul/>', {
@@ -230,3 +133,44 @@ function boardSearch2(pg){
 	$('#search_image').trigger('click','trigger');
 }
 
+//list 불러오기
+function loadMenteeboardList(data){
+	
+	$.each(data['list'], function(key, value){
+		var str = '';
+		
+		if(value.menteeboard_reply != 0 ){
+			str = '<strong class="highlight">('+ value.menteeboard_reply +')</strong>' ;
+		}
+		
+		$('<tr/>').append($('<td/>',{
+			align: 'center',
+			text : value.menteeboard_seq
+		})).append($('<td/>',{
+			align: 'center',
+			text : value.job_type,
+			style: 'line-height: 40px;'
+		})).append($('<td/>',{
+			style: 'width: 500px;'
+			}).append($('<a/>',{
+					href : 'javascript:void(0)',
+					id : 'subjectA',
+					html : value.menteeboard_title + ' ' +str ,
+					class : value.seq+"",
+					style :'color : black;'
+		}))).append($('<td/>',{
+			align: 'center',
+			text : value.member_nickname
+		})).append($('<td/>',{
+			align: 'center',
+			text : value.menteeboard_logtime
+		})).append($('<td/>',{
+			align: 'center',
+			text : value.menteeboard_hit
+		})).append($('<td/>',{
+			align: 'center',
+			text : value.menteeboard_good
+		})).appendTo($('#inputBody2'));
+	});
+	
+}

@@ -9,7 +9,7 @@
 
         <div class="block inset">
           <div class="block-footer">
-            그 동안 잇다와 함께해 주셔서 감사합니다. 탈퇴 사유를 남겨 주시면 향후 서비스 개선에 적극적으로 반영하겠습니다.
+            그 동안 멘토맨와 함께해 주셔서 감사합니다. 탈퇴 사유를 남겨 주시면 향후 서비스 개선에 적극적으로 반영하겠습니다.
           </div>
         </div>
 
@@ -31,6 +31,5 @@
 			</form>
 		</div>
 </div>
-<script type="text/javascript" src="../js/mentee.js"></script>
 <script>
 </script>

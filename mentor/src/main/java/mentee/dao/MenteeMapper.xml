@@ -19,9 +19,21 @@
 	<select id="getEmployeeEmail" parameterType="String" resultType="mentee">
 		select * from menteeemployee_profile where menteeemployee_email = #{member_email}
 	</select>
+	
 	<insert id="menteeStudentInput" parameterType="Map">
 		insert into menteestudent_profile values(#{menteeStudent_school},#{menteeStudent_major},#{menteeStudent_state},#{menteeStudent_grade},#{menteeStudent_spec},#{menteeStudent_etc},#{member_email})
 	</insert>
+	<update id="member_flagUpdate1" parameterType="Map">
+		update mentors_member set member_flag = 2 where member_email = #{member_email}
+	</update>
+	
+	<insert id="menteeEmployeeInput" parameterType="Map">
+		insert into menteeemployee_profile values(#{menteeEmployee_year},#{menteeEmployee_final},#{menteeEmployee_school},#{menteeEmployee_career},#{menteeEmployee_etc},#{member_email})
+	</insert>
+	<update id="member_flagUpdate2"  parameterType="Map">
+		update mentors_member set member_flag = 2 where member_email = #{member_email}
+	</update>
+	
 	<update id="menteeStudentSave" parameterType="Map">
 		update menteestudent_profile set menteestudent_school = #{menteeStudent_school},
 											 menteestudent_major = #{menteeStudent_major},
@@ -31,10 +43,6 @@
 											 menteestudent_etc = #{menteeStudent_etc} 
 											 where menteestudent_email = #{mentee_email}
 	</update>
-	
-	<insert id="menteeEmployeeInput" parameterType="Map">
-		insert into menteeemployee_profile values(#{menteeEmployee_year},#{menteeEmployee_final},#{menteeEmployee_school},#{menteeEmployee_career},#{menteeEmployee_etc},#{member_email})
-	</insert>
 	
 	<update id="menteeEmployeeSave" parameterType="Map">
 		update menteeemployee_profile set menteeemployee_year = #{menteeEmployee_year},

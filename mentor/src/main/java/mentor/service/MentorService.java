@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import meetingboard.bean.ReviewDTO;
+import member.bean.MemberDTO;
 import mentor.bean.MentorDTO;
 import mentor.bean.MentorFollowDTO;
 
@@ -61,6 +62,11 @@ public interface MentorService {
 
 	public int getFollow(int mentor_seq);
 
+
+	public List<MemberDTO> getFollowerList(String mentor_email);
+
+
 	public int getMenteeInfo_count(String member_email);
+
 
 }

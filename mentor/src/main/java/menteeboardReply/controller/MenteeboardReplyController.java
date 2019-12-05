@@ -110,7 +110,6 @@ public class MenteeboardReplyController {
 		menteeboardPaging.setTotalA(totalA);
 		menteeboardPaging.makeReplyPagingHTML(menteeboard_seq);
 		
-		
 		//댓글쓴 게시물의 reply -1
 		menteeboardReplyService.menteeboardReplyDown(menteeboard_seq);
 		

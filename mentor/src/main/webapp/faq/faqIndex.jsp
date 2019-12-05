@@ -57,7 +57,7 @@
 <div class="navbar-inner">
     <div class="container-fluid">
         <a class="brand" href="/mentor/faq/faqIndex">
-            <img src="//d33v4339jhl8k0.cloudfront.net/docs/assets/5afcd47d2c7d3a640ed6edc1/images/5afcda42042863158411de84/logo.png" alt="자주하는 질문" style="width: 30%; height: 3%;">
+            <img src="../image/logo.png" alt="자주하는 질문" style="width: 160px; height: 70px;">
         </a>
             <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                 <span class="sr-only">Toggle Navigation</span>
@@ -68,7 +68,7 @@
         <div class="nav-collapse collapse">
             <nav role="navigation"><!-- added for accessibility -->
             <ul class="nav">
-               <li id="contact"><a class="contactUs" id="contactUs" style="cursor: pointer;">문의하기</a></li>
+               <li id="contact"><a class="contactUs" id="contactUs" style="line-height: 70px; cursor: pointer;">문의하기</a></li>
             </ul>
             </nav>
         </div><!--/.nav-collapse -->

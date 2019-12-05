@@ -140,6 +140,15 @@ public class AdminmemberServiceImpl implements AdminmemberService{
 	public int getSearchmenteeTotalA(Map<String, Object> map) {
 		return adminmemberDAO.getSearchmenteeTotalA(map);
 	}
+	@Override
+	public void setMentorUpdateAlarm(int check) {
+		adminmemberDAO.setMentorUpdateAlarm(check);
+	}
+
+	@Override
+	public void setMenteeUpdateAlarm(int check) {
+		adminmemberDAO.setMenteeUpdateAlarm(check);
+	}
 	
 	
 }

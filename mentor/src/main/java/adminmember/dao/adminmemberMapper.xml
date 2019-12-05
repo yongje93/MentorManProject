@@ -315,4 +315,26 @@ select count(*) from mentors_member
 where  member_flag= 0
 and	   member_name like '%'||#{adminmenteeKeyword}||'%'
 </select>
+
+<insert id="setMentorUpdateAlarm" parameterType="Integer">
+	insert into myAlarm (myAlarm_seq , myAlarm_receiverEmail , myAlarm_callerNickname , myAlarm_Title , myAlarm_content)
+	values
+	(myAlarm_seq.nextval
+	,(select mentor_email from mentor where mentor_seq = #{check})
+	,'관리자'
+	,'멘토 심사 알림'
+	, '관리자님에 의해 멘토로 등록 되었습니다. 축하드립니다 🥳')
+</insert>
+
+<insert id="setMenteeUpdateAlarm" parameterType="Integer">
+	insert into myAlarm (myAlarm_seq , myAlarm_receiverEmail , myAlarm_callerNickname , myAlarm_Title , myAlarm_content)
+	values
+	(myAlarm_seq.nextval
+	,(select mentor_email from mentor where mentor_seq = #{check})
+	,'관리자'
+	,'멘토 심사 알림'
+	, '관리자님에 의해 아쉽게도 멘토 심사에서 탈락했습니다.')
+</insert>
+
+
 </mapper>

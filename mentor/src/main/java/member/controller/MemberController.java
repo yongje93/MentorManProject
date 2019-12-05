@@ -383,15 +383,13 @@ public class MemberController {
 	//멘토가 멘티에게 답변 보내기
 	@RequestMapping(value = "answerSuccess", method=RequestMethod.POST)
 	@ResponseBody
-	public void answerSuccess(@RequestParam Map<String, String> map, HttpSession session) {
-		MemberDTO memberDTO = (MemberDTO) session.getAttribute("memDTO"); //멘토 로그인
+	public void answerSuccess(@RequestParam Map<String, String> map) {
 		memberService.answerSave(map);
 	}
 
 	@RequestMapping(value = "answerModify", method=RequestMethod.POST)
 	@ResponseBody
-	public void answerModify(@RequestParam Map<String, String> map, HttpSession session) {
-		MemberDTO memberDTO = (MemberDTO) session.getAttribute("memDTO"); //멘토 로그인
+	public void answerModify(@RequestParam Map<String, String> map) {
 		memberService.answerModify(map);
 	}
 

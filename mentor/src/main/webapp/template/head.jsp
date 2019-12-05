@@ -74,7 +74,7 @@
 								</c:if>
 								<li><a type="external" href="/mentor/menteeboard/menteeboardList">멘티 게시판</a></li>
 								<li><a type="external" href="/mentor/intern/internMain">공채 정보</a></li>
-								<li><a type="external" href="/mentor/member/myQandA?pg=1">나의 질문/답변 <span class="badge color-red alim" id="myQandA_count" style="margin: auto;"></span></a></li>
+								<li><a type="external" href="/mentor/member/myQandA?pg=1">나의 질문/답변 <span class="badge color-red alim" id="myQandA_count" style="margin: auto; margin-right: 10px;"></span></a></li>
 								<li><a type="external" href="/mentor/essayboard/essayboardAttention">관심에세이</a></li>
 								<li><a type="external" href="/mentor/mentor/mentorAttention">관심멘토</a></li>
 							</ul>

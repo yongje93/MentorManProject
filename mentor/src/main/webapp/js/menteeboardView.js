@@ -69,7 +69,7 @@ $(document).ready(function() {
 			
 			if($('.modifyText').length == 0){
 				var inputContent = $('.content_'+seq).text();
-				texthtml = '<div class="noticeboardFloat_right_div"><input type="text" class="modifyText" name="modifyText" value="'+inputContent +'" autofocus><input type="button" id="sec_'+btnId+'" name="'+seq+'" class="button color-gray modifyReply" value="2번째수정" ></div>'
+				texthtml = '<div class="noticeboardFloat_right_div"><input type="text" class="modifyText" name="modifyText" value="'+inputContent +'" autofocus><input type="button" id="sec_'+btnId+'" name="'+seq+'" class="button color-gray modifyReply" value="수정" ></div>'
 				$('.'+btnId).append(texthtml);
 			}
 			
@@ -97,42 +97,9 @@ $(document).ready(function() {
 							$('.modifyText').val('');
 							$('#inputList').empty();
 							
-							let $frag = $(document.createDocumentFragment());
-							$.each(data['list'], function(key, value){
-								var str = '<div class="row no-gap">'+
-								'<div id="thanks-notes">'+
-								'<div class="block mentee-detail-block thanks-note-card" hidden="" '+
-									'style="display: block;">'+
-									'<div class="mentee-info">'+
-										'<div class="mentee-image img-circle">';
-										if(value.menteeboardRelpy_profile != 'profile.jpg'){
-											str += '<img width="150" height="150" src="../storage/'+ value.menteeboardReply_email +'/'+value.menteeboardReply_profile+'">';
-										}
-										
-										if(value.menteeboardRelpy_profile == 'profile.jpg'){
-											str +='<img width="150" height="150" src="../image/profile.jpg">';
-										}
-										str += '</div>'+
-										'<div class="mentee-name">'+ value.menteeboardReply_nickname +
-										'<div class="sent-date">'+value.menteeboardReply_logtime+'</div>'+
-									'</div>' +
-									'<div class="modifyReply_hide_'+value.menteeboardReply_seq +'">'+
-									'<div class="thanks-note-body content_'+value.menteeboardReply_seq+'">'+value.menteeboardReply_content+'</div>'; 
-								if( $('#memEmail').val() === value.menteeboardReply_email){
-									str += '<div class="noticeboardFloat_right_div"><input type="button" id="modifyReply'+(key+1)+'" name="'+value.menteeboardReply_seq+'" class="button color-gray modifyReply" value="수정" ></div>'+
-			            			'<div class="noticeboardFloat_right_div"><input type="button" id="deleteReply'+(key+1)+'" name="'+value.menteeboardReply_seq+'" class="button color-gray deleteReply" value="삭제" ></div>';
-								}
-								str += '</div>'+
-									'<div class="modifyReply'+(key+1)+'"></div>'+
-								'</div>' +
-								'</div>' +
-								'</div>';
-								
-								 $frag.append(str);
-							});
-							$frag.append('<div class="block mentee-detail-block thanks-note-card" id="menteeboardPagingDiv">'+data.menteeboardPaging.pagingHTML+'</div><hr>');
-							$('#inputList').append($frag);
+							menteeboardViewList(data);
 							
+							$('#inputList').append('<div class="block mentee-detail-block thanks-note-card" id="menteeboardPagingDiv">'+data.menteeboardPaging.pagingHTML+'</div><hr>');
 							$('.modifyReply_hide_' + seq).show();
 						},
 						error : function(){
@@ -166,39 +133,9 @@ $(document).ready(function() {
 				success : function(data){
 					$('#inputList').empty();
 					
-					let $frag = $(document.createDocumentFragment());
-					$.each(data['list'], function(key, value){
-						var str = '<div class="row no-gap">'+
-						'<div id="thanks-notes">'+
-						'<div class="block mentee-detail-block thanks-note-card" hidden="" '+
-							'style="display: block;">'+
-							'<div class="mentee-info">'+
-							'<div class="mentee-image img-circle">';
-								if(value.menteeboardRelpy_profile != 'profile.jpg'){
-									str += '<img width="150" height="150" src="../storage/'+ value.menteeboardReply_email +'/'+value.menteeboardReply_profile+'">';
-								}
-								if(value.menteeboardRelpy_profile == 'profile.jpg'){
-									str +='<img width="150" height="150" src="../image/profile.jpg">';
-								}
-								str +='</div>'+
-								'<div class="mentee-name">'+ value.menteeboardReply_nickname +'</div>' +
-								'<div class="sent-date">'+value.menteeboardReply_logtime+'</div>'+
-							'</div>' +
-							'<div class="modifyReply_hide_'+value.menteeboardReply_seq +'">'+
-							'<div class="thanks-note-body content_'+value.menteeboardReply_seq+'">'+value.menteeboardReply_content+'</div>'; 
-						if( $('#memEmail').val() === value.menteeboardReply_email){
-							str += '<div class="noticeboardFloat_right_div"><input type="button" id="modifyReply'+(key+1)+'" name="'+value.menteeboardReply_seq+'" class="button color-gray modifyReply" value="수정" ></div>'+
-	            			'<div class="noticeboardFloat_right_div"><input type="button" id="deleteReply'+(key+1)+'" name="'+value.menteeboardReply_seq+'" class="button color-gray deleteReply" value="삭제" ></div>';
-						}
-						str += '</div>'+
-							'<div class="modifyReply'+(key+1)+'"></div>'+
-						'</div>' +
-						'</div>' +
-						'</div>';
-						 $frag.append(str);
-					});
-					$frag.append('<div class="block mentee-detail-block thanks-note-card" id="menteeboardPagingDiv">'+data.menteeboardPaging.pagingHTML+'</div><hr>');
-					$('#inputList').append($frag);
+					menteeboardViewList(data);
+					
+					$('#inputList').append('<div class="block mentee-detail-block thanks-note-card" id="menteeboardPagingDiv">'+data.menteeboardPaging.pagingHTML+'</div><hr>');
 				},
 				error : function(){
 					alert('삭제 실패');
@@ -225,39 +162,9 @@ $(document).ready(function() {
 					$('#content').val(''); 
 					let $frag = $(document.createDocumentFragment());
 					
-					$.each(data['list'], function(key, value){
-						var str = '<div class="row no-gap">'+
-						'<div id="thanks-notes">'+
-						'<div class="block mentee-detail-block thanks-note-card" hidden="" '+
-							'style="display: block;">'+
-							'<div class="mentee-info">'+
-								'<div class="mentee-image img-circle">';
-								if(value.member_profile != 'profile.jpg'){
-									str += '<img width="150" height="150" src="../storage/'+ value.menteeboardReply_email +'/'+value.member_profile+'">';
-								}
-								if(value.member_profile == 'profile.jpg'){
-									str +='<img width="150" height="150" src="../image/profile.jpg">';
-								}
-								str +='</div>'+
-								'<div class="mentee-name">'+ value.member_nickname+'</div>' +
-								'<div class="sent-date">'+value.menteeboardReply_logtime+'</div>'+
-							'</div>' +
-							'<div class="modifyReply_hide_'+value.menteeboardReply_seq +'">'+
-							'<div class="thanks-note-body content_'+value.menteeboardReply_seq+'">'+value.menteeboardReply_content+'</div>'; 
-						if( $('#memEmail').val() === value.menteeboardReply_email){
-							str += '<div class="noticeboardFloat_right_div"><input type="button" id="modifyReply'+(key+1)+'" name="'+value.menteeboardReply_seq+'" class="button color-gray modifyReply" value="수정" ></div>'+
-			    			'<div class="noticeboardFloat_right_div"><input type="button" id="deleteReply'+(key+1)+'" name="'+value.menteeboardReply_seq+'" class="button color-gray deleteReply" value="삭제" ></div>';
-						}
-						str += '</div>'+
-							'<div class="modifyReply'+(key+1)+'"></div>'+
-						'</div>' +
-						'</div>' +
-						'</div>';
-						 $frag.append(str);
-					});
+					menteeboardViewList(data);
 					
-					$frag.append('<div class="block mentee-detail-block thanks-note-card" id="menteeboardPagingDiv">'+data.menteeboardPaging.pagingHTML+'</div><hr>');
-					$('#inputList').append($frag);
+					$('#inputList').append('<div class="block mentee-detail-block thanks-note-card" id="menteeboardPagingDiv">'+data.menteeboardPaging.pagingHTML+'</div><hr>');
 					
 					
 					let memNickname = $('#memNickname').val();
@@ -301,6 +208,61 @@ $(document).ready(function() {
 			}); 
 		}
 	});
+	
+	
+	
+	
+	function menteeboardViewList(data,$frag) {
+		$.each(data['list'], function(key, value){
+			var str = '';
+			if(value.menteeboardReply_flag == 0){
+				str = '<div class="no-gap">'+
+				'<div id="thanks-notes">'+
+				'<div class="block mentee-detail-block thanks-note-card" hidden="" '+
+					'style="display: block;">'+
+					'<div class="mentee-info">'+
+						'<div class="mentee-image img-circle">';
+					if(value.member_profile != 'profile.jpg'){
+						str += '<img width="150" height="150" src="../storage/'+ value.menteeboardReply_email +'/'+value.member_profile+'">';
+					}
+					if(value.member_profile == 'profile.jpg'){
+						str +='<img width="150" height="150" src="../image/profile.jpg">';
+					}
+					str +='</div>'+
+					'<div class="mentee-name">'+ value.member_nickname+'</div>' +
+					'<div class="sent-date">'+value.menteeboardReply_logtime+'</div>'+
+				'</div>' +
+				'<div class="modifyReply_hide_'+value.menteeboardReply_seq +'">'+
+				'<div class="thanks-note-body content_'+value.menteeboardReply_seq+'">'+value.menteeboardReply_content+'</div>'; 
+			if( $('#memEmail').val() === value.menteeboardReply_email){
+				str += '<div class="noticeboardFloat_right_div"><input type="button" id="modifyReply'+(key+1)+'" name="'+value.menteeboardReply_seq+'" class="button color-gray modifyReply" value="수정" ></div>'+
+    			'<div class="noticeboardFloat_right_div"><input type="button" id="deleteReply'+(key+1)+'" name="'+value.menteeboardReply_seq+'" class="button color-gray deleteReply" value="삭제" ></div>';
+			}
+			str += '</div>'+
+				'<div class="modifyReply'+(key+1)+'"></div>'+
+			'</div>' +
+			'</div>' +
+			'</div><br/>';
+			$('#inputList').append(str);
+			}else{
+				str += '<div class="no-gap">'+
+					'<div id="thanks-notes">'+
+						'<div class="block mentee-detail-block thanks-note-card" hidden="" style="display: block;">'+
+							'<div class="mentee-info">'+
+								'<div class="mentee-image img-circle">'+
+									'<img width="150" height="150" src="../image/profile.jpg">'+
+								'</div>'+
+								'<div class="mentee-name">관리자</div>'+
+								'<div class="sent-date">'+ value.menteeboardReply_logtime +'</div>'+
+							'</div>'+
+							'<div class="thanks-note-body"><i class="fas fa-exclamation-circle" style="color:red;"></i>관리자에의해 삭제된 댓글입니다.</div>'+
+						'</div>'+
+					'</div> '+
+				'</div><br/>';
+				$('#inputList').append(str);
+			}
+		});
+	}
 	
 	
 	

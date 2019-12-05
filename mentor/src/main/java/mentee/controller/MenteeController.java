@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,7 +85,7 @@ public class MenteeController {
 	 * @Author : kujun95, @Date : 2019. 11. 12.
 	 */
 	@RequestMapping(value = "mentorUserModify", method = RequestMethod.POST)
-	public String mentorUserModify(@RequestParam Map<String, String> map, @RequestParam("member_profile") MultipartFile member_profile, Model model, HttpSession session) {
+	public String mentorUserModify(@RequestParam Map<String, String> map, @RequestParam("member_profile") MultipartFile member_profile, Model model, HttpSession session, HttpServletRequest request) {
 		if(member_profile.getOriginalFilename()!="") {
 			MemberDTO memberDTO = (MemberDTO) session.getAttribute("memDTO");
 			String filePath = "C:/github/MentorMan/mentor/src/main/webapp/storage/"+memberDTO.getMember_email();
@@ -117,6 +118,11 @@ public class MenteeController {
 			}
 			map.put("member_profile", fileName);
 			menteeService.mentorUserModify(map);
+			
+			//세션을 새로 생성
+			memberDTO.setMember_nickname(map.get("member_nickname"));
+			HttpSession session2 = request.getSession();
+			session2.setAttribute("memDTO", memberDTO);
 		}
 		
 		
@@ -213,13 +219,6 @@ public class MenteeController {
 		MemberDTO memberEmail = (MemberDTO) session.getAttribute("memDTO");
 		MemberDTO memberDTO = menteeService.menteePasswordCheck(memberEmail.getMember_email());
 		
-		System.out.println(currentPassword+"--------"+memberDTO.getMember_pwd());
-		
-//		if(!(memberDTO.getMember_pwd().equals(currentPassword))) {
-//			return "no";
-//		}else {
-//			return "ok";
-//		}
 		if(passwordEncoder.matches(currentPassword, memberDTO.getMember_pwd())) {
 			return "ok";
 		} else {

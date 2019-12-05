@@ -1,5 +1,5 @@
 
-
+//정보 수정
 $('#menteeUser_Save').on('click', function(){
 	$('#member_name_error').empty();
 	$('#member_nickname_error').empty();
@@ -160,7 +160,6 @@ $('#menteePassword_btn').on('click', function(){
 			data: 'currentPassword='+$('#currentPassword').val(),
 			dataType: 'text',
 			success: function(data){
-				alert(data);
 				if(data=="ok"){
 					$.ajax({
 						type: 'post',

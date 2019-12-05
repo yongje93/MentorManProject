@@ -16,7 +16,6 @@ function search(event, str){
 		$('#searchText').focus();
 		$('#searchText').attr('placeholder','찾으실 내용을 입력하세요');
 	}else {
-		alert($('#noticeboardSearch').serialize());
 		$.ajax({
 			type: 'post',
 			url: '/mentor/noticeboard/noticeboardSearch',
