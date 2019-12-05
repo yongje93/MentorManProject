@@ -38,7 +38,7 @@
 							</div>
 							<div class="chip chip-outline no-border-radius mentor-index" id="followView">
 								<div class="chip-label">
-									<span>팔로워 <strong class="highlight">${mentor_follow }</strong></span>
+									<span>팔로워 <strong class="highlight">${mentor_follow}</strong></span>
 								</div>
 							</div>
 						</div>
@@ -249,8 +249,6 @@
 	</div>
 <div id="dialog-background"></div>
 
-
-
 <script src="../js/mentor.js"></script>
 <script>
 	let currentPage = 1;
@@ -393,11 +391,8 @@
 							alert('err');
 						}
 					}); 
-					
-					 
-					
-					
-				}else{
+
+				} else{
 					followBtn.removeClass('button-fill');
 					var toastIcon = app.toast.create({
 						  text: '관심멘토에서 삭제 되었습니다',
@@ -408,8 +403,6 @@
 				}
 				
 				$('#followA').data('follow',data);
-				
-				
 				
 			},
 			error : function(){
@@ -423,6 +416,4 @@
 	$(document).on('click' , '#followView,#faqForm_backBtn' , function(){
 		$("#my-dialog,#dialog-background").toggle();
 	});
-	
-	
 </script>

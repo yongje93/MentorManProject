@@ -149,6 +149,9 @@ public class MeetingboardController {
 
 		// 안내사항
 		List<GuideDTO> guideList = meetingboardService.getGuideList();
+		//follow
+	  	List<MemberDTO> followerList = mentorService.getFollowerList(meetingboardDTO.getMember_email());
+	  	
 		ModelAndView mav = new ModelAndView();
 		if (Double.isNaN(questionPercent)) {
 			mav.addObject("questionPercent", 0);
@@ -159,6 +162,7 @@ public class MeetingboardController {
 		mav.addObject("guideList", guideList);
 		mav.addObject("mentor_follow", mentor_follow);
 		mav.addObject("meetingboardDTO", meetingboardDTO);
+		mav.addObject("followerList", followerList);
 		mav.addObject("pg", pg);
 		mav.addObject("display", "/meetingboard/meetingboardView.jsp");
 		mav.setViewName("/main/index");

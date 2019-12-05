@@ -10,6 +10,8 @@
 <fmt:formatDate var="meetingday" value="${parseDate}" pattern="MM월 dd일 (E)"/>
 <fmt:formatDate var="meetingdayCompare" value="${parseDate}" pattern="yyyy/MM/dd"/>	
 
+<link rel="stylesheet" href="../css/faq.css">
+
 <form name="meetingboardViewForm">
 <input type="hidden" name="seq" id="seq" value="${meetingboardDTO.meetingboard_seq}">
 <input type="hidden" name="pg" id="pg" value="${pg}">
@@ -107,7 +109,7 @@
 										<span>답변수 <strong class="highlight">${mentor_answer}</strong></span>
 									</div>
 								</div>
-								<div class="chip chip-outline no-border-radius mentor-index">
+								<div class="chip chip-outline no-border-radius mentor-index" id="followView">
 									<div class="chip-label">
 										<span>팔로워 <strong class="highlight">${mentor_follow}</strong></span>
 									</div>
@@ -168,6 +170,31 @@
 	    </div>
 	</div>
 </div>
+
+<!-- 팔로우뷰 모달 -->
+<div id="my-dialog">
+    <section id="contentArea" class="container-fluid" style="width : 400px; height: 464px;">
+		<div class="page-content" >
+			<div class="faqToContact_right_div" style="float: right;"><input type="button" id="faqForm_backBtn" class="button color-gray" value="X"></div>
+			<div class="block-title strong-title" style="margin-top: 8px;margin-bottom: 28px;">팔로워</div>
+			<c:forEach var="followerList" items="${followerList}">
+				<div class="block inset">
+					<div class="mentor-image-left img-circle">
+					<c:if test="${followerList.member_profile != 'profile.jpg'}">
+					<img width="40" height="40" src="../storage/${followerList.member_email}/${followerList.member_profile}">
+					</c:if>
+					<c:if test="${followerList.member_profile == 'profile.jpg'}">
+						<img width="40" height="40" src="../image/profile.jpg">
+					</c:if>
+					&nbsp; ${followerList.member_nickname}
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+	</section>
+</div>
+<div id="dialog-background"></div>
+
 <script src="../js/meetingboard.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=89c3afe322de0763fb20750b2bf6b62a&libraries=services"></script>
 <script type="text/javascript">
@@ -206,4 +233,9 @@
     
 	// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
 	infowindow.open(map, marker);
+	
+	//팔로워 보여주기
+	$(document).on('click' , '#followView,#faqForm_backBtn' , function(){
+		$("#my-dialog,#dialog-background").toggle();
+	});
 </script>
