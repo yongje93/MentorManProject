@@ -16,9 +16,7 @@ $(document).ready(function(){
 // 에세이 직무유형 버튼
 $(".row > a").on("click",function(event, data){// a태그 클릭시 작동
 	event.preventDefault(); // 클릭된 태그의 본래의 기능을 막음 즉, a태그 본래 기능을 막음
-	if($('#memNick').val() == ""){
-		location.href="/mentor/member/loginForm";
-	} else {
+	
 		$('#gap').empty();
 		$('.paging').empty();
 		$('.essayName').empty();
@@ -58,7 +56,7 @@ $(".row > a").on("click",function(event, data){// a태그 클릭시 작동
         }
 		
         essayjobType(page, flag);
-	}
+	
 });
 
 // 직무유형 버튼 값 처리
