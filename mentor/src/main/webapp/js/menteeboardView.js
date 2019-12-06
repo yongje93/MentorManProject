@@ -83,7 +83,12 @@ $(document).ready(function() {
 				$('.modifyReply_hide_' + seq2).hide();
 				
 				if($('.modifyText').val() == ''){
-					alert('수정할 내용을 입력하세요');
+					var toastTop = app.toast.create({
+			            text: '수정할 내용을 입력하세요.',
+			            position: 'top',
+			            closeButton: true,
+			          });
+			          toastTop.open();
 				}else{
 					$.ajax({
 						type : 'post',
@@ -103,7 +108,7 @@ $(document).ready(function() {
 							$('.modifyReply_hide_' + seq).show();
 						},
 						error : function(){
-							alert('수정 실패');
+							console.log('수정 실패')
 						}
 					});
 				}
@@ -112,9 +117,7 @@ $(document).ready(function() {
 		});
 		
 		$(document).on('click','.dapgleReply',function(){
-			alert($(this).attr('name')+' , 곧 구현');
-			
-			
+			//alert($(this).attr('name')+' , 곧 구현');
 		});
 		
 		//댓글 삭제 버튼 클릭시
@@ -138,7 +141,7 @@ $(document).ready(function() {
 					$('#inputList').append('<div class="block mentee-detail-block thanks-note-card" id="menteeboardPagingDiv">'+data.menteeboardPaging.pagingHTML+'</div><hr>');
 				},
 				error : function(){
-					alert('삭제 실패');
+					console.log('삭제 실패');
 				}
 			}); 
 		});
@@ -150,7 +153,12 @@ $(document).ready(function() {
 	//댓글 등록
 	$(document).on("click", "#regist", function(){
 		if($('#content').val() == ''){
-			alert('댓글을 입력하세요');
+			var toastTop = app.toast.create({
+	            text: '댓글을 입력하세요.',
+	            position: 'top',
+	            closeButton: true,
+	          });
+	          toastTop.open();
 		}else{
 			$.ajax({
 				type : 'post',
@@ -196,7 +204,7 @@ $(document).ready(function() {
 							}
 						},
 						error : function(err){
-							alert('알림저장 실패')
+							console.log('알림저장 실패');
 						}
 					});
 					

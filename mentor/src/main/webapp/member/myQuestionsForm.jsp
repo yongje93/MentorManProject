@@ -83,7 +83,7 @@
 		         </span>
 		       </h3>
 		   </div>
-			<c:if test="${flag==0}">
+			<c:if test="${flag==2}">
 				<c:if test="${auswerDTO.answer_content != null}">
 				<div class="card qa-thread-card question-card">
 				<div class="card-header">

@@ -65,11 +65,7 @@ public class IndexController {
 		// 추천에세이
 		List<EssayboardDTO> bestEssayList = essayboardService.getBestEssay(essayMap);
 		ModelAndView mav = new ModelAndView();
-		//회원 멘티 정보를 입력하지 않은 회원 체크
-		if(memberDTO != null) {
-			int menteeInfo_count = mentorService.getMenteeInfo_count(memberDTO.getMember_email());
-			mav.addObject("menteeInfo_count", menteeInfo_count);
-		}
+		
 
 		if(memberDTO != null) {
 			String nickname = memberDTO.getMember_nickname();
@@ -82,6 +78,19 @@ public class IndexController {
 	        	 scrapMap.put("seq", seq);
 	        	 scrapMap.put("memEmail" , memberDTO.getMember_email());
 
+	        	 int cnt = essayboardService.getEssayboardScrap(scrapMap);
+	        	 //스크랩을 눌렀다면
+	        	 if(cnt == 1) {
+	        		 //flag 1 저장
+	        		 essayboardDTO.setEssayboard_scrapFlag(cnt);
+	        	 }
+	         }
+	         //신규에세이
+	         for (EssayboardDTO essayboardDTO : newEssayList) {
+	        	 int seq = essayboardDTO.getEssayboard_seq();
+	        	 Map<String, Object> scrapMap = new HashMap<String, Object>();
+	        	 scrapMap.put("seq", seq);
+	        	 scrapMap.put("memEmail" , memberDTO.getMember_email());
 	        	 int cnt = essayboardService.getEssayboardScrap(scrapMap);
 	        	 //스크랩을 눌렀다면
 	        	 if(cnt == 1) {

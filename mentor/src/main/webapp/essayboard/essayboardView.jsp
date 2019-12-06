@@ -56,8 +56,16 @@
 							</div>
 							<a class="button col js-bookmark mentor2" id="followA" data-disable-with="..." type="external" data-remote="true" rel="nofollow" data-method="post" href="#"><!-- 주소 수정 -->
 							팔로우 </a>
-							<a class="button button-small button-fill" type="external" href="#"><!-- 주소 수정 -->
-							질문하기 </a>
+							<c:if test="${memDTO.member_flag == 0}">
+							    <a class="question button button-small button-fill" id="mentorQuestions" type="external" href="/mentor/mentor/userInfoCheck">
+							        질문하기
+							    </a>
+							</c:if>
+							<c:if test="${memDTO.member_flag == 1 or memDTO.member_flag == 2}">
+							    <a class="question button button-small button-fill" id="mentorQuestions" type="external" onclick="mentor_question_seq(${mentorDTO.mentor_seq},${pg})"><!-- pg seq 가져가라 -->
+							        질문하기
+							    </a>
+							</c:if>
 						</div>
 						<div class="job">
 							 ${mentorDTO.mentor_company } · ${mentorDTO.mentor_department }
@@ -104,4 +112,5 @@
 <input type="hidden" id="followVal" name="followVal" value="${follow}">
 
 <script src="../js/deleteEssayboard.js"></script>
+<script src="../js/mentor.js"></script>
 <script src="../js/essayboardView.js"></script>

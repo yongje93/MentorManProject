@@ -7,7 +7,7 @@
 	<h1 class="title">내 정보</h1>
 </div>
 <div class="block inset">
-	<form class="simple_form edit_user" id="menteeUserSetting" name="menteeUserSetting" novalidate="novalidate" enctype="multipart/form-data" accept-charset="UTF-8" method="post">
+	<form class="simple_form edit_user" id="menteeUserSetting" name="menteeUserSetting" novalidate="novalidate" enctype="multipart/form-data" action="/mentor/mentee/mentorUserModify" accept-charset="UTF-8" method="post">
 		<div class="list form-list no-hairlines">
 			<ul>
 				<div class="label-title">
@@ -18,7 +18,7 @@
 				<li class="item-content item-input">
 					<div class="item-inner">
 						<div class="item-input-wrap">
-							<input class=" is-valid string required" placeholder="이름" type="text" value="${memDTO.member_name}" name="member_name" id="member_name">
+							<input class=" is-valid string required" placeholder="이름" type="text" value="${memberDTO.member_name}" name="member_name" id="member_name">
 							<!-- 데이터 받아와야됨 -->
 						</div>
 						<div id="member_name_error"></div>
@@ -32,7 +32,7 @@
 				<li class="item-content item-input">
 					<div class="item-inner">
 						<div class="item-input-wrap">
-							<input class=" is-valid string email optional" readonly="readonly" placeholder="이메일 주소" type="text" value="${memDTO.member_email}" name="member_email" id="member_email">
+							<input class=" is-valid string email optional" readonly="readonly" placeholder="이메일 주소" type="text" value="${memberDTO.member_email}" name="member_email" id="member_email">
 							<!-- 데이터 받아와야됨 -->
 						</div>
 						<div id="member_email_error"></div>
@@ -46,7 +46,7 @@
 				<li class="item-content item-input">
 					<div class="item-inner">
 						<div class="item-input-wrap">
-							<input class="string tel optional" placeholder="변경하실 닉네임을 입력하세요" type="text" value="${memDTO.member_nickname}" name="member_nickname" id="member_nickname">
+							<input class="string tel optional" placeholder="변경하실 닉네임을 입력하세요" type="text" value="${memberDTO.member_nickname}" name="member_nickname" id="member_nickname">
 						</div>
 						<div id="member_nickname_error"></div>
 					</div>
@@ -60,11 +60,11 @@
 						<input class=" is-valid file optional" accept=".jpg, .jpeg, .png" type="file" name="member_profile" id="user_profile_image">
 						<!-- 이미지 받아서 value에 넣기 -->
 					</div>
-					<c:if test="${memDTO.member_profile == 'profile.jpg'}">
+					<c:if test="${memberDTO.member_profile == 'profile.jpg'}">
 			             <p><img id="user_profile_image_img" src="../image/profile.jpg" style="width: 100px; height: 100px;"></p>
 			        </c:if>
-			        <c:if test="${memDTO.member_profile != 'profile.jpg'}">
-			             <p><img id="user_profile_image_img" src="../storage/${memDTO.member_email}/${memDTO.member_profile}" style="width: 100px; height: 100px;"></p>
+			        <c:if test="${memberDTO.member_profile != 'profile.jpg'}">
+			             <p><img id="user_profile_image_img" src="../storage/${memberDTO.member_email}/${memberDTO.member_profile}" style="width: 100px; height: 100px;"></p>
 			        </c:if>
 					<div id="member_profile_error"></div>
 					<!-- member에서 가져온 이메일 + 이미지 -->
@@ -90,7 +90,9 @@
 </div>
 </div>
 <input type="hidden" id="nickname" value="${memberDTO.member_nickname}"> 
+<script type="text/javascript" src="../js/mentee.js"></script>
 <script>
+
 $(document).ready(
 	function() {
 		function readURL(input) {

@@ -363,12 +363,12 @@
 							data-method="post" href="" style="right: 0px; position: unset; margin: 0px 0px;"> 
 							<!-- <i class="far fa-bookmark" aria-hidden="false"></i> -->
 							<c:if test="${list.essayboard_scrapFlag == 1}">
-								<img id="${list.essayboard_seq}" src="../image/scrapOkImg.png" width="13">
+								<img class="${list.essayboard_seq}" src="../image/scrapOkImg.png" width="13">
 							</c:if> 
 							<c:if test="${list.essayboard_scrapFlag == 0}">
-								<img id="${list.essayboard_seq}" src="../image/scrapNoImg.png" width="13">
+								<img class="${list.essayboard_seq}" src="../image/scrapNoImg.png" width="13">
 							</c:if> 
-							<span id="ScrapDiv_${list.essayboard_seq}">${list.essayboard_scrap}</span>
+							<span class="ScrapDiv_${list.essayboard_seq}">${list.essayboard_scrap}</span>
 							<!-- 스크랩 끌고와야 함 --> 
 							<input type="hidden" id="scrapFlag"	name="scrapFlag" value="${list.essayboard_scrapFlag}">
 						</a>
@@ -439,11 +439,12 @@
 							<a class="color-gray js-bookmark" id="scrap" type="externalScrap" data-remote="true" rel="nofollow"
 								data-method="post" href="" style="right: 0px; position: unset; margin: 0px 0px;"> <!-- <i class="far fa-bookmark" aria-hidden="false"></i> -->
 								<c:if test="${list.essayboard_scrapFlag == 1}">
-									<img id="${list.essayboard_seq}" src="../image/scrapOkImg.png" width="13">
-								</c:if> <c:if test="${list.essayboard_scrapFlag == 0}">
-									<img id="${list.essayboard_seq}" src="../image/scrapNoImg.png" width="13">
+									<img class="${list.essayboard_seq}" src="../image/scrapOkImg.png" width="13">
 								</c:if> 
-								<span id="ScrapDiv_${list.essayboard_seq}">${list.essayboard_scrap}</span>
+								<c:if test="${list.essayboard_scrapFlag == 0}">
+									<img class="${list.essayboard_seq}" src="../image/scrapNoImg.png" width="13">
+								</c:if> 
+								<span class="ScrapDiv_${list.essayboard_seq}">${list.essayboard_scrap}</span>
 							 	<input type="hidden" id="scrapFlag"	name="scrapFlag" value="${list.essayboard_scrapFlag}">
 							</a>
 							<div class="created-at"></div>
