@@ -127,8 +127,10 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberDTO newPwdCommit(Map<String, String> map) {
-		return memberDAO.newPwdCommit(map);
+	public void newPwdCommit(Map<String, String> map) {
+		String encPassword = passwordEncoder.encode(map.get("member_pwd"));
+		map.replace("member_pwd", encPassword);
+		memberDAO.newPwdCommit(map);
 	}
 
 	/**

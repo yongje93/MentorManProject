@@ -20,7 +20,7 @@ public interface MemberService {
 
 	public MemberDTO setmemberpwd(Map<String, String> map);
 
-	public MemberDTO newPwdCommit(Map<String, String> map);
+	public void newPwdCommit(Map<String, String> map);
 
 	public List<MentorDTO> getQandA(Map<String, String> map);
 

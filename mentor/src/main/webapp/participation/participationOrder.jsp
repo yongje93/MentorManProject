@@ -37,7 +37,7 @@
 											</a>
 										</div>
 											<c:if test="${participationDTO.meetingboard_state == 1}">
-												<span style="color: tomato; font-weight: bold; font-size: 19px;">모집이 완료 되었습니다!</span>
+												<span style="color: #ff2d55; font-weight: bold; font-size: 18px;">모집 완료된 모임입니다.</span>
 											</c:if>
 										<div class="product_meta">
 											<div class="product_amount">

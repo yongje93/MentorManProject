@@ -51,9 +51,8 @@ public class MemberDAOMybatis implements MemberDAO {
 	}
 
 	@Override
-	public MemberDTO newPwdCommit(Map<String, String> map) {
+	public void newPwdCommit(Map<String, String> map) {
 		sqlSession.update("memberSQL.newPwdCommit", map);
-		return memberDTO;
 	}
 
 	/**
