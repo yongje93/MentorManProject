@@ -27,6 +27,11 @@ public class AdminmemberServiceImpl implements AdminmemberService{
 	}
 	
 	@Override
+	public void deleteMember(Map<String, String[]> map) {
+		adminmemberDAO.deleteMember(map);
+	}
+
+	@Override
 	public List<AdminmemberDTO> memberClassfication(Map<String, Integer> map) {
 		return adminmemberDAO.memberClassfication(map);
 	}
@@ -68,7 +73,6 @@ public class AdminmemberServiceImpl implements AdminmemberService{
 		return adminmemberDAO.getSearchmentorTotalA(map);
 	}
 	
-	
 	@Override
 	public List<AdminmentorDTO> mentorClassfication(Map<String, Integer> map) {
 		return adminmemberDAO.mentorClassfication(map);
@@ -81,6 +85,7 @@ public class AdminmemberServiceImpl implements AdminmemberService{
 		map.put("endNum", endNum); 
 		return adminmemberDAO.getAdminmentorApplyList(map);
 	}
+	
 	@Override
 	public int getMentorApplyTotalA() {
 		return adminmemberDAO.getMentorApplyTotalA();
@@ -96,8 +101,18 @@ public class AdminmemberServiceImpl implements AdminmemberService{
 	}
 	
 	@Override
+	public AdminmentorDTO adminmentorView(int mentor_seq) {
+		return adminmemberDAO.adminmentorView(mentor_seq);
+	}
+
+	@Override
 	public void adminmentorSuccess(Map<String, String[]> map) {
 		adminmemberDAO.adminmentorSuccess(map);
+	}
+	
+	@Override
+	public void adminflagMentor(Map<String, String[]> map) {
+		adminmemberDAO.adminflagMentor(map);
 	}
 
 	@Override

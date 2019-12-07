@@ -26,6 +26,7 @@ import adminboard.bean.AdminnoticeboardDTO;
 import adminboard.service.AdminboardService;
 import essayboard.bean.EssayboardDTO;
 import meetingboard.bean.MeetingboardDTO;
+import mentee.service.MenteeService;
 import menteeboard.bean.MenteeboardDTO;
 
 /** 
@@ -171,6 +172,15 @@ public class AdminBoardController {
 		mav.setViewName("/admin/adminMain");
 		return mav;
 	}
+	
+	@RequestMapping(value="deleteBoard", method=RequestMethod.POST)
+	@ResponseBody
+	public void deleteBoard(@RequestParam String[] check) {
+		System.out.println(check[0]);
+		Map<String, String[]> map = new HashMap<String, String[]>();
+		map.put("check", check);
+		adminboardService.menteeboardDelete(map);
+	}
 /*에세이보드 리스트------------------------------------------------------------------------------------------*/
 	/* description : 에세이보드 리스트 */
 	@RequestMapping(value="adminessayList",method = RequestMethod.GET)
@@ -238,16 +248,4 @@ public class AdminBoardController {
 		mav.setViewName("/admin/adminMain");
 		return mav;
 	}
-//	/* description : 모임게시판 삭제 11.22수정 */
-//	@RequestMapping(value="adminmeetingboardDelete",method = RequestMethod.POST)
-//	@ResponseBody
-//	public void adminmeetingboardDelete(@RequestParam String[] check) {
-//		Map<String, String[]> map = new HashMap<String, String[]>();
-//		for (String seq : check) {
-//			System.out.println(seq);
-//		}
-//		map.put("check", check);
-//		adminboardService.adminmeetingboardDelete(map);
-//	}
-
 }

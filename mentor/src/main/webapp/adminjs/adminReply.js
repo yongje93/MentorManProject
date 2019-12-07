@@ -27,13 +27,14 @@ function toastr_wran(){
 
 function delete_re(){
 	toastr.options = {
+			"closeButton": true,
 			"positionClass": "toast-top-center",
-			/*"timeOut": "2000",*/
+			"timeOut": 0,
 			"hideEasing": "linear",
 			"showMethod": "fadeIn",
 			"hideMethod": "fadeOut"
 			}
-	toastr.info("삭제하시겠습니까?<br /><br /><button type=button class=redelete >Yes</button>");
+	toastr.info("삭제하시겠습니까?<br /><br /><button type=button class=redelete style=color:black>Yes</button>");
 }
 
 //고맙습니다 댓글 삭제

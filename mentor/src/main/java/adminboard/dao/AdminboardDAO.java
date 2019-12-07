@@ -31,8 +31,6 @@ public interface AdminboardDAO {
 
 	public int getMeetingboardTotalA();
 
-	public void adminmeetingboardDelete(Map<String, String[]> map);
-
 	public void adminnoticeboardWrite(Map<String, String> map);
 
 	public List<EssayboardDTO> getNewEssay(Map<String, Object> map);
@@ -42,5 +40,7 @@ public interface AdminboardDAO {
 	public List<MenteeboardDTO> getMenteeboardList(Map<String, Integer> map);
 
 	public int getMenteeTotalA();
+
+	public void menteeboardDelete(Map<String, String[]> map);
 
 }

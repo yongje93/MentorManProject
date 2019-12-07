@@ -55,14 +55,6 @@
   		select count(*) from meetingboard
   	</select>
   	
-  	<!-- 모임 게시글 삭제 -->
-  	<!-- <delete id="adminmeetingboardDelete" parameterType="java.util.Map">
-  		delete from meetingboard where meetingboard_seq in
-  		<foreach collection="check" item="meetingboard_seq" index="i" open="(" close=")" separator=",">
-			#{meetingboard_seq}${check[i]} 컬렉션만 $먹고 item인 seq는 #과$같이먹는다
-		</foreach>
-  	</delete> -->
-  	
   	<select id="getNewEssay" resultType="essay">
 		SELECT
       		*
@@ -122,4 +114,12 @@
 	select count(*) from menteeboard
 	</select>
 
+	<!-- 멘티게시판삭제 -->
+	<delete id="menteeboardDelete" parameterType="java.util.Map">
+			delete menteeboard where menteeboard_seq in
+			<foreach collection="check" item="menteeboard_seq" index="i" open="("
+				close=")" separator=",">
+				#{menteeboard_seq}<!-- ${check[i]} 컬렉션만 $먹고 item인 seq는 #과$같이먹는다 -->
+			</foreach>
+		</delete>
 </mapper>

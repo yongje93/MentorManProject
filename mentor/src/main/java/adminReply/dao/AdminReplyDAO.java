@@ -12,7 +12,7 @@ public interface AdminReplyDAO {
 
 	public int getThankyouTotalA();
 
-
+	public ReviewDTO thankyouView(int review_seq);
 
 	//멘티게시판
 	public List<MenteeboardReplyDTO> getAdminmenteeReply(Map<String, Integer> map);
@@ -22,6 +22,9 @@ public interface AdminReplyDAO {
 	public void meetingReviewDelete(Map<String, String[]> map);
 
 	public void menteeReplyDelete(Map<String, String[]> map);
+
+	public MenteeboardReplyDTO menteeReplyView(int menteeboardReply_seq);
+
 
 
 

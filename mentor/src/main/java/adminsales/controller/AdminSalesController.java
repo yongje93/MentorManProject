@@ -9,8 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import adminmember.bean.AdminmentorBoardListDTO;
+import adminmember.bean.AdminmentorSalesListDTO;
 import adminsales.service.AdminsalesService;
 import net.sf.json.JSONArray;
 
@@ -20,6 +24,7 @@ public class AdminSalesController {
 	
 	@Autowired
 	AdminsalesService adminsalesService;
+	
 	
 	@RequestMapping(value="daysSales",method=RequestMethod.GET)
 	public String daysSales(Model model) {
@@ -32,12 +37,12 @@ public class AdminSalesController {
 		return "/admin/adminMain";
 	}
 	
-	@RequestMapping(value="mentorSales",method=RequestMethod.GET)
-	public String mentorSales(Model model) {
-		model.addAttribute("display", "/adminsales/mentorSales.jsp");
+	@RequestMapping(value="mentorSalesRatio",method=RequestMethod.GET)
+	public String mentorSalesRatio(Model model) {
+		model.addAttribute("display", "/adminsales/mentorSalesRatio.jsp");
 		return "/admin/adminMain";
 	}
-	
+
 	@RequestMapping(value="daySalesChart",method=RequestMethod.POST)
 	@ResponseBody
 	public JSONArray daySalesChart() {
@@ -61,5 +66,18 @@ public class AdminSalesController {
 		List<Map<String, String>> list = adminsalesService.mentorSalesChart();
 		JSONArray jsonArray = JSONArray.fromObject(list);
 		return jsonArray;
+	}
+	
+	@RequestMapping(value="mentorSales",method=RequestMethod.GET)
+	public ModelAndView mentorSales(ModelAndView mav,
+									@RequestParam (required=false,defaultValue="1") String pg) {
+		//사람 매출
+		List<AdminmentorSalesListDTO> salesList = adminsalesService.getMentorSales();
+		//사람 리스트 개수
+		
+		mav.addObject("salesList", salesList);
+		mav.addObject("display", "/adminsales/mentorSales.jsp");
+		mav.setViewName("/admin/adminMain");
+		return mav;
 	}
 }

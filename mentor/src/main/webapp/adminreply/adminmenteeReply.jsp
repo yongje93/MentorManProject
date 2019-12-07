@@ -24,6 +24,7 @@
 									<tr>
 										<th><input type="checkbox" id="all"></th>
 										<th scope="col">번호</th>
+										<th scope="col">회원 이름</th>
 										<th scope="col">회원 닉네임</th>
 										<th scope="col">회원 메일</th>
 										<th scope="col">댓글 내용</th>
@@ -37,15 +38,20 @@
 										<c:if test="${menteeReplyDTO.menteeboardReply_flag eq '0'}">
 										<td><input type="checkbox" class="check"value="${menteeReplyDTO.menteeboardReply_seq }"></td>
 										<td>${menteeReplyDTO.menteeboardReply_seq }</td>
-										<td><img src="../image/${menteeReplyDTO.member_profile }" width="30" height="30">${menteeReplyDTO.member_nickname }</td>
+										<td><img src="../image/${menteeReplyDTO.member_profile }" width="30" height="30" style="border-radius: 50%;">${menteeReplyDTO.member_name }</td>
+										<td>${menteeReplyDTO.member_nickname }</td>
 										<td>${menteeReplyDTO.menteeboardReply_email }</td>
 										<td>
 											<c:choose>
 												<c:when test="${fn:length(menteeReplyDTO.menteeboardReply_content) gt 50}">
-													<c:out value='${fn:substring(menteeReplyDTO.menteeboardReply_content.replaceAll("\\\<.*?\\\>|&nbsp;",""), 0, 40)}'/>...
+													<a href="/mentor/adminreply/menteeReplyView?seq=${menteeReplyDTO.menteeboardReply_seq }" style="cursor:pointer;">
+														<c:out value='${fn:substring(menteeReplyDTO.menteeboardReply_content.replaceAll("\\\<.*?\\\>|&nbsp;",""), 0, 40)}'/>...
+													</a>
 												</c:when>
 												<c:otherwise>
-													<c:out value="${menteeReplyDTO.menteeboardReply_content}"/>
+													<a href="/mentor/adminreply/menteeReplyView?seq=${menteeReplyDTO.menteeboardReply_seq }" style="cursor:pointer;">
+														<c:out value="${menteeReplyDTO.menteeboardReply_content}"/>
+													</a>
 												</c:otherwise>
 											</c:choose>
 										</td>

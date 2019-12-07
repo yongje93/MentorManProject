@@ -66,6 +66,6 @@
 	</select>
 	
 	<delete id="memberDeleteSuccess" parameterType="int">
-	<!-- 보류 -->
+		delete from mentors_member where member_seq = #{member_seq}
 	</delete>
 </mapper>

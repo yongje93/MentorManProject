@@ -20,6 +20,8 @@ public interface AdminmemberService {
 
 	public int getSearchmemeberTotalA(Map<String, Object> map);
 
+	public void deleteMember(Map<String, String[]> map);
+
 	//멘토리스트
 	public List<AdminmentorDTO> getAdminmentorList(Map<String, Integer> map);
 
@@ -33,7 +35,11 @@ public interface AdminmemberService {
 
 	public int getMentorApplyTotalA();
 
+	public AdminmentorDTO adminmentorView(int mentor_seq);
+
 	public void adminmentorSuccess(Map<String, String[]> map);
+	
+	public void adminflagMentor(Map<String, String[]> map);
 
 	public void adminmentorReject(Map<String, String[]> map);
 

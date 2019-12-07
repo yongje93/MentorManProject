@@ -15,10 +15,15 @@ public interface AdminreplyService {
 	
 	public void meetingReviewDelete(Map<String, String[]> map);
 		
+	public ReviewDTO thankyouView(int review_seq);
+
 	//멘티게시판 댓글
 	public List<MenteeboardReplyDTO> getAdminmenteeReply(Map<String, Integer> map);
 
 	public int getMenteeReplyTotalA();
 
 	public void menteeReplyDelete(Map<String, String[]> map);
+
+	public MenteeboardReplyDTO menteeReplyView(int menteeboardReply_seq);
+
 }

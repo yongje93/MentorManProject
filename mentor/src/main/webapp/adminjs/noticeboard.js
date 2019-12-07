@@ -13,6 +13,32 @@ $('#all').click(function(){
 			$('.check').prop('checked',false);
 });
 
+//항목을선택해라
+function toastr_wran(){
+	toastr.options = {
+			"progressBar": true,
+			"positionClass": "toast-top-center",
+			"timeOut": "2000",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+	};
+	toastr.warning("항목을선택하세요");
+}
+//지우겠습니까
+function delete_notice(){
+	toastr.options = {
+			"closeButton": true,
+			"positionClass": "toast-top-center",
+			"timeOut": 0,
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+			}
+	toastr.info("삭제하시겠습니까?<br /><br /><button type=button class=nodelete style=color:black>Yes</button>");
+}
+
+
 // 글삭제
 $('.noticeListBtn').click(function(){
 	var cnt = $('.check:checked').length;
@@ -21,21 +47,26 @@ $('.noticeListBtn').click(function(){
 		check[idx] = $(this).val();
 	});
 	if(cnt==0)
-		alert("항목을 선택하세요.");
-	else{
-		if(confirm("정말로 삭제하시겠습니까?")){
-			$.ajax({
-				type : 'post',
-				url : '/mentor/adminboard/adminnoticeboardDelete',
-				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-				data : 'check='+check,
-				success : function(){
-					location.href="/mentor/adminboard/adminnoticeboardList";
-				}
-			});				
-		}
-	}
+		toastr_wran();
+	else
+		notice_delete(check);
 });
+
+//지우자
+function notice_delete(check){
+	delete_notice();
+	$('.nodelete').click(function(){
+		$.ajax({
+			type : 'post',
+			url : '/mentor/adminboard/adminnoticeboardDelete',
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+			data : 'check='+check,
+			success : function(){
+				location.href="/mentor/adminboard/adminnoticeboardList";
+			}
+		});
+	});
+}
 
 //view단에서 뒤로가기
 $('.btn-info').on('click',function(){
@@ -113,9 +144,6 @@ $('.noticeboerdUpdateForm_btn').on('click',function(){
 			data: {'title':$('#noticeTitle').val(), 'content':$('#summernote').val(),'seq':$('#seq').val()},
 			success: function(){
 				location.href='/mentor/adminboard/adminnoticeboardList?pg='+$('#pg').val();
-			},
-			error: function(){
-				alert('에러');
 			}
 		});
 	}

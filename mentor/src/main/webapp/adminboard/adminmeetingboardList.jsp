@@ -94,4 +94,3 @@
 		</div><!--x_panel-->
 	</div>
 </div><!-- row -->
-<script src="../adminjs/meetingboard.js"></script>

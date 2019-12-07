@@ -6,7 +6,7 @@
 	<div class="col-md-12 col-sm-12 col-xs-12">
 		<div class="x_panel" style="height: 600px;">
 			<div class="x_title">
-				<h2>멘토신청대기 리스트</h2>
+				<h2>멘토신청 리스트</h2>
 					<ul class="nav navbar-right panel_toolbox">
 						<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
 						<li><a class="close-link"><i class="fa fa-close"></i></a></li>
@@ -39,8 +39,11 @@
 								<c:forEach var="adminmentorDTO" items="${list }">
 								<c:if test="${adminmentorDTO.mentor_flag eq '0' }">
 									<tr>
-										<td><input type="checkbox" class="check"value="${adminmentorDTO.mentor_seq }"></td>
-										<td><img src="../image/${adminmentorDTO.member_profile }" width="30" height="30" style="border-radius: 50%;">${adminmentorDTO.member_name }</td>
+										<td><input type="checkbox" class="check"value="${adminmentorDTO.member_seq }"></td>
+										<td>
+											<img src="../image/${adminmentorDTO.member_profile }" width="30" height="30" style="border-radius: 50%;">
+											<a href="/mentor/adminmember/adminmentorView?seq=${adminmentorDTO.mentor_seq }&pg=${pg}">${adminmentorDTO.member_name }</a>
+										</td>
 										<td>${adminmentorDTO.mentor_company }</td>
 										<td>${adminmentorDTO.mentor_department }</td>
 										<td>${adminmentorDTO.job_type }</td>

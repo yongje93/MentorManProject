@@ -38,15 +38,15 @@
 								</thead>
 								<tbody>
 								<c:forEach var="adminmemberDTO" items="${list }">
-									<tr>
-										<td><img src="../image/${adminmemberDTO.member_profile }" width="30" height="30" style="border-radius: 50%;">${adminmemberDTO.member_name }</td>
-										<td>${adminmemberDTO.member_nickname }</td>
-										<td>${adminmemberDTO.member_email }</td>
-										<c:if test="${adminmemberDTO.member_flag eq '0'}">
-										<td>멘티</td>
+										<c:if test="${adminmemberDTO.member_flag eq '2'}">
+											<tr>
+												<td><img src="../image/${adminmemberDTO.member_profile }" width="30" height="30" style="border-radius: 50%;">${adminmemberDTO.member_name }</td>
+												<td>${adminmemberDTO.member_nickname }</td>
+												<td>${adminmemberDTO.member_email }</td>
+												<td>멘티</td>
+												<td>${adminmemberDTO.logtime }</td>
+											</tr>
 										</c:if>
-										<td>${adminmemberDTO.logtime }</td>
-									</tr>
 									</c:forEach>
 								</tbody>
 							</table>

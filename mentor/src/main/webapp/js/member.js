@@ -300,21 +300,27 @@ $(document).ready(function(){
 	
 	//질문 삭제
 	$('#delete_question').on('click', function(){
-		if(confirm('질문을 삭제하시겠습니까?')){
-			$.ajax({
-				type: 'post',
-				url: '/mentor/member/questionDelete',
-				data: {'question_seq': $('#question_seq').val()},
-				success: function(){
-					location.href='/mentor/member/myQandA';
-				},
-				error: function(){
-					alert('에러');
-				}
-			});
-		}else {
-			return '';
-		}
+		  var toastWithCallback = app.toast.create({
+		      text: '정말로 삭제하시겠습니까?',
+		      position: 'center',
+		      closeButton: true,
+		      on: {
+		         close: function() {
+		        	 $.ajax({
+		 				type: 'post',
+		 				url: '/mentor/member/questionDelete',
+		 				data: {'question_seq': $('#question_seq').val()},
+		 				success: function(){
+		 					location.href='/mentor/member/myQandA';
+		 				},
+		 				error: function(){
+		 					alert('에러');
+		 				}
+		 			});
+		         }
+		      }
+		   });   
+		   toastWithCallback.open();
 	});
 	
 	//답변 보내기

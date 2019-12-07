@@ -31,6 +31,12 @@ public class AdminmemberDAOMybatis implements AdminmemberDAO{
 		return sqlSession.selectList("adminmemberSQL.memberClassfication", map);
 	}
 
+	
+	@Override
+	public void deleteMember(Map<String, String[]> map) {
+		sqlSession.delete("adminmemberSQL.deleteMember", map);
+	}
+
 
 	@Override
 	public int getMemeberTotalA() {
@@ -94,12 +100,22 @@ public class AdminmemberDAOMybatis implements AdminmemberDAO{
 	public int getSearchmentorApplyTotalA(Map<String, Object> map) {
 		return sqlSession.selectOne("adminmemberSQL.getSearchmentorApplyTotalA",map);
 	}
+	
+	@Override
+	public AdminmentorDTO adminmentorView(int mentor_seq) {
+		return sqlSession.selectOne("adminmemberSQL.adminmentorView", mentor_seq);
+	}
 
 	@Override
 	public void adminmentorSuccess(Map<String, String[]> map) {
 		sqlSession.update("adminmemberSQL.adminmentorSuccess",map);
 	}
 	
+	@Override
+	public void adminflagMentor(Map<String, String[]> map) {
+		sqlSession.update("adminmemberSQL.adminflagMentor",map);
+	}
+
 	@Override
 	public void adminmentorReject(Map<String, String[]> map) {
 		sqlSession.delete("adminmemberSQL.adminmentorReject", map);

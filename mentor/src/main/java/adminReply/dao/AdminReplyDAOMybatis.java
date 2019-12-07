@@ -32,6 +32,11 @@ public class AdminReplyDAOMybatis implements AdminReplyDAO{
 	public void meetingReviewDelete(Map<String, String[]> map) {
 		sqlSession.update("adminreplySQL.meetingReviewDelete", map);
 	}
+	
+	@Override
+	public ReviewDTO thankyouView(int review_seq) {
+		return sqlSession.selectOne("adminreplySQL.thankyouView",review_seq);
+	}
 
 	//멘티게시판
 	@Override
@@ -47,6 +52,11 @@ public class AdminReplyDAOMybatis implements AdminReplyDAO{
 	@Override
 	public void menteeReplyDelete(Map<String, String[]> map) {
 		sqlSession.update("adminreplySQL.menteeReplyDelete", map);
+	}
+
+	@Override
+	public MenteeboardReplyDTO menteeReplyView(int menteeboardReply_seq) {
+		return sqlSession.selectOne("adminreplySQL.menteeReplyView",menteeboardReply_seq);
 	}
 
 	

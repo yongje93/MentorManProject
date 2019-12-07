@@ -15,7 +15,7 @@ public interface MemberDAO {
 
 	public void write(Map<String, String> map);
 
-	public MemberDTO setsetmemberpwd(Map<String, String> map);
+	public MemberDTO setmemberpwd(Map<String, String> map);
 
 	public MemberDTO newPwdCommit(Map<String, String> map);
 

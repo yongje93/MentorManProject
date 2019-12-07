@@ -213,11 +213,7 @@ public class MentorController {
 		mentorfindPaging.setTotalA(totalA);
 		mentorfindPaging.makePagingHTML();
 
-		//멘티 정보를 입력했는지 확인
-		if(memberDTO != null) {
-			int menteeInfo_count = mentorService.getMenteeInfo_count(memberDTO.getMember_email());
-			model.addAttribute("menteeInfo_count", menteeInfo_count);
-		}
+		
 		model.addAttribute("flag", 0);
 		model.addAttribute("memberDTO", memberDTO);
 		model.addAttribute("pg", pg);

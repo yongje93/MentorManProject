@@ -15,6 +15,7 @@ $('#all').click(function(){
 
 function toastr_wran(){
 	toastr.options = {
+			"closeButton": true,
 			"progressBar": true,
 			"positionClass": "toast-top-center",
 			"timeOut": "2000",
@@ -27,23 +28,25 @@ function toastr_wran(){
 
 function success_info(){
 	toastr.options = {
+			"closeButton": true,
 			"positionClass": "toast-top-center",
-			/*"timeOut": "2000",*/
 			"hideEasing": "linear",
+			"timeOut" : 0,
 			"showMethod": "fadeIn",
 			"hideMethod": "fadeOut"
 			}
-	toastr.info("승인하시겠습니까?<br /><br /><button type=button class=mentorSuccess >Yes</button>");
+	toastr.info("승인하시겠습니까?<br /><br /><button type=button class=mentorSuccess style=color:black>Yes</button>");
 }
 function reject_info(){
 	toastr.options = {
+			"closeButton": true,
 			"positionClass": "toast-top-center",
-			/*"timeOut": "2000",*/
 			"hideEasing": "linear",
+			"timeOut" : 0,
 			"showMethod": "fadeIn",
 			"hideMethod": "fadeOut"
 	}
-	toastr.info("거절하시겠습니까?<br /><br /><button type=button class=mentorReject >Yes</button>");
+	toastr.info("거절하시겠습니까?<br /><br /><button type=button class=mentorReject style=color:black>Yes</button>");
 }
 
 // 멘토승인

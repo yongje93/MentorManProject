@@ -66,11 +66,6 @@ public class AdminboardServiceImpl implements AdminboardService{
 		return adminboardDAO.getMeetingboardTotalA();
 	}
 
-	@Override
-	public void adminmeetingboardDelete(Map<String, String[]> map) {
-		adminboardDAO.adminmeetingboardDelete(map);
-	}
-
 	//에세이
 	@Override
 	public List<EssayboardDTO> getNewEssay(Map<String, Object> map) {
@@ -91,4 +86,11 @@ public class AdminboardServiceImpl implements AdminboardService{
 	public int getMenteeTotalA() {
 		return adminboardDAO.getMenteeTotalA();
 	}
+
+	@Override
+	public void menteeboardDelete(Map<String, String[]> map) {
+		 adminboardDAO.menteeboardDelete(map);
+	}
+	
+	
 }

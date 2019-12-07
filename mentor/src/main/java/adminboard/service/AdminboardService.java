@@ -32,8 +32,6 @@ public interface AdminboardService {
 	public List<MeetingboardDTO> getMeetingboardList(Map<String, Integer> map);
 
 	public int getMeetingboardTotalA();
-
-	public void adminmeetingboardDelete(Map<String, String[]> map);
 	
 	//에세이
 	public List<EssayboardDTO> getNewEssay(Map<String, Object> map);
@@ -44,5 +42,7 @@ public interface AdminboardService {
 	public List<MenteeboardDTO> getMenteeboardList(Map<String, Integer> map);
 
 	public int getMenteeTotalA();
+
+	public void menteeboardDelete(Map<String, String[]> map);
 	
 }

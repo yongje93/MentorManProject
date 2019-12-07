@@ -4,7 +4,7 @@ var jobs = new Array();
 // 메인에서 더보기 링크 처리
 $(document).ready(function(){
 	var essayFlag = $('#recommend_view_essay').val();
-	
+
 	if(essayFlag == 1){
 		$('.essayName').empty();
 		$('#recommend_essay').attr('class', 'button');
@@ -16,61 +16,61 @@ $(document).ready(function(){
 // 에세이 직무유형 버튼
 $(".row > a").on("click",function(event, data){// a태그 클릭시 작동
 	event.preventDefault(); // 클릭된 태그의 본래의 기능을 막음 즉, a태그 본래 기능을 막음
-	
-		$('#gap').empty();
-		$('.paging').empty();
-		$('.essayName').empty();
-		$('#replace').val(jobs);
-		
-		var page;
-		
-		var flag = $('#essayFlag').val();
-		
-		if(flag == 0){
-			$('.essayName').text('신규 에세이');
-		} else if (flag == 1) {
-			$('.essayName').text('추천 에세이');
-		}
-		
-		// data(페이지 값)이 있으면 page에 값 부여
-		if(data != null){
-			 page = data.pg;				
-		}
-		
-		// 직무유형 버튼 on off 색상 변경
-		if($(this).hasClass("button color-gray active")){
-        	$(this).removeClass('active');
-        } else {
-        	$(this).addClass('active');
-        }
-		
-        var txt = $(this).attr("href");// href에 입력된 값을 가져옴 즉 클릭된 a의 job_code를 가져옴
-        var dateIndex = jobs.indexOf(txt);
-        
-        // 버튼 클릭시 배열에 같은 job_code가 있으면 삭제
-        // 없으면 job_code를 넣는다.
-        if (dateIndex==-1){ 
-            jobs.push(txt);
-        }else{ 
-            jobs.splice(dateIndex, 1);
-        }
-		
-        essayjobType(page, flag);
-	
+
+	$('#gap').empty();
+	$('.paging').empty();
+	$('.essayName').empty();
+	$('#replace').val(jobs);
+
+	var page;
+
+	var flag = $('#essayFlag').val();
+
+	if(flag == 0){
+		$('.essayName').text('신규 에세이');
+	} else if (flag == 1) {
+		$('.essayName').text('추천 에세이');
+	}
+
+	// data(페이지 값)이 있으면 page에 값 부여
+	if(data != null){
+		 page = data.pg;
+	}
+
+	// 직무유형 버튼 on off 색상 변경
+	if($(this).hasClass("button color-gray active")){
+    	$(this).removeClass('active');
+    } else {
+    	$(this).addClass('active');
+    }
+
+    var txt = $(this).attr("href");// href에 입력된 값을 가져옴 즉 클릭된 a의 job_code를 가져옴
+    var dateIndex = jobs.indexOf(txt);
+
+    // 버튼 클릭시 배열에 같은 job_code가 있으면 삭제
+    // 없으면 job_code를 넣는다.
+    if (dateIndex==-1){
+        jobs.push(txt);
+    }else{
+        jobs.splice(dateIndex, 1);
+    }
+
+    essayjobType(page, flag);
+
 });
 
 // 직무유형 버튼 값 처리
 function essayjobType(pg , flag){
 	$('#gap').empty();
 	$('.paging').empty();
-	
+
 	var page = parseInt(pg);
 	var Flag = parseInt(flag);
-	
+
 	if(typeof pg == "undefined"){
 		page = 1;
 	}
-	
+
 	$.ajax({
     	type : 'post',
     	url : '/mentor/essayboard/essayjobType',
@@ -81,23 +81,23 @@ function essayjobType(pg , flag){
     	contentType : "application/json; charset=UTF-8",
     	success : function(data){
     		let flag = $(document.createDocumentFragment());
-    		
+
     		$.each(data.list, function(index, items) {
-    			
+
     			// 에세이 보드 (신규, 추천) 플래그
     			if(items.essayboard_scrapFlag == 1){
 	    			var scrapFlag = "<img id="+ items.essayboard_seq +" src='../image/scrapOkImg.png' width='13'>"
-	    		} else {	
+	    		} else {
 	    			var scrapFlag = "<img id="+ items.essayboard_seq +" src='../image/scrapNoImg.png' width='13'>"
 	    		}
-    			
+
     			// 프로필 불러오기
     			if(items.member_profile != 'profile.jpg'){
     				var profileFlag = '<img width="50" height="50" src="../storage/' + items.mentor_email + '/' + items.member_profile + '">'
     			} else {
     				var profileFlag = "<img width='50' height='50' src='../image/profile.jpg'>"
     			}
-    			
+
     			// 에세이 내용 자르기
     			if(items.essayboard_content.length > 210){
     				var subContent = items.essayboard_content.replace(/<.*?>|&nbsp;/gi, "")
@@ -105,7 +105,7 @@ function essayjobType(pg , flag){
     			} else {
     				var subFlag = items.essayboard_content
     			}
-    			
+
     			let essayboard = `
     			<input type="hidden" id="job_code" value="${items.job_code }">
 				<div class="col-100 tablet-50 desktop-33">
@@ -134,7 +134,7 @@ function essayjobType(pg , flag){
 				            </div>
 				        </div>
 				        <div class="card-content card-content-padding"style="overflow: hidden; text-overflow: ellipsis; height: 200px; ">
-				        <input type="hidden" id="seq" name="seq" value="${items.essayboard_seq }">		
+				        <input type="hidden" id="seq" name="seq" value="${items.essayboard_seq }">
 				        <input type="hidden" id="essayNickname" name="essayNickname" value="${items.mentor_email }">
 		   				<input type="hidden" id="essayName" name="essayName" value="${items.member_name }">
 		   				<input type="hidden" id="memberSeq" name="memberSeq" value="${items.member_seq }">
@@ -145,7 +145,7 @@ function essayjobType(pg , flag){
 				                <div class="mentor-post-detail">
 				                    ${subFlag}
 				                </div>
-				            </a>  
+				            </a>
 				        </div>
 				        <div class="card-footer">
 				            <a class="color-gray js-bookmark" id="scrap" type="externalScrap" data-remote="true" rel="nofollow" data-method="post" href="/mentor_posts/6589/bookmarks" style="right: 0px;
@@ -153,7 +153,7 @@ function essayjobType(pg , flag){
 				                margin: 0px 0px;">
 				                ${scrapFlag}
 				                <span id="ScrapDiv_${items.essayboard_seq}">${items.essayboard_scrap}</span>
-				                
+
 				                <input type="hidden" id="scrapFlag" name="scrapFlag" value="${items.essayboard_scrapFlag}">
 				            </a>
 				            <input type="hidden" id="pg" name="pg" value="${data.pg }">
@@ -165,20 +165,20 @@ function essayjobType(pg , flag){
     			`;
 
     			$('#gap').append($(essayboard));
-    			
+
     		});
-    		
+
     		$('#gap').append($('<div/>', {
 				class : 'col-100 tablet-50 desktop-33'
 			})).append($('<div/>', {
 				class : 'col-100 tablet-50 desktop-33'
 			}));
-    		
+
     		$('#essayFlag').val(data.flag);
-    		
+
     		//총 블럭수 ex 32블럭
 		    var totalP=(Number(data.essayDutyTotal)+Number(data.pageSize)-1)/data.pageSize;
-		    //페이지 블럭 [1][2][3][다음 
+		    //페이지 블럭 [1][2][3][다음
 		    var pageBlock = 3;
 	   	    //현재 페이지
 		    var currentPage =data.boardpaging;
@@ -186,14 +186,14 @@ function essayjobType(pg , flag){
 		    var endPage = Number(startPage)+Number(pageBlock) -1;
     		//담을 변수
     		var atag ="";
-    		
+
     		if(endPage > totalP) {
     		  endPage = totalP;
     		}
     		if(startPage>pageBlock) {
     		  atag += '<li><a id="paging" href="#" onclick="essayPaging('+(startPage-1)+', '+ data.flag +'); return false;">이전</a></li>';
     		}
-    		for(j=startPage; j<=endPage; j++) { 
+    		for(j=startPage; j<=endPage; j++) {
     		  if(j == currentPage) {
     		    atag += '<li class="active"><a id="currentPaging" href="#" onclick="essayPaging('+j+', '+ data.flag +');return false;">'+ j +'</a></li>';
     		  }else {
@@ -203,13 +203,13 @@ function essayjobType(pg , flag){
     		if(endPage < totalP) {
     		  atag += '<li class="next"><a id="paging" href="#" onclick="essayPaging('+(endPage+1)+', '+ data.flag +'); return false;">다음</a></li>';
     		}
-    		
+
     		$('.paging').append($('<ul/>', {
     			class : 'pagination'
     		}).append(atag));
-    		
-    		//잡코드 버튼 클릭후 스크랩 버튼 이벤트 
-    		
+
+    		//잡코드 버튼 클릭후 스크랩 버튼 이벤트
+
     		$('a[type="externalScrap"]').on('click' , function(){
     			if($('#memNickname').val()== ''){
     				 var toastTop = app.toast.create({
@@ -223,11 +223,11 @@ function essayjobType(pg , flag){
     				var essayboardEmail = $(this).closest('div').prev().children().first().next().val();
     				var essayName = $(this).closest('div').prev().children().first().next().next().val();
     				var memberSeq = $(this).closest('div').prev().children().first().next().next().next().val();
-    				
+
     				if($(this).children().last().val() == 0){
     					$("#"+seq).prop("src", "../image/scrapOkImg.png");
     					$(this).children().last().val(1);
-    					
+
     					var toastIcon = app.toast.create({
     						  icon: app.theme === 'ios' ? '<i class="fas fa-bookmark fa-3x"></i>' : '<i class="fas fa-bookmark" style="width: 30px; height: 30px;"></i>',
     						  text: '',
@@ -240,9 +240,9 @@ function essayjobType(pg , flag){
     					$(this).children().last().val(0);
     				}
     				var scrapFlag = $(this).children().last().val()
-    				
-    				
-    				// seq , scrap_flag 
+
+
+    				// seq , scrap_flag
     				var sendData = {
     						'essayboardScrap_es_seq' : seq,
     						'scrapFlag' : scrapFlag
@@ -261,7 +261,7 @@ function essayjobType(pg , flag){
     							let receiverEmail = essayboardEmail;     //에세이 작성자 이메일
     							let essayboard_seq = seq; //에세이 seq
     							//alert(memNickname+'~' + nickname +'~' + receiverEmail +'~' + seq);
-    							
+
     							var AlarmData = {
     									"myAlarm_receiverEmail" : receiverEmail,
     									"myAlarm_callerNickname" : memNickname,
@@ -281,15 +281,15 @@ function essayjobType(pg , flag){
     										console.log("msgmsg : " + socketMsg);
     										socket.send(socketMsg);
     									}
-    									
+
     								},
     								error : function(err){
     									console.log(err);
     								}
     							});
-    							
+
     						}
-    						
+
     					},
     					error : function(err){
     						console.log('에러');
@@ -301,7 +301,7 @@ function essayjobType(pg , flag){
     	error : function(request,status,error){
     		alert("error code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
     	}
-    	
+
     });
 }
 
@@ -310,7 +310,7 @@ $('#recommend_essay').on('click', function(event){
 	event.preventDefault();
 	$('.essayName').empty();
 	var flag = null;
-	
+
 	if($(this).hasClass("button color-gray")){
     	$(this).removeClass('color-gray');
     	flag = 1;
@@ -318,15 +318,15 @@ $('#recommend_essay').on('click', function(event){
     	$(this).addClass('color-gray');
     	flag = 0;
     }
-	
+
 	if(flag == 0){
 		$('.essayName').text('신규 에세이');
 	} else if (flag == 1) {
 		$('.essayName').text('추천 에세이');
 	}
-	
+
 	essayjobType(1, flag);
-	
+
 });
 
 
@@ -357,12 +357,12 @@ $(document).ready(function() {
 			var essayName = $(this).closest('div').prev().children().first().next().next().val();
 			var memberSeq = $(this).closest('div').prev().children().first().next().next().next().val();
 			alert(seq + " , "+ essayboardEmail+","+ essayName +","+memberSeq)
-			
+
 			if($(this).children().last().val() == 0){
 				$("#"+seq).prop("src", "../image/scrapOkImg.png");
 				$(this).children().last().val(1);
-				
-				
+
+
 				var toastIcon = app.toast.create({
 					  icon: app.theme === 'ios' ? '<i class="fas fa-bookmark fa-3x"></i>' : '<i class="fas fa-bookmark" style="width: 30px; height: 30px;"></i>',
 					  text: '',
@@ -370,14 +370,14 @@ $(document).ready(function() {
 					  closeTimeout: 2000,
 					});
 				toastIcon.open();
-				
+
 			}else{
 				$("#"+seq).prop("src", "../image/scrapNoImg.png");
 				$(this).children().last().val(0);
 			}
 			var scrapFlag = $(this).children().last().val()
-			
-			// seq , scrap_flag 
+
+			// seq , scrap_flag
 			var sendData = {
 					'essayboardScrap_es_seq' : seq,
 					'scrapFlag' : scrapFlag
@@ -397,7 +397,7 @@ $(document).ready(function() {
 						let receiverEmail = essayboardEmail;     //에세이 작성자 이메일
 						let essayboard_seq = seq; //에세이 seq
 						//alert(memNickname+',' + nickname +',' + receiverEmail +',' + seq);
-						
+
 						var AlarmData = {
 								"myAlarm_receiverEmail" : receiverEmail,
 								"myAlarm_callerNickname" : memNickname,
@@ -417,13 +417,13 @@ $(document).ready(function() {
 									console.log("msgmsg : " + socketMsg);
 									socket.send(socketMsg);
 								}
-								
+
 							},
 							error : function(err){
 								console.log(err);
 							}
 						});
-						
+
 					}
 				},
 				error : function(err){
@@ -434,4 +434,3 @@ $(document).ready(function() {
 		}
 	});
 });
-

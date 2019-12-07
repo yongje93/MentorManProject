@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import adminmember.bean.AdminmentorSalesListDTO;
+
 @Repository("adminsalesDAO")
 @Transactional
 public class AdminsalesDAOMaybatis implements AdminsalesDAO{
@@ -28,6 +30,11 @@ public class AdminsalesDAOMaybatis implements AdminsalesDAO{
 	@Override
 	public List<Map<String, String>> mentorSalesChart() {
 		return sqlSession.selectList("adminsalesSQL.mentorSalesChart");
+	}
+
+	@Override
+	public List<AdminmentorSalesListDTO> getMentorSales() {
+		return sqlSession.selectList("adminsalesSQL.getMentorSales");
 	}
 	
 	

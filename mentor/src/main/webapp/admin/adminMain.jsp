@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!-- 관리자페이지 메인화면 입니다 -->
+
 <!DOCTYPE html>
 <html lang="ko" class="fa-events-icons-ready">
 <head>
@@ -32,13 +32,13 @@
 			<div class="col-md-3 left_col">
 				<div class="left_col scroll-view">
 					<div class="navbar nav_title" style="border: 0;">
-						<a href="../admin/adminMain" class="site_title"> <i class="fa fa-paw"></i><span>멘토맨 관리자</span></a>
+						<a href="../admin/adminMain" class="site_title"> <i class="fa fa-user-cog"></i><span>멘토맨 관리자</span></a>
 					</div>
 					<div class="clearfix"></div>
 					<!-- menu prile quick info -->
 					<div class="profile">
 						<div class="profile_pic">
-							<img src="../image/cookie.jpg"class="img-circle profile_img">
+							<img src="../image/logo.png"class="img-circle profile_img">
 						</div>
 						<div class="profile_info">
 							<span>안녕하세요!</span>
@@ -55,11 +55,11 @@
 							<ul class="nav side-menu">
 								<li class=""><a><i class="fa fa-user"></i>회원관리<span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="display: none;">
-										<!-- <li><a href="/mentor/adminmember/adminmemberList">모든 회원 리스트</a></li> -->
-										<li><a href="/mentor/adminmember/adminmentorList">멘토 리스트</a></li>
+										<li><a href="/mentor/adminmember/adminmemberList">모든 회원 리스트</a></li>
+										<li><a href="/mentor/adminmember/adminmentorList">명예멘토,멘토 리스트</a></li>
 										<li><a href="/mentor/adminmember/adminmenteeList">멘티 리스트</a></li>
 										<li><a href="/mentor/adminmember/adminmentorApplyList">멘토 신청 리스트</a></li>
-										<li><a href="/mentor/adminmember/adminmentorSales">멘토 매출 리스트</a></li>
+										<li><a href="/mentor/adminmember/adminmentorSales">명예멘토 등록</a></li>
 									</ul>
 								</li><!-- 회원관리 끝 -->
 								<li class=""><a><i class="fas fa-clipboard-check"></i>게시판 관리<span class="fa fa-chevron-down"></span></a>
@@ -74,10 +74,11 @@
 									<ul class="nav child_menu" style="display: none;">
 										<li><a href="/mentor/adminsales/daysSales">일별 매출</a></li>
 										<li><a href="/mentor/adminsales/monthSales">월별 매출</a></li>
+										<li><a href="/mentor/adminsales/mentorSalesRatio">멘토별 판매율</a></li>
 										<li><a href="/mentor/adminsales/mentorSales">멘토별 매출</a></li>
 									</ul>
 								</li><!-- 매출 끝 -->
-								<li class=""><a><i class="fas fa-barcode"></i>댓글 관리<span class="fa fa-chevron-down"></span></a>
+								<li class=""><a><i class="fa fa-replyd"></i>댓글 관리<span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="display: none;">
 										<li><a href="/mentor/adminreply/adminThankyou">고맙습니다 댓글</a></li>
 										<li><a href="/mentor/adminreply/adminmenteeReply">멘티게시판 댓글</a></li>

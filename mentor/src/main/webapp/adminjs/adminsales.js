@@ -50,8 +50,7 @@ function makeChart(chartData){
 					format: '{value:,.0f}',
 				}
 	      },
-		series:[{
-			 /*name:'아아아',*/ 
+		series:[{ 
 			data: chartData,
 			tooltip:{
 				pointFormat:'<b>{point.y:,0f}원</b><br/>',
@@ -78,6 +77,7 @@ function getMonthData(data){
 	makeMonthChart(monthDate,monthData);
 }
 function makeMonthChart(monthDate,monthData){
+	console.log("asdasdasd");
 	Highcharts.setOptions({
         lang: {
             thousandsSep: ','
@@ -130,9 +130,9 @@ function getMentorData(data){
 		mentorData.push(item.MEMBER_NAME);
 		salesData.push(item.SALES);
 	});
-	makeMonthChart(mentorData,salesData);
+	makeMentorChart(mentorData,salesData);
 }
-function makeMonthChart(mentorData,salesData){
+function makeMentorChart(mentorData,salesData){
 	Highcharts.chart('mentorChart', {
 	    chart: {
 	        type: 'pie'  

@@ -70,10 +70,6 @@ public class AdminDAOMybatis implements AdminboardDAO{
 	public int getMeetingboardTotalA() {
 		return sqlsession.selectOne("adminboardSQL.getMeetingboardTotalA");
 	}
-	@Override
-	public void adminmeetingboardDelete(Map<String, String[]> map) {
-		sqlsession.delete("adminboardSQL.adminmeetingboardDelete", map);
-	}
 	
 	//에세이
 	@Override
@@ -92,4 +88,11 @@ public class AdminDAOMybatis implements AdminboardDAO{
 	public int getMenteeTotalA() {
 		return sqlsession.selectOne("adminboardSQL.getMenteeTotalA");
 	}
+	
+	//멘티게시판
+	@Override
+	public void menteeboardDelete(Map<String, String[]> map) {
+		sqlsession.delete("adminboardSQL.menteeboardDelete", map);
+	}
+
 }

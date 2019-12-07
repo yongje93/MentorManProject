@@ -75,6 +75,18 @@ public class AdminReplyController {
 		adminreplyService.meetingReviewDelete(map);
 	}
 	
+	/* description : 고맙습니다 댓글 view 12.04추가 */
+	@RequestMapping(value="thankyouView",method = RequestMethod.GET)
+	public ModelAndView thankyouView(@RequestParam String seq) {
+		ModelAndView mav = new ModelAndView();
+		int review_seq = Integer.parseInt(seq);
+		ReviewDTO reviewDTO = adminreplyService.thankyouView(review_seq);
+		mav.addObject("reviewDTO", reviewDTO);
+		mav.addObject("display", "/adminreply/thankyouView.jsp");
+		mav.setViewName("/admin/adminMain");
+		return mav;
+	}
+	
 	
 	/* description : 멘티게시판댓글 화면페이지 & 리스트 뿌리기 & 페이지 처리 */
 	@RequestMapping(value="adminmenteeReply",method = RequestMethod.GET)
@@ -115,6 +127,18 @@ public class AdminReplyController {
 		Map<String, String[]> map = new HashMap<String, String[]>();
 		map.put("check", check);
 		adminreplyService.menteeReplyDelete(map);
+	}
+	
+	/* description : 고맙습니다 댓글 view 12.05추가 */
+	@RequestMapping(value="menteeReplyView",method = RequestMethod.GET)
+	public ModelAndView menteeReplyView(@RequestParam String seq) {
+		ModelAndView mav = new ModelAndView();
+		int menteeboardReply_seq = Integer.parseInt(seq);
+		MenteeboardReplyDTO menteeboardReplyDTO = adminreplyService.menteeReplyView(menteeboardReply_seq);
+		mav.addObject("menteeboardReplyDTO", menteeboardReplyDTO);
+		mav.addObject("display", "/adminreply/menteeReplyView.jsp");
+		mav.setViewName("/admin/adminMain");
+		return mav;
 	}
 	
 }

@@ -28,6 +28,7 @@
 								</thead>
 								<tbody>
 								<c:forEach var="salesDTO" items="${salesList }">
+									<c:if test="${salesDTO.mentor_badge eq '0' }">
 									<tr>
 										<td><input type="checkbox" class="check"value="${salesDTO.mentor_seq }"></td>
 										<td><img src="../image/${salesDTO.member_profile }" width="20" height="20" style="border-radius: 50%;">${salesDTO.member_name }</td>
@@ -38,6 +39,7 @@
 										</c:if>
 										</c:forEach>
 									</tr>
+									</c:if>
 									</c:forEach>
 								</tbody>
 							</table>

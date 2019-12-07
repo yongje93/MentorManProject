@@ -263,7 +263,7 @@
 								</a>
 							</c:if>
 							<c:if test="${memDTO.member_flag == 1 or memDTO.member_flag == 2}">
-						   		 <a class="question button button-small button-fill" id="mentorQuestions" type="external" onclick="mentor_question_seq(${mentor.mentor_seq},${pg})"><!-- pg seq 가져가라 -->
+						   		 <a class="question button button-small button-fill" id="mentorQuestions" type="external" onclick="mentor_question_seq(${honorMentor.mentor_seq},${pg})"><!-- pg seq 가져가라 -->
 							          질문하기
 								</a>
 							</c:if>

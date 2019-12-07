@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import adminmember.bean.AdminmentorSalesListDTO;
 import adminsales.dao.AdminsalesDAO;
 
 @Service
@@ -27,6 +28,11 @@ public class AdminsalesServiceImpl implements AdminsalesService{
 	@Override
 	public List<Map<String, String>> mentorSalesChart() {
 		return adminsalesDAO.mentorSalesChart();
+	}
+
+	@Override
+	public List<AdminmentorSalesListDTO> getMentorSales() {
+		return adminsalesDAO.getMentorSales();
 	}
 	
 	

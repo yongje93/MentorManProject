@@ -119,7 +119,7 @@
 		</foreach>
 	</select>
 	<!-- 비밀번호 설정 -->
-	<select id="setsetmemberpwd" parameterType="java.util.Map" resultType="member">
+	<select id="setmemberpwd" parameterType="java.util.Map" resultType="member">
 		select * from mentors_member where member_name=#{member_name} and member_email=#{member_email}
 	</select>
 

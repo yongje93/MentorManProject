@@ -87,23 +87,25 @@
 				   	</div>
 				</div>
 				    <div class="ask-button">
-				   <c:if test="${memberDTO != null}">
-				   		<c:if test="${memDTO.member_flag == 0}">
-					   		<a class="question button button-small button-fill" id="mentorQuestions" type="external" href="/mentor/mentor/userInfoCheck">
-						          질문하기
-							</a>
-						</c:if>
-						<c:if test="${memDTO.member_flag == 1 or memDTO.member_flag == 2}">
-					   		 <a class="question button button-small button-fill" id="mentorQuestions" type="external" onclick="mentor_question_seq(${mentor.mentor_seq},${pg})"><!-- pg seq 가져가라 -->
-						          질문하기
-							</a>
-						</c:if>
-					</c:if>
-					<c:if test="${memberDTO == null}">
-				        <a class="button button-small button-fill" type="external" href="/mentor/member/loginForm"><!-- pg seq 가져가라 -->
-					          질문하기
-						</a>
-					</c:if>
+					  	<c:if test="${memDTO.member_email != mentor.mentor_email}">
+						   <c:if test="${memDTO != null}">
+						   		<c:if test="${memDTO.member_flag == 0}">
+							   		<a class="question button button-small button-fill" id="mentorQuestions" type="external" href="/mentor/mentor/userInfoCheck">
+								          질문하기
+									</a>
+								</c:if>
+								<c:if test="${memDTO.member_flag == 1 or memDTO.member_flag == 2}">
+							   		 <a class="question button button-small button-fill" id="mentorQuestions" type="external" onclick="mentor_question_seq(${mentor.mentor_seq},${pg})"><!-- pg seq 가져가라 -->
+								          질문하기
+									</a>
+								</c:if>
+							</c:if>
+							<c:if test="${memDTO == null}">
+						        <a class="button button-small button-fill" type="external" href="/mentor/member/loginForm"><!-- pg seq 가져가라 -->
+							          질문하기
+								</a>
+							</c:if>
+					   	</c:if>
 					</div>
 				</div>
 			</div>
@@ -119,8 +121,7 @@
 		</div>
 	</div>
 </div>
-</div>
-<input type="hidden" id="memNick" value="${memberDTO.member_nickname}">
+<input type="hidden" id="memNick" value="${memDTO.member_nickname}">
 <input type="hidden" id="mentorFlag" name="mentorFlag" value="${flag}">
 <input type="hidden" id="bestFlag" value="${param.bestFlag}">
 <script src="../js/mentor.js"></script>

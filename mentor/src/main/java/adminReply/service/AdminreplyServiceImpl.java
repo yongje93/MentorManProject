@@ -30,6 +30,11 @@ public class AdminreplyServiceImpl implements AdminreplyService{
 	public void meetingReviewDelete(Map<String, String[]> map) {
 		adminReplyDAO.meetingReviewDelete(map);
 	}
+	
+	@Override
+	public ReviewDTO thankyouView(int review_seq) {
+		return adminReplyDAO.thankyouView(review_seq);
+	}
 
 	//멘티게시판
 	@Override
@@ -46,4 +51,10 @@ public class AdminreplyServiceImpl implements AdminreplyService{
 	public void menteeReplyDelete(Map<String, String[]> map) {
 		adminReplyDAO.menteeReplyDelete(map);
 	}
+
+	@Override
+	public MenteeboardReplyDTO menteeReplyView(int menteeboardReply_seq) {
+		return adminReplyDAO.menteeReplyView(menteeboardReply_seq);
+	}
+	
 }

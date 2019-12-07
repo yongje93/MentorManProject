@@ -40,7 +40,6 @@ import naver.controller.NaverLoginBO;
 
 /**
  * @Title : 회원가입 컨트롤.
- * @author : ginkgo1928
  * @date : 2019. 11. 1.
  */
 @Controller

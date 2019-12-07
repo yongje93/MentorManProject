@@ -29,12 +29,16 @@ public interface AdminmemberDAO {
 	public int getSearchmentorTotalA(Map<String, Object> map);
 	//멘토승낙
 	public void adminmentorSuccess(Map<String, String[]> map);
+	
+  public void adminflagMentor(Map<String, String[]> map);
 
 	public void adminmentorReject(Map<String, String[]> map);
 	//멘토신청리스트
 	public List<AdminmentorDTO> getAdminmentorApplyList(Map<String, Integer> map);
 
 	public int getMentorApplyTotalA();
+	
+	public AdminmentorDTO adminmentorView(int mentor_seq);
 	//명예멘토
 	public List<AdminmentorSalesListDTO> getMentorSales();
 
@@ -59,7 +63,10 @@ public interface AdminmemberDAO {
 
 	public List<AdminmentorDTO> mentorClassfication(Map<String, Integer> map);
 
+	public void deleteMember(Map<String, String[]> map);
+
 	public void setMenteeUpdateAlarm(int check);
+
 
 
 }
