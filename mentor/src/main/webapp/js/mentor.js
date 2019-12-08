@@ -376,7 +376,7 @@ function essayjobType(pg , flag){
     				var subContent = items.mentor_represent.replace(/<.*?>|&nbsp;/gi, "")
     				var subFlag = subContent.substring(0, 40) + "..."
     			} else {
-    				var subFlag = items.mentor_represent
+    				var subFlag = items.mentor_represent.replace(/<.*?>|&nbsp;/gi, "")
     			}
     			
 //    			if(items.list != null){

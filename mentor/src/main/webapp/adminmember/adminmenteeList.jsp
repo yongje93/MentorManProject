@@ -40,7 +40,12 @@
 								<c:forEach var="adminmemberDTO" items="${list }">
 										<c:if test="${adminmemberDTO.member_flag eq '2'}">
 											<tr>
-												<td><img src="../image/${adminmemberDTO.member_profile }" width="30" height="30" style="border-radius: 50%;">${adminmemberDTO.member_name }</td>
+												<c:if test="${adminmemberDTO.member_profile != 'profile.jpg'}">
+													<td><img src="../storage/${adminmemberDTO.member_email}/${adminmemberDTO.member_profile}" width="30" height="30" style="border-radius: 50%;">${adminmemberDTO.member_name }</td>
+												</c:if>
+												<c:if test="${adminmemberDTO.member_profile == 'profile.jpg'}">
+													<td><img src="../image/profile.jpg" width="30" height="30" style="border-radius: 50%;">${adminmemberDTO.member_name }</td>
+												</c:if>
 												<td>${adminmemberDTO.member_nickname }</td>
 												<td>${adminmemberDTO.member_email }</td>
 												<td>멘티</td>

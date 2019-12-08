@@ -38,7 +38,12 @@
 										<c:if test="${ThankyouDTO.review_flag eq '0'}">
 										<td><input type="checkbox" class="check"value="${ThankyouDTO.review_seq }"></td>
 										<td>${ThankyouDTO.review_seq }</td>
-										<td><img src="../image/${ThankyouDTO.member_profile }" width="30" height="30" style="border-radius: 50%;">${ThankyouDTO.member_name }</td>
+										<c:if test="${ThankyouDTO.member_profile != 'profile.jpg'}">
+											<td><img src="../storage/${ThankyouDTO.mentee_email}/${ThankyouDTO.member_profile}" width="30" height="30" style="border-radius: 50%;">${ThankyouDTO.member_name }</td>
+										</c:if>
+										<c:if test="${ThankyouDTO.member_profile == 'profile.jpg'}">
+											<td><img src="../image/profile.jpg" width="30" height="30" style="border-radius: 50%;">${ThankyouDTO.member_name }</td>
+										</c:if>
 										<td>${ThankyouDTO.member_nickname }</td>
 										<td>${ThankyouDTO.mentee_email }</td>
 										<td>

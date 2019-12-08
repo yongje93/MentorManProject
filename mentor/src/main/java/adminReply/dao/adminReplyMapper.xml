@@ -7,7 +7,7 @@
  	<select id="getAdminThankyou" parameterType="java.util.Map" resultType="review">
  	<![CDATA[select *from
 	(select rownum rn, tt.*from
-	(select mm.member_nickname,mm.member_name,mr.*
+	(select mm.member_nickname,mm.member_name,mm.member_profile,mr.*
 	from 
 	meeting_review mr,
 	mentors_member mm

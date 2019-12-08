@@ -40,9 +40,9 @@ public interface AdminmemberDAO {
 	
 	public AdminmentorDTO adminmentorView(int mentor_seq);
 	//명예멘토
-	public List<AdminmentorSalesListDTO> getMentorSales();
+	public List<AdminmentorSalesListDTO> getMentorSales(Map<String, Integer> map);
 
-	public List<AdminmentorBoardListDTO> getMentorBoard();
+	public List<AdminmentorBoardListDTO> getMentorBoard(Map<String, Integer> map);
 
 	public void honorMentor(Map<String, String[]> map);
 
@@ -66,6 +66,10 @@ public interface AdminmemberDAO {
 	public void deleteMember(Map<String, String[]> map);
 
 	public void setMenteeUpdateAlarm(int check);
+
+	public int getmentorSalesTotalA();
+
+	public void setHonormentorUpdateAlarm(int check);
 
 
 

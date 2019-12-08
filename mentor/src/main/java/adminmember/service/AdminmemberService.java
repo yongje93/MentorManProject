@@ -58,14 +58,18 @@ public interface AdminmemberService {
 
 	public int getSearchmentorApplyTotalA(Map<String, Object> map);
 
-	public List<AdminmentorSalesListDTO> getMentorSales();
+	public List<AdminmentorSalesListDTO> getMentorSales(Map<String, Integer> map);
 
-	public List<AdminmentorBoardListDTO> getMentorBoard();
+	public List<AdminmentorBoardListDTO> getMentorBoard(Map<String, Integer> map);
 
 	public void honorMentor(Map<String, String[]> map);
 
 	public void setMentorUpdateAlarm(int check);
 
 	public void setMenteeUpdateAlarm(int check);
+
+	public int getmentorSalesTotalA();
+
+	public void setHonormentorUpdateAlarm(int check);
 
 }

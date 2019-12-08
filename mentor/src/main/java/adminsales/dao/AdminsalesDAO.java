@@ -13,5 +13,9 @@ public interface AdminsalesDAO {
 
 	public List<Map<String, String>> mentorSalesChart();
 
-	public List<AdminmentorSalesListDTO> getMentorSales();
+	public List<AdminmentorSalesListDTO> getMentorSales(Map<String, Integer> map);
+
+	public int getMentorSalesTotalA();
+	
+	
 }

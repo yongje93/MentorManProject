@@ -38,7 +38,12 @@
 										<c:if test="${menteeReplyDTO.menteeboardReply_flag eq '0'}">
 										<td><input type="checkbox" class="check"value="${menteeReplyDTO.menteeboardReply_seq }"></td>
 										<td>${menteeReplyDTO.menteeboardReply_seq }</td>
-										<td><img src="../image/${menteeReplyDTO.member_profile }" width="30" height="30" style="border-radius: 50%;">${menteeReplyDTO.member_name }</td>
+										<c:if test="${menteeReplyDTO.member_profile != 'profile.jpg'}">
+        									<td><img src="../storage/${menteeReplyDTO.menteeboardReply_email}/${menteeReplyDTO.member_profile}" width="30" height="30" style="border-radius: 50%;">${menteeReplyDTO.member_name }</td>
+										</c:if>
+										<c:if test="${menteeReplyDTO.member_profile == 'profile.jpg'}">
+											<td><img src="../image/profile.jpg" width="30" height="30" style="border-radius: 50%;">${menteeReplyDTO.member_name }</td>
+										</c:if>
 										<td>${menteeReplyDTO.member_nickname }</td>
 										<td>${menteeReplyDTO.menteeboardReply_email }</td>
 										<td>

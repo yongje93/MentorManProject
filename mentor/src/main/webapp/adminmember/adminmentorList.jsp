@@ -42,7 +42,12 @@
 								<c:forEach var="adminmentorDTO" items="${list }">
 									<tr>
 										<td><input type="checkbox" class="check"value="${adminmentorDTO.mentor_seq }"></td>
-										<td><img src="../image/${adminmentorDTO.member_profile }" width="30" height="30" style="border-radius: 50%;">${adminmentorDTO.member_name }</td>
+										<c:if test="${adminmentorDTO.member_profile != 'profile.jpg'}">
+										<td><img src="../storage/${adminmentorDTO.mentor_email}/${adminmentorDTO.member_profile}" width="30" height="30" style="border-radius: 50%;">${adminmentorDTO.member_name }</td>
+										</c:if>
+										<c:if test="${adminmentorDTO.member_profile == 'profile.jpg'}">
+										<td><img src="../image/profile.jpg" width="30" height="30" style="border-radius: 50%;">${adminmentorDTO.member_name }</td>
+										</c:if>
 										<td>${adminmentorDTO.mentor_company }</td>
 										<td>${adminmentorDTO.mentor_department }</td>
 										<td>${adminmentorDTO.job_type }</td>

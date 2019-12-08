@@ -78,6 +78,7 @@ public class AdminMemberController {
 		adminmemberPaging.setPageBlock(3);
 		adminmemberPaging.setPageSize(10);
 		adminmemberPaging.setTotalA(totalA);
+		adminmemberPaging.setState(state);
 		adminmemberPaging.memberPagingHTML();
 		
 		mav.addObject("state",state);
@@ -89,7 +90,7 @@ public class AdminMemberController {
 		return mav;
 	}
 	/* description : 회원리스트 서치 */
-	@RequestMapping(value="adminmemberSearch", method = RequestMethod.POST)
+	@RequestMapping(value="adminmemberSearch", method = RequestMethod.GET)
 	@ResponseBody
 	public ModelAndView adminmemberSearch(ModelAndView mav,
 									@RequestParam (required=false,defaultValue="1") String pg,
@@ -271,6 +272,7 @@ public class AdminMemberController {
 		Map<String, String[]> map = new HashMap<String, String[]>();
 		map.put("check", check);
 		adminmemberService.adminmentorSuccess(map);
+		adminmemberService.adminflagMentor(map);
 		//성공 알림 저장 - jaewoo
 		for(int i=0; i<map.get("check").length; i++) {
 			adminmemberService.setMentorUpdateAlarm(Integer.parseInt(map.get("check")[i]));
@@ -296,11 +298,25 @@ public class AdminMemberController {
 	@RequestMapping(value="adminmentorSales",method = RequestMethod.GET)
 	public ModelAndView adminmentorSales(ModelAndView mav,
 			   							@RequestParam (required=false,defaultValue="1") String pg ) {
-		//사람 매출
-		List<AdminmentorSalesListDTO> salesList = adminmemberService.getMentorSales();
-		//사람 리스트 개수
-		List<AdminmentorBoardListDTO> boardList = adminmemberService.getMentorBoard();
 		
+		int endNum = Integer.parseInt(pg)*10;
+		int startNum = endNum-9;
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		//사람 매출
+		List<AdminmentorSalesListDTO> salesList = adminmemberService.getMentorSales(map);
+		//페이징 처리
+		int totalA1 = adminmemberService.getmentorSalesTotalA();
+		adminmemberPaging.setCurrentPage(Integer.parseInt(pg));
+		adminmemberPaging.setPageBlock(3);
+		adminmemberPaging.setPageSize(10);
+		adminmemberPaging.setTotalA(totalA1);
+		adminmemberPaging.honorPagingHTML();
+		//사람 리스트 개수
+		List<AdminmentorBoardListDTO> boardList = adminmemberService.getMentorBoard(map);
+		
+		mav.addObject("adminmemberPaging", adminmemberPaging);
 		mav.addObject("salesList", salesList);
 		mav.addObject("boardList", boardList);
 		mav.addObject("display", "/adminmember/adminmentorSales.jsp");
@@ -314,8 +330,11 @@ public class AdminMemberController {
 	public void honorMentor(@RequestParam String[] check) {
 		Map<String, String[]> map = new HashMap<String, String[]>();
 		map.put("check", check);
-		System.out.println(check[0]);
 		adminmemberService.honorMentor(map);
+		//성공 알림 저장 - jaewoo
+		for(int i=0; i<map.get("check").length; i++) {
+			adminmemberService.setHonormentorUpdateAlarm(Integer.parseInt(map.get("check")[i]));
+		}
 	}
 	
 /*----멘티--------------------------------------------------------------------------------------------------*/	

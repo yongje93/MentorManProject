@@ -33,8 +33,13 @@ public class AdminsalesDAOMaybatis implements AdminsalesDAO{
 	}
 
 	@Override
-	public List<AdminmentorSalesListDTO> getMentorSales() {
-		return sqlSession.selectList("adminsalesSQL.getMentorSales");
+	public List<AdminmentorSalesListDTO> getMentorSales(Map<String, Integer> map) {
+		return sqlSession.selectList("adminsalesSQL.getMentorSales",map);
+	}
+
+	@Override
+	public int getMentorSalesTotalA() {
+		return sqlSession.selectOne("adminsalesSQL.getMentorSalesTotalA");
 	}
 	
 	

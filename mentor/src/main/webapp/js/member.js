@@ -170,15 +170,32 @@ $(document).ready(function() {
 $(document).ready(function(){
 	$('#writeBtn').click(function(){
 		if(Ifn_NameCheck()&& isEmailcheck==true && isNicknameValid==true && Ifn_PwdCheck() && Ifn_RepwdCheck()&&member_write==true) {
-			$('form[name=writeForm]').submit();
-			/*var toasIcon = app.toast.create({
-		    	icon: app.theme === 'ios' ? '<i class="fas fa-spinner fa-pulse fa-5x"></i>' : '<i class="fas fa-spinner fa-pulse"></i>',
-		    	text: '요청중...',
-		     	position: 'center',
-		     	closeTimeout: 4000,
-		   });
-			toasIcon.open();*/
-			$('#loading-block').css('display', 'block');
+			
+			var form = $('#writeForm')[0];
+            var formData = new FormData(form);
+            //formData.append("file", $("#user_profile_image")[0].files[0]);
+            
+            //S3 파일 업로드 및 write 
+			$.ajax({
+				type:'post',
+				enctype: 'multipart/form-data',
+				url:'/mentor/storageIO/uploadAjax',
+				processData: false,
+                contentType: false,
+                cache: false,
+				data: formData,
+				dataType: 'text',
+				success:function(data){
+					alert(data);
+					if(data == 'success'){
+						//이동
+					}
+				},
+				error : function(err){
+					alert('err');
+				}
+			});
+			
 		}
 	});
 });

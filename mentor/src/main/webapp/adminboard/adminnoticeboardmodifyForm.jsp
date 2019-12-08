@@ -78,13 +78,13 @@ function sendFile(file, el) {
     $.ajax({
       data: form_data,
       type: 'post',
-      url: '/mentor/adminboard/noticeboardImage',
+      url: '/mentor/adminboard/adminnoticeboardImage',
       cache: false,
       contentType: false,
       enctype: 'multipart/form-data',
       processData: false,
       success: function(url) {
-        $(el).summernote('editor.insertImage', '../storage/'+url);
+        $(el).summernote('editor.insertImage', '../storage/admin/'+url);
    	  },
    	  error: function(){
    		  alert('에러');

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	
+
 <div class="page navbar-fixed settings accounts show" data-name="accounts-show">
 	<div class="page-content" style="overflow: inherit;">
 		<div class="row">
@@ -36,7 +36,7 @@
 				</div>
 			</div>
 			<div class="col-100 tablet-80">
-				<jsp:include page="${display2}" />
+					<jsp:include page="${display2}" />
 			</div>
 		</div>
 	</div>

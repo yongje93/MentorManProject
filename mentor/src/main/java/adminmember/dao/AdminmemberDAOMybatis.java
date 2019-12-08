@@ -122,15 +122,20 @@ public class AdminmemberDAOMybatis implements AdminmemberDAO{
 	}
 	
 	@Override
-	public List<AdminmentorSalesListDTO> getMentorSales() {
-		return sqlSession.selectList("adminmemberSQL.getMentorSales");
+	public List<AdminmentorSalesListDTO> getMentorSales(Map<String, Integer> map) {
+		return sqlSession.selectList("adminmemberSQL.getMentorSales",map);
 	}
 
 	@Override
-	public List<AdminmentorBoardListDTO> getMentorBoard() {
-		return sqlSession.selectList("adminmemberSQL.getMentorBoard");
+	public List<AdminmentorBoardListDTO> getMentorBoard(Map<String, Integer> map) {
+		return sqlSession.selectList("adminmemberSQL.getMentorBoard",map);
 	}
 	
+	@Override
+	public int getmentorSalesTotalA() {
+		return sqlSession.selectOne("adminmemberSQL.getmentorSalesTotalA");
+	}
+
 	@Override
 	public void honorMentor(Map<String, String[]> map) {
 		sqlSession.update("adminmemberSQL.honorMentor",map);
@@ -166,6 +171,12 @@ public class AdminmemberDAOMybatis implements AdminmemberDAO{
 	@Override
 	public void setMenteeUpdateAlarm(int check) {
 		sqlSession.insert("adminmemberSQL.setMenteeUpdateAlarm", check);
+	}
+
+
+	@Override
+	public void setHonormentorUpdateAlarm(int check) {
+		sqlSession.insert("adminmemberSQL.setHonormentorUpdateAlarm", check);
 	}
 	
 }

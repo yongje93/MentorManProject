@@ -122,13 +122,19 @@ public class AdminmemberServiceImpl implements AdminmemberService{
 	
 	//명예멘토
 	@Override
-	public List<AdminmentorSalesListDTO> getMentorSales() {
-		return adminmemberDAO.getMentorSales();
+	public List<AdminmentorSalesListDTO> getMentorSales(Map<String, Integer> map) {
+		return adminmemberDAO.getMentorSales(map);
 	}
 	@Override
-	public List<AdminmentorBoardListDTO> getMentorBoard() {
-		return adminmemberDAO.getMentorBoard();
+	public List<AdminmentorBoardListDTO> getMentorBoard(Map<String, Integer> map) {
+		return adminmemberDAO.getMentorBoard(map);
 	}
+	
+	@Override
+	public int getmentorSalesTotalA() {
+		return adminmemberDAO.getmentorSalesTotalA();
+	}
+
 	@Override
 	public void honorMentor(Map<String, String[]> map) {
 		adminmemberDAO.honorMentor(map);
@@ -163,6 +169,11 @@ public class AdminmemberServiceImpl implements AdminmemberService{
 	@Override
 	public void setMenteeUpdateAlarm(int check) {
 		adminmemberDAO.setMenteeUpdateAlarm(check);
+	}
+
+	@Override
+	public void setHonormentorUpdateAlarm(int check) {
+		adminmemberDAO.setHonormentorUpdateAlarm(check);
 	}
 	
 	

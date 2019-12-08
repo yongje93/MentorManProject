@@ -30,7 +30,12 @@
 								<tbody>
 								<c:forEach var="salesDTO" items="${salesList }">
 									<tr>
-										<td><img src="../image/${salesDTO.member_profile }" width="20" height="20" style="border-radius: 50%;">${salesDTO.member_name }</td>
+										<c:if test="${salesDTO.member_profile != 'profile.jpg'}">
+											<td><img src="../storage/${salesDTO.mentor_email}/${salesDTO.member_profile}" width="30" height="30" style="border-radius: 50%;">${salesDTO.member_name }</td>
+										</c:if>
+										<c:if test="${salesDTO.member_profile == 'profile.jpg'}">
+											<td><img src="../image/profile.jpg" width="30" height="30" style="border-radius: 50%;">${salesDTO.member_name }</td>
+										</c:if>
 										<c:if test="${salesDTO.mentor_badge eq '0'}">
 										<td>멘토</td>
 										</c:if>

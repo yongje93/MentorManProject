@@ -23,7 +23,12 @@
 					<div class="col-sm-12">
 						<div class="wrap">
         					<div class="box1">
-        						<img src="../image/${menteeboardReplyDTO.member_profile }" width="100" height="100" style="border-radius: 50%;">
+        						<c:if test="${menteeboardReplyDTO.member_profile != 'profile.jpg'}">
+        							<img src="../storage/${menteeboardReplyDTO.menteeboardReply_email}/${menteeboardReplyDTO.member_profile}" width="100" height="100" style="border-radius: 50%;">
+								</c:if>
+								<c:if test="${menteeboardReplyDTO.member_profile == 'profile.jpg'}">
+									<img src="../image/profile.jpg" width="100" height="100" style="border-radius: 50%;">
+								</c:if>
         					</div>
         					<div class="box2">
             					<div class="child1">

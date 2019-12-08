@@ -37,9 +37,6 @@
 						<div class="col-md-6 col-sm-6 col-xs-12">
 							<button type="button" class="btn btn-info btn-sm">뒤로</button>
 							<button type="button" class="btn btn-success btn-sm btn_modifyForm">수정</button>
-							<button type="button" class="btn btn-danger btn-sm">
-								<i class="fa fa-trash-o"></i>삭제
-							</button>
 						</div>
 					</div>
 				</div>

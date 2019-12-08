@@ -41,8 +41,14 @@
 									<tr>
 										<td><input type="checkbox" class="check"value="${adminmentorDTO.member_seq }"></td>
 										<td>
-											<img src="../image/${adminmentorDTO.member_profile }" width="30" height="30" style="border-radius: 50%;">
-											<a href="/mentor/adminmember/adminmentorView?seq=${adminmentorDTO.mentor_seq }&pg=${pg}">${adminmentorDTO.member_name }</a>
+											<c:if test="${adminmentorDTO.member_profile != 'profile.jpg'}">
+												<img src="../storage/${adminmentorDTO.mentor_email}/${adminmentorDTO.member_profile}" width="30" height="30" style="border-radius: 50%;">
+												<a href="/mentor/adminmember/adminmentorView?seq=${adminmentorDTO.mentor_seq }&pg=${pg}">${adminmentorDTO.member_name }</a>
+											</c:if>
+											<c:if test="${adminmentorDTO.member_profile == 'profile.jpg'}">
+												<img src="../image/profile.jpg" width="30" height="30" style="border-radius: 50%;">
+												<a href="/mentor/adminmember/adminmentorView?seq=${adminmentorDTO.mentor_seq }&pg=${pg}">${adminmentorDTO.member_name }</a>
+											</c:if>
 										</td>
 										<td>${adminmentorDTO.mentor_company }</td>
 										<td>${adminmentorDTO.mentor_department }</td>

@@ -57,7 +57,7 @@ public class AdminReplyController {
 		adminreplyPaging.setPageSize(10);
 		adminreplyPaging.setTotalA(totalA);
 		adminreplyPaging.tankyouPagingHTML();
-		
+		System.out.println(list);
 		mav.addObject("list", list);
 		mav.addObject("pg", pg);
 		mav.addObject("adminreplyPaging", adminreplyPaging);
@@ -102,7 +102,6 @@ public class AdminReplyController {
 
 
 		List<MenteeboardReplyDTO> list= adminreplyService.getAdminmenteeReply(map);
-
 		//페이징 처리
 		int totalA = adminreplyService.getMenteeReplyTotalA();
 		

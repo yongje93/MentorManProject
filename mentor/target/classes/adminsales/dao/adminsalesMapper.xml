@@ -61,17 +61,22 @@ group by  tt.member_name
 </select>
 
 <!-- 멘토별 판매-->
-<select id="getMentorSales" resultType="adminmember.bean.AdminmentorSalesListDTO">
-select  sum(tt.sales) sales,
+<select id="getMentorSales" resultType="adminmember.bean.AdminmentorSalesListDTO" parameterType="java.util.Map">
+select * from
+(select rownum  rn, aa.*
+from
+(select  sum(tt.sales) sales,
        tt.member_name,
        tt.member_profile,
-       tt.mentor_badge
+       tt.mentor_badge,
+       tt.mentor_email
 from
 (select mo.meetingboard_seq meetingboard_seq,
       mb.meetingboard_price sales,
        mm.member_name member_name,
        mm.member_profile member_profile,
-       mt.mentor_badge mentor_badge
+       mt.mentor_badge mentor_badge,
+       mt.mentor_email mentor_email
 from meeting_order mo,
      meetingboard mb,
      mentor mt,
@@ -80,7 +85,36 @@ where order_flag = 1
 and   mo.meetingboard_seq = mb.meetingboard_seq
 and   mb.mentor_email = mt.mentor_email
 and   mb.mentor_email = mm.member_email)tt
-group by  (tt.member_name,tt.member_profile,tt.mentor_badge)
-order by sales desc
+group by  (tt.member_name,tt.member_profile,tt.mentor_badge,tt.mentor_email)
+order by sales desc)aa)
+<![CDATA[where rn >= #{startNum} and rn <= #{endNum}]]>
 </select>
+
+<select id="getMentorSalesTotalA" resultType="Integer">
+		select count(*) cnt
+from
+    (select  sum(tt.sales) sales,
+       tt.member_name,
+       tt.member_profile,
+       tt.mentor_badge,
+       tt.mentor_email
+from
+(select mo.meetingboard_seq meetingboard_seq,
+      mb.meetingboard_price sales,
+       mm.member_name member_name,
+       mm.member_profile member_profile,
+       mt.mentor_badge mentor_badge,
+       mt.mentor_email mentor_email
+from meeting_order mo,
+     meetingboard mb,
+     mentor mt,
+     mentors_member mm
+where order_flag = 1
+and   mo.meetingboard_seq = mb.meetingboard_seq
+and   mb.mentor_email = mt.mentor_email
+and   mb.mentor_email = mm.member_email)tt
+group by  (tt.member_name,tt.member_profile,tt.mentor_badge,tt.mentor_email)
+order by sales desc)
+</select>
+
 </mapper>

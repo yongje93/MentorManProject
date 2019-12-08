@@ -17,6 +17,7 @@ public class AdminmemberPaging {
 	private int pageBlock; // [이전][1][2][3][다음] 3
 	private int pageSize; // 1페이지당 5개씩 10
 	private int totalA; // 총글수 1 
+	private int state; // 내림차순, 오름차순
 	private StringBuffer pagingHTML;
 	
 	/* description : 회원리스트 페이징 */
@@ -31,15 +32,15 @@ public class AdminmemberPaging {
 			endPage = totalP;
 		
 		if(startPage>pageBlock)
-			pagingHTML.append("<a class='page-link' href='adminmemberList?pg="+(startPage-1)+"'>Previous</a>");
+			pagingHTML.append("<a class='page-link' href='adminmemberList?pg="+(startPage-1)+"&state="+state+"'>Previous</a>");
 		for(int i=startPage; i<=endPage; i++) {
 			if(i==currentPage)
-				pagingHTML.append("<a class='page-link' href='adminmemberList?pg="+i+"'>"+i+"</a>");
+				pagingHTML.append("<a class='page-link' href='adminmemberList?pg="+i+"&state="+state+"'>"+i+"</a>");
 			else
-				pagingHTML.append("<a class='page-link' href='adminmemberList?pg="+i+"'>"+i+"</a>");
+				pagingHTML.append("<a class='page-link' href='adminmemberList?pg="+i+"&state="+state+"'>"+i+"</a>");
 		}
 		if(endPage<totalP)
-			pagingHTML.append("<a class='page-link' href='adminmemberList?pg="+(endPage+1)+"'>Next</a>");
+			pagingHTML.append("<a class='page-link' href='adminmemberList?pg="+(endPage+1)+"&state="+state+"'>Next</a>");
 	}
 	
 	/* description : 회원서치리스트 페이징 */
@@ -211,6 +212,50 @@ public class AdminmemberPaging {
 			pagingHTML.append("<span class='page-link' style='cursor: pointer;' onclick='adminmenteeSearch("+(startPage-1)+")'>Next</span>");
 	}
 
+	/* description : 매출리스트 페이징 */
+	public void salesPagingHTML() {
+		pagingHTML = new StringBuffer();
+		
+		int totalP = (totalA+(pageSize-1))/pageSize;// 1
+		
+		int startPage = (currentPage-1)/pageBlock*pageBlock+1; 
+		int endPage = startPage+pageBlock-1; // 
+		if(endPage>totalP)
+			endPage = totalP;
+		
+		if(startPage>pageBlock)
+			pagingHTML.append("<a class='page-link' href='mentorSales?pg="+(startPage-1)+"'>Previous</a>");
+		for(int i=startPage; i<=endPage; i++) {
+			if(i==currentPage)
+				pagingHTML.append("<a class='page-link' href='mentorSales?pg="+i+"'>"+i+"</a>");
+			else
+				pagingHTML.append("<a class='page-link' href='mentorSales?pg="+i+"'>"+i+"</a>");
+		}
+		if(endPage<totalP)
+			pagingHTML.append("<a class='page-link' href='mentorSales?pg="+(endPage+1)+"'>Next</a>");
+	}
 	
+	/* description : 매출리스트 페이징 */
+	public void honorPagingHTML() {
+		pagingHTML = new StringBuffer();
+		
+		int totalP = (totalA+(pageSize-1))/pageSize;// 1
+		
+		int startPage = (currentPage-1)/pageBlock*pageBlock+1; 
+		int endPage = startPage+pageBlock-1; // 
+		if(endPage>totalP)
+			endPage = totalP;
+		
+		if(startPage>pageBlock)
+			pagingHTML.append("<a class='page-link' href='adminmentorSales?pg="+(startPage-1)+"'>Previous</a>");
+		for(int i=startPage; i<=endPage; i++) {
+			if(i==currentPage)
+				pagingHTML.append("<a class='page-link' href='adminmentorSales?pg="+i+"'>"+i+"</a>");
+			else
+				pagingHTML.append("<a class='page-link' href='adminmentorSales?pg="+i+"'>"+i+"</a>");
+		}
+		if(endPage<totalP)
+			pagingHTML.append("<a class='page-link' href='adminmentorSales?pg="+(endPage+1)+"'>Next</a>");
+	}
 	
 }

@@ -65,6 +65,9 @@
 				      <div class="name">
 				        <span class="mentor-name">${mentor.member_name}</span>
 				        <span class="position">멘토</span>
+				        <c:if test="${mentor.mentor_badge == 1}">
+				      	  <i class="fas fa-trophy highlight"></i>				        
+				        </c:if>
 				      </div>
 				      
 				      <div class="job">

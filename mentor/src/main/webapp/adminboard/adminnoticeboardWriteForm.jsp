@@ -86,7 +86,7 @@ function sendFile(file, el) {
       enctype: 'multipart/form-data',
       processData: false,
       success: function(url) {
-        $(el).summernote('editor.insertImage', '../storage/'+url);
+        $(el).summernote('editor.insertImage', '../storage/admin/'+url);
    	  },
    	  error: function(){
    		  alert('에러');

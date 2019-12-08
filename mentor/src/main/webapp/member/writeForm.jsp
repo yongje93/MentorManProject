@@ -9,7 +9,7 @@
 		<h1 align="center">회원가입</h1>
 		<div class="membership">
 			<div class="block inset login-block" align="center">
-					<form class="simple_form new_user" name="writeForm" id="writeForm" method="post" enctype="multipart/form-data" action="/mentor/member/write">	
+					<form class="simple_form new_user" name="writeForm" id="writeForm" method="post" enctype="multipart/form-data" >	
 					<div style="width: 100%; text-align: center;">
 						<div class="member-img-circle" style="display: inline-block;">
 							<img id="member_profile_img" src="../image/profile.jpg"/>

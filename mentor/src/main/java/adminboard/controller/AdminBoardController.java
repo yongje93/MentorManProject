@@ -83,6 +83,7 @@ public class AdminBoardController {
 		adminboardService.adminnoticeboardWrite(map); 
 	}
 	
+	/* description : 공지사항 이미지*/
 	@RequestMapping(value = "adminnoticeboardImage", method = RequestMethod.POST)
 	@ResponseBody
 	public String adminnoticeboardImage(@RequestParam("file") MultipartFile image) {

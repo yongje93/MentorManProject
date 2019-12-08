@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-    
+    <input type="hidden" name="adminmemberKeyword" value="${adminmemberKeyword }">
 <div class="row">
 	<div class="col-md-12 col-sm-12 col-xs-12">
 		<div class="x_panel" style="height: 600px;">
@@ -16,10 +16,10 @@
 			<div class="x_content">
 				<div class="table-responsive" style="overflow:hidden;">
 					<div class="row">
-						<form method="post"  action="/mentor/adminmember/adminmemberSearch">
+						<form method="get"  name="form" action="/mentor/adminmember/adminmemberSearch">
 						<input type="hidden" name="pg" value="${pg }">
 						<div class="col-sm-12 memberSearch">
-							<input type="text" name="adminmemberKeyword" placeholder="이름을 입력하세요." style="height:30px;">
+							<input type="text" name="adminmemberKeyword" value="${adminmemberKeyword }" placeholder="이름을 입력하세요." style="height:30px;">
 							<button type="submit" class="btn btn-success btn-sm">찾기</button>
 						</div>
 						</form>
@@ -41,7 +41,12 @@
 								<c:forEach var="adminmemberDTO" items="${list }">
 									<tr>
 										<td><input type="checkbox" class="check"value="${adminmemberDTO.member_seq }"></td>
-										<td><img src="../image/${adminmemberDTO.member_profile }" width="30" height="30" style="border-radius: 50%;">${adminmemberDTO.member_name }</td>
+										<c:if test="${adminmemberDTO.member_profile != 'profile.jpg'}">
+											<td><img src="../storage/${adminmemberDTO.member_email}/${adminmemberDTO.member_profile}" width="30" height="30" style="border-radius: 50%;">${adminmemberDTO.member_name }</td>
+										</c:if>
+										<c:if test="${adminmemberDTO.member_profile == 'profile.jpg'}">
+											<td><img src="../image/profile.jpg" width="30" height="30" style="border-radius: 50%;">${adminmemberDTO.member_name }</td>
+										</c:if>
 										<td>${adminmemberDTO.member_nickname }</td>
 										<td>${adminmemberDTO.member_email }</td>
 										<c:if test="${adminmemberDTO.member_flag eq '0'}">
@@ -84,21 +89,6 @@
 	</div>
 </div><!-- row -->
 <script>
-function adminmemberSearch(pg){
-	$.ajax({
-		type : 'post',
-		url : '/mentor/adminmember/adminmemberSearch',
-		contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-		data : {
-			pg : pg,
-			adminmemberKeyword : '${adminmemberKeyword}'
-		},
-		success : function(){
-			console.log("ok");
-		}
-	});	
-}
-
 //내림차순 오름차순 view
 $(function(){
 	const state = ${state};
@@ -107,6 +97,11 @@ $(function(){
 	else if(state==2)
 		$(".sort > i").attr('class','fas fa-sort-up');
 });
+
+function adminmemberSearch(pg){
+	var adminmemberKeyword = '${adminmemberKeyword }';
+	location.href="/mentor/adminmember/adminmemberSearch?pg="+pg+"&adminmemberKeyword="+adminmemberKeyword;
+}
 //내림차순 오름차순 List
 $(".sort").click(function(){
 	const state = ${state};

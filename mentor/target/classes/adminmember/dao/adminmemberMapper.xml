@@ -89,6 +89,7 @@
 			j.job_type,
 			mt.mentor_badge,
 			mm.member_profile,
+			mt.mentor_email,
 			to_char(mt.mentor_logtime,'YYYY-MM-DD') mentor_logtime
 	 from mentors_member mm, 
 	 	  mentor mt,
@@ -111,6 +112,7 @@
 			j.job_type,
 			mt.mentor_badge,
 			mm.member_profile,
+			mt.mentor_email,
 			to_char(mt.mentor_logtime,'YYYY-MM-DD') mentor_logtime
 	 from mentors_member mm, 
 	 	  mentor mt,
@@ -144,6 +146,7 @@
 			j.job_type,
 			mt.mentor_badge,
 			mm.member_profile,
+			mt.mentor_email,
 			to_char(mt.mentor_logtime,'YYYY-MM-DD') mentor_logtime
 	 from mentors_member mm, 
 	 	  mentor mt,
@@ -178,6 +181,7 @@
 			j.job_type,
 			mt.mentor_flag,
 			mm.member_profile,
+			mt.mentor_email,
 			to_char(mt.mentor_logtime,'YYYY-MM-DD') mentor_logtime
 	 from mentors_member mm, 
 	 	  mentor mt,
@@ -242,10 +246,16 @@
 
  <!-- 멘토승인 거절 -->
 <delete id="adminmentorReject" parameterType="java.util.Map">
-	delete mentor where mentor_seq in
-		<foreach collection="check" item="mentor_seq" index="i" open="(" close=")" separator=",">
-			#{mentor_seq}<!-- ${check[i]} 컬렉션만 $먹고 item인 seq는 #과$같이먹는다 -->
+delete mentor where mentor_seq in
+(select mt.mentor_seq as mentor_seq
+      	from mentors_member mm,
+           	 mentor mt
+      	where mm.member_email = mt.mentor_email
+      	and mm.member_seq in
+		<foreach collection="check" item="member_seq" index="i" open="(" close=")" separator=",">
+			#{member_seq}<!-- ${check[i]} 컬렉션만 $먹고 item인 seq는 #과$같이먹는다 -->
 		</foreach>
+		)
 </delete>
 <!-- 멘토 승인 -->
 <update id="adminmentorSuccess" parameterType="java.util.Map">
@@ -268,39 +278,79 @@
 </update>
 <!-- 명예멘토 -->
 <!-- 매출뽑아오기 -->
-<select id="getMentorSales" resultType="adminmember.bean.AdminmentorSalesListDTO">
-select  sum(tt.sales) sales,
+<select id="getMentorSales" resultType="adminmember.bean.AdminmentorSalesListDTO" parameterType="java.util.Map">
+select * from
+    (select rownum  rn, aa.*
+    from
+    (select  sum(tt.sales) sales,
+           tt.member_name,
+           tt.member_profile,
+           tt.mentor_badge,
+           tt.mentor_email,
+           tt.mentor_seq
+    from
+    (select mo.meetingboard_seq meetingboard_seq,
+          mb.meetingboard_price sales,
+           mm.member_name member_name,
+           mm.member_profile member_profile,
+           mt.mentor_badge mentor_badge,
+           mt.mentor_email mentor_email,
+           mt.mentor_seq mentor_seq
+    from meeting_order mo,
+         meetingboard mb,
+         mentor mt,
+         mentors_member mm
+    where order_flag = 1
+    and mt.mentor_badge=0
+    and   mo.meetingboard_seq = mb.meetingboard_seq
+    and   mb.mentor_email = mt.mentor_email
+    and   mb.mentor_email = mm.member_email)tt
+    group by  (tt.member_name,tt.member_profile,tt.mentor_badge,tt.mentor_email,tt.mentor_seq)
+    order by tt.member_name,sales desc)aa)
+<![CDATA[where rn >= #{startNum} and rn <= #{endNum}]]>
+</select>
+<select id="getmentorSalesTotalA" resultType="Integer">
+		select count(*) cnt
+from
+    (select  sum(tt.sales) sales,
        tt.member_name,
        tt.member_profile,
-       tt.mentor_badge
+       tt.mentor_badge,
+       tt.mentor_email
 from
 (select mo.meetingboard_seq meetingboard_seq,
       mb.meetingboard_price sales,
        mm.member_name member_name,
        mm.member_profile member_profile,
-       mt.mentor_badge mentor_badge
+       mt.mentor_badge mentor_badge,
+       mt.mentor_email mentor_email
 from meeting_order mo,
      meetingboard mb,
      mentor mt,
      mentors_member mm
 where order_flag = 1
+and mt.mentor_badge=0
 and   mo.meetingboard_seq = mb.meetingboard_seq
 and   mb.mentor_email = mt.mentor_email
 and   mb.mentor_email = mm.member_email)tt
-group by  (tt.member_name,tt.member_profile,tt.mentor_badge)
-order by sales desc
+group by  (tt.member_name,tt.member_profile,tt.mentor_badge,tt.mentor_email)
+order by sales desc)
 </select>
 
 <!-- 멘토 게시판 뽑아오기 -->
-<select id="getMentorBoard"  resultType="adminmember.bean.AdminmentorBoardListDTO">
-select mm.member_name,count(mm.member_name) cnt from
+<select id="getMentorBoard"  resultType="adminmember.bean.AdminmentorBoardListDTO" parameterType="java.util.Map">
+select*from
+(select rownum rn, tt.*from
+(select mm.member_name,count(mm.member_name) cnt, mt.mentor_badge from
 meetingboard mb,
 mentor mt,
 mentors_member mm
 where mb.mentor_email = mt.mentor_email
 and mt.mentor_email = mm.member_email
-group by mm.member_name
-order by mm.member_name
+and mt.mentor_badge=0
+group by mm.member_name,mt.mentor_badge
+order by mm.member_name)tt)
+<![CDATA[where rn >= #{startNum} and rn <= #{endNum}]]>
 </select>
 
 <!-- 명예멘토승인 -->
@@ -361,7 +411,11 @@ and	   member_name like '%'||#{adminmenteeKeyword}||'%'
 	insert into myAlarm (myAlarm_seq , myAlarm_receiverEmail , myAlarm_callerNickname , myAlarm_Title , myAlarm_content)
 	values
 	(myAlarm_seq.nextval
-	,(select mentor_email from mentor where mentor_seq = #{check})
+	,(select mt.mentor_email
+      	from mentors_member mm,
+           	 mentor mt
+      	where mm.member_email = mt.mentor_email
+      	and mm.member_seq = #{member_seq})
 	,'관리자'
 	,'멘토 심사 알림'
 	, '관리자님에 의해 멘토로 등록 되었습니다. 축하드립니다 🥳')
@@ -376,6 +430,13 @@ and	   member_name like '%'||#{adminmenteeKeyword}||'%'
 	,'멘토 심사 알림'
 	, '관리자님에 의해 아쉽게도 멘토 심사에서 탈락했습니다.')
 </insert>
-
-
+<insert id="setHonormentorUpdateAlarm" parameterType="Integer">
+	insert into myAlarm (myAlarm_seq , myAlarm_receiverEmail , myAlarm_callerNickname , myAlarm_Title , myAlarm_content)
+	values
+	(myAlarm_seq.nextval
+	,(select mentor_email from mentor where mentor_seq = #{check})
+	,'관리자'
+	,'멘토 심사 알림'
+	, '관리자님에 의해 명예멘토로 등록 되었습니다. 축하드립니다 🥳')
+</insert>
 </mapper>

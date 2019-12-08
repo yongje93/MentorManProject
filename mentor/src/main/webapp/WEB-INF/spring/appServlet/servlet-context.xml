@@ -42,7 +42,7 @@
 	<context:component-scan base-package="menteeboardReply.controller"/>
 
 	<context:component-scan base-package="intern.controller"/>
-	<!-- 송현 -->
+	
 	<context:component-scan base-package="member.controller"/>
 
 	<!-- ginkgo 1928, member_Email(Gmail) 발송 -->
@@ -79,7 +79,9 @@
 	<context:component-scan base-package="kakao.controller"/>
 	<!-- 네이버 API -->
 	<context:component-scan base-package="naver.controller"/>
-
+	<!-- s3 -->
+	<context:component-scan base-package="storageIO.controller"/>
+	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
 
@@ -113,6 +115,12 @@
   	<bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<property name="order" value="0"/>
 	</bean>
+	
+	<!-- 업로드 패스 설정 -->
+    <bean class="java.lang.String" id="uploadPath">
+    	<constructor-arg value="mentors-bucket"> </constructor-arg>
+	</bean>
+	
 
 	<!-- websocket handler -->
 	<bean id="echoHandler" class="mentor.socketHandler.EchoHandler" />

@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.mail.MessagingException;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import member.bean.AlarmDTO;
 import member.bean.MemberDTO;
 import mentor.bean.MentorDTO;
@@ -67,5 +69,7 @@ public interface MemberService {
 	public void mentor_headerCountModify(List<MentorDTO> list);
 
 	public void mentee_headerCountModify(List<MentorDTO> list);
+
+	//public void write(Map<String, String> map, MultipartFile member_profile) throws MessagingException, UnsupportedEncodingException;
 
 }

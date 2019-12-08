@@ -29,16 +29,22 @@
 								<tbody>
 								<c:forEach var="salesDTO" items="${salesList }">
 									<c:if test="${salesDTO.mentor_badge eq '0' }">
+									<c:forEach var="salesBoardDTO" items="${boardList }">
+									<c:if test="${salesBoardDTO.member_name eq salesDTO.member_name }">
 									<tr>
 										<td><input type="checkbox" class="check"value="${salesDTO.mentor_seq }"></td>
-										<td><img src="../image/${salesDTO.member_profile }" width="20" height="20" style="border-radius: 50%;">${salesDTO.member_name }</td>
-										<td>${salesDTO.sales}</td>
-										<c:forEach var="salesBoardDTO" items="${boardList }">
-										<c:if test="${salesBoardDTO.member_name eq salesDTO.member_name }">
-										<td>${salesBoardDTO.cnt }</td>
+										<c:if test="${salesDTO.member_profile != 'profile.jpg'}">
+										<td><img src="../storage/${salesDTO.mentor_email}/${salesDTO.member_profile}" width="30" height="30" style="border-radius: 50%;">${salesDTO.member_name }</td>
 										</c:if>
-										</c:forEach>
+										<c:if test="${salesDTO.member_profile == 'profile.jpg'}">
+										<td><img src="../image/profile.jpg" width="30" height="30" style="border-radius: 50%;">${salesDTO.member_name }</td>
+										</c:if>
+										<td>${salesDTO.sales}</td>
+										<td>${salesBoardDTO.cnt }</td>
+										
 									</tr>
+									</c:if>
+										</c:forEach>
 									</c:if>
 									</c:forEach>
 								</tbody>
