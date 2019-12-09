@@ -157,13 +157,6 @@ $('#modify_btn').on('click', function(){
 		$('#question_content_error').text('내용을 입력해주세요').css('color', 'red');
 		$('#question_content_error').css('font-size','8pt');
 		$('#question_content').focus();
-	}else if(content.length > 2000){
-		var toastTop = app.toast.create({
-	           text: '2000자 이내의 내용을 입력해주세요',
-	           position: 'top',
-	           closeButton: true,
-	    });
-	    toastTop.open();
 	}else{
 		$.ajax({
 			type: 'post',

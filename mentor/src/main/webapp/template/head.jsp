@@ -47,7 +47,6 @@
 				<c:if test="${memDTO.member_profile != 'profile.jpg'}">
 				<img src="../storage/${memDTO.member_email}/${memDTO.member_profile}" width="28" height="28">
 				<%-- <img src="${memDTO.member_profile}" width="28" height="28"> --%>
-				
 				</c:if>
 			</a>
 			<div class="popover popover-flat me-popover js-me-popover">

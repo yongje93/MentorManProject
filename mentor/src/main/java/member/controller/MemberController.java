@@ -100,34 +100,34 @@ public class MemberController {
 	 * @date : 2019. 11. 7.
 	 * 2019. 11. 13 용제 수정
 	 */
-//	@RequestMapping(value = "write", method = RequestMethod.POST)
-//	public String write(@RequestParam Map<String, String> map, @RequestParam MultipartFile member_profile, Model model) throws UnsupportedEncodingException, MessagingException {
-//		//회원 이메일 폴더가 자동생성으로 생성된게 아니라 회원이메일 폴더 만들어주고 넣어야 한다.
-//		//String filePath="C:/github/MentorMan/mentor/src/main/webapp/storage/"+map.get("member_email");
-//		//String fileName = member_profile.getOriginalFilename();
-//		// 폴더만들기
-//		File filemake = new File(filePath);
-//		if(!filemake.exists()) {
-//			filemake.mkdirs();
-//		}
-//		 //파일명이 있을때 이미지 저장
-//		if(fileName != "") {
-//			File file = new File(filePath, fileName);
-//			try {
-//				FileCopyUtils.copy(member_profile.getInputStream(), new FileOutputStream(file));
-//			} catch (FileNotFoundException e) {
-//				e.printStackTrace();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		//map.put("member_profile", fileName);
-//		
-//		memberService.write(map);
-//		model.addAttribute("member_email", map.get("member_email"));
-//		model.addAttribute("display", "/member/write.jsp");
-//		return "/main/index";
-//	}
+	@RequestMapping(value = "write", method = RequestMethod.POST)
+	public String write(@RequestParam Map<String, String> map, @RequestParam MultipartFile member_profile, Model model) throws UnsupportedEncodingException, MessagingException {
+		//회원 이메일 폴더가 자동생성으로 생성된게 아니라 회원이메일 폴더 만들어주고 넣어야 한다.
+		String filePath="C:/github/MentorMan/mentor/src/main/webapp/storage/"+map.get("member_email");
+		String fileName = member_profile.getOriginalFilename();
+		// 폴더만들기
+		File filemake = new File(filePath);
+		if(!filemake.exists()) {
+			filemake.mkdirs();
+		}
+		 //파일명이 있을때 이미지 저장
+		if(fileName != "") {
+			File file = new File(filePath, fileName);
+			try {
+				FileCopyUtils.copy(member_profile.getInputStream(), new FileOutputStream(file));
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		map.put("member_profile", fileName);
+		
+		memberService.write(map);
+		model.addAttribute("member_email", map.get("member_email"));
+		model.addAttribute("display", "/member/write.jsp");
+		return "/main/index";
+	}
 
 	// 이메일 인증 코드 검증
 	@RequestMapping(value = "emailConfirm", method = RequestMethod.GET)

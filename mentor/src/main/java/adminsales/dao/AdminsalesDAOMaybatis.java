@@ -41,6 +41,11 @@ public class AdminsalesDAOMaybatis implements AdminsalesDAO{
 	public int getMentorSalesTotalA() {
 		return sqlSession.selectOne("adminsalesSQL.getMentorSalesTotalA");
 	}
+
+	@Override
+	public List<AdminmentorSalesListDTO> getMentorView(String member_name) {
+		return sqlSession.selectList("adminsalesSQL.getMentorView",member_name);
+	}
 	
 	
 }

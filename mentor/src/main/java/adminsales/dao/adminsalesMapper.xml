@@ -117,4 +117,21 @@ group by  (tt.member_name,tt.member_profile,tt.mentor_badge,tt.mentor_email)
 order by sales desc)
 </select>
 
+<select id="getMentorView" parameterType="String" resultType="adminmember.bean.AdminmentorSalesListDTO">
+select sum(tt.sales) sales,to_char(tt.order_date,'yy/mm') order_date from
+(select
+    DECODE(mentor_badge,1,mb.meetingboard_price*0.95,mb.meetingboard_price*0.9) sales, 
+       mm.member_name member_name,
+       mo.order_date order_date
+from meeting_order mo,
+     meetingboard mb,
+     mentor mt,
+     mentors_member mm
+where order_flag = 1
+and   mm.member_name=#{member_name}
+and   mo.meetingboard_seq = mb.meetingboard_seq
+and   mb.mentor_email = mt.mentor_email
+and   mb.mentor_email = mm.member_email)tt
+group by to_char(tt.order_date,'yy/mm')
+</select>
 </mapper>

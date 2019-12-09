@@ -14,6 +14,7 @@
 						<div class="item-input-wrap">
 							<input autocomplete="current-password" class="password optional" placeholder="현재 비밀번호" type="password" name="currentPassword" id="currentPassword">
 						</div>
+						<div id="currentPassword_error"></div>
 					</li>
 				</ul>
 			</div>

@@ -11,13 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import member.bean.AlarmDTO;
 import member.bean.MemberDTO;
 import member.dao.MemberDAO;
 import member.handler.MailHandler;
-import member.storageIO.UploadService;
 import mentor.bean.MentorDTO;
 
 
@@ -25,8 +23,7 @@ import mentor.bean.MentorDTO;
 public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberDAO memberDAO;
-	@Autowired
-	private UploadService uploadService;
+	
 	@Inject
 	private JavaMailSender mailSender;
 	@Inject

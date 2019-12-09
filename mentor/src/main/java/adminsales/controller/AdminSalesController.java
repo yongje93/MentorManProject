@@ -94,4 +94,15 @@ public class AdminSalesController {
 		mav.setViewName("/admin/adminMain");
 		return mav;
 	}
+	@RequestMapping(value="mentorSalesView",method=RequestMethod.GET)
+	public ModelAndView mentorSalesView(ModelAndView mav,
+									@RequestParam  String member_name) {
+
+		List<AdminmentorSalesListDTO> list = adminsalesService.getMentorView(member_name);
+		System.out.println(list);
+		  mav.addObject("list", list);
+		  mav.addObject("display", "/adminsales/mentorSalesView.jsp");
+		  mav.setViewName("/admin/adminMain");
+		return mav;
+	}
 }

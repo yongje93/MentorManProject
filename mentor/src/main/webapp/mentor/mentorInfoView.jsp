@@ -230,7 +230,7 @@
 	    <section id="contentArea" class="container-fluid" style="width : 400px; height:464px;">
 			<div class="page-content" >
 				<div class="faqToContact_right_div" style="float: right;"><input type="button" id="faqForm_backBtn" class="button color-gray" value="X"></div>
-				<div class="block-title strong-title" style="margin-top: 8px;margin-bottom: 28px;">팔로워</div>
+				<div class="block-title strong-title" style="margin-top: 8px;margin-bottom: 28px;">팔로워 (${followCnt })</div>
 				<c:forEach var="followerList" items="${followerList}">
 					<div class="block inset">
 						<div class="mentor-image-left img-circle">

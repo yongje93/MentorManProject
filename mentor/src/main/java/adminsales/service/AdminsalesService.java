@@ -17,4 +17,6 @@ public interface AdminsalesService {
 	public List<AdminmentorSalesListDTO> getMentorSales(Map<String, Integer> map);
 
 	public int getMentorSalesTotalA();
+
+	public List<AdminmentorSalesListDTO> getMentorView(String member_name);
 }

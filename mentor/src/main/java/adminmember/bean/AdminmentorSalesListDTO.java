@@ -16,5 +16,6 @@ public class AdminmentorSalesListDTO {
 	private String member_profile;
 	private String member_name;
 	
+	private String order_date;
 	private int sales;
 }

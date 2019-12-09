@@ -39,6 +39,11 @@ public class AdminsalesServiceImpl implements AdminsalesService{
 	public int getMentorSalesTotalA() {
 		return adminsalesDAO.getMentorSalesTotalA();
 	}
+
+	@Override
+	public List<AdminmentorSalesListDTO> getMentorView(String member_name) {
+		return adminsalesDAO.getMentorView(member_name);
+	}
 	
 	
 

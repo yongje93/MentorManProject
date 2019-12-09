@@ -29,12 +29,19 @@
 								</thead>
 								<tbody>
 								<c:forEach var="salesDTO" items="${salesList }">
+								<fmt:parseNumber var="mentorSales" value="${salesDTO.sales * 0.9}" integerOnly="true" />
+								<fmt:parseNumber var="honormentorSales" value="${salesDTO.sales * 0.95}" integerOnly="true" />
 									<tr>
 										<c:if test="${salesDTO.member_profile != 'profile.jpg'}">
-											<td><img src="../storage/${salesDTO.mentor_email}/${salesDTO.member_profile}" width="30" height="30" style="border-radius: 50%;">${salesDTO.member_name }</td>
+											<td><img src="../storage/${salesDTO.mentor_email}/${salesDTO.member_profile}" width="30" height="30" style="border-radius: 50%;">
+											<a href="/mentor/adminsales/mentorSalesView?member_name=${salesDTO.member_name }">${salesDTO.member_name }</a>
+											</td>
 										</c:if>
 										<c:if test="${salesDTO.member_profile == 'profile.jpg'}">
-											<td><img src="../image/profile.jpg" width="30" height="30" style="border-radius: 50%;">${salesDTO.member_name }</td>
+											<td>
+											<img src="../image/profile.jpg" width="30" height="30" style="border-radius: 50%;">
+											<a href="/mentor/adminsales/mentorSalesView?member_name=${salesDTO.member_name }">${salesDTO.member_name }</a>
+											</td>
 										</c:if>
 										<c:if test="${salesDTO.mentor_badge eq '0'}">
 										<td>멘토</td>
@@ -44,10 +51,12 @@
 										</c:if>
 										<td><fmt:formatNumber value="${salesDTO.sales}" type="number"/></td>
 										<c:if test="${salesDTO.mentor_badge eq '0'}">
-										<td><fmt:parseNumber value="${salesDTO.sales * 0.9}" integerOnly="true"/></td>
+										<%-- <td><fmt:parseNumber value="${salesDTO.sales * 0.9}" integerOnly="true" /></td> --%>
+										<td><fmt:formatNumber value="${mentorSales}" type="number"/></td>
 										</c:if>
 										<c:if test="${salesDTO.mentor_badge eq '1'}">
-										<td><fmt:parseNumber value="${salesDTO.sales * 0.95}" integerOnly="true"/></td>
+										<%-- <td><fmt:parseNumber value="${salesDTO.sales * 0.95}" integerOnly="true" /></td> --%>
+										<td><fmt:formatNumber value="${honormentorSales}" type="number"/></td>
 										</c:if>
 									</tr>
 									</c:forEach>

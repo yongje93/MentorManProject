@@ -33,6 +33,9 @@ $('#menteeboardModifyBtn').on("click" , function(){
 
 //썸머노트 사용
 $(document).ready(function() {
+	
+	
+	
     $("#summernote").summernote({
        height: 300,                 // set editor height
        minHeight: null,             // set minimum height of editor

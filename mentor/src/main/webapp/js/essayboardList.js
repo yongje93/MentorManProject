@@ -103,7 +103,7 @@ function essayjobType(pg , flag){
     				var subContent = items.essayboard_content.replace(/<.*?>|&nbsp;/gi, "")
     				var subFlag = subContent.substring(0, 200) + "..."
     			} else {
-    				var subFlag = items.essayboard_content
+    				var subFlag = items.essayboard_content.replace(/<.*?>|&nbsp;/gi, "")
     			}
 
     			let essayboard = `
@@ -299,7 +299,7 @@ function essayjobType(pg , flag){
     		});
     	},
     	error : function(request,status,error){
-    		alert("error code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+    		//alert("error code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
     	}
 
     });
@@ -356,7 +356,7 @@ $(document).ready(function() {
 			var essayboardEmail = $(this).closest('div').prev().children().first().next().val();
 			var essayName = $(this).closest('div').prev().children().first().next().next().val();
 			var memberSeq = $(this).closest('div').prev().children().first().next().next().next().val();
-			alert(seq + " , "+ essayboardEmail+","+ essayName +","+memberSeq)
+			//alert(seq + " , "+ essayboardEmail+","+ essayName +","+memberSeq)
 
 			if($(this).children().last().val() == 0){
 				$("#"+seq).prop("src", "../image/scrapOkImg.png");
@@ -427,7 +427,7 @@ $(document).ready(function() {
 					}
 				},
 				error : function(err){
-					alert('err');
+					//alert('err');
 					console.log('에러');
 				}
 			});

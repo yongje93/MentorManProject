@@ -324,7 +324,7 @@ public class MentorController {
 
 	  	//follow Modal - 재우
 	  	List<MemberDTO> followerList = mentorService.getFollowerList(mentorDTO.getMentor_email());
-
+	  	int followCnt = followerList.size();
 	  	model.addAttribute("follow", follow);
 		model.addAttribute("pg", pg);
 		if(memberDTO!= null) {
@@ -335,6 +335,7 @@ public class MentorController {
 		}else {
 			model.addAttribute("questionPercent", questionPercent);
 		}
+		model.addAttribute("followCnt" , followCnt);
 		model.addAttribute("followerList" , followerList);
 
 		model.addAttribute("pg", pg);

@@ -102,6 +102,7 @@ $(document).ready(function() {
 							$('.modifyText').val('');
 							$('#inputList').empty();
 							
+							
 							menteeboardViewList(data);
 							
 							$('#inputList').append('<div class="block mentee-detail-block thanks-note-card" id="menteeboardPagingDiv">'+data.menteeboardPaging.pagingHTML+'</div><hr>');
@@ -135,6 +136,7 @@ $(document).ready(function() {
 				dataType : 'json',
 				success : function(data){
 					$('#inputList').empty();
+					$('.count').text(data.list.length);
 					
 					menteeboardViewList(data);
 					
@@ -167,7 +169,9 @@ $(document).ready(function() {
 				dataType : 'json',
 				success : function(data){
 					$('#inputList').empty();
-					$('#content').val(''); 
+					$('#content').val('');
+					$('.count').text(data.list.length);
+					
 					let $frag = $(document.createDocumentFragment());
 					
 					menteeboardViewList(data);

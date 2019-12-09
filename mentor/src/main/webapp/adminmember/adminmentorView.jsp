@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link rel="stylesheet" href="../admincss/adminreply.css">
 
+<fmt:formatDate var = "date" value="${reviewDTO.review_date}" pattern="yyyy.MM.dd" />
 <div class="row">
 	<div class="col-md-12 col-sm-12 col-xs-12">
 		<div class="x_panel" style="height: 600px; overflow: auto;">
@@ -20,48 +21,55 @@
 			<div class="x_content">
 				<div class="row">
 					<div class="col-sm-12">
-						<div class="wrap">
+					<div class="wrap">
         					<div class="box1">
-        						<img src="../image/${adminmentorDTO.member_profile }" width="100" height="100" style="border-radius: 50%;">
+        						<c:if test="${adminmentorDTO.member_profile != 'profile.jpg'}">
+								<img src="../storage/${adminmentorDTO.mentor_email}/${adminmentorDTO.member_profile}" width="100" height="100" style="border-radius: 50%;">
+							</c:if>
+							<c:if test="${adminmentorDTO.member_profile == 'profile.jpg'}">
+								<img src="../image/profile.jpg" width="100" height="100" style="border-radius: 50%;">
+							</c:if>
         					</div>
         					<div class="box2">
-            					<div class="child1">
+            					<div class="child12">
+            					<br><br>
             						이름 : ${adminmentorDTO.member_name }<br><br>
             						회사 : ${adminmentorDTO.mentor_company }<br><br>
             					</div>
         					</div>
     					</div>
-    						<div style="margin-left:210px;"><strong>멘토소개</strong></div>
-    						<br>
-    					<div class="content_wrap">
-       					   	<div class="content">
-       					   		${adminmentorDTO.mentor_info }
+    					<div class="wrap">
+    					<div style="width: 10%; border-left: 1px solid black;">
+    						<div style="font-weight: bold;">멘토 소개</div>
+    					</div>
+    					<div style="width: 30%; border-right: 1px solid black;">
+    					</div>
+    					</div>
+    					<div class="wrap">
+       					   <div class="content1">
+       					   <br>
+       					   		${adminmentorDTO.mentor_info }<br><br>
+       					   		${adminmentorDTO.mentor_career }<br>
        					   </div>
     					</div>
-    					<br>
-    					<div style="margin-left:210px;"><strong>멘토소개</strong></div>
-    					<br>
-    					<div class="content_wrap">
-       					   	<div class="content">
-       					   		${adminmentorDTO.mentor_career }
-       					   </div>
+    					<div class="wrap">
+    					<div style="width: 10%; border-left: 1px solid black;">
+    						<div style="font-weight: bold;">명함</div>
     					</div>
-    					<br>
-    					<div style="margin-left:210px;"><strong>멘토소개</strong></div>
-    					<br>
-    					<div class="content_wrap">
-       					   	<div class="content">
-								<img width="150" height="150" src="../storage/${adminmentorDTO.mentor_email}/${adminmentorDTO.mentor_businesscard}">
+    					<div style="width: 30%; border-right: 1px solid black;">
+    					</div>
+    					</div>
+    					<div class="wrap">
+       					   <div class="content2">
+       					   		<img width="150" height="150" src="../storage/${adminmentorDTO.mentor_email}/${adminmentorDTO.mentor_businesscard}" style="margin-left:50px;">
        					   </div>
     					</div>
 					</div>
 				</div>
 				<!-- table row-->
 				<div class="ln_solid"></div>
-			</div>
-			<!-- xcontent -->
-		</div>
-		<!--x_panel-->
+			</div><!-- xcontent -->
+		</div><!--x_panel-->
 	</div>
 </div>
 <!-- row -->

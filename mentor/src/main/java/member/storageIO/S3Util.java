@@ -34,7 +34,7 @@ public class S3Util {
 	
 	private static final String accessKey = "";
 	private static final String secretKey = "";
-	private static final String bucketName = "";
+	private static final String bucketName = "ds";
 	private AmazonS3 s3Client;
 	//private Regions regions = Regions.AP_NORTHEAST_2;
     

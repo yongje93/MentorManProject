@@ -425,7 +425,11 @@ and	   member_name like '%'||#{adminmenteeKeyword}||'%'
 	insert into myAlarm (myAlarm_seq , myAlarm_receiverEmail , myAlarm_callerNickname , myAlarm_Title , myAlarm_content)
 	values
 	(myAlarm_seq.nextval
-	,(select mentor_email from mentor where mentor_seq = #{check})
+	,(select mt.mentor_email
+      	from mentors_member mm,
+           	 mentor mt
+      	where mm.member_email = mt.mentor_email
+      	and mm.member_seq = #{member_seq})
 	,'관리자'
 	,'멘토 심사 알림'
 	, '관리자님에 의해 아쉽게도 멘토 심사에서 탈락했습니다.')
