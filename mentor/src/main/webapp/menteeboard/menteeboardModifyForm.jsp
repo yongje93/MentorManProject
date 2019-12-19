@@ -68,7 +68,6 @@
 <script type="text/javascript" src="../js/menteeboardModifyForm.js"></script>
 <script>
 $(function(){
-	alert("${menteeboardDTO}");
 	//$('#job_code_ModifyForm option[value=${menteeboardDTO.job_code}]').attr('selected','selected');
 });
 

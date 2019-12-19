@@ -34,10 +34,31 @@ $('#menteeUser_Save').on('click', function(){
 				$('#member_name_error').text('이름을 입력하세요').css('color','red');
 				$('#member_name_error').css('font-size','8pt');
 			}else if(check == 'ok'){
-				var menteeUserSetting = document.menteeUserSetting
-				menteeUserSetting.setAttribute('action', '/mentor/mentee/mentorUserModify');
-				menteeUserSetting.submit();
-				return;		
+//				var menteeUserSetting = document.menteeUserSetting
+//				menteeUserSetting.setAttribute('action', '/mentor/mentee/mentorUserModify');
+//				menteeUserSetting.submit();
+				
+				//s3 프로필 변경 업로드
+				var form = $('#menteeUserSettings')[0];
+	            var formData = new FormData(form);
+	            
+	            $.ajax({
+					type:'post',
+					enctype: 'multipart/form-data',
+					url:'/mentor/storageIO/uploadModifyAjax',
+					processData: false,
+	                contentType: false,
+	                cache: false,
+					data: formData,
+					dataType: 'text',
+					success:function(data){
+						location.reload();
+						return;
+					},
+					error : function(err){
+						alert('err222');
+					}
+				});
 			}
 		},
 		error: function(){

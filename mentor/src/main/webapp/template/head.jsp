@@ -41,13 +41,13 @@
 			</a>
 
 			<a type="internal" class="button button-big popover-open me-profile" data-popover=".js-me-popover" onclick="clickHeader()">
-				<c:if test="${memDTO.member_profile == 'profile.jpg'}">
+				<%-- <c:if test="${memDTO.member_profile == 'profile.jpg'}">
 				<img src="../image/profile.jpg" width="28" height="28">
 				</c:if>
 				<c:if test="${memDTO.member_profile != 'profile.jpg'}">
 				<img src="../storage/${memDTO.member_email}/${memDTO.member_profile}" width="28" height="28">
-				<%-- <img src="${memDTO.member_profile}" width="28" height="28"> --%>
-				</c:if>
+				</c:if> --%>
+				<img src="${memDTO.member_profile}" width="28" height="28">
 			</a>
 			<div class="popover popover-flat me-popover js-me-popover">
 				<div class="popover-inner">

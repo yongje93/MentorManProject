@@ -34,8 +34,9 @@ public class S3Util {
 	
 	private static final String accessKey = "";
 	private static final String secretKey = "";
-	private static final String bucketName = "ds";
+	private static final String bucketName = "";
 	private AmazonS3 s3Client;
+	private int sibal;
 	//private Regions regions = Regions.AP_NORTHEAST_2;
     
     
@@ -77,13 +78,13 @@ public class S3Util {
     }
 
     // 파일 삭제
-//    public void fileDelete(String fileName) {
-//        System.out.println("fileName : " + fileName);
-//        String imgName = (fileName).replace(File.separatorChar, '/');
-//        s3Client.deleteObject(this.getBucketName(), imgName);
-//        System.out.println("삭제성공");
-//    }
-//
+    public void fileDelete(String fileName) {
+        System.out.println("fileName : " + fileName);
+        String imgName = (fileName).replace(File.separatorChar, '/');
+        s3Client.deleteObject(this.getBucketName(), imgName);
+        System.out.println("삭제성공");
+    }
+
     // 파일 URL
     public String getFileURL(String bucketName, String fileName) {
         System.out.println("넘어오는 파일명 : "+fileName);

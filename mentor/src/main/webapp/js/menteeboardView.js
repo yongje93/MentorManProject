@@ -152,48 +152,64 @@ $(document).ready(function() {
 		
 		
 
-	//댓글 등록
+	//댓글 등록 - promise 처리
 	$(document).on("click", "#regist", function(){
 		if($('#content').val() == ''){
 			var toastTop = app.toast.create({
-	            text: '댓글을 입력하세요.',
+	            text: '댓글을 입력하세요2.',
 	            position: 'top',
 	            closeButton: true,
 	          });
 	          toastTop.open();
 		}else{
+			promise_func().then(saveAlarmAjax).catch(function(err){
+				console.log(err);
+			});
+		}
+	});
+
+	//댓글 작성
+	function promise_func(){
+		return new Promise(function(resolve, reject){
 			$.ajax({
 				type : 'post',
 				url : '/mentor/menteeboardReply/menteeboardReplyWrite',
 				data : $('#menteeboardViewForm').serialize(),
 				dataType : 'json',
 				success : function(data){
-					$('#inputList').empty();
-					$('#content').val('');
-					$('.count').text(data.list.length);
-					
-					let $frag = $(document.createDocumentFragment());
-					
-					menteeboardViewList(data);
-					
-					$('#inputList').append('<div class="block mentee-detail-block thanks-note-card" id="menteeboardPagingDiv">'+data.menteeboardPaging.pagingHTML+'</div><hr>');
-					
-					
-					let memNickname = $('#memNickname').val();
-					let nickname = $('#nickname').val();
-					let receiverEmail = $('#email').val();
-					let menteeboard_seq = $('#menteeboard_seq').val();
-					
-					
-					
-					var AlarmData = {
-							"myAlarm_receiverEmail" : receiverEmail,
-							"myAlarm_callerNickname" : memNickname,
-							"myAlarm_title" : "댓글 알림",
-							"myAlarm_content" :  memNickname + "님이 <a type='external' href='/mentor/menteeboard/menteeboardView?seq="+menteeboard_seq+"&pg=1'>" + menteeboard_seq + "</a> 번 게시글에 댓글을 남겼습니다."
-					};
-					//알림 저장
-					$.ajax({
+					if(data){
+						$('#inputList').empty();
+						$('#content').val('');
+						$('.count').text(data.list.length);
+
+						let $frag = $(document.createDocumentFragment());
+						menteeboardViewList(data);
+						$('#inputList').append('<div class="block mentee-detail-block thanks-note-card" id="menteeboardPagingDiv">'+data.menteeboardPaging.pagingHTML+'</div><hr>');
+						
+						resolve();
+					}else{
+						reject('fail');
+					}
+				}
+			});
+		});
+	}
+
+	let memNickname = $('#memNickname').val();
+	let nickname = $('#nickname').val();
+	let receiverEmail = $('#email').val();
+	let menteeboard_seq = $('#menteeboard_seq').val();
+	
+	var AlarmData = {
+			"myAlarm_receiverEmail" : receiverEmail,
+			"myAlarm_callerNickname" : memNickname,
+			"myAlarm_title" : "댓글 알림",
+			"myAlarm_content" :  memNickname + "님이 <a type='external' href='/mentor/menteeboard/menteeboardView?seq="+menteeboard_seq+"&pg=1'>" + menteeboard_seq + "</a> 번 게시글에 댓글을 남겼습니다."
+	};
+
+	//댓글작성에 대한 알림 저장
+	function saveAlarmAjax(){
+		return new $.ajax({
 						type : 'post',
 						url : '/mentor/member/saveAlarm',
 						data : JSON.stringify(AlarmData),
@@ -201,28 +217,17 @@ $(document).ready(function() {
 						dataType : 'text',
 						success : function(data){
 							//socket에 보내자
+							alert(JSON.stringify(AlarmData));
 							if(socket) {
 								let socketMsg = "reply," + memNickname +","+ nickname +","+ receiverEmail +","+ menteeboard_seq;
 								console.log("msgmsg : " + socketMsg);
 								socket.send(socketMsg);
 							}
-						},
-						error : function(err){
-							console.log('알림저장 실패');
 						}
 					});
-					
-				},
-				error : function(err){
-					alert('실패2');
-					console.log(err);
-				}
-			}); 
-		}
-	});
-	
-	
-	
+	}
+
+
 	
 	function menteeboardViewList(data,$frag) {
 		$.each(data['list'], function(key, value){

@@ -19,6 +19,7 @@ import member.bean.MemberDTO;
 import member.service.MemberService;
 import member.storageIO.S3Util;
 import member.storageIO.UploadFileUtils;
+import mentee.service.MenteeService;
 
 /**
  * 
@@ -35,6 +36,8 @@ public class UploadController {
 	private String bucketName = "mentors-bucket";
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private MenteeService menteeService;
     @Resource(name="uploadPath")
     private String uploadPath;
     private static final String amazonURLPath = "https://mentors-bucket.s3.ap-northeast-2.amazonaws.com/";
@@ -46,13 +49,39 @@ public class UploadController {
     	if(!file.isEmpty()){
     		map.put("member_profile", amazonURLPath+UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes(), map.get("member_email")));
     		memberService.write(map);
-    		
     	}else {
     		map.put("member_profile", amazonURLPath+"defaultuser.png" );
     		UploadFileUtils.uploadFolder(uploadPath, map.get("member_email"));
     		memberService.write(map);
     	}
     	return "sucess";
+    }
+    
+    @RequestMapping(value ="uploadModifyAjax", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+    @ResponseBody
+    public String uploadModifyAjax(@RequestParam Map<String, String> map, @RequestParam(value="member_profile") MultipartFile file, HttpSession session) throws Exception{
+    	MemberDTO memberDTO = (MemberDTO) session.getAttribute("memDTO");
+    	if(!file.isEmpty()){
+    		System.out.println("1");
+    		//1.우선 프로필 사진을 모두 삭제한다 or 남겨 놓는다.
+    		//2.새로운 프로필 사진을 서버에 저장
+	    	map.put("member_profile", amazonURLPath+UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes(), map.get("member_email")));
+	    	menteeService.mentorUserModify(map);
+	    	
+	    	//세션을 새로 생성(이미지 업로드)
+			memberDTO.setMember_name(map.get("member_name"));
+			memberDTO.setMember_nickname(map.get("member_nickname"));
+			memberDTO.setMember_profile(map.get("member_profile"));
+			session.setAttribute("memDTO", memberDTO);
+    	}else {
+    		map.put("member_profile", memberDTO.getMember_profile());
+    		menteeService.mentorUserModify(map);
+			memberDTO.setMember_nickname(map.get("member_nickname"));
+			memberDTO.setMember_name(map.get("member_name"));
+			System.out.println("@@@" + memberDTO);
+			session.setAttribute("memDTO", memberDTO);
+    	}
+    	return "success";
     }
     
     
@@ -108,13 +137,13 @@ public class UploadController {
 
     
     //파일 삭제
-//    @ResponseBody
-//    @RequestMapping(value="deleteFile", method=RequestMethod.POST)
-//    public ResponseEntity<String> deleteFile(String fileName){
-//        String inputDirectory = "mentors-bucket";
-//        s3.fileDelete(inputDirectory+fileName);
-//        return new ResponseEntity<String>("deleted", HttpStatus.OK);
-//    }
+    @ResponseBody
+    @RequestMapping(value="deleteFile", method=RequestMethod.POST)
+    public ResponseEntity<String> deleteFile(String fileName){
+        String inputDirectory = "mentors-bucket";
+        s3.fileDelete(inputDirectory+fileName);
+        return new ResponseEntity<String>("deleted", HttpStatus.OK);
+    }
 	
 
 }

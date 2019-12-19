@@ -174,27 +174,25 @@ $(document).ready(function(){
 			var form = $('#writeForm')[0];
             var formData = new FormData(form);
             //formData.append("file", $("#user_profile_image")[0].files[0]);
-            $('form[name=writeForm]').submit();
+           // $('form[name=writeForm]').submit();
             //S3 파일 업로드 및 write 
-//			$.ajax({
-//				type:'post',
-//				enctype: 'multipart/form-data',
-//				url:'/mentor/storageIO/uploadAjax',
-//				processData: false,
-//                contentType: false,
-//                cache: false,
-//				data: formData,
-//				dataType: 'text',
-//				success:function(data){
-//					alert(data);
-//					if(data == 'success'){
-//						//이동
-//					}
-//				},
-//				error : function(err){
-//					alert('err');
-//				}
-//			});
+			$.ajax({
+				type:'post',
+				enctype: 'multipart/form-data',
+				url:'/mentor/storageIO/uploadAjax',
+				processData: false,
+                contentType: false,
+                cache: false,
+				data: formData,
+				dataType: 'text',
+				success:function(data){
+					//alert(data);
+					location.href='/mentor/member/loginForm';
+				},
+				error : function(err){
+					alert('err');
+				}
+			});
             
             
             

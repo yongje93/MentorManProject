@@ -7,7 +7,8 @@
 	<h1 class="title">내 정보</h1>
 </div>
 <div class="block inset">
-	<form class="simple_form edit_user" id="menteeUserSetting" name="menteeUserSetting" novalidate="novalidate" enctype="multipart/form-data" action="/mentor/mentee/mentorUserModify" accept-charset="UTF-8" method="post">
+	<%-- <form class="simple_form edit_user" id="menteeUserSetting" name="menteeUserSetting" novalidate="novalidate" enctype="multipart/form-data" action="/mentor/mentee/mentorUserModify" accept-charset="UTF-8" method="post"> --%>
+	<form class="simple_form edit_user" id="menteeUserSettings" name="menteeUserSettings" enctype="multipart/form-data">
 		<div class="list form-list no-hairlines">
 			<ul>
 				<div class="label-title">
@@ -60,12 +61,13 @@
 						<input class=" is-valid file optional" accept=".jpg, .jpeg, .png" type="file" name="member_profile" id="user_profile_image">
 						<!-- 이미지 받아서 value에 넣기 -->
 					</div>
-					<c:if test="${memDTO.member_profile == 'profile.jpg'}">
+					<%-- <c:if test="${memDTO.member_profile == 'profile.jpg'}">
 			             <p><img id="user_profile_image_img" src="../image/profile.jpg" style="width: 100px; height: 100px;"></p>
 			        </c:if>
 			        <c:if test="${memDTO.member_profile != 'profile.jpg'}">
 			             <p><img id="user_profile_image_img" src="../storage/${memDTO.member_email}/${memDTO.member_profile}" style="width: 100px; height: 100px;"></p>
-			        </c:if>
+			        </c:if> --%>
+			        <p><img id="user_profile_image_img" src="${memDTO.member_profile}" style="width: 100px; height: 100px;"></p>
 					<div id="member_profile_error"></div>
 					<!-- member에서 가져온 이메일 + 이미지 -->
 					<div class="block-footer">
